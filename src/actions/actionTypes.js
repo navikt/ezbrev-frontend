@@ -1,0 +1,1 @@
+export const SAVE_BREVDATA = 'SAVE_BREVDATA';
