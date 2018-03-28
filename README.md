@@ -1,8 +1,8 @@
-#Setup 
+# Setup 
 
 Install nodejs
 
-#Dev Guide
+# Dev Guide
 
 ***Important! Open shell/terminal as administrator***
 
@@ -14,11 +14,11 @@ When the server is ready `http://localhost:3000` will open in your default brows
 Webpack enables state to be kept when source file are reloaded. 
 Restart of dev_server is not required on compilation errors (amend to gulp build). 
 
-#Lint
+# Lint
 
 To run only lint use `npm run lint`
 
-#Test
+# Test
 
 Mocha test are run with `npm run test`. 
 
