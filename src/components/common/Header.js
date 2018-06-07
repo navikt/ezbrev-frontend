@@ -5,16 +5,29 @@ const Header = () => {
     return (
         <div className="container-fluid">
             <nav className="navbar">
-                <a className="navbar-brand" href="#!">Ez-Brev 3</a>
-                <IndexLink to="/" activeClassName="active">Rediger brevdata</IndexLink>
-                {" | "}
-                <Link to="/regression" activeClassName="active">Regresjonstest</Link>
-                {" | "}
-                <Link to="/about" activeClassName="active">XML Inspeksjon</Link>
-                {" | "}
-                <Link to="/about" activeClassName="active">XML Converter</Link>
-                {" | "}
-                <Link to="/admin" activeClassName="active">Admin</Link>
+                <div className="navbar-header">
+                    <span className="navbar-brand">Ez-Brev 3</span>
+                </div>
+                <div className="collapse navbar-collapse">
+                    <ul className="nav navbar-nav">
+                        <li className="active">
+                            <IndexLink to="/" activeClassName="active">Rediger brevdata</IndexLink>
+                        </li>
+                        <li>
+                            <Link to="/regression" className="navbar-link"
+                                  activeClassName="active">Regresjonstest</Link>
+                        </li>
+                        <li>
+                            <Link to="/inspection" activeClassName="active">XML Inspeksjon</Link>
+                        </li>
+                        <li>
+                            <Link to="/converter" activeClassName="active">XML Converter</Link>
+                        </li>
+                        <li>
+                            <Link to="/admin" activeClassName="active">Admin</Link>
+                        </li>
+                    </ul>
+                </div>
             </nav>
         </div>
     );
