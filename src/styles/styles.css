@@ -4,8 +4,9 @@
     margin: 0 auto;
 }
 
-a.active {
-    color: orange;
+a.active {                              /*Definerer hvilken farge aktive komponenter har */
+    color: deeppink;
+    font-weight: bold;
 }
 
 nav {

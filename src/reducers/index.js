@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 import brevdata from './brevdataReducer';
 
-const rootReducer = combineReducers({
+const rootReducer = combineReducers({       //ha alle reducere her?
     brevdata
 });
 

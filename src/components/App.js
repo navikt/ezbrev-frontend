@@ -1,13 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Header from './common/Header';
+import Header from '../common/Header';
+import { MockMenu } from '../MockMenu';
 
-class App extends React.Component {
+
+class App extends React.Component {              //Det er denne som tegner hele siden
     render() {
         return (
-            <div className="container-fluid">
+            <div className="container-fluid">                   {/*Dette betyr at denne divisionen fyller hele siden??*/}
                 <Header/>
-                {this.props.children}
+                <MockMenu/>
+                {this.props.children}                           {/*Used to display whatever you include between opening and closing tags when invoking a component.*/}
             </div>
         );
     }

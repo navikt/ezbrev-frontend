@@ -1,10 +1,10 @@
 import React from 'react';
 import {Button} from 'react-bootstrap';
-import {Space} from '../../common/Scaffolding';
+import {Space} from '../../../common/Scaffolding';
 
 class BrevdataControl extends React.Component {
     render () {
-        const producing = false;
+        const producing = false;                                            {/*En boolsk variabel, hva brukes denne til?*/}
         return (
           <div className="container-fluid">
               <Button>

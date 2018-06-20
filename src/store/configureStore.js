@@ -1,11 +1,11 @@
 import {createStore, applyMiddleware} from 'redux';
 import rootReducer from '../reducers';
-import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
+import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';  //fjerne denne før produksjon, øker kjøretiden
 
-export default function configureStore(initalState) {
+export default function configureStore(initialState) {
     return createStore(
         rootReducer,
-        initalState,
+        initialState,
         applyMiddleware(reduxImmutableStateInvariant())
     );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
-import { DropdownButton, MenuItem, Row } from 'react-bootstrap';
+import {DropdownButton, MenuItem, Row} from 'react-bootstrap';
 
-class BrevpakkeSelect extends React.Component {
+class BrevpakkeSelect extends React.Component {             //Må spørre om miljøliste når siden lastes
 
     constructor(props, context) {
         super(props, context);
@@ -9,25 +9,27 @@ class BrevpakkeSelect extends React.Component {
         //Bind Actions
         this.onSelectEnv = this.onSelectEnv.bind(this);
         this.onSelectBrevpakke = this.onSelectBrevpakke.bind(this);
-        this.onSelectVersjon = this.onSelectVersjon.bind(this);
+        this.onSelectLeveranse = this.onSelectLeveranse.bind(this);
         this.onSelectMal = this.onSelectMal.bind(this);
+
     }
 
     onSelectEnv(e) {
-
+    //Sende info om valgt miljø, spørre om tilhørende brevpakkeliste
     }
 
     onSelectBrevpakke(e) {
 
     }
 
-    onSelectVersjon(e) {
+    onSelectLeveranse(e) {
 
     }
 
     onSelectMal(e) {
 
     }
+
 
     render() {
         return (
@@ -38,7 +40,11 @@ class BrevpakkeSelect extends React.Component {
                         id="brevpakke_env_pick"
                         onSelect={this.onSelectEnv}
                     >
-                        <MenuItem eventKey="1">U1</MenuItem>
+
+                        {
+                        this.props.miljoList.map((i) =>
+                        <MenuItem > {i} </MenuItem>)
+                        }
                     </DropdownButton>
                 </Row>
                 <Row>
@@ -47,16 +53,16 @@ class BrevpakkeSelect extends React.Component {
                         id="brevpakke_pick"
                         onSelect={this.onSelectBrevpakke}
                     >
-                        <MenuItem eventKey="1">Arena</MenuItem>
+                        <MenuItem > Arena</MenuItem>
                     </DropdownButton>
                 </Row>
                 <Row>
                     <DropdownButton
-                        title="Velg versjon"
-                        id="brevpakke_versjon_pick"
-                        onSelect={this.onSelectVersjon}
+                        title="Velg leveranse"
+                        id="brevpakke_leveranse_pick"
+                        onSelect={this.onSelectLeveranse}
                     >
-                        <MenuItem eventKey="1">1.0.0</MenuItem>
+                        <MenuItem eventKey="1">2017_HL1</MenuItem>
                     </DropdownButton>
                 </Row>
                 <Row>

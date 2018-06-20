@@ -12,8 +12,14 @@ class HomePage extends React.Component {
     constructor(props, context) {
         super(props, context);
 
+        this.miljoList = ["t0", "t1", "t2", "q0", "q1", "q2"]
+        this.versjon = ["1.0.1"]
+        this.leveranseList = ["2017-HL1", "2018-HL2"]
+        this.brevpakkeList = ["Arena", "Infotrygd", "Pesys01", "Ray", "Foreldrepenger"]
+
         this.state = {
             brevdata: {xml: ""}
+
         };
     }
 
@@ -21,7 +27,7 @@ class HomePage extends React.Component {
         return (
             <main className="container-fluid">
                 <h4>Brevdata</h4>
-                <BrevpakkeSelect/>
+                <BrevpakkeSelect miljoList={this.miljoList} />
                 <BrevdataInput
                     brevdata={this.state.brevdata}
                     actions={this.props.actions}/>

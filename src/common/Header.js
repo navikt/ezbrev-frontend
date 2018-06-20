@@ -4,14 +4,14 @@ import {Link, IndexLink} from 'react-router';
 const Header = () => {
     return (
         <div className="container-fluid">
-            <nav className="navbar">
+            <nav className="navbar">                                               { /* defines a set of navigation links*/}
                 <div className="navbar-header">
                     <span className="navbar-brand">Ez-Brev 3</span>
                 </div>
                 <div className="collapse navbar-collapse">
-                    <ul className="nav navbar-nav">
+                    <ul className="nav navbar-nav">                                 {/*unordered list*/}
                         <li className="active">
-                            <IndexLink to="/" activeClassName="active">Rediger brevdata</IndexLink>
+                            <IndexLink to="/" activeClassName="active">Rediger brevdata </IndexLink>
                         </li>
                         <li>
                             <Link to="/regression" className="navbar-link"

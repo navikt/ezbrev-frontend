@@ -6,7 +6,7 @@ class BrevdataMeta extends React.Component {
     constructor(props, context) {
         super(props, context);
 
-        this.onSelectSort = this.onSelectSort.bind(this);
+        this.onSelectSort = this.onSelectSort.bind(this);                   //hva gjør bind()??
     }
 
     onSelectSort(e) {
