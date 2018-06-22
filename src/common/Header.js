@@ -6,7 +6,7 @@ const Header = () => {
         <div className="container-fluid">
             <nav className="navbar">                                               { /* defines a set of navigation links*/}
                 <div className="navbar-header">
-                    <span className="navbar-brand">Ez-Brev 3</span>
+                    <span className="navbar-brand">Ez-Brev 4</span>
                 </div>
                 <div className="collapse navbar-collapse">
                     <ul className="nav navbar-nav">                                 {/*unordered list*/}

@@ -7,29 +7,25 @@ import BrevpakkeSelect from './partials/BrevpakkeSelect';
 import BrevdataInput from './partials/BrevdataInput';
 import BrevdataMeta from './partials/BrevdataMeta';
 
-class HomePage extends React.Component {
+class HomePage extends React.Component {                        //container component
 
     constructor(props, context) {
         super(props, context);
-
-        this.miljoList = ["t0", "t1", "t2", "q0", "q1", "q2"]
-        this.versjon = ["1.0.1"]
-        this.leveranseList = ["2017-HL1", "2018-HL2"]
-        this.brevpakkeList = ["Arena", "Infotrygd", "Pesys01", "Ray", "Foreldrepenger"]
-
+    /*
         this.state = {
-            brevdata: {xml: ""}
+            brevdata: {xml: ""}                             // endrer bare staten til Homepage ikke hele storen
 
         };
+        */
     }
 
     render() {
         return (
             <main className="container-fluid">
                 <h4>Brevdata</h4>
-                <BrevpakkeSelect miljoList={this.miljoList} />
+                <BrevpakkeSelect />
                 <BrevdataInput
-                    brevdata={this.state.brevdata}
+                    brevdata={this.props.brevdata}
                     actions={this.props.actions}/>
                 <BrevdataMeta/>
             </main>
@@ -50,7 +46,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(brevdataActions, dispatch)
+        actions: bindActionCreators(brevdataActions, dispatch)                  /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
     };
 }
 

@@ -1,10 +1,13 @@
 import * as types from '../actions/actionTypes';
 
-export default function brevdataReducer(state = {}, action) {
+const initialState = {
+    brevdata: {xml:""}
+};
+
+export default function brevdataReducer(state =initialState, action) {
     switch (action.type) {
         case types.SAVE_BREVDATA:
-            return Object.assign({}, action.brevdata); //must change this to Object.assign({}, state,{brevdata: action.brevdata}) if add more variables to state?
-
+            return Object.assign({}, state, {brevdata: action.brevdata});
         default:
             return state;
     }

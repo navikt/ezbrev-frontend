@@ -17,3 +17,5 @@ export default (
     </Route>
 );
 
+//Route gjør slik at dersom urlen slutter på /regression så vil Regression page være et child av App og dermed bli tegnet av App.
+//IndexRoute gjør slik at dersom urlen bare slutter med / så vil Homepage være child og tegnes

@@ -8,13 +8,17 @@ import routes from './routes';
 import './styles/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const store = configureStore(); //InitialState er tom
+
+
+const store = configureStore();
 
 render(
     <Provider store={store}>
-        <Router history={browserHistory} routes={routes} />   {/*routes inneholder referanser til de ulike sidene*/}
+        <Router history={browserHistory} routes={routes} />
     </Provider>,
     document.getElementById('app')
 );
+
+
 
 //Dette er den øverste filen

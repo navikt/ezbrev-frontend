@@ -1,3 +1,4 @@
-export const SAVE_BREVDATA = 'SAVE_BREVDATA';    //action creatorf
+export const SAVE_BREVDATA = 'SAVE_BREVDATA';    //action creator
+export const SET_BREVPAKKELIST='SET_BREVPAKKELIST';
 
-//skal vi her liste alle de mulige handlingene man kan gjøre? eks. trykke på oppdater-knappen, trykke på godkjenn-knappen, velge fra miljø dropdown-menyen?
+//Her skal liste alle actions som skal kalle på reducere
