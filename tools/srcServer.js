@@ -1,10 +1,11 @@
+// Skeleton for simple custom express server
+
+/*
 import express from 'express';
 import webpack from 'webpack';
 import path from 'path';
 import config from '../webpack.config.dev';
 import open from 'open';
-
-/* eslint-disable no-console */
 
 const port = 3000;
 const app = express();
@@ -23,9 +24,9 @@ app.get('*', function(req, res) {
 
 app.listen(port, function(err) {
     if (err) {
-        console.log(err);
+        console.log(err); // eslint-disable-line no-console
     } else {
         open(`http://localhost:${port}`);
     }
 });
-
+*/

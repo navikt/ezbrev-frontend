@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, IndexLink} from 'react-router';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
     return (
@@ -11,20 +11,20 @@ const Header = () => {
                 <div className="collapse navbar-collapse">
                     <ul className="nav navbar-nav">
                         <li className="active">
-                            <IndexLink to="/" activeClassName="active">Rediger brevdata</IndexLink>
+                            <NavLink to="/" exact activeClassName="active">Rediger brevdata</NavLink>
                         </li>
                         <li>
-                            <Link to="/regression" className="navbar-link"
-                                  activeClassName="active">Regresjonstest</Link>
+                            <NavLink to="/regression" className="navbar-link"
+                                  activeClassName="active">Regresjonstest</NavLink>
                         </li>
                         <li>
-                            <Link to="/inspection" activeClassName="active">XML Inspeksjon</Link>
+                            <NavLink to="/inspection" activeClassName="active">XML Inspeksjon</NavLink>
                         </li>
                         <li>
-                            <Link to="/converter" activeClassName="active">XML Converter</Link>
+                            <NavLink to="/converter" activeClassName="active">XML Converter</NavLink>
                         </li>
                         <li>
-                            <Link to="/admin" activeClassName="active">Admin</Link>
+                            <NavLink to="/admin" activeClassName="active">Admin</NavLink>
                         </li>
                     </ul>
                 </div>

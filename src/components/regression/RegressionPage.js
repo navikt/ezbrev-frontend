@@ -1,5 +1,5 @@
 import React from 'react';
-import RegressionControl from "./partials/RegressionControl";
+import RegressionControl from './partials/RegressionControl';
 
 class RegressionPage extends React.Component {
     render() {
