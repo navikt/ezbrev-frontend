@@ -4,24 +4,30 @@ import * as brevdataActions from "../../../actions/brevdataActions";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import * as menyValgActions from '../../../actions/menyValgActions';
+//import {selectEnv} from "../../../actions/menyValgActions";
 
 //Må spørre om miljøliste når siden lastes
 
-//
-// function DropDownButton(title,id,action,list){
-//    return ( <DropdownButton
-//         title={title}
-//         id={id}
-//         onSelect={action}
-//     >
-//     {
-//         list.map((i) =>
-//             <MenuItem key={i} eventKey={i}> {i} </MenuItem>)            /*mulig at vi må ha annen eventKey her. Feilmelding: missing key prop for element in iterator*/
-//     }
-//     </DropdownButton>
-//    );
-// }
-//
+
+function ListItem(title,id,action,list){
+   return ( <DropdownButton
+        title={title}
+        id={id}
+        onSelect={action}
+    >
+    {
+       list.map((i) =>
+           <MenuItem key={i} eventKey={i}> {i} </MenuItem>)            /*mulig at vi må ha annen eventKey her. Feilmelding: missing key prop for element in iterator*/
+    }
+    </DropdownButton>
+   );
+}
+ListItem.propTypes={
+  title:PropTypes.string.isRequired,
+  id:PropTypes.string.isRequired,
+  action:PropTypes.func.isRequired,
+  list:PropTypes.array.isRequired
+};
 
 
 
@@ -29,14 +35,14 @@ import * as menyValgActions from '../../../actions/menyValgActions';
 class BrevpakkeSelect extends React.Component {            //container component
     constructor(props, context) {
         super(props, context);
-    }
-    //     //Bind Actions
-    //     this.onSelectEnv = this.onSelectEnv.bind(this);
+
+        //Bind Actions
+        this.props.actions.selectEnv= this.props.actions.selectEnv.bind(this);
     //     this.onSelectBrevpakke = this.onSelectBrevpakke.bind(this);
     //     this.onSelectLeveranse = this.onSelectLeveranse.bind(this);
     //     this.onSelectMal = this.onSelectMal.bind(this);
     //
-    // }
+     }
     //
     // onSelectEnv(e) {
     //     selectEnv(e);
@@ -55,23 +61,20 @@ class BrevpakkeSelect extends React.Component {            //container component
     // }
 
 
-    //Bruke NAV-design
+
     //dele opp hver knapp i egen komponent
 
     render() {
         return (
             <section className="col-md-2 float-left">
                 <Row>
-                    <DropdownButton
+                    <ListItem
                         title="Velg miljø"
                         id="brevpakke_env_pick"
                         onSelect={this.props.actions.selectEnv}
-                    >
-                        {
-                            this.props.miljoList.map((i) =>
-                                <MenuItem key={i} eventKey={i}> {i} </MenuItem>)            /*mulig at vi må ha annen eventKey her. Feilmelding: missing key prop for element in iterator*/
-                        }
-                    </DropdownButton>
+                        list={this.props.miljoList}
+                    />
+
                 </Row>
                 <Row>
                     <DropdownButton
