@@ -8,7 +8,6 @@ export function setBrevpakkeList(brevpakkeList){
 export function selectEnv(env){
 
     return function(dispatch){
-        console.log("hei");
         return api.getBrevpakkeList(env).then(brevpakkeList => {
             dispatch(setBrevpakkeList(brevpakkeList));
         }).catch(error => {
