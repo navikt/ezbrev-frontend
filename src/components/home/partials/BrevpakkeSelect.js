@@ -9,7 +9,7 @@ import * as menyValgActions from '../../../actions/menyValgActions';
 //Må spørre om miljøliste når siden lastes
 
 
-function ListItem(title,id,action,list){
+function ListItem({title,id,action,list}){
    return ( <DropdownButton
         title={title}
         id={id}
@@ -37,7 +37,7 @@ class BrevpakkeSelect extends React.Component {            //container component
         super(props, context);
 
         //Bind Actions
-        this.props.actions.selectEnv= this.props.actions.selectEnv.bind(this);
+        //this.props.actions.selectEnv= this.props.actions.selectEnv.bind(this);
     //     this.onSelectBrevpakke = this.onSelectBrevpakke.bind(this);
     //     this.onSelectLeveranse = this.onSelectLeveranse.bind(this);
     //     this.onSelectMal = this.onSelectMal.bind(this);
@@ -71,7 +71,7 @@ class BrevpakkeSelect extends React.Component {            //container component
                     <ListItem
                         title="Velg miljø"
                         id="brevpakke_env_pick"
-                        onSelect={this.props.actions.selectEnv}
+                        action={this.props.actions.selectEnv}
                         list={this.props.miljoList}
                     />
 
