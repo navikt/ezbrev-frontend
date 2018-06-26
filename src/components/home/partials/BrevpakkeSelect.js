@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types'
 import {DropdownButton, MenuItem, Row} from 'react-bootstrap';
 import * as brevdataActions from "../../../actions/brevdataActions";
 import {bindActionCreators} from "redux";
@@ -41,8 +42,8 @@ class BrevpakkeSelect extends React.Component {            //container component
     //     this.onSelectBrevpakke = this.onSelectBrevpakke.bind(this);
     //     this.onSelectVersjon = this.onSelectVersjon.bind(this);
     //     this.onSelectMal = this.onSelectMal.bind(this);
-    // }
-    //
+    }
+
     // onSelectEnv = e => {};
     //
     //
@@ -79,7 +80,7 @@ class BrevpakkeSelect extends React.Component {            //container component
                     >
                         {
                             this.props.brevpakkeList.map((i) =>
-                                <MenuItem eventKey={i}> {i} </MenuItem>)            /*mulig at vi må ha annen eventKey her*/
+                                <MenuItem key={i} eventKey={i}> {i} </MenuItem>)            /*mulig at vi må ha annen eventKey her*/
                         }
                     </DropdownButton>
                 </Row>
