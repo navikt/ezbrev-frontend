@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import brevdata from './brevdataReducer';
 
 const rootReducer = combineReducers({

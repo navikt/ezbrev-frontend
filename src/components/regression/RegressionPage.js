@@ -6,7 +6,7 @@ class RegressionPage extends React.Component {
         return (
             <main className="container-fluid">
                 <h4>Regresjonstest</h4>
-                <RegressionControl/>
+                <RegressionControl />
             </main>
         );
     }

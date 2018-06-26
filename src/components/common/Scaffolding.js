@@ -1,13 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Space = ({n}) => {
+export const Space = ({ n }) => {
     return (
-        <span>
-        {[...Array(n)].map((x, i) =>
-            <span key={i}>&nbsp;</span>
-        )}
-        </span>
+        <span>{[...Array(n)].map((x, i) => <span key={i}>&nbsp;</span>)}</span>
     );
 };
 

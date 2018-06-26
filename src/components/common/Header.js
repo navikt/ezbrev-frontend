@@ -11,20 +11,33 @@ const Header = () => {
                 <div className="collapse navbar-collapse">
                     <ul className="nav navbar-nav">
                         <li className="active">
-                            <NavLink to="/" exact activeClassName="active">Rediger brevdata</NavLink>
+                            <NavLink to="/" exact activeClassName="active">
+                                Rediger brevdata
+                            </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/regression" className="navbar-link"
-                                  activeClassName="active">Regresjonstest</NavLink>
+                            <NavLink
+                                to="/regression"
+                                className="navbar-link"
+                                activeClassName="active"
+                            >
+                                Regresjonstest
+                            </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/inspection" activeClassName="active">XML Inspeksjon</NavLink>
+                            <NavLink to="/inspection" activeClassName="active">
+                                XML Inspeksjon
+                            </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/converter" activeClassName="active">XML Converter</NavLink>
+                            <NavLink to="/converter" activeClassName="active">
+                                XML Converter
+                            </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/admin" activeClassName="active">Admin</NavLink>
+                            <NavLink to="/admin" activeClassName="active">
+                                Admin
+                            </NavLink>
                         </li>
                     </ul>
                 </div>
@@ -34,4 +47,3 @@ const Header = () => {
 };
 
 export default Header;
-

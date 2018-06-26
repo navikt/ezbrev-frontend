@@ -8,9 +8,16 @@ import rootReducer from '../reducers';
 
 export default function configureStore(history) {
     const reduxImmutableStateInvariantMiddleware = reduxImmutableStateInvariant();
-    const allMiddleware = [routerMiddleware(history), reduxImmutableStateInvariantMiddleware, thunkMiddleware];
+    const allMiddleware = [
+        routerMiddleware(history),
+        reduxImmutableStateInvariantMiddleware,
+        thunkMiddleware
+    ];
 
-    const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(...allMiddleware)));
+    const store = createStore(
+        rootReducer,
+        composeWithDevTools(applyMiddleware(...allMiddleware))
+    );
 
     if (module.hot) {
         module.hot.accept('../reducers', () => {

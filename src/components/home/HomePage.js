@@ -1,20 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import * as brevdataActions from  '../../actions/brevdataActions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as brevdataActions from '../../actions/brevdataActions';
 
 import BrevpakkeSelect from './partials/BrevpakkeSelect';
 import BrevdataInput from './partials/BrevdataInput';
 import BrevdataMeta from './partials/BrevdataMeta';
 
 class HomePage extends React.Component {
-
     constructor(props, context) {
         super(props, context);
 
         this.state = {
-            brevdata: {xml: ''}
+            brevdata: { xml: '' }
         };
     }
 
@@ -22,11 +21,12 @@ class HomePage extends React.Component {
         return (
             <main className="container-fluid">
                 <h4>Brevdata</h4>
-                <BrevpakkeSelect/>
+                <BrevpakkeSelect />
                 <BrevdataInput
                     brevdata={this.state.brevdata}
-                    actions={this.props.actions}/>
-                <BrevdataMeta/>
+                    actions={this.props.actions}
+                />
+                <BrevdataMeta />
             </main>
         );
     }
@@ -49,4 +49,7 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(HomePage);

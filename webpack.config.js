@@ -24,11 +24,7 @@ const statsOutputSettings = {
 const webpackConfig = {
     mode: process.env.NODE_ENV,
     devtool: 'source-map',
-    entry: [
-        'babel-polyfill',
-        'react-hot-loader/patch',
-        './src/index.js'
-    ],
+    entry: ['babel-polyfill', 'react-hot-loader/patch', './src/index.js'],
     output: {
         filename: 'bundle.js',
         publicPath: '/',
@@ -40,15 +36,18 @@ const webpackConfig = {
         contentBase: path.join(__dirname, 'public'),
         historyApiFallback: true,
         hot: true,
-        proxy: [{
-            context: ['/api', '/internal', '/me'],
-            target: 'http://localhost:8080'
-        }]
+        proxy: [
+            {
+                context: ['/api', '/internal', '/me'],
+                target: 'http://localhost:8080'
+            }
+        ]
     },
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: JSON.stringify(process.env.NODE_ENV) || '"development"',
+                NODE_ENV:
+                    JSON.stringify(process.env.NODE_ENV) || '"development"',
                 CLIENT_VERSION: JSON.stringify(pkg.version) || '""',
                 REST_URL: '"http://d26jbsl01372.test.local:8443/ezbrev/rest"'
             }

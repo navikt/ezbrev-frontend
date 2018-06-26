@@ -2,32 +2,23 @@ import React from 'react';
 import { DropdownButton, MenuItem, Row } from 'react-bootstrap';
 
 class BrevpakkeSelect extends React.Component {
-
     constructor(props, context) {
         super(props, context);
 
         //Bind Actions
-        this.onSelectEnv = this.onSelectEnv.bind(this);
+        // this.onSelectEnv = this.onSelectEnv.bind(this);
         this.onSelectBrevpakke = this.onSelectBrevpakke.bind(this);
         this.onSelectVersjon = this.onSelectVersjon.bind(this);
         this.onSelectMal = this.onSelectMal.bind(this);
     }
 
-    onSelectEnv(e) {
+    onSelectEnv = e => {};
 
-    }
+    onSelectBrevpakke(e) {}
 
-    onSelectBrevpakke(e) {
+    onSelectVersjon(e) {}
 
-    }
-
-    onSelectVersjon(e) {
-
-    }
-
-    onSelectMal(e) {
-
-    }
+    onSelectMal(e) {}
 
     render() {
         return (
