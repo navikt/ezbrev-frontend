@@ -1,64 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import {DropdownButton, MenuItem, Row} from 'react-bootstrap';
-import * as brevdataActions from "../../../actions/brevdataActions";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import * as menyValgActions from '../../../actions/menyValgActions';
-//import {selectEnv} from "../../../actions/menyValgActions";
-
-//Må spørre om miljøliste når siden lastes
 
 
-function ListItem({title,id,action,list}){
-   return ( <DropdownButton
-        title={title}
-        id={id}
-        onSelect={action}
-    >
-    {
-       list.map((i) =>
-           <MenuItem key={i} eventKey={i}> {i} </MenuItem>)            /*mulig at vi må ha annen eventKey her. Feilmelding: missing key prop for element in iterator*/
-    }
-    </DropdownButton>
-   );
+
+function ListItem({title, id, action, list}) {
+    return (<DropdownButton
+            title={title}
+            id={id}
+            onSelect={action}
+        >
+            {
+                list.map((i) =>
+                    <MenuItem key={i}
+                              eventKey={i}> {i} </MenuItem>)            /*mulig at vi må ha annen eventKey her. Feilmelding: missing key prop for element in iterator*/
+            }
+        </DropdownButton>
+    );
 }
-ListItem.propTypes={
-  title:PropTypes.string.isRequired,
-  id:PropTypes.string.isRequired,
-  action:PropTypes.func.isRequired,
-  list:PropTypes.array.isRequired
+
+ListItem.propTypes = {
+    title: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    action: PropTypes.func.isRequired,
+    list: PropTypes.array.isRequired
 };
-
-
 
 
 class BrevpakkeSelect extends React.Component {            //container component
     constructor(props, context) {
         super(props, context);
-
-    //     //Bind Actions
-    //     this.onSelectEnv = this.onSelectEnv.bind(this);
-    //     this.onSelectBrevpakke = this.onSelectBrevpakke.bind(this);
-    //     this.onSelectVersjon = this.onSelectVersjon.bind(this);
-    //     this.onSelectMal = this.onSelectMal.bind(this);
     }
-
-    // onSelectEnv = e => {};
-    //
-    //
-    //
-    // onSelectBrevpakke(e) {
-    //
-    // }
-    //
-    // onSelectVersjon(e) {
-    //
-    // }
-    //
-    // onSelectMal(e) {
-    //
-    // }
 
     render() {
         return (
@@ -67,40 +42,26 @@ class BrevpakkeSelect extends React.Component {            //container component
                     <ListItem
                         title="Velg miljø"
                         id="brevpakke_env_pick"
-                        action={this.props.actions.selectEnv}
+                        action={this.props.actions.selectMiljo}
                         list={this.props.miljoList}
                     />
 
                 </Row>
                 <Row>
-                    <DropdownButton
+                    <ListItem
                         title="Velg brevpakke"
                         id="brevpakke_pick"
-                        onSelect={this.onSelectBrevpakke}
-                    >
-                        {
-                            this.props.brevpakkeList.map((i) =>
-                                <MenuItem key={i} eventKey={i}> {i} </MenuItem>)            /*mulig at vi må ha annen eventKey her*/
-                        }
-                    </DropdownButton>
+                        action={this.props.actions.selectBrevpakke}
+                        list={this.props.brevpakkeList}
+                    />
                 </Row>
                 <Row>
-                    <DropdownButton
-                        title="Velg leveranse"
-                        id="brevpakke_leveranse_pick"
-                        onSelect={this.onSelectLeveranse}
-                    >
-                        <MenuItem eventKey="1">2017_HL1</MenuItem>
-                    </DropdownButton>
-                </Row>
-                <Row>
-                    <DropdownButton
+                    <ListItem
                         title="Velg brevmal"
                         id="brevpakke_mal_pick"
-                        onSelect={this.onSelectMal}
-                    >
-                        <MenuItem eventKey="1">Mal00001</MenuItem>
-                    </DropdownButton>
+                        action={this.props.actions.selectMal}
+                        list={this.props.brevmalList}
+                    />
                 </Row>
             </section>
         );
@@ -110,6 +71,7 @@ class BrevpakkeSelect extends React.Component {            //container component
 BrevpakkeSelect.propTypes = {
     miljoList: PropTypes.array.isRequired,
     brevpakkeList: PropTypes.array.isRequired,
+    brevmalList: PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired
 };
 
@@ -117,7 +79,8 @@ function mapStateToProps(state, ownProps) {
     console.log(state);
     return {
         miljoList: state.menyValg.miljoList,
-        brevpakkeList: state.menyValg.brevpakkeList
+        brevpakkeList: state.menyValg.brevpakkeList,
+        brevmalList: state.menyValg.brevmalList
     };
 }
 
@@ -127,5 +90,6 @@ function mapDispatchToProps(dispatch) {
         actions: bindActionCreators(menyValgActions, dispatch)                  /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
     };
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(BrevpakkeSelect);
 

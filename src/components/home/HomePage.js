@@ -20,6 +20,8 @@ class HomePage extends React.Component {                        //container comp
         */
     }
 
+
+    //legge til et vindu som viser versjonen
     render() {
         return (
             <main className="container-fluid">
