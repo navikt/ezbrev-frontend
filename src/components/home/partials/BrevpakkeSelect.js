@@ -55,7 +55,6 @@ class BrevpakkeSelect extends React.Component {            //container component
     // }
 
 
-    //Bruke NAV-design
     //dele opp hver knapp i egen komponent
 
     render() {
