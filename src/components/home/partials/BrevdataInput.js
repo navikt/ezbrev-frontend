@@ -1,13 +1,13 @@
-import React, {PropTypes} from 'react';
-import BrevdataControl from "./BrevdataControl";
+import React from 'react';
+import PropTypes from 'prop-types';
+import BrevdataControl from './BrevdataControl';
 
 class BrevdataInput extends React.Component {
-
     constructor(props, context) {
         super(props, context);
 
         this.state = {
-            brevdata: {xml: ""}
+            brevdata: { xml: '' }
         };
 
         this.onInputChange = this.onInputChange.bind(this);
@@ -17,7 +17,7 @@ class BrevdataInput extends React.Component {
     onInputChange(event) {
         const brevdata = this.state.brevdata;
         brevdata.xml = event.target.value;
-        this.setState({brevdata: brevdata});
+        this.setState({ brevdata: brevdata });
     }
 
     onChangeSave() {
@@ -30,14 +30,12 @@ class BrevdataInput extends React.Component {
                 <textarea
                     className="form-horizontal form-control"
                     id="brevdata_input"
-                    type="textarea"
                     placeholder="Legg inn XML"
                     value={this.state.brevdata.xml}
                     onChange={this.onInputChange}
-                >
-                </textarea>
+                />
 
-                <BrevdataControl/>
+                <BrevdataControl />
             </section>
         );
     }

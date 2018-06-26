@@ -1,18 +1,44 @@
 import 'babel-polyfill';
+
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import createHistory from 'history/createBrowserHistory';
+import { ConnectedRouter } from 'react-router-redux';
+import { AppContainer } from 'react-hot-loader';
+
 import configureStore from './store/configureStore';
-import {Provider} from 'react-redux';
-import { Router, browserHistory } from 'react-router';
-import routes from './routes';
 import './styles/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const store = configureStore();
+import { App } from './App';
 
-render(
-    <Provider store={store}>
-        <Router history={browserHistory} routes={routes} />
-    </Provider>,
-    document.getElementById('app')
+const history = createHistory();
+const store = configureStore(history);
+const target = document.getElementById('root');
+
+ReactDOM.render(
+    <AppContainer>
+        <Provider store={store}>
+            <ConnectedRouter history={history}>
+                <App />
+            </ConnectedRouter>
+        </Provider>
+    </AppContainer>,
+    target
 );
+
+if (module.hot) {
+    module.hot.accept('./App', () => {
+        ReactDOM.render(
+            <AppContainer>
+                <Provider store={store}>
+                    <ConnectedRouter history={history}>
+                        <App />
+                    </ConnectedRouter>
+                </Provider>
+            </AppContainer>,
+            target
+        );
+    });
+}

@@ -1,11 +1,30 @@
-import {createStore, applyMiddleware} from 'redux';
-import rootReducer from '../reducers';
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import { routerMiddleware } from 'react-router-redux';
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 
-export default function configureStore(initalState) {
-    return createStore(
+import rootReducer from '../reducers';
+
+export default function configureStore(history) {
+    const reduxImmutableStateInvariantMiddleware = reduxImmutableStateInvariant();
+    const allMiddleware = [
+        routerMiddleware(history),
+        reduxImmutableStateInvariantMiddleware,
+        thunkMiddleware
+    ];
+
+    const store = createStore(
         rootReducer,
-        initalState,
-        applyMiddleware(reduxImmutableStateInvariant())
+        composeWithDevTools(applyMiddleware(...allMiddleware))
     );
+
+    if (module.hot) {
+        module.hot.accept('../reducers', () => {
+            const nextRootReducer = require('../reducers/index');
+            store.replaceReducer(nextRootReducer);
+        });
+    }
+
+    return store;
 }
