@@ -1,17 +1,18 @@
 import React from 'react';
 
+const serverUrl='http://localhost:8080'
 
 export function getBrevpakkeList(env){
-    /*const url=${rootUrl}$;
-    return get(url)*/
-    return Promise.resolve(["Arena","Foreldrepenger"]);   //kanskje feil
+    const url= `${serverUrl}/brevpakkeList`;
+    return get(url)
+        .then(res => res.json())                            //må sjekke om res.ok er true før vi gjør om til json
+        .then(json => json);                                //kan her gjøre endringer på json-objektet
+    //return Promise.resolve(["Arena","Foreldrepenger"]);
 }
 
-// function get(url) {
-//     return fetch(url).then()
-// }
-//
-// const get = (url) => url
+function get(url) {
+    return fetch(url);  //returnerer et promise
+}
 
 
 /*
