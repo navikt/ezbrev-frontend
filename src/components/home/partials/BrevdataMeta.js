@@ -1,17 +1,14 @@
 import React from 'react';
-import {DropdownButton, MenuItem} from 'react-bootstrap';
+import { DropdownButton, MenuItem } from 'react-bootstrap';
 
 class BrevdataMeta extends React.Component {
-
     constructor(props, context) {
         super(props, context);
 
         this.onSelectSort = this.onSelectSort.bind(this);                   //hva gjør bind()??
     }
 
-    onSelectSort(e) {
-
-    }
+    onSelectSort(e) {}
 
     render() {
         return (
@@ -24,9 +21,7 @@ class BrevdataMeta extends React.Component {
                     <MenuItem eventKey="1">Nyeste først</MenuItem>
                     <MenuItem eventKey="2">Eldste først</MenuItem>
                 </DropdownButton>
-                <p>
-                    TODO: Lagrede brevdata
-                </p>
+                <p>TODO: Lagrede brevdata</p>
             </section>
         );
     }

@@ -36,33 +36,28 @@ class BrevpakkeSelect extends React.Component {            //container component
     constructor(props, context) {
         super(props, context);
 
-        //Bind Actions
-        //this.props.actions.selectEnv= this.props.actions.selectEnv.bind(this);
+    //     //Bind Actions
+    //     this.onSelectEnv = this.onSelectEnv.bind(this);
     //     this.onSelectBrevpakke = this.onSelectBrevpakke.bind(this);
-    //     this.onSelectLeveranse = this.onSelectLeveranse.bind(this);
+    //     this.onSelectVersjon = this.onSelectVersjon.bind(this);
     //     this.onSelectMal = this.onSelectMal.bind(this);
-    //
-     }
-    //
-    // onSelectEnv(e) {
-    //     selectEnv(e);
-    //     //Sende info om valgt miljø, spørre om tilhørende brevpakkeliste
     // }
+    //
+    // onSelectEnv = e => {};
+    //
+    //
     //
     // onSelectBrevpakke(e) {
+    //
     // }
     //
-    // onSelectLeveranse(e) {
+    // onSelectVersjon(e) {
     //
     // }
     //
     // onSelectMal(e) {
     //
     // }
-
-
-
-    //dele opp hver knapp i egen komponent
 
     render() {
         return (

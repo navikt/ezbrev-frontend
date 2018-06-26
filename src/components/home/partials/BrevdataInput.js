@@ -1,25 +1,23 @@
-import React, {PropTypes} from 'react';
-import BrevdataControl from "./BrevdataControl";
+import React from 'react';
+import PropTypes from 'prop-types';
+import BrevdataControl from './BrevdataControl';
 
 class BrevdataInput extends React.Component {
-
     constructor(props, context) {
         super(props, context);
 
         this.state = {
-            brevdata: {xml: ""}
+            brevdata: { xml: '' }
         };
-        //Initialiserer staten, skal inneholde en brevdata som inneholder xml som er satt til en tom string
 
-        this.onInputChange = this.onInputChange.bind(this);     //Hva gjør bind-funksjonen? Gjør at man skjønner at funksjonen tilhører denne klassen?
+        this.onInputChange = this.onInputChange.bind(this);
         this.onChangeSave = this.onChangeSave.bind(this);
     }
 
     onInputChange(event) {
         const brevdata = this.state.brevdata;
-        brevdata.xml = event.target.value;                      //hva er event.target?
-        this.setState({brevdata: brevdata});
-
+        brevdata.xml = event.target.value;
+        this.setState({ brevdata: brevdata });
     }
 
     onChangeSave() {
@@ -32,22 +30,20 @@ class BrevdataInput extends React.Component {
                 <textarea
                     className="form-horizontal form-control"
                     id="brevdata_input"
-                    type="textarea"
                     placeholder="Legg inn XML"
                     value={this.state.brevdata.xml}
                     onChange={this.onInputChange}
-                >
-                </textarea>
+                />
 
-                <BrevdataControl/>                                  {/*Tegner opp knappene under feltet*/}
+                <BrevdataControl />
             </section>
         );
     }
 }
 
-BrevdataInput.propTypes = {                                         //Definerer hvilken type props til BrevdataInput skal ha.
-    brevdata: PropTypes.object.isRequired,                            //brevdata skal være et object og det må være oppgitt. Får advarsel dersom brevdata ikke blir gitt
+BrevdataInput.propTypes = {
+    brevdata: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired
 };
 
-export default BrevdataInput;                                       //Gjør at denne kan importeres i en annen fil. Eks. import bdi from 'BrevdataInput.js ?? trenger ikke hete det samme i nye fil
+export default BrevdataInput;

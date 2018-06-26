@@ -1,24 +1,43 @@
 import 'babel-polyfill';
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import createHistory from 'history/createBrowserHistory';
+import { ConnectedRouter } from 'react-router-redux';
+import { AppContainer } from 'react-hot-loader';
+
 import configureStore from './store/configureStore';
-import {Provider} from 'react-redux';
-import { Router, browserHistory } from 'react-router';
-import routes from './routes';
 import './styles/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { App } from './App';
 
+const history = createHistory();
+const store = configureStore(history);
+const target = document.getElementById('root');
 
-const store = configureStore();
-
-render(
-    <Provider store={store}>
-        <Router history={browserHistory} routes={routes} />
-    </Provider>,
-    document.getElementById('app')
+ReactDOM.render(
+    <AppContainer>
+        <Provider store={store}>
+            <ConnectedRouter history={history}>
+                <App />
+            </ConnectedRouter>
+        </Provider>
+    </AppContainer>,
+    target
 );
 
-
-
-//Dette er den øverste filen
+if (module.hot) {
+    module.hot.accept('./App', () => {
+        ReactDOM.render(
+            <AppContainer>
+                <Provider store={store}>
+                    <ConnectedRouter history={history}>
+                        <App />
+                    </ConnectedRouter>
+                </Provider>
+            </AppContainer>,
+            target
+        );
+    });
+}
