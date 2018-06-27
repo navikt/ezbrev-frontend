@@ -32,19 +32,30 @@ ListItem.propTypes = {
 class BrevpakkeSelect extends React.Component {            //container component
     constructor(props, context) {
         super(props, context);
+
+        this.state = {
+            brevpakkeList: [],
+            brevmalList: []
+        }
+
     };
 
 
-    getBrevpakkeList = brevInfo => {
+    getBrevpakkeList = () => {
         let brevpakkeList = [];
+        const brevInfo = this.props.brevInfo;
         for (var i = 0; i < brevpakkeList.length; i++) {
             brevpakkeList.append(brevInfo[i].brevPakke)
         }
         const brevpakkeListUnique = brevpakkeList.filter((x, i, a) => a.indexOf(x) == i);
-        return brevpakkeListUnique;
+        this.state.brevpakkeList = brevpakkeListUnique;
     };
 
-    getBrevmalList = brevInfo => {
+    getBrevmalList = brevpakke => {
+    };
+
+    getXML = brevmal => {
+
     };
 
     render() {
@@ -54,7 +65,10 @@ class BrevpakkeSelect extends React.Component {            //container component
                     <ListItem
                         title="Velg miljø"
                         id="brevpakke_env_pick"
-                        func={this.props.actions.selectMiljo}
+                        func={() => {
+                            this.props.actions.selectMiljo;
+                            this.getBrevpakkeList
+                        }}
                         list={this.props.miljoList}
                     />
 
@@ -63,16 +77,16 @@ class BrevpakkeSelect extends React.Component {            //container component
                     <ListItem
                         title="Velg brevpakke"
                         id="brevpakke_pick"
-                        func={this.props.selectBrevpakke}
-                        list={this.getBrevpakkeList(this.props.brevInfo)}
+                        func={this.getBrevmalList}
+                        list={this.state.brevpakkeList}
                     />
                 </Row>
                 <Row>
                     <ListItem
                         title="Velg brevmal"
                         id="brevpakke_mal_pick"
-                        func={this.props.selectBrevMal}
-                        list={this.getBrevmalList(this.props.brevInfo)}
+                        func={this.props.getXML}                        /*Her må vi kalle XMLen*/
+                        list={this.state.brevmalList}
                     />
                 </Row>
             </section>
