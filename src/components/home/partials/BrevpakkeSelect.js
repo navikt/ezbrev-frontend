@@ -3,15 +3,14 @@ import PropTypes from 'prop-types'
 import {DropdownButton, MenuItem, Row} from 'react-bootstrap';
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import * as menyValgActions from '../../../actions/menyValgActions';
+import * as menyValgActionsUtil from '../../../actions/menyValgActionsUtil';
 
 
-
-function ListItem({title, id, action, list}) {
+function ListItem({title, id, func, list}) {
     return (<DropdownButton
             title={title}
             id={id}
-            onSelect={action}
+            onSelect={func}
         >
             {
                 list.map((i) =>
@@ -25,7 +24,7 @@ function ListItem({title, id, action, list}) {
 ListItem.propTypes = {
     title: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    action: PropTypes.func.isRequired,
+    func: PropTypes.func.isRequired,
     list: PropTypes.array.isRequired
 };
 
@@ -33,7 +32,20 @@ ListItem.propTypes = {
 class BrevpakkeSelect extends React.Component {            //container component
     constructor(props, context) {
         super(props, context);
-    }
+    };
+
+
+    getBrevpakkeList = brevInfo => {
+        let brevpakkeList = [];
+        for (var i = 0; i < brevpakkeList.length; i++) {
+            brevpakkeList.append(brevInfo[i].brevPakke)
+        }
+        const brevpakkeListUnique = brevpakkeList.filter((x, i, a) => a.indexOf(x) == i);
+        return brevpakkeListUnique;
+    };
+
+    getBrevmalList = brevInfo => {
+    };
 
     render() {
         return (
@@ -42,7 +54,7 @@ class BrevpakkeSelect extends React.Component {            //container component
                     <ListItem
                         title="Velg miljø"
                         id="brevpakke_env_pick"
-                        action={this.props.actions.selectMiljo}
+                        func={this.props.actions.selectMiljo}
                         list={this.props.miljoList}
                     />
 
@@ -51,16 +63,16 @@ class BrevpakkeSelect extends React.Component {            //container component
                     <ListItem
                         title="Velg brevpakke"
                         id="brevpakke_pick"
-                        action={this.props.actions.selectBrevpakke}
-                        list={this.props.brevpakkeList}
+                        func={this.props.selectBrevpakke}
+                        list={this.getBrevpakkeList(this.props.brevInfo)}
                     />
                 </Row>
                 <Row>
                     <ListItem
                         title="Velg brevmal"
                         id="brevpakke_mal_pick"
-                        action={this.props.actions.selectMal}
-                        list={this.props.brevmalList}
+                        func={this.props.selectBrevMal}
+                        list={this.getBrevmalList(this.props.brevInfo)}
                     />
                 </Row>
             </section>
@@ -70,8 +82,7 @@ class BrevpakkeSelect extends React.Component {            //container component
 
 BrevpakkeSelect.propTypes = {
     miljoList: PropTypes.array.isRequired,
-    brevpakkeList: PropTypes.array.isRequired,
-    brevmalList: PropTypes.array.isRequired,
+    brevInfo: PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired
 };
 
@@ -79,15 +90,14 @@ function mapStateToProps(state, ownProps) {
     console.log(state);
     return {
         miljoList: state.menyValg.miljoList,
-        brevpakkeList: state.menyValg.brevpakkeList,
-        brevmalList: state.menyValg.brevmalList
+        brevInfo: state.menyValg.brevInfo
     };
 }
 
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(menyValgActions, dispatch)                  /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
+        actions: bindActionCreators(menyValgActionsUtil, dispatch)                  /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
     };
 }
 

@@ -11,7 +11,7 @@ import './styles/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { App } from './App';
-import {fetchMiljoList} from "~/actions/menyValgActions";   //Spør om miljoliste når siden lastes
+import {fetchMiljoList} from "~/actions/menyValgActionsUtil";   //Spør om miljoliste når siden lastes
 
 const history = createHistory();
 const store = configureStore(history);
@@ -43,3 +43,5 @@ if (module.hot) {
         );
     });
 }
+
+console.log(store)
