@@ -10,13 +10,13 @@
     "npm": "5.6.0"
   },
   "scripts": {
-    "start": "npm-run-all --parallel test:watch server open:src lint:watch server",
+    "start": "npm-run-all --parallel test:watch server open:src lint:watch",
     "open:src": "webpack-dev-server --config ./webpack.config.js --port 3000 --mode development --open",
     "lint": "node_modules/.bin/esw webpack.config.* src tools",
     "lint:watch": "npm run lint -- --watch",
     "test": "mocha --reporter progress tools/testSetup.js \"src/**/*.test.js\"",
     "test:watch": "npm run test -- --watch",
-    "server": "json-server --watch db.json --port 8080"
+    "server": "json-server --watch db.json --port 8082"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",

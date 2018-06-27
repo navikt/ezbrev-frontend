@@ -11,12 +11,12 @@ import './styles/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { App } from './App';
-import {fetchMiljolist} from "~/actions/menyValgActions";   //Spør om miljoliste når siden lastes
+import {fetchMiljoList} from "~/actions/menyValgActions";   //Spør om miljoliste når siden lastes
 
 const history = createHistory();
 const store = configureStore(history);
 const target = document.getElementById('root');
-store.dispatch(fetchMiljolist());
+store.dispatch(fetchMiljoList());
 
 ReactDOM.render(
     <AppContainer>

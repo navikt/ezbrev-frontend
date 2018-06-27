@@ -3,16 +3,16 @@ import * as api from '../api';
 
 
 
-export function setMiljolist(miljoList){
-    return {type: types.SET_MILJOLIST, miljolistList: miljoList};
+export function setMiljoList(miljoList){
+    return {type: types.SET_MILJOLIST, miljoList: miljoList};
 }
 
 
-export function fetchMiljolist(){
+export function fetchMiljoList(){
 
     return function(dispatch){
         return api.getMiljoList().then(miljoList => {
-            dispatch(setMiljolist(miljoList));
+            dispatch(setMiljoList(miljoList));
         }).catch(error => {
             throw(error);
         });
