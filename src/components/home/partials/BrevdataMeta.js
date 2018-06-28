@@ -1,5 +1,9 @@
 import React from 'react';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
+import PropTypes from 'prop-types'
+import * as menyValgActionsUtil from "~/actions/menyValgActionsUtil";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
 
 class BrevdataMeta extends React.Component {
     constructor(props, context) {
@@ -8,7 +12,7 @@ class BrevdataMeta extends React.Component {
         this.onSelectSort = this.onSelectSort.bind(this);                   //hva gjør bind()??
     }
 
-    onSelectSort(e) {}
+    onSelectSort(choice){};
 
     render() {
         return (
@@ -21,10 +25,32 @@ class BrevdataMeta extends React.Component {
                     <MenuItem eventKey="1">Nyeste først</MenuItem>
                     <MenuItem eventKey="2">Eldste først</MenuItem>
                 </DropdownButton>
-                <p>TODO: Lagrede brevdata</p>
+                <p>{this.props.brevdataList}</p>
             </section>
         );
     }
 }
 
-export default BrevdataMeta;
+//må sette brevdataListen inn som en liste av knapper
+//sette inn beskrivelse-boks
+
+BrevdataMeta.propTypes={
+    brevdataList: PropTypes.array.isRequired
+}
+
+function mapStateToProps(state, ownProps) {
+    console.log(state);
+    return {
+        brevdataList: state.menyValg.brevdataList
+    };
+}
+
+
+// function mapDispatchToProps(dispatch) {
+//     return {
+//         actions: bindActionCreators(menyValgActionsUtil, dispatch)                  /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
+//     };
+// }
+//}
+export default connect(mapStateToProps)(BrevdataMeta);
+

@@ -5,7 +5,8 @@ const initialState = {
     brevpakkeList: [],
     versjon: null,
     brevmalList: [],
-    brevInfo:[]
+    brevInfo:[],
+    brevdataList:[]
 };
 
 export default function menyValgReducer(state = initialState, action) {
@@ -20,6 +21,8 @@ export default function menyValgReducer(state = initialState, action) {
             return Object.assign({}, state, {versjon: action.versjon});
         case types.SET_BREVINFO:
             return Object.assign({}, state, {brevInfo: action.brevInfo});
+        case types.SET_BREVDATALIST:
+            return Object.assign({}, state, {brevdataList: action.brevdataList});
         default:
             return state;
     }

@@ -22,3 +22,6 @@ export function setVersjon(versjon) {
 export function setBrevInfo(json) {
     return {type: types.SET_BREVINFO, brevInfo: json}
 }
+export function setBrevdataList(brevdataList) {
+    return {type: types.SET_BREVDATALIST,brevdataList: brevdataList}
+}

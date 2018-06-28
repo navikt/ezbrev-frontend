@@ -4,7 +4,7 @@ import {DropdownButton, MenuItem, Row} from 'react-bootstrap';
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import * as menyValgActionsUtil from '../../../actions/menyValgActionsUtil';
-
+import {selectMiljo} from '../../../actions/menyValgActionsUtil';
 
 function ListItem({title, id, func, list}) {
     return (<DropdownButton
@@ -35,6 +35,7 @@ class BrevpakkeSelect extends React.Component {            //container component
 
         this.state = {
             brevpakkeList: [],
+            brevpakke:"",
             brevmalList: []
         }
 
@@ -54,9 +55,7 @@ class BrevpakkeSelect extends React.Component {            //container component
     getBrevmalList = brevpakke => {
     };
 
-    getXML = brevmal => {
 
-    };
 
     render() {
         return (
@@ -65,9 +64,11 @@ class BrevpakkeSelect extends React.Component {            //container component
                     <ListItem
                         title="Velg miljø"
                         id="brevpakke_env_pick"
-                        func={() => {
-                            this.props.actions.selectMiljo;
-                            this.getBrevpakkeList
+                        func={(miljo) => {
+                            debugger;
+                            this.props.actions.selectMiljo(miljo);
+                            /*this.getBrevpakkeList*/;
+                            console.log(this.props.brevInfo);
                         }}
                         list={this.props.miljoList}
                     />
@@ -77,7 +78,10 @@ class BrevpakkeSelect extends React.Component {            //container component
                     <ListItem
                         title="Velg brevpakke"
                         id="brevpakke_pick"
-                        func={this.getBrevmalList}
+                        func={(brevpakke)=>{
+                            this.state.brevpakke=brevpakke;
+                            this.getBrevmalList
+                        }}
                         list={this.state.brevpakkeList}
                     />
                 </Row>
@@ -85,7 +89,7 @@ class BrevpakkeSelect extends React.Component {            //container component
                     <ListItem
                         title="Velg brevmal"
                         id="brevpakke_mal_pick"
-                        func={this.props.getXML}                        /*Her må vi kalle XMLen*/
+                        func={(brevmal)=>{ this.props.actions.selectBrevmal(brevmal,this.state.brevpakke)}}                        /*Må gi inn brevpakke som en prop, er det mulig å gjøre det slik?*/
                         list={this.state.brevmalList}
                     />
                 </Row>
