@@ -1,4 +1,4 @@
-import {setBrevpakkeList, setMiljoList, setBrevInfo, setBrevdataList} from "~/actions/menyValgActions";
+import {setBrevpakkeList, setMiljoList, setBrevInfo, setBrevdataList, setBrevmalList} from "~/actions/menyValgActions";
 import * as api from "~/api";
 
 export function fetchMiljoList() {
@@ -23,14 +23,14 @@ export function selectMiljo(miljo) {
     };
 };
 
-export function selectBrevpakke(miljo) {
-    return {type: null}
+export function selectBrevpakke({brevpakke,brevInfo}) {
+    return setBrevmalList({brevpakke,brevInfo});
 }
 
 
-export function selectBrevmal(brevmal, brevpakke) {
+export function selectBrevmal({brevmal, brevpakke}) {
     return function (dispatch) {
-        return api.getBrevdataList(brevmal, brevpakke).then(brevdataList => {
+        return api.getBrevdataList({brevmal, brevpakke}).then(brevdataList => {
             dispatch(setBrevdataList(brevdataList));
         }).catch(error => {
             throw(error);

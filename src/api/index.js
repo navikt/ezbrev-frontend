@@ -40,7 +40,7 @@ export function getMiljoList() {
         ))
 };
 
-export function getBrevdataList(brevmal,brevpakke){
+export function getBrevdataList({brevmal,brevpakke}){
     const url = `${serverUrl}/rest/${brevpakke}/${brevmal}/ider`;
     return get(url)
         .then(res => res.json())                            //må sjekke om res.ok er true før vi gjør om til json

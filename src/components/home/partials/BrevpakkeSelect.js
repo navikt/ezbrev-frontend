@@ -64,7 +64,8 @@ class BrevpakkeSelect extends React.Component {            //container component
                         title="Velg brevpakke"
                         id="brevpakke_pick"
                         func={(brevpakke) => {
-                            this.props.actions.selectBrevpakke;
+                            let brevInfo=this.props.brevInfo
+                            this.props.actions.selectBrevpakke({brevpakke, brevInfo});
                             this.setState({brevpakke:brevpakke},()=> console.log(this.state.brevpakke));
                         }}
                         list={this.props.brevpakkeList}
@@ -74,7 +75,10 @@ class BrevpakkeSelect extends React.Component {            //container component
                     <ListItem
                         title="Velg brevmal"
                         id="brevpakke_mal_pick"
-                        func={(brevmal)=>{ this.props.actions.selectBrevmal(brevmal,this.state.brevpakke)}}                        /*Må gi inn brevpakke som en prop, er det mulig å gjøre det slik?*/
+                        func={(brevmal)=>{
+                            let brevpakke=this.state.brevpakke;
+                            this.props.actions.selectBrevmal({brevmal,brevpakke});
+                        }}
                         list={this.props.brevmalList}
                     />
                 </Row>
