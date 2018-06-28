@@ -4,7 +4,6 @@ import {DropdownButton, MenuItem, Row} from 'react-bootstrap';
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import * as menyValgActionsUtil from '../../../actions/menyValgActionsUtil';
-import {selectMiljo} from '../../../actions/menyValgActionsUtil';
 
 function ListItem({title, id, func, list}) {
     return (<DropdownButton
@@ -28,32 +27,20 @@ ListItem.propTypes = {
     list: PropTypes.array.isRequired
 };
 
+//endre slik at knappene viser hvilket valg som er tatt, lagre dette i den lokale staten?
 
 class BrevpakkeSelect extends React.Component {            //container component
     constructor(props, context) {
         super(props, context);
 
         this.state = {
-            brevpakkeList: [],
-            brevpakke:"",
-            brevmalList: []
+            brevpakke:""
+
         }
 
     };
 
 
-    getBrevpakkeList = () => {
-        let brevpakkeList = [];
-        const brevInfo = this.props.brevInfo;
-        for (var i = 0; i < brevpakkeList.length; i++) {
-            brevpakkeList.append(brevInfo[i].brevPakke)
-        }
-        const brevpakkeListUnique = brevpakkeList.filter((x, i, a) => a.indexOf(x) == i);
-        this.state.brevpakkeList = brevpakkeListUnique;
-    };
-
-    getBrevmalList = brevpakke => {
-    };
 
 
 
@@ -65,9 +52,7 @@ class BrevpakkeSelect extends React.Component {            //container component
                         title="Velg miljø"
                         id="brevpakke_env_pick"
                         func={(miljo) => {
-                            debugger;
                             this.props.actions.selectMiljo(miljo);
-                            /*this.getBrevpakkeList*/;
                             console.log(this.props.brevInfo);
                         }}
                         list={this.props.miljoList}
@@ -78,11 +63,11 @@ class BrevpakkeSelect extends React.Component {            //container component
                     <ListItem
                         title="Velg brevpakke"
                         id="brevpakke_pick"
-                        func={(brevpakke)=>{
-                            this.state.brevpakke=brevpakke;
-                            this.getBrevmalList
+                        func={(brevpakke) => {
+                            this.props.actions.selectBrevpakke;
+                            this.setState({brevpakke:brevpakke},()=> console.log(this.state.brevpakke));
                         }}
-                        list={this.state.brevpakkeList}
+                        list={this.props.brevpakkeList}
                     />
                 </Row>
                 <Row>
@@ -90,7 +75,7 @@ class BrevpakkeSelect extends React.Component {            //container component
                         title="Velg brevmal"
                         id="brevpakke_mal_pick"
                         func={(brevmal)=>{ this.props.actions.selectBrevmal(brevmal,this.state.brevpakke)}}                        /*Må gi inn brevpakke som en prop, er det mulig å gjøre det slik?*/
-                        list={this.state.brevmalList}
+                        list={this.props.brevmalList}
                     />
                 </Row>
             </section>
@@ -101,6 +86,8 @@ class BrevpakkeSelect extends React.Component {            //container component
 BrevpakkeSelect.propTypes = {
     miljoList: PropTypes.array.isRequired,
     brevInfo: PropTypes.array.isRequired,
+    brevpakkeList:PropTypes.array.isRequired,
+    brevpakkeList:PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired
 };
 
@@ -108,7 +95,10 @@ function mapStateToProps(state, ownProps) {
     console.log(state);
     return {
         miljoList: state.menyValg.miljoList,
-        brevInfo: state.menyValg.brevInfo
+        brevInfo: state.menyValg.brevInfo,
+        brevpakkeList: state.menyValg.brevpakkeList,
+        brevmalList: state.menyValg.brevmalList,
+
     };
 }
 

@@ -9,6 +9,19 @@ const initialState = {
     brevdataList:[]
 };
 
+function getBrevpakkeList(brevInfo){
+    let brevpakkeList = [];
+    for (var i = 0; i < brevInfo.length; i++) {
+        brevpakkeList.push(brevInfo[i].brevPakke)
+    }
+    const brevpakkeListUnique = brevpakkeList.filter((x, i, a) => a.indexOf(x) == i);
+    return brevpakkeListUnique;
+};
+//
+// getBrevmalList = brevpakke => {
+// };
+//
+
 export default function menyValgReducer(state = initialState, action) {
     switch (action.type) {
         case types.SET_MILJOLIST:
@@ -20,7 +33,7 @@ export default function menyValgReducer(state = initialState, action) {
         case types.SET_VERSJON:
             return Object.assign({}, state, {versjon: action.versjon});
         case types.SET_BREVINFO:
-            return Object.assign({}, state, {brevInfo: action.brevInfo});
+            return Object.assign({}, state, {brevInfo: action.brevInfo, brevpakkeList: getBrevpakkeList(action.brevInfo)});
         case types.SET_BREVDATALIST:
             return Object.assign({}, state, {brevdataList: action.brevdataList});
         default:
