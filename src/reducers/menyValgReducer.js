@@ -20,7 +20,6 @@ function getBrevpakkeList(brevInfo){
 
 function getBrevmalList(brevpakke,brevInfo){ //prøvde her å gi det inn som et objekt men usikker på om det er nødvendig
     let brevmalList=[];
-    console.log(brevInfo)
     for (var i = 0; i < brevInfo.length; i++) {
         if (brevInfo[i].brevPakke==brevpakke){
             let brevmal= brevInfo[i].malID

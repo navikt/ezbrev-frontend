@@ -34,6 +34,9 @@ class BrevpakkeSelect extends React.Component {            //container component
         super(props, context);
 
         this.state = {
+            titlemiljo:"Velg miljø",
+            titlebrevpakke:"Velg brevpakke",
+            titlebrevmal:"Velg brevmal",
             miljo:"",
             brevpakke:"",
             brevmal:""
@@ -51,11 +54,12 @@ class BrevpakkeSelect extends React.Component {            //container component
             <section className="col-md-2 float-left">
                 <Row>
                     <ListItem
-                        title="Velg miljø"
+                        title={this.state.titlemiljo}
                         id="brevpakke_env_pick"
                         func={(miljo) => {
                             this.props.actions.selectMiljo(miljo);
                             this.setState({miljo:miljo},()=> console.log("miljo: "+this.state.miljo));
+                            this.setState({titlemiljo: miljo});
                         }}
                         list={this.props.miljoList}
                     />
@@ -63,25 +67,29 @@ class BrevpakkeSelect extends React.Component {            //container component
                 </Row>
                 <Row>
                     <ListItem
-                        title="Velg brevpakke"
+                        title={this.state.titlebrevpakke}
                         id="brevpakke_pick"
                         func={(brevpakke) => {
                             let brevInfo=this.props.brevInfo;
                             console.log(brevInfo)
                             this.props.actions.selectBrevpakke(brevpakke, brevInfo);
                             this.setState({brevpakke:brevpakke},()=> console.log("brevpakke: "+this.state.brevpakke));
+                            this.setState({titlebrevpakke: brevpakke});
                         }}
                         list={this.props.brevpakkeList}
                     />
                 </Row>
                 <Row>
                     <ListItem
-                        title="Velg brevmal"
+                        title={this.state.titlebrevmal}
                         id="brevpakke_mal_pick"
                         func={(brevmal)=>{
+                            debugger;
                             let brevpakke=this.state.brevpakke;
                             this.props.actions.selectBrevmal(brevmal,brevpakke);
                             this.setState({brevmal:brevmal},()=> console.log("brevmal: "+this.state.brevmal));
+                            this.setState({titlebrevmal: brevmal});
+
                         }}
                         list={this.props.brevmalList}
                     />

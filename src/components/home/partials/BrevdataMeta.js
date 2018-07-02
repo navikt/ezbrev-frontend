@@ -1,8 +1,8 @@
 import React from 'react';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 import PropTypes from 'prop-types'
-//import * as brevdataActionsUtil from "~/actions/brevdataActionsUtil";
-import {selectBrevdata} from "~/actions/brevdataActionsUtil";
+import * as brevdataActionsUtil from "~/actions/brevdataActionsUtil";
+//import {selectBrevdata} from "~/actions/brevdataActionsUtil";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {selectBrevpakke} from "~/actions/menyValgActionsUtil";
@@ -14,7 +14,8 @@ class BrevdataMeta extends React.Component {
         this.onSelectSort = this.onSelectSort.bind(this);
 
         this.state = {
-            brevdataID: ""
+            brevdataID: "",
+            titlebrevdata:"Velg brevdata"
 
         }
     }
@@ -32,12 +33,14 @@ class BrevdataMeta extends React.Component {
                     <MenuItem eventKey="2">Eldste først</MenuItem>
                 </DropdownButton>
                 <DropdownButton
-                    title="Velg brevdata"
+                    title={this.state.titlebrevdata}
                     id="brevdata_pick"
                     onSelect={(brevdataID) => {
-                        this.props.actions(brevdataID);              {/*Går ikke inn i selectBrevdata*/}
+                        this.props.actions.selectBrevdata(brevdataID);              {/*Går ikke inn i selectBrevdata*/}
                         this.setState({brevdataID: brevdataID}, () => console.log(this.state.brevdataID));
-                        }
+                        this.setState({titlebrevdata: brevdataID});
+
+                    }
                     }
                 >
                     {
@@ -69,7 +72,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(selectBrevpakke, dispatch)                  /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
+        actions: bindActionCreators(brevdataActionsUtil, dispatch)                  /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
     };
 }
 
