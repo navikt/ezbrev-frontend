@@ -36,7 +36,7 @@ class BrevdataMeta extends React.Component {
                     title={this.state.titlebrevdata}
                     id="brevdata_pick"
                     onSelect={(brevdataID) => {
-                        this.props.actions.selectBrevdata(brevdataID);              {/*Går ikke inn i selectBrevdata*/}
+                        this.props.actions.selectBrevdata(brevdataID);
                         this.setState({brevdataID: brevdataID}, () => console.log(this.state.brevdataID));
                         this.setState({titlebrevdata: brevdataID});
 
@@ -49,7 +49,6 @@ class BrevdataMeta extends React.Component {
                                       eventKey={i}> {i} </MenuItem>)            /*mulig at vi må ha annen eventKey her. Feilmelding: missing key prop for element in iterator*/
                     }
                 </DropdownButton>
-                <p>{this.props.brevdataList}</p>
             </section>
         );
     }

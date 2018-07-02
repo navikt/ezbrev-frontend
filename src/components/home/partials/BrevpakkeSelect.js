@@ -71,7 +71,6 @@ class BrevpakkeSelect extends React.Component {            //container component
                         id="brevpakke_pick"
                         func={(brevpakke) => {
                             let brevInfo=this.props.brevInfo;
-                            console.log(brevInfo)
                             this.props.actions.selectBrevpakke(brevpakke, brevInfo);
                             this.setState({brevpakke:brevpakke},()=> console.log("brevpakke: "+this.state.brevpakke));
                             this.setState({titlebrevpakke: brevpakke});
@@ -84,7 +83,6 @@ class BrevpakkeSelect extends React.Component {            //container component
                         title={this.state.titlebrevmal}
                         id="brevpakke_mal_pick"
                         func={(brevmal)=>{
-                            debugger;
                             let brevpakke=this.state.brevpakke;
                             this.props.actions.selectBrevmal(brevmal,brevpakke);
                             this.setState({brevmal:brevmal},()=> console.log("brevmal: "+this.state.brevmal));

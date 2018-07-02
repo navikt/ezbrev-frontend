@@ -31,8 +31,10 @@ class BrevdataInput extends React.Component {
                     className="form-horizontal form-control"
                     id="brevdata_input"
                     placeholder="Legg inn XML"
-                    value={this.state.brevdata.xml}
-                    onChange={this.onInputChange}
+                    value={this.props.brevdata.brevdata.xmlInnhold}
+                    onChange={(change)=>{
+                        console.log(this.props.brevdata.xmlInnhold)
+                        this.onInputChange(change);}}
                 />
 
                 <BrevdataControl />
