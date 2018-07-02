@@ -34,7 +34,9 @@ class BrevpakkeSelect extends React.Component {            //container component
         super(props, context);
 
         this.state = {
-            brevpakke:""
+            miljo:"",
+            brevpakke:"",
+            brevmal:""
 
         }
 
@@ -53,7 +55,7 @@ class BrevpakkeSelect extends React.Component {            //container component
                         id="brevpakke_env_pick"
                         func={(miljo) => {
                             this.props.actions.selectMiljo(miljo);
-                            console.log(this.props.brevInfo);
+                            this.setState({miljo:miljo},()=> console.log("miljo: "+this.state.miljo));
                         }}
                         list={this.props.miljoList}
                     />
@@ -64,9 +66,10 @@ class BrevpakkeSelect extends React.Component {            //container component
                         title="Velg brevpakke"
                         id="brevpakke_pick"
                         func={(brevpakke) => {
-                            let brevInfo=this.props.brevInfo
-                            this.props.actions.selectBrevpakke({brevpakke, brevInfo});
-                            this.setState({brevpakke:brevpakke},()=> console.log(this.state.brevpakke));
+                            let brevInfo=this.props.brevInfo;
+                            console.log(brevInfo)
+                            this.props.actions.selectBrevpakke(brevpakke, brevInfo);
+                            this.setState({brevpakke:brevpakke},()=> console.log("brevpakke: "+this.state.brevpakke));
                         }}
                         list={this.props.brevpakkeList}
                     />
@@ -77,7 +80,8 @@ class BrevpakkeSelect extends React.Component {            //container component
                         id="brevpakke_mal_pick"
                         func={(brevmal)=>{
                             let brevpakke=this.state.brevpakke;
-                            this.props.actions.selectBrevmal({brevmal,brevpakke});
+                            this.props.actions.selectBrevmal(brevmal,brevpakke);
+                            this.setState({brevmal:brevmal},()=> console.log("brevmal: "+this.state.brevmal));
                         }}
                         list={this.props.brevmalList}
                     />

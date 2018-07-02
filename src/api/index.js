@@ -5,14 +5,7 @@ import React from 'react';
 
 const serverUrl = 'http://localhost:8080'
 
-export function getBrevInfo(miljo) {
-    const url = `${serverUrl}/rest/${miljo}/dokumenttypeinfo`;
-    console.log("heisaann")
-    return get(url)
-        .then(res => res.json())                            //må sjekke om res.ok er true før vi gjør om til json
-        .then(json => json);                                //kan her gjøre endringer på json-objektet
-    //return Promise.resolve(["Arena","Foreldrepenger"]);
-}
+
 
 
 //http://localhost:8080/rest/t4/dokumenttypeinfo
@@ -40,8 +33,24 @@ export function getMiljoList() {
         ))
 };
 
-export function getBrevdataList({brevmal,brevpakke}){
+
+export function getBrevInfo(miljo) {
+    const url = `${serverUrl}/rest/${miljo}/dokumenttypeinfo`;
+    return get(url)
+        .then(res => res.json())                            //må sjekke om res.ok er true før vi gjør om til json
+        .then(json => json);                                //kan her gjøre endringer på json-objektet
+    //return Promise.resolve(["Arena","Foreldrepenger"]);
+}
+
+export function getBrevdataList(brevmal,brevpakke){    //får ikke til å hente brevdatalisten
     const url = `${serverUrl}/rest/${brevpakke}/${brevmal}/ider`;
+    return get(url)
+        .then(res => res.json())                            //må sjekke om res.ok er true før vi gjør om til json
+        .then(json => json);
+};
+
+export function getBrevdata(brevdataID){
+    const url = `${serverUrl}/rest/getxmlbyid/${brevdataID}`;
     return get(url)
         .then(res => res.json())                            //må sjekke om res.ok er true før vi gjør om til json
         .then(json => json);

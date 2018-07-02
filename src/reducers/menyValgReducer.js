@@ -18,15 +18,16 @@ function getBrevpakkeList(brevInfo){
     return brevpakkeListUnique;
 };
 
-function getBrevmalList({brevpakke,brevInfo}){ //prøvde her å gi det inn som et objekt men usikker
+function getBrevmalList(brevpakke,brevInfo){ //prøvde her å gi det inn som et objekt men usikker på om det er nødvendig
     let brevmalList=[];
+    console.log(brevInfo)
     for (var i = 0; i < brevInfo.length; i++) {
         if (brevInfo[i].brevPakke==brevpakke){
             let brevmal= brevInfo[i].malID
             brevmalList.push(brevmal)
         }
     }
-    return brevmalList
+    return brevmalList;
 };
 
 
@@ -39,7 +40,7 @@ export default function menyValgReducer(state = initialState, action) {
         case types.SET_BREVMALLIST:
             let brevpakke=action.brevpakke;
             let brevInfo=action.brevInfo
-            return Object.assign({}, state, {brevmalList: getBrevmalList({brevpakke,brevInfo})});
+            return Object.assign({}, state, {brevmalList: getBrevmalList(brevpakke,brevInfo)});
         case types.SET_VERSJON:
             return Object.assign({}, state, {versjon: action.versjon});
         case types.SET_BREVINFO:
