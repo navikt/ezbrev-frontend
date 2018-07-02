@@ -1,32 +1,36 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as brevdataActions from '../../actions/brevdataActions';
+import PropTypes from 'prop-types'
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as brevdataActions from  '../../actions/brevdataActions';
 
 import BrevpakkeSelect from './partials/BrevpakkeSelect';
 import BrevdataInput from './partials/BrevdataInput';
 import BrevdataMeta from './partials/BrevdataMeta';
 
-class HomePage extends React.Component {
+class HomePage extends React.Component {                        //container component
+
     constructor(props, context) {
         super(props, context);
-
+    /*
         this.state = {
-            brevdata: { xml: '' }
+            brevdata: {xml: ""}                             // endrer bare staten til Homepage ikke hele storen
+
         };
+        */
     }
 
+
+    //legge til et vindu som viser versjonen
     render() {
         return (
             <main className="container-fluid">
                 <h4>Brevdata</h4>
                 <BrevpakkeSelect />
                 <BrevdataInput
-                    brevdata={this.state.brevdata}
-                    actions={this.props.actions}
-                />
-                <BrevdataMeta />
+                    brevdata={this.props.brevdata}
+                    actions={this.props.actions}/>
+                <BrevdataMeta/>
             </main>
         );
     }
@@ -45,11 +49,8 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(brevdataActions, dispatch)
+        actions: bindActionCreators(brevdataActions, dispatch)                  /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
     };
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(HomePage);
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

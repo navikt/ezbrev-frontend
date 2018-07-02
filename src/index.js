@@ -1,5 +1,4 @@
 import 'babel-polyfill';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -7,15 +6,18 @@ import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter } from 'react-router-redux';
 import { AppContainer } from 'react-hot-loader';
 
+
 import configureStore from './store/configureStore';
 import './styles/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { App } from './App';
+import {fetchMiljoList} from "~/actions/menyValgActionsUtil";   //Spør om miljoliste når siden lastes
 
 const history = createHistory();
 const store = configureStore(history);
 const target = document.getElementById('root');
+store.dispatch(fetchMiljoList());
 
 ReactDOM.render(
     <AppContainer>
@@ -42,3 +44,5 @@ if (module.hot) {
         );
     });
 }
+
+console.log(store)
