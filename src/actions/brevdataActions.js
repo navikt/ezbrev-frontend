@@ -1,13 +1,9 @@
 import * as types from './actionTypes';
 
-export function saveBrevdata(brevdata) {
-    return { type: types.SAVE_BREVDATA, brevdata: brevdata };
+
+export function setBrevdata(brevdataXML) {
+    return { type: types.SET_BREVDATA, brevdataXML: brevdataXML };
 }
 
-export function setBrevdata(brevdata) {
-    return { type: types.SET_BREVDATA, brevdata: brevdata };
-}
 
-export function changeXML(brevdataXML) {
-    return { type: types.CHANGE_XML, brevdataXML: brevdataXML };
-}
+

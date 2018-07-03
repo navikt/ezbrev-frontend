@@ -16,7 +16,7 @@ class BrevdataInput extends React.Component {
                     placeholder="Legg inn XML"
                     value={this.props.brevdataXML}
                     onChange={event => {
-                        this.props.actions.changeXML(event.target.value);
+                        this.props.actions.setBrevdata(event.target.value);
                     }}
                 />
 

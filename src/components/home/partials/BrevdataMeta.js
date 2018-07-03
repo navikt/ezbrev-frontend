@@ -13,7 +13,7 @@ class BrevdataMeta extends React.Component {
         this.onSelectSort = this.onSelectSort.bind(this);
 
         this.state = {
-            brevdataID: '',
+            brevdataId: '',
             titlebrevdata: 'Velg brevdata'
         };
     }
@@ -34,16 +34,18 @@ class BrevdataMeta extends React.Component {
                 <DropdownButton
                     title={this.state.titlebrevdata}
                     id="brevdata_pick"
-                    onSelect={brevdataID => {
-                        this.props.actions.selectBrevdata(brevdataID);
-                        this.setState({ brevdataID: brevdataID });
-                        this.setState({ titlebrevdata: brevdataID });
+                    placeholder="Velg brevdata"
+                    onSelect={brevdataId => {
+                        console.log(brevdataId);
+                        this.props.actions.selectBrevdata(brevdataId);
+                        this.setState({ brevdataId: brevdataId });
+                        this.setState({titlebrevdata: brevdataId });
                     }}
                 >
                     {this.props.brevdataList.map(i => (
-                        <MenuItem key={i} eventKey={i}>
+                        <MenuItem key={i.brevdataId} eventKey={i.brevdataId}>
                             {' '}
-                            {i}{' '}
+                            {i.brevdataId}{' '}
                         </MenuItem>
                     )) /*mulig at vi må ha annen eventKey her. Feilmelding: missing key prop for element in iterator*/}
                 </DropdownButton>
