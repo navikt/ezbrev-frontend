@@ -4,6 +4,8 @@ import {DropdownButton, MenuItem, Row} from 'react-bootstrap';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as menyValgActionsUtil from '../../../actions/menyValgActionsUtil';
+import * as menyValgActions from '../../../actions/menyValgActions';
+
 
 function ListItem({title, id, func, list}) {
     return (
@@ -35,10 +37,7 @@ class BrevpakkeSelect extends React.Component {
         this.state = {
             titlemiljo: 'Velg miljø',
             titlebrevpakke: 'Velg brevpakke',
-            titlebrevmal: 'Velg brevmal',
-            miljo: '',
-            brevpakke: '',
-            brevmal: ''
+            titlebrevmal: 'Velg brevmal'
         };
     }
 
@@ -50,8 +49,8 @@ class BrevpakkeSelect extends React.Component {
                         title={this.state.titlemiljo}
                         id="brevpakke_env_pick"
                         func={miljo => {
-                            this.props.actions.selectMiljo(miljo);
-                            this.setState({miljo: miljo});
+                            this.props.utilActions.selectMiljo(miljo);
+                            this.props.actions.setMiljo(miljo);
                             this.setState({titlemiljo: miljo});
                         }}
                         list={this.props.miljoList}
@@ -63,11 +62,11 @@ class BrevpakkeSelect extends React.Component {
                         id="brevpakke_pick"
                         func={brevpakke => {
                             let brevInfo = this.props.brevInfo;
-                            this.props.actions.selectBrevpakke(
+                            this.props.utilActions.selectBrevpakke(
                                 brevpakke,
                                 brevInfo
                             );
-                            this.setState({brevpakke: brevpakke});
+                            this.props.actions.setBrevpakke(brevpakke);
                             this.setState({titlebrevpakke: brevpakke});
                         }}
                         list={this.props.brevpakkeList}
@@ -78,13 +77,12 @@ class BrevpakkeSelect extends React.Component {
                         title={this.state.titlebrevmal}
                         id="brevpakke_mal_pick"
                         func={brevmal => {
-                            let brevpakke = this.state.brevpakke;
-                            this.props.actions.selectBrevmal(
+                            console.log(this.props.brevpakke)
+                            this.props.utilActions.selectBrevmal(
                                 brevmal,
-                                brevpakke
+                                this.props.brevpakke
                             );
-                            this.setState({brevmal: brevmal}
-                            );
+                            this.props.actions.setBrevmal(brevmal);
                             this.setState({titlebrevmal: brevmal});
                         }}
                         list={this.props.brevmalList}
@@ -99,7 +97,10 @@ BrevpakkeSelect.propTypes = {
     miljoList: PropTypes.array.isRequired,
     brevInfo: PropTypes.array.isRequired,
     brevpakkeList: PropTypes.array.isRequired,
-    actions: PropTypes.object.isRequired
+    brevmalList:PropTypes.array.isRequired,
+    brevpakke:PropTypes.string.isRequired,
+    actions: PropTypes.object.isRequired,
+    utilActions:PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
@@ -107,16 +108,16 @@ function mapStateToProps(state, ownProps) {
         miljoList: state.menyValg.miljoList,
         brevInfo: state.menyValg.brevInfo,
         brevpakkeList: state.menyValg.brevpakkeList,
-        brevmalList: state.menyValg.brevmalList
+        brevmalList: state.menyValg.brevmalList,
+        brevpakke:state.menyValg.brevpakke
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(
-            menyValgActionsUtil,
-            dispatch
-        ) /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
+        utilActions: bindActionCreators(menyValgActionsUtil, dispatch),
+        actions:bindActionCreators(menyValgActions,dispatch)
+        /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
     };
 }
 

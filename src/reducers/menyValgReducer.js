@@ -1,9 +1,11 @@
 import * as types from '../actions/actionTypes';
 
 const initialState = {
+    miljo:"",
+    brevpakke:"",
+    brevmal:"",
     miljoList: ['t0', 't1', 't2', 'q0', 'q1', 'q2'],
     brevpakkeList: [],
-    versjon: null,
     brevmalList: [],
     brevInfo: [],
     brevdataList: []
@@ -43,8 +45,6 @@ export default function menyValgReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 brevmalList: getBrevmalList(brevpakke, brevInfo)
             });
-        case types.SET_VERSJON:
-            return Object.assign({}, state, { versjon: action.versjon });
         case types.SET_BREVINFO:
             return Object.assign({}, state, {
                 brevInfo: action.brevInfo,
@@ -53,6 +53,18 @@ export default function menyValgReducer(state = initialState, action) {
         case types.SET_BREVDATALIST:
             return Object.assign({}, state, {
                 brevdataList: action.brevdataList
+            });
+        case types.SET_MILJO:
+            return Object.assign({}, state, {
+                miljo: action.miljo
+            });
+        case types.SET_BREVPAKKE:
+            return Object.assign({}, state, {
+                brevpakke: action.brevpakke
+            });
+        case types.SET_BREVMAL:
+            return Object.assign({}, state, {
+                brevmal: action.brevmal
             });
         default:
             return state;

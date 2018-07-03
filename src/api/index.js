@@ -42,7 +42,25 @@ export function getBrevdataList(brevmal, brevpakke) {
 
 export function getBrevdata(brevdataID) {
     const url = `${serverUrl}/rest/getbrevdatabyid/${brevdataID}`;
-    return get(url).then(res => res.json()).then(json => json.xmlInnhold); //må sjekke om res.ok er true før vi gjør om til json
+    return get(url)
+        .then(res => res.json())
+        .then(json => json.xmlInnhold); //må sjekke om res.ok er true før vi gjør om til json
+}
+
+export function updateXML(brevdataId, brevdataXML) {
+    const url = `${serverUrl}/rest/updatebrevdata`;
+    let data = { brevdataId, brevdataXML };
+    return post(url, data).then(res => console.log(res));
+}
+
+export function saveXMLAsNew(brevdata) {
+    const url = `${serverUrl}/rest/postbrevdata`;
+    let data = { brevdatabrevdataId, brevdataXML };
+    return post(url, data).then(res => console.log(res));
+}
+
+export function post(url, data) {
+    return fetch(url, { method: 'POST', body: JSON.stringify(data) }); //tror kanksje dette blir feil
 }
 
 function get(url) {

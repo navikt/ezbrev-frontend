@@ -32,7 +32,6 @@ BrevdataInput.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-    console.log("mapstatetoprops", state)
     return {
         brevdataXML: state.brevdataReducer.brevdata.xmlInnhold
     };

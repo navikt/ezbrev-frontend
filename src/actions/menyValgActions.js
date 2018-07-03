@@ -1,22 +1,24 @@
 import * as types from './actionTypes';
 
+export function setMiljo(miljo){
+  return {type:types.SET_MILJO, miljo:miljo}
+};
+
+export function setBrevpakke(brevpakke){
+    return {type:types.SET_BREVPAKKE, brevpakke:brevpakke}
+};
+export function setBrevmal(brevmal){
+    return {type:types.SET_BREVMAL, brevmal: brevmal}
+};
 
 export function setMiljoList(miljoList) {
     return {type: types.SET_MILJOLIST, miljoList: miljoList};
 }
 
 
-export function setBrevpakkeList(brevpakkeList) {
-    return {type: types.SET_BREVPAKKELIST, brevpakkeList: brevpakkeList};
-}
-
 
 export function setBrevmalList(brevpakke, brevInfo) {
     return {type: types.SET_BREVMALLIST, brevpakke: brevpakke, brevInfo:brevInfo};
-}
-
-export function setVersjon(versjon) {
-    return {type: types.SET_VERSJON, versjon: versjon};
 }
 
 export function setBrevInfo(json) {

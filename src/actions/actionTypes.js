@@ -5,6 +5,9 @@ export const SET_VERSJON='SET_VERSJON';
 export const SET_BREVINFO='SET_BREVINFO';
 export const SET_BREVDATALIST='SET_BREVDATALIST';
 export const SET_BREVDATA='SET_BREVDATA';
+export const SET_MILJO='SET_MILJO';
+export const SET_BREVPAKKE='SET_BREVPAKKE';
+export const SET_BREVMAL='SET_BREVMAL';
 
 
 //Her skal liste alle actions som skal kalle på reducere
