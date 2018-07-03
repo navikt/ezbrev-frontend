@@ -19,6 +19,10 @@ const store = configureStore(history);
 const target = document.getElementById('root');
 store.dispatch(fetchMiljoList());
 
+store.subscribe(() => {
+    console.log("Current state:", store.getState())
+})
+
 ReactDOM.render(
     <AppContainer>
         <Provider store={store}>

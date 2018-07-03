@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
-import brevdata from './brevdataReducer';
+import brevdataReducer from './brevdataReducer';
 import menyValg from './menyValgReducer';
 
 
 
 const rootReducer = combineReducers({
-    brevdata,
+    brevdataReducer,
     menyValg
 });
 

@@ -1,11 +1,10 @@
 import React from 'react';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
-import PropTypes from 'prop-types'
-import * as brevdataActionsUtil from "~/actions/brevdataActionsUtil";
+import PropTypes from 'prop-types';
+import * as brevdataActionsUtil from '~/actions/brevdataActionsUtil';
 //import {selectBrevdata} from "~/actions/brevdataActionsUtil";
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
-import {selectBrevpakke} from "~/actions/menyValgActionsUtil";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 class BrevdataMeta extends React.Component {
     constructor(props, context) {
@@ -14,12 +13,12 @@ class BrevdataMeta extends React.Component {
         this.onSelectSort = this.onSelectSort.bind(this);
 
         this.state = {
-            brevdataID: "",
-            titlebrevdata:"Velg brevdata"
-
-        }
+            brevdataID: '',
+            titlebrevdata: 'Velg brevdata'
+        };
     }
-    onSelectSort(choice){};
+
+    onSelectSort(choice) {}
 
     render() {
         return (
@@ -35,19 +34,18 @@ class BrevdataMeta extends React.Component {
                 <DropdownButton
                     title={this.state.titlebrevdata}
                     id="brevdata_pick"
-                    onSelect={(brevdataID) => {
+                    onSelect={brevdataID => {
                         this.props.actions.selectBrevdata(brevdataID);
-                        this.setState({brevdataID: brevdataID}, () => console.log(this.state.brevdataID));
-                        this.setState({titlebrevdata: brevdataID});
-
-                    }
-                    }
+                        this.setState({ brevdataID: brevdataID });
+                        this.setState({ titlebrevdata: brevdataID });
+                    }}
                 >
-                    {
-                        this.props.brevdataList.map((i) =>
-                            <MenuItem key={i}
-                                      eventKey={i}> {i} </MenuItem>)            /*mulig at vi må ha annen eventKey her. Feilmelding: missing key prop for element in iterator*/
-                    }
+                    {this.props.brevdataList.map(i => (
+                        <MenuItem key={i} eventKey={i}>
+                            {' '}
+                            {i}{' '}
+                        </MenuItem>
+                    )) /*mulig at vi må ha annen eventKey her. Feilmelding: missing key prop for element in iterator*/}
                 </DropdownButton>
             </section>
         );
@@ -57,23 +55,26 @@ class BrevdataMeta extends React.Component {
 //må sette brevdataListen inn som en liste av knapper
 //sette inn beskrivelse-boks
 
-BrevdataMeta.propTypes={
+BrevdataMeta.propTypes = {
     brevdataList: PropTypes.array.isRequired
-}
+};
 
 function mapStateToProps(state, ownProps) {
-    console.log(state);
     return {
         brevdataList: state.menyValg.brevdataList
     };
 }
 
-
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(brevdataActionsUtil, dispatch)                  /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
+        actions: bindActionCreators(
+            brevdataActionsUtil,
+            dispatch
+        ) /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
     };
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(BrevdataMeta);
-
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(BrevdataMeta);
