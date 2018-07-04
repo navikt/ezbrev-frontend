@@ -1,11 +1,11 @@
 import React from 'react';
-import { DropdownButton, MenuItem } from 'react-bootstrap';
+import { Button, DropdownButton, MenuItem } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import * as brevdataActionsUtil from '~/actions/brevdataActionsUtil';
-//import {selectBrevdata} from "~/actions/brevdataActionsUtil";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as brevdataActions from '~/actions/brevdataActions';
+import * as dokumentActionsUtil from '~/actions/dokumentActionsUtil';
 
 class BrevdataMeta extends React.Component {
     constructor(props, context) {
@@ -63,6 +63,10 @@ class BrevdataMeta extends React.Component {
                         );
                     }}
                 />
+                <br/>
+                <Button onClick={()=>this.props.dokUtilActions.showLastApprovedPDF(this.props.brevdataId)}>
+                    Vis siste godkjente PDF
+                </Button>
             </section>
         );
     }
@@ -78,14 +82,16 @@ BrevdataMeta.propTypes = {
 function mapStateToProps(state, ownProps) {
     return {
         brevdataList: state.menyValg.brevdataList,
-        beskrivelse: state.brevdataReducer.brevdata.beskrivelse
+        beskrivelse: state.brevdataReducer.brevdata.beskrivelse,
+        brevdataId:state.brevdataReducer.brevdata.brevdataId
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         utilActions: bindActionCreators(brevdataActionsUtil, dispatch),
-        actions: bindActionCreators(brevdataActions, dispatch)
+        actions: bindActionCreators(brevdataActions, dispatch),
+        dokUtilActions: bindActionCreators(dokumentActionsUtil,dispatch)
     };
 }
 

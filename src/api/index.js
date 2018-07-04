@@ -14,7 +14,7 @@ export function getMiljoList() {
     return get(url)
         .then(res => res.json())
         .then(json =>
-            json.sort(function (a, b) {
+            json.sort(function(a, b) {
                 //evt lage egen funksjon for sort? og ha den et annet sted
                 if (a.charAt(0) > b.charAt(0)) {
                     return 1;
@@ -48,13 +48,13 @@ export function getBrevdata(brevdataID) {
 
 export function updateXML(brevdataId, xml) {
     const url = `${serverUrl}/rest/updatebrevdata`;
-    let data = {brevdataId, xml};
+    let data = { brevdataId, xml };
     return post(url, data);
 }
 
 export function saveXMLAsNew(brevpakkenavn, brevdata) {
     const url = `${serverUrl}/rest/postbrevdata`;
-    const {dokumenttypeId, tittel, redigerbar} = brevdata.dokumentmal;
+    const { dokumenttypeId, tittel, redigerbar } = brevdata.dokumentmal;
     const dokumentmal = dokumenttypeId;
     const Xml = brevdata.xmlInnhold; //Må matche navn i backend
     const beskrivelse = brevdata.beskrivelse;
@@ -71,9 +71,24 @@ export function saveXMLAsNew(brevpakkenavn, brevdata) {
 
 export function getDokument(brevmal, xml, rediger, miljo) {
     const url = `${serverUrl}/rest/bestill/${miljo}`;
-    const data = {brevmal, xml, rediger};
-    return post(url, data)
+    const data = { brevmal, xml, rediger };
+    return post(url, data);
+}
 
+export function approveDokument(
+    brevdataId,
+    env,
+    beskrivelse,
+    journalpostId,
+    dokumentInfoId
+) {
+    const url = `${serverUrl}/rest/brevdata/godkjenn`;
+    let data = { brevdataId, env, beskrivelse, journalpostId, dokumentInfoId };
+    return post(url, data);
+}
+export function getLastApprovedPDF(brevdataId) {
+    const url = `${serverUrl}/rest/brevdata/hentLastGodkjent/${brevdataId}`;
+    return get(url).then(PDF=>PDF.json()).then(PDF=>console.log(PDF));
 }
 
 export function post(url, data) {
@@ -81,9 +96,9 @@ export function post(url, data) {
     return fetch(url, {
         method: 'POST',
         body: JSON.stringify(data),
-        headers: {'Content-Type': 'application/json'}
+        headers: { 'Content-Type': 'application/json' }
     }).then(res => {
-        return res.json()
+        return res.json();
     });
 }
 

@@ -4,7 +4,7 @@ import { Space } from '../../common/Scaffolding';
 import { connect } from 'react-redux';
 import * as api from '../../../api/index';
 import * as dokumentActionsUtil from '../../../actions/dokumentActionsUtil';
-import {bindActionCreators} from "redux";
+import { bindActionCreators } from 'redux';
 
 class BrevdataControl extends React.Component {
     render() {
@@ -50,7 +50,24 @@ class BrevdataControl extends React.Component {
                 <Space />
                 <Button>{producing ? 'Hent brev' : 'Rediger brev'}</Button>
 
-                <Button className="pull-right">Godkjenn</Button>
+                <Button
+                    className="pull-right"
+                    onClick={() => {
+                        api.approveDokument(
+                            this.props.brevdata.brevdataId,
+                            this.props.miljo,
+                            this.props.brevdata.beskrivelse,
+                            this.props.dokument.journalpostId,
+                            this.props.dokument.dokumentInfoId
+                        ),
+                            api.updateXML(
+                                this.props.brevdata.brevdataId,
+                                this.props.brevdata.xmlInnhold
+                            );
+                    }}
+                >
+                    Godkjenn
+                </Button>
                 <Space />
                 <Button className="pull-right brev-compare-btn">
                     Sammenlign med godkjent
@@ -64,14 +81,18 @@ function mapStateToProps(state, ownProps) {
     return {
         brevdata: state.brevdataReducer.brevdata,
         brevpakke: state.menyValg.brevpakke,
-        miljo: state.menyValg.miljo
+        miljo: state.menyValg.miljo,
+        dokument: state.dokument.dokument
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         utilActions: bindActionCreators(dokumentActionsUtil, dispatch)
-    }
+    };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BrevdataControl);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(BrevdataControl);
