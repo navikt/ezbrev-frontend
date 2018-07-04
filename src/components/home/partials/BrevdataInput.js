@@ -1,40 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BrevdataControl from './BrevdataControl';
+import { connect } from 'react-redux';
+import * as brevdataActions from '~/actions/brevdataActions';
+import { bindActionCreators } from 'redux';
 
 class BrevdataInput extends React.Component {
-    constructor(props, context) {
-        super(props, context);
-
-        this.state = {
-            brevdata: { xml: '' }
-        };
-
-        this.onInputChange = this.onInputChange.bind(this);
-        this.onChangeSave = this.onChangeSave.bind(this);
-    }
-
-    onInputChange(event) {
-        const brevdata = this.state.brevdata;
-        brevdata.xml = event.target.value;
-        this.setState({ brevdata: brevdata });
-    }
-
-    onChangeSave() {
-        this.props.actions.saveBrevdata(this.state.brevdata);
-    }
-
     render() {
+        console.log("Brevdata prop:", this.props.brevdataXML)
         return (
             <section className="col-md-6 float-left">
                 <textarea
                     className="form-horizontal form-control"
                     id="brevdata_input"
                     placeholder="Legg inn XML"
-                    value={this.props.brevdata.brevdata.xmlInnhold}
-                    onChange={(change)=>{
-                        console.log(this.props.brevdata.xmlInnhold)
-                        this.onInputChange(change);}}
+                    value={this.props.brevdataXML}
+                    onChange={event => {
+                        this.props.actions.changeBrevdataXML(event.target.value);
+                    }}
                 />
 
                 <BrevdataControl />
@@ -44,8 +27,27 @@ class BrevdataInput extends React.Component {
 }
 
 BrevdataInput.propTypes = {
-    brevdata: PropTypes.object.isRequired,
+    brevdataXML: PropTypes.string.isRequired,
     actions: PropTypes.object.isRequired
 };
 
-export default BrevdataInput;
+function mapStateToProps(state, ownProps) {
+    return {
+        brevdataXML: state.brevdataReducer.brevdata.xmlInnhold
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        /*changeXML: (args) => dispatch(action.change(args))*/
+        actions: bindActionCreators(
+            brevdataActions,
+            dispatch
+        ) /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
+    };
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(BrevdataInput);
