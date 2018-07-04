@@ -2,8 +2,8 @@ import React from 'react';
 
 //@CrossOrigin(origins = "http://localhost:3000")     //dette må skrives inn i den aktuelle controlleren i back end
 
-//const serverUrl = 'http://localhost:8080';
-const serverUrl = 'https://ezbrev-backend-t4.nais.preprod.local';
+const serverUrl = 'http://localhost:8080';
+//const serverUrl = 'https://ezbrev-backend-t4.nais.preprod.local';
 
 //http://localhost:8080/rest/t4/dokumenttypeinfo
 //Må sortere denne infoen for å finne brevpakker og tilhørende brevmaler
@@ -14,11 +14,11 @@ export function getMiljoList() {
     return get(url)
         .then(res => res.json())
         .then(json =>
-            json.sort(function(a, b) {
+            json.sort(function (a, b) {
                 //evt lage egen funksjon for sort? og ha den et annet sted
                 if (a.charAt(0) > b.charAt(0)) {
                     return 1;
-                } else if (a.charAt(0) == b.charAt(0)) {
+                } else if (a.charAt(0) === b.charAt(0)) {
                     let a_num = Number(a.substring(1));
                     let b_num = Number(b.substring(1));
                     if (a_num > b_num) {
@@ -48,20 +48,16 @@ export function getBrevdata(brevdataID) {
 
 export function updateXML(brevdataId, xml) {
     const url = `${serverUrl}/rest/updatebrevdata`;
-    let data = { brevdataId, xml};
+    let data = {brevdataId, xml};
     return post(url, data);
 }
 
 export function saveXMLAsNew(brevpakkenavn, brevdata) {
     const url = `${serverUrl}/rest/postbrevdata`;
-    const {
-        dokumenttypeId,
-        tittel,
-        redigerbar,
-    } = brevdata.dokumentmal;
-    const dokumentmal=dokumenttypeId;
-    const Xml=brevdata.xmlInnhold;  //Må matche navn i backend
-    const beskrivelse=brevdata.beskrivelse;
+    const {dokumenttypeId, tittel, redigerbar} = brevdata.dokumentmal;
+    const dokumentmal = dokumenttypeId;
+    const Xml = brevdata.xmlInnhold; //Må matche navn i backend
+    const beskrivelse = brevdata.beskrivelse;
     const data = {
         brevpakkenavn,
         dokumentmal,
@@ -70,11 +66,14 @@ export function saveXMLAsNew(brevpakkenavn, brevdata) {
         beskrivelse,
         Xml
     };
-    return post(url, data).then(res => {
-        res.json().then(json => {
-            console.log(json)
-        })
-    })
+    return post(url, data);
+}
+
+export function getDokument(brevmal, xml, rediger, miljo) {
+    const url = `${serverUrl}/rest/bestill/${miljo}`;
+    const data = {brevmal, xml, rediger};
+    return post(url, data)
+
 }
 
 export function post(url, data) {
@@ -82,9 +81,10 @@ export function post(url, data) {
     return fetch(url, {
         method: 'POST',
         body: JSON.stringify(data),
-        headers: { 'Content-Type': 'application/json' }
-    }).catch(error=>
-        console.log(error)); //tror kanksje dette blir feil
+        headers: {'Content-Type': 'application/json'}
+    }).then(res => {
+        return res.json()
+    });
 }
 
 function get(url) {

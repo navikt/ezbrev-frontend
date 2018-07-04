@@ -7,7 +7,6 @@ import { bindActionCreators } from 'redux';
 
 class BrevdataInput extends React.Component {
     render() {
-        console.log("Brevdata prop:", this.props.brevdataXML)
         return (
             <section className="col-md-6 float-left">
                 <textarea
@@ -16,7 +15,9 @@ class BrevdataInput extends React.Component {
                     placeholder="Legg inn XML"
                     value={this.props.brevdataXML}
                     onChange={event => {
-                        this.props.actions.changeBrevdataXML(event.target.value);
+                        this.props.actions.changeBrevdataXML(
+                            event.target.value
+                        );
                     }}
                 />
 

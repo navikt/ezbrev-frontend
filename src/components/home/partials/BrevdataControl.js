@@ -1,9 +1,10 @@
 import React from 'react';
-import {Button} from 'react-bootstrap';
-import {Space} from '../../common/Scaffolding';
-import {connect} from "react-redux";
-import * as api from "../../../api/index";
-
+import { Button } from 'react-bootstrap';
+import { Space } from '../../common/Scaffolding';
+import { connect } from 'react-redux';
+import * as api from '../../../api/index';
+import * as dokumentActionsUtil from '../../../actions/dokumentActionsUtil';
+import {bindActionCreators} from "redux";
 
 class BrevdataControl extends React.Component {
     render() {
@@ -11,11 +12,41 @@ class BrevdataControl extends React.Component {
         const producing = false;
         return (
             <div className="container-fluid">
-                <Button onClick={ () => api.updateXML(this.props.brevdata.brevdataId,this.props.brevdata.xmlInnhold)}>Oppdater</Button>
+                <Button
+                    onClick={() =>
+                        api.updateXML(
+                            this.props.brevdata.brevdataId,
+                            this.props.brevdata.xmlInnhold
+                        )
+                    }
+                >
+                    Oppdater
+                </Button>
                 <Space />
-                <Button onClick={ () => api.saveXMLAsNew(this.props.brevpakke,this.props.brevdata)}>Lagre som ny</Button>
+                <Button
+                    onClick={() =>
+                        api.saveXMLAsNew(
+                            this.props.brevpakke,
+                            this.props.brevdata
+                        )
+                    }
+                >
+                    Lagre som ny
+                </Button>
                 <Space />
-                <Button>Produser brev</Button>
+                <Button
+                    onClick={() => {
+                        const rediger = false;
+                        this.props.utilActions.produceDokument(
+                            this.props.brevdata.dokumentmal.dokumenttypeId,
+                            this.props.brevdata.xmlInnhold,
+                            rediger,
+                            this.props.miljo
+                        );
+                    }}
+                >
+                    Produser brev
+                </Button>
                 <Space />
                 <Button>{producing ? 'Hent brev' : 'Rediger brev'}</Button>
 
@@ -32,11 +63,15 @@ class BrevdataControl extends React.Component {
 function mapStateToProps(state, ownProps) {
     return {
         brevdata: state.brevdataReducer.brevdata,
-        brevpakke: state.menyValg.brevpakke
+        brevpakke: state.menyValg.brevpakke,
+        miljo: state.menyValg.miljo
     };
 }
 
+function mapDispatchToProps(dispatch) {
+    return {
+        utilActions: bindActionCreators(dokumentActionsUtil, dispatch)
+    }
+}
 
-export default connect(
-    mapStateToProps
-)(BrevdataControl);
+export default connect(mapStateToProps, mapDispatchToProps)(BrevdataControl);
