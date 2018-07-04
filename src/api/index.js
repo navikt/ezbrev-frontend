@@ -2,7 +2,7 @@ import React from 'react';
 
 //@CrossOrigin(origins = "http://localhost:3000")     //dette må skrives inn i den aktuelle controlleren i back end
 
-// const serverUrl = 'http://localhost:8080';
+//const serverUrl = 'http://localhost:8080';
 const serverUrl = 'https://ezbrev-backend-t4.nais.preprod.local';
 
 //http://localhost:8080/rest/t4/dokumenttypeinfo
@@ -43,39 +43,48 @@ export function getBrevdataList(brevmal, brevpakke) {
 
 export function getBrevdata(brevdataID) {
     const url = `${serverUrl}/rest/getbrevdatabyid/${brevdataID}`;
-    return get(url)
-        .then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
+    return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
 }
 
-export function updateXML(brevdataId, brevdataXML) {
+export function updateXML(brevdataId, xml) {
     const url = `${serverUrl}/rest/updatebrevdata`;
-    let data = { brevdataId, brevdataXML };
-    return post(url, data).then(res => console.log(res));
+    let data = { brevdataId, xml};
+    return post(url, data);
 }
 
-export function saveXMLAsNew(brevpakke, brevdata) {
+export function saveXMLAsNew(brevpakkenavn, brevdata) {
     const url = `${serverUrl}/rest/postbrevdata`;
     const {
         dokumenttypeId,
         tittel,
         redigerbar,
-        beskrivelse,
-        xmlinnhold
-    } = brevdata;
+    } = brevdata.dokumentmal;
+    const dokumentmal=dokumenttypeId;
+    const Xml=brevdata.xmlInnhold;  //Må matche navn i backend
+    const beskrivelse=brevdata.beskrivelse;
     const data = {
-        brevpakke,
-        dokumenttypeId,
+        brevpakkenavn,
+        dokumentmal,
         tittel,
         redigerbar,
         beskrivelse,
-        xmlinnhold
+        Xml
     };
-    return post(url, data).then(res => console.log(res));
+    return post(url, data).then(res => {
+        res.json().then(json => {
+            console.log(json)
+        })
+    })
 }
 
 export function post(url, data) {
     console.log(data);
-    return fetch(url, { method: 'POST', body: JSON.stringify(data) }); //tror kanksje dette blir feil
+    return fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' }
+    }).catch(error=>
+        console.log(error)); //tror kanksje dette blir feil
 }
 
 function get(url) {

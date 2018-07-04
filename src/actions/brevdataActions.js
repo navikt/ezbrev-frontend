@@ -7,3 +7,6 @@ export function setBrevdata(brevdata) {
 export function changeBrevdataXML(brevdataXML) {
     return { type: types.CHANGE_BREVDATA_XML, brevdataXML: brevdataXML };
 }
+export function changeBeskrivelse(beskrivelse) {
+    return{ type: types.CHANGE_BESKRIVELSE, beskrivelse: beskrivelse};
+}

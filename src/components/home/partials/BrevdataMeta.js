@@ -5,6 +5,7 @@ import * as brevdataActionsUtil from '~/actions/brevdataActionsUtil';
 //import {selectBrevdata} from "~/actions/brevdataActionsUtil";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import * as brevdataActions from '~/actions/brevdataActions';
 
 class BrevdataMeta extends React.Component {
     constructor(props, context) {
@@ -37,9 +38,9 @@ class BrevdataMeta extends React.Component {
                     placeholder="Velg brevdata"
                     onSelect={brevdataId => {
                         console.log(brevdataId);
-                        this.props.actions.selectBrevdata(brevdataId);
+                        this.props.utilActions.selectBrevdata(brevdataId);
                         this.setState({ brevdataId: brevdataId });
-                        this.setState({titlebrevdata: brevdataId });
+                        this.setState({ titlebrevdata: brevdataId });
                     }}
                 >
                     {this.props.brevdataList.map(i => (
@@ -49,6 +50,19 @@ class BrevdataMeta extends React.Component {
                         </MenuItem>
                     )) /*mulig at vi må ha annen eventKey her. Feilmelding: missing key prop for element in iterator*/}
                 </DropdownButton>
+                <br />
+                <h4>Beskrivelse</h4>
+                <textarea
+                    className="form-horizontal form-control"
+                    id="brevdata_beskrivele"
+                    placeholder="Fyll inn beskrivelse"
+                    value={this.props.beskrivelse}
+                    onChange={event => {
+                        this.props.actions.changeBeskrivelse(
+                            event.target.value
+                        );
+                    }}
+                />
             </section>
         );
     }
@@ -63,16 +77,15 @@ BrevdataMeta.propTypes = {
 
 function mapStateToProps(state, ownProps) {
     return {
-        brevdataList: state.menyValg.brevdataList
+        brevdataList: state.menyValg.brevdataList,
+        beskrivelse: state.brevdataReducer.brevdata.beskrivelse
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(
-            brevdataActionsUtil,
-            dispatch
-        ) /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
+        utilActions: bindActionCreators(brevdataActionsUtil, dispatch),
+        actions: bindActionCreators(brevdataActions, dispatch)
     };
 }
 
