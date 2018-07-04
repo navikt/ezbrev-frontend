@@ -53,9 +53,9 @@ export function updateXML(brevdataId, brevdataXML) {
     return post(url, data).then(res => console.log(res));
 }
 
-export function saveXMLAsNew(brevdata) {
+export function saveXMLAsNew(brevpakke,brevdata) {
     const url = `${serverUrl}/rest/postbrevdata`;
-    let data = { brevdatabrevdataId, brevdataXML };
+    let data = { brevpakke, brevdata.dokumenttypeId, brevdata.tittel, brevdata.redigerbar ,brevdata.beskrivelse,brevdata.xmlinnhold };
     return post(url, data).then(res => console.log(res));
 }
 

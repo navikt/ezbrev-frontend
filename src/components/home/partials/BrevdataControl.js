@@ -7,12 +7,13 @@ import * as api from "../../../api/index";
 
 class BrevdataControl extends React.Component {
     render() {
+        console.log(this.props.brevdata);
         const producing = false;
         return (
             <div className="container-fluid">
-                <Button onClick={api.updateXML(this.props.brevdataId,this.props.xmlInnhold)}>Oppdater</Button>
+                <Button onClick={api.updateXML(this.props.brevdata.brevdataId,this.props.brevdata.xmlInnhold)}>Oppdater</Button>
                 <Space />
-                <Button>Lagre som ny</Button>
+                <Button onClick={api.saveXMLAsNew(this.props.brevpakke,this.props.brevdata)}>Lagre som ny</Button>
                 <Space />
                 <Button>Produser brev</Button>
                 <Space />
@@ -30,7 +31,8 @@ class BrevdataControl extends React.Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        brevdata: state.brevdataReducer.brevdata
+        brevdata: state.brevdataReducer.brevdata,
+        brevpakke: state.menyValg.brevpakke
     };
 }
 
