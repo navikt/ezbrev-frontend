@@ -11,9 +11,9 @@ class BrevdataControl extends React.Component {
         const producing = false;
         return (
             <div className="container-fluid">
-                <Button onClick={api.updateXML(this.props.brevdata.brevdataId,this.props.brevdata.xmlInnhold)}>Oppdater</Button>
+                <Button onClick={ () => api.updateXML(this.props.brevdata.brevdataId,this.props.brevdata.xmlInnhold)}>Oppdater</Button>
                 <Space />
-                <Button onClick={api.saveXMLAsNew(this.props.brevpakke,this.props.brevdata)}>Lagre som ny</Button>
+                <Button onClick={ () => api.saveXMLAsNew(this.props.brevpakke,this.props.brevdata)}>Lagre som ny</Button>
                 <Space />
                 <Button>Produser brev</Button>
                 <Space />

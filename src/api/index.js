@@ -2,7 +2,8 @@ import React from 'react';
 
 //@CrossOrigin(origins = "http://localhost:3000")     //dette må skrives inn i den aktuelle controlleren i back end
 
-const serverUrl = 'http://localhost:8080';
+// const serverUrl = 'http://localhost:8080';
+const serverUrl = 'https://ezbrev-backend-t4.nais.preprod.local';
 
 //http://localhost:8080/rest/t4/dokumenttypeinfo
 //Må sortere denne infoen for å finne brevpakker og tilhørende brevmaler
@@ -43,8 +44,7 @@ export function getBrevdataList(brevmal, brevpakke) {
 export function getBrevdata(brevdataID) {
     const url = `${serverUrl}/rest/getbrevdatabyid/${brevdataID}`;
     return get(url)
-        .then(res => res.json())
-        .then(json => json.xmlInnhold); //må sjekke om res.ok er true før vi gjør om til json
+        .then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
 }
 
 export function updateXML(brevdataId, brevdataXML) {
@@ -53,13 +53,28 @@ export function updateXML(brevdataId, brevdataXML) {
     return post(url, data).then(res => console.log(res));
 }
 
-export function saveXMLAsNew(brevpakke,brevdata) {
+export function saveXMLAsNew(brevpakke, brevdata) {
     const url = `${serverUrl}/rest/postbrevdata`;
-    let data = { brevpakke, brevdata.dokumenttypeId, brevdata.tittel, brevdata.redigerbar ,brevdata.beskrivelse,brevdata.xmlinnhold };
+    const {
+        dokumenttypeId,
+        tittel,
+        redigerbar,
+        beskrivelse,
+        xmlinnhold
+    } = brevdata;
+    const data = {
+        brevpakke,
+        dokumenttypeId,
+        tittel,
+        redigerbar,
+        beskrivelse,
+        xmlinnhold
+    };
     return post(url, data).then(res => console.log(res));
 }
 
 export function post(url, data) {
+    console.log(data);
     return fetch(url, { method: 'POST', body: JSON.stringify(data) }); //tror kanksje dette blir feil
 }
 

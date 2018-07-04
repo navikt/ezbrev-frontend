@@ -1,9 +1,9 @@
 import * as types from '../actions/actionTypes';
 
 const initialState = {
-    miljo:"",
-    brevpakke:"",
-    brevmal:"",
+    miljo: '',
+    brevpakke: '',
+    brevmal: '',
     miljoList: ['t0', 't1', 't2', 'q0', 'q1', 'q2'],
     brevpakkeList: [],
     brevmalList: [],
@@ -34,38 +34,48 @@ function getBrevmalList(brevpakke, brevInfo) {
 export default function menyValgReducer(state = initialState, action) {
     switch (action.type) {
         case types.SET_MILJOLIST:
-            return Object.assign({}, state, { miljoList: action.miljoList });
+            return {
+                ...state,
+                miljoList: action.miljoList
+            };
         case types.SET_BREVPAKKELIST:
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 brevpakkeList: action.brevpakkeList
-            });
+            };
         case types.SET_BREVMALLIST:
             let brevpakke = action.brevpakke;
             let brevInfo = action.brevInfo;
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 brevmalList: getBrevmalList(brevpakke, brevInfo)
-            });
+            };
         case types.SET_BREVINFO:
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 brevInfo: action.brevInfo,
                 brevpakkeList: getBrevpakkeList(action.brevInfo)
-            });
+            };
         case types.SET_BREVDATALIST:
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 brevdataList: action.brevdataList
-            });
+            };
         case types.SET_MILJO:
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 miljo: action.miljo
-            });
+            };
         case types.SET_BREVPAKKE:
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 brevpakke: action.brevpakke
-            });
+            };
         case types.SET_BREVMAL:
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 brevmal: action.brevmal
-            });
+            };
         default:
             return state;
     }
