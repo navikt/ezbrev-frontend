@@ -88,7 +88,7 @@ export function approveDokument(
 }
 export function getLastApprovedPDF(brevdataId) {
     const url = `${serverUrl}/rest/brevdata/hentLastGodkjent/${brevdataId}`;
-    return get(url).then(PDF=>PDF.json()).then(PDF=>console.log(PDF));
+    return get(url).then(dokument=>dokument.json());
 }
 
 export function post(url, data) {

@@ -10,5 +10,5 @@ export const SET_BREVMAL = 'SET_BREVMAL';
 export const CHANGE_BREVDATA_XML = 'CHANGE_BREVDATA_XML';
 export const CHANGE_BESKRIVELSE = 'CHANGE_BESKRIVESLSE';
 export const SET_DOKUMENT = 'SET_DOKUMENT';
-
+export const ADD_ERROR='ADD_ERROR';
 //Her skal liste alle actions som skal kalle på reducere

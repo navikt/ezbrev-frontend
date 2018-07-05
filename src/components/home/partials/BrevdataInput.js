@@ -6,7 +6,7 @@ import * as brevdataActions from '~/actions/brevdataActions';
 import { bindActionCreators } from 'redux';
 
 class BrevdataInput extends React.Component {
-    render() {
+render() {
         return (
             <section className="col-md-6 float-left">
                 <textarea

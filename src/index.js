@@ -14,7 +14,7 @@ import { App } from './App';
 import { fetchMiljoList } from '~/actions/menyValgActionsUtil'; //Spør om miljoliste når siden lastes
 
 const history = createHistory();
-const store = configureStore(history);
+export const store = configureStore(history);
 const target = document.getElementById('root');
 store.dispatch(fetchMiljoList());
 

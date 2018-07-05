@@ -3,6 +3,7 @@ import React from 'react';
 import BrevpakkeSelect from './partials/BrevpakkeSelect';
 import BrevdataInput from './partials/BrevdataInput';
 import BrevdataMeta from './partials/BrevdataMeta';
+import ErrorDisplay from './partials/ErrorDisplay';
 
 class HomePage extends React.Component {
     render() {
@@ -12,6 +13,7 @@ class HomePage extends React.Component {
                 <BrevpakkeSelect />
                 <BrevdataInput />
                 <BrevdataMeta />
+                <ErrorDisplay/>
             </main>
         );
     }
