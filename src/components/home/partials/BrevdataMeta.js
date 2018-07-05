@@ -20,7 +20,13 @@ class BrevdataMeta extends React.Component {
     }
 
     onSelectSort(choice) {}
-
+    titleBrevdata(){
+        if (this.props.brevdataId===undefined){
+            return "Velg brevdata";
+        }else{
+            return this.props.brevdataId
+        }
+    }
     render() {
         return (
             <section className="col-md-4 float-left">
@@ -33,7 +39,7 @@ class BrevdataMeta extends React.Component {
                     <MenuItem eventKey="2">Eldste først</MenuItem>
                 </DropdownButton>
                 <DropdownButton
-                    title={this.state.titlebrevdata}
+                    title={this.titleBrevdata()}
                     id="brevdata_pick"
                     placeholder="Velg brevdata"
                     onSelect={brevdataId => {

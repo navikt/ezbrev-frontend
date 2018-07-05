@@ -49,10 +49,12 @@ export function getBrevdata(brevdataID) {
 export function updateXML(brevdataId, xml) {
     const url = `${serverUrl}/rest/updatebrevdata`;
     let data = { brevdataId, xml };
-    return post(url, data);
+    return post(url, data).then(res => {
+        return res.json();
+    });
 }
 
-export function saveXMLAsNew(brevpakkenavn, brevdata) {
+export function postBrevdataAsNew(brevpakkenavn, brevdata) {
     const url = `${serverUrl}/rest/postbrevdata`;
     const { dokumenttypeId, tittel, redigerbar } = brevdata.dokumentmal;
     const dokumentmal = dokumenttypeId;
@@ -66,13 +68,17 @@ export function saveXMLAsNew(brevpakkenavn, brevdata) {
         beskrivelse,
         Xml
     };
-    return post(url, data);
+    return post(url, data).then(res => {
+        return res.json();
+    });
 }
 
 export function getDokument(brevmal, xml, rediger, miljo) {
     const url = `${serverUrl}/rest/bestill/${miljo}`;
     const data = { brevmal, xml, rediger };
-    return post(url, data);
+    return post(url, data).then(res => {
+        return res.json();
+    });
 }
 
 export function approveDokument(
@@ -84,7 +90,9 @@ export function approveDokument(
 ) {
     const url = `${serverUrl}/rest/brevdata/godkjenn`;
     let data = { brevdataId, env, beskrivelse, journalpostId, dokumentInfoId };
-    return post(url, data);
+    return post(url, data).then(res => {
+        return res.json();
+    });
 }
 export function getLastApprovedPDF(brevdataId) {
     const url = `${serverUrl}/rest/brevdata/hentLastGodkjent/${brevdataId}`;
@@ -97,8 +105,6 @@ export function post(url, data) {
         method: 'POST',
         body: JSON.stringify(data),
         headers: { 'Content-Type': 'application/json' }
-    }).then(res => {
-        return res.json();
     });
 }
 

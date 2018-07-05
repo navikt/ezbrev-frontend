@@ -10,3 +10,14 @@ export function selectBrevdata(brevdataId) {
         });
     };
 }
+
+export function saveXMLAsNew(brevpakkenavn,brevdata) {
+    return function (dispatch) {
+        return api.postBrevdataAsNew(brevpakkenavn,brevdata).then(brevdata => {
+            dispatch(actions.setBrevdata(brevdata));
+        }).catch(error => {
+            throw(error);
+        });
+    };
+}
+

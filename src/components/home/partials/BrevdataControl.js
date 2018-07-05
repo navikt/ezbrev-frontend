@@ -1,10 +1,12 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
-import { Space } from '../../common/Scaffolding';
-import { connect } from 'react-redux';
+import {Button} from 'react-bootstrap';
+import {Space} from '../../common/Scaffolding';
+import {connect} from 'react-redux';
 import * as api from '../../../api/index';
 import * as dokumentActionsUtil from '../../../actions/dokumentActionsUtil';
-import { bindActionCreators } from 'redux';
+import * as brevdataActionsUtil from '../../../actions/brevdataActionsUtil';
+import {bindActionCreators} from 'redux';
+
 
 class BrevdataControl extends React.Component {
     render() {
@@ -25,7 +27,7 @@ class BrevdataControl extends React.Component {
                 <Space />
                 <Button
                     onClick={() =>
-                        api.saveXMLAsNew(
+                        this.props.utilActionsBrevdata.saveXMLAsNew(
                             this.props.brevpakke,
                             this.props.brevdata
                         )
@@ -37,7 +39,7 @@ class BrevdataControl extends React.Component {
                 <Button
                     onClick={() => {
                         const rediger = false;
-                        this.props.utilActions.produceDokument(
+                        this.props.utilActionsDok.produceDokument(
                             this.props.brevdata.dokumentmal.dokumenttypeId,
                             this.props.brevdata.xmlInnhold,
                             rediger,
@@ -53,6 +55,8 @@ class BrevdataControl extends React.Component {
                 <Button
                     className="pull-right"
                     onClick={() => {
+                        console.log('journalpostId:',this.props.dokument.journalpostId)
+                        console.log('dokumentInfoId:',this.props.dokument.dokumentInfoId)
                         api.approveDokument(
                             this.props.brevdata.brevdataId,
                             this.props.miljo,
@@ -88,7 +92,8 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        utilActions: bindActionCreators(dokumentActionsUtil, dispatch)
+        utilActionsDok: bindActionCreators(dokumentActionsUtil, dispatch),
+        utilActionsBrevdata: bindActionCreators(brevdataActionsUtil,dispatch)
     };
 }
 
