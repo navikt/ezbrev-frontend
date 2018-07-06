@@ -8,7 +8,7 @@ import * as menyValgActions from '../../../actions/menyValgActions';
 
 function ListItem({ title, id, func, list }) {
     return (
-        <DropdownButton title={title} id={id} onSelect={func}>
+        <DropdownButton  className={"btn btn-info"} title={title} id={id} onSelect={func}>
             {list.map(i => (
                 <MenuItem key={i} eventKey={i}>
                     {' '}
@@ -65,6 +65,7 @@ class BrevpakkeSelect extends React.Component {
                         list={this.props.miljoList}
                     />
                 </Row>
+                <br/>
                 <Row>
                     <ListItem
                         title={this.state.titlebrevpakke}
@@ -81,8 +82,9 @@ class BrevpakkeSelect extends React.Component {
                         list={this.props.brevpakkeList}
                     />
                 </Row>
+                <br/>
                 <Row>
-                    <DropdownButton
+                    <DropdownButton className={"btn btn-info"}
                         title={this.checkRedigerbar()}
                         id={'brevpakke_mal_pick'}
                         onSelect={brevmal => {

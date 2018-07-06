@@ -30,7 +30,7 @@ class BrevdataMeta extends React.Component {
     render() {
         return (
             <section className="col-md-4 float-left">
-                <DropdownButton
+                <DropdownButton className={"btn btn-info"}
                     title="Sorter brevdata"
                     id="brevdata_sorter"
                     onSelect={this.onSelectSort}
@@ -38,7 +38,7 @@ class BrevdataMeta extends React.Component {
                     <MenuItem eventKey="1">Nyeste først</MenuItem>
                     <MenuItem eventKey="2">Eldste først</MenuItem>
                 </DropdownButton>
-                <DropdownButton
+                <DropdownButton className={"btn btn-info"}
                     title={this.titleBrevdata()}
                     id="brevdata_pick"
                     placeholder="Velg brevdata"
@@ -57,7 +57,7 @@ class BrevdataMeta extends React.Component {
                     )) /*mulig at vi må ha annen eventKey her. Feilmelding: missing key prop for element in iterator*/}
                 </DropdownButton>
                 <br />
-                <h4>Beskrivelse</h4>
+                <h5>Beskrivelse</h5>
                 <textarea
                     className="form-horizontal form-control"
                     id="brevdata_beskrivele"
@@ -70,7 +70,7 @@ class BrevdataMeta extends React.Component {
                     }}
                 />
                 <br/>
-                <Button onClick={()=>this.props.dokUtilActions.showLastApprovedPDF(this.props.brevdataId)}>
+                <Button className={"btn btn-success"}onClick={()=>this.props.dokUtilActions.showLastApprovedPDF(this.props.brevdataId)}>
                     Vis siste godkjente PDF
                 </Button>
             </section>

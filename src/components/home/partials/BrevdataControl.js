@@ -14,7 +14,7 @@ class BrevdataControl extends React.Component {
         const producing = false;
         return (
             <div className="container-fluid">
-                <Button
+                <Button className={"btn btn-primary"}
                     onClick={() =>
                         api.updateXML(
                             this.props.brevdata.brevdataId,
@@ -25,7 +25,7 @@ class BrevdataControl extends React.Component {
                     Oppdater
                 </Button>
                 <Space />
-                <Button
+                <Button className={"btn btn-primary"}
                     onClick={() =>
                         this.props.utilActionsBrevdata.saveXMLAsNew(
                             this.props.brevpakke,
@@ -36,7 +36,7 @@ class BrevdataControl extends React.Component {
                     Lagre som ny
                 </Button>
                 <Space />
-                <Button
+                <Button className={"btn btn-primary"}
                     onClick={() => {
                         const rediger = false;
                         this.props.utilActionsDok.produceDokument(
@@ -50,7 +50,7 @@ class BrevdataControl extends React.Component {
                     Produser brev
                 </Button>
                 <Space />
-                <Button
+                <Button className={"btn btn-primary"}
                     onClick={() => {
                         const rediger = true;
                         this.props.utilActionsDok.produceDokument(
@@ -61,9 +61,8 @@ class BrevdataControl extends React.Component {
                         );
                     }}
                 >{producing ? 'Hent brev' : 'Rediger brev'}</Button>
-
                 <Button
-                    className="pull-right"
+                    className={"pull-right btn btn-success" }
                     onClick={() => {
                         console.log('journalpostId:',this.props.dokument.journalpostId)
                         console.log('dokumentInfoId:',this.props.dokument.dokumentInfoId)
@@ -83,7 +82,7 @@ class BrevdataControl extends React.Component {
                     Godkjenn
                 </Button>
                 <Space />
-                <Button className="pull-right brev-compare-btn">
+                <Button className="pull-right brev-compare-btn btn btn-warning">
                     Sammenlign med godkjent
                 </Button>
             </div>
