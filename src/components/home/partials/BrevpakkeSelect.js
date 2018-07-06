@@ -39,6 +39,16 @@ class BrevpakkeSelect extends React.Component {
             titlebrevmal: 'Velg brevmal'
         };
     }
+    checkRedigerbar() {
+        console.log(this.props.brevmal.redigerbar);
+        if (this.props.brevmal === undefined || this.props.brevmal === '') {
+            return 'Velg brevmal';
+        } else if (this.props.brevmal.redigerbar) {
+            return this.props.brevmal + 'r';
+        } else {
+            return this.props.brevmal;
+        }
+    }
 
     render() {
         return (
@@ -72,11 +82,10 @@ class BrevpakkeSelect extends React.Component {
                     />
                 </Row>
                 <Row>
-                    <ListItem
-                        title={this.state.titlebrevmal}
-                        id="brevpakke_mal_pick"
-                        func={brevmal => {
-                            console.log(this.props.brevpakke);
+                    <DropdownButton
+                        title={this.checkRedigerbar()}
+                        id={'brevpakke_mal_pick'}
+                        onSelect={brevmal => {
                             this.props.utilActions.selectBrevmal(
                                 brevmal,
                                 this.props.brevpakke
@@ -84,8 +93,18 @@ class BrevpakkeSelect extends React.Component {
                             this.props.actions.setBrevmal(brevmal);
                             this.setState({ titlebrevmal: brevmal });
                         }}
-                        list={this.props.brevmalList}
-                    />
+                    >
+                        {this.props.brevmalList.map(i => (
+                            <MenuItem key={i.malID} eventKey={i.malID}>
+                                {' '}
+                                {i.malID +
+                                    ' - ' +
+                                    (i.redigerbar ? 'Redigerbar' : '') +
+                                    ' - ' +
+                                    i.dokumentTittel}{' '}
+                            </MenuItem>
+                        )) /*mulig at vi må ha annen eventKey her. Feilmelding: missing key prop for element in iterator*/}
+                    </DropdownButton>
                 </Row>
             </section>
         );
@@ -108,7 +127,8 @@ function mapStateToProps(state, ownProps) {
         brevInfo: state.menyValg.brevInfo,
         brevpakkeList: state.menyValg.brevpakkeList,
         brevmalList: state.menyValg.brevmalList,
-        brevpakke: state.menyValg.brevpakke
+        brevpakke: state.menyValg.brevpakke,
+        brevmal: state.menyValg.brevmal
     };
 }
 

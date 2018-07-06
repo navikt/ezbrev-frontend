@@ -24,7 +24,7 @@ function getBrevmalList(brevpakke, brevInfo) {
     let brevmalList = [];
     for (let i = 0; i < brevInfo.length; i++) {
         if (brevInfo[i].brevPakke === brevpakke) {
-            let brevmal = brevInfo[i].malID;
+            let brevmal = brevInfo[i];
             brevmalList.push(brevmal);
         }
     }

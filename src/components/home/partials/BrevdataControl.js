@@ -50,7 +50,17 @@ class BrevdataControl extends React.Component {
                     Produser brev
                 </Button>
                 <Space />
-                <Button>{producing ? 'Hent brev' : 'Rediger brev'}</Button>
+                <Button
+                    onClick={() => {
+                        const rediger = false;
+                        this.props.utilActionsDok.produceDokument(
+                            this.props.brevdata.dokumentmal.dokumenttypeId,
+                            this.props.brevdata.xmlInnhold,
+                            rediger,
+                            this.props.miljo
+                        );
+                    }}
+                >{producing ? 'Hent brev' : 'Rediger brev'}</Button>
 
                 <Button
                     className="pull-right"

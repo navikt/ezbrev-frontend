@@ -19,18 +19,22 @@ export function produceDokument(brevmal, xml, rediger, miljo) {
             .then(dokument => {
                 dispatch(actions.setDokument(dokument));
                 return dokument;
-            }).then(dokument => displayBase64PDF(dokument.document))
+            }).then(dokument => ((dokument.metawriteUri!==null)?(window.open(dokument.metawriteUri)):(displayBase64PDF(dokument.document))))
             .catch(error => {
                 throw error;
             });
     };
 }
 
+
+
+
+
 export function showLastApprovedPDF(brevdataId){
-    return function(dispatch) {
+    return function() {
         return api
             .getLastApprovedPDF(brevdataId)
-            .then(PDF => displayBase64PDF(PDF))
+            .then(PDF => displayBase64PDF(PDF.document))
             .catch(error => {
                 throw error;
             });
