@@ -11,4 +11,8 @@ export const CHANGE_BREVDATA_XML = 'CHANGE_BREVDATA_XML';
 export const CHANGE_BESKRIVELSE = 'CHANGE_BESKRIVESLSE';
 export const SET_DOKUMENT = 'SET_DOKUMENT';
 export const ADD_ERROR='ADD_ERROR';
+export const SAVE_BREVDATA = 'SAVE_BREVDATA'; //action creator
+export const SET_VERSJON = 'SET_VERSJON';
+export const SET_BREVMALREGRESSIONLIST = 'SET_BREVMALREGRESSIONLIST';
+
 //Her skal liste alle actions som skal kalle på reducere

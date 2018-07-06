@@ -81,6 +81,19 @@ export function getDokument(brevmal, xml, rediger, miljo) {
     });
 }
 
+export function getBrevdataInBrevpakke(brevpakkeNavn, maler){
+    const url = `${serverUrl}/rest/${brevpakkeNavn}/getBrevdatasByDokumentmalIds`;
+    return post(url, maler)
+        .then(json => json);
+}
+
+export function post(url, data) {
+    return fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' }
+    }).then(res => res.json());
+}
 export function approveDokument(
     brevdataId,
     env,
@@ -97,15 +110,6 @@ export function approveDokument(
 export function getLastApprovedPDF(brevdataId) {
     const url = `${serverUrl}/rest/brevdata/hentLastGodkjent/${brevdataId}`;
     return get(url).then(dokument=>dokument.json());
-}
-
-export function post(url, data) {
-    console.log(data);
-    return fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: { 'Content-Type': 'application/json' }
-    });
 }
 
 function get(url) {
