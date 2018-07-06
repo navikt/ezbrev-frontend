@@ -43,7 +43,7 @@ export function getBrevInfo(miljo) {
 }
 
 export function getBrevdataList(brevmal,brevpakke){    //får ikke til å hente brevdatalisten
-    const url = `${serverUrl}/rest/${brevpakke}/${brevmal}/ider`;
+    const url = `${serverUrl}/rest/${brevpakke}/${brevmal}/brevdata`;
     return get(url)
         .then(res => res.json())                            //må sjekke om res.ok er true før vi gjør om til json
         .then(json => json);
@@ -56,6 +56,19 @@ export function getBrevdata(brevdataID){
         .then(json => json);
 };
 
+export function getBrevdataInBrevpakke(brevpakkeNavn, maler){
+    const url = `${serverUrl}/rest/${brevpakkeNavn}/getBrevdatasByDokumentmalIds`;
+    return post(url, maler)
+        .then(json => json);
+}
+
+export function post(url, data) {
+    return fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' }
+    }).then(res => res.json());
+}
 
 function get(url) {
     return fetch(url);  //returnerer et promise
