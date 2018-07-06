@@ -52,7 +52,7 @@ class BrevdataControl extends React.Component {
                 <Space />
                 <Button
                     onClick={() => {
-                        const rediger = false;
+                        const rediger = true;
                         this.props.utilActionsDok.produceDokument(
                             this.props.brevdata.dokumentmal.dokumenttypeId,
                             this.props.brevdata.xmlInnhold,
