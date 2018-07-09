@@ -27,6 +27,7 @@ export function selectMiljo(miljo) {
     };
 }
 
+
 export function selectBrevpakke(brevpakke, brevInfo) {
     return actions.setBrevmalList(brevpakke, brevInfo);
 }

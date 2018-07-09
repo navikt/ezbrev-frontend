@@ -11,4 +11,6 @@ export const CHANGE_BREVDATA_XML = 'CHANGE_BREVDATA_XML';
 export const CHANGE_BESKRIVELSE = 'CHANGE_BESKRIVESLSE';
 export const SET_DOKUMENT = 'SET_DOKUMENT';
 export const ADD_ERROR='ADD_ERROR';
+export const SET_IS_REDIGERT_EXTERNAL='SET_IS_REDIGERT_EXTERNAL';
+export const SET_SAMMENLIGN_INFO='SET_SAMMENLIGN_INFO';
 //Her skal liste alle actions som skal kalle på reducere

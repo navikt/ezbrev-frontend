@@ -81,6 +81,20 @@ export function getDokument(brevmal, xml, rediger, miljo) {
     });
 }
 
+export function getRedigertBrev(miljo, jounralpostId, dokumentInfoId) {
+    const url = `${serverUrl}/rest/brev/${miljo}/${jounralpostId}/${dokumentInfoId}`;
+    return get(url).then(res => {
+        return res.json();
+    });
+}
+
+export function getSammenlignMedGodkjent(env,journalpostId,dokumentInfoId,brevdataId){
+    const url=`${serverUrl}/rest/sammenlign`
+    const data={env,journalpostId,dokumentInfoId,brevdataId}
+    return post(url,data).then(res=>{return res.json()})
+}
+
+
 export function approveDokument(
     brevdataId,
     env,
@@ -96,7 +110,7 @@ export function approveDokument(
 }
 export function getLastApprovedPDF(brevdataId) {
     const url = `${serverUrl}/rest/brevdata/hentLastGodkjent/${brevdataId}`;
-    return get(url).then(dokument=>dokument.json());
+    return get(url).then(dokument => dokument.json());
 }
 
 export function post(url, data) {
