@@ -105,14 +105,16 @@ class BrevdataControl extends React.Component {
                     Godkjenn
                 </Button>
                 <Space />
-                <Button className="pull-right brev-compare-btn btn btn-warning"
-                    onClick={()=>{
+                <Button
+                    className="pull-right brev-compare-btn btn btn-warning"
+                    onClick={() => {
+                        this.props.actionsDok.setShowModal(true);
                         this.props.utilActionsDok.showSammenlignMedGodkjent(
                             this.props.miljo,
                             this.props.dokument.journalpostId,
                             this.props.dokument.dokumentInfoId,
                             this.props.brevdata.brevdataId
-                        )
+                        );
                     }}
                 >
                     Sammenlign med godkjent

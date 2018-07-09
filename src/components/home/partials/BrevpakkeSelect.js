@@ -14,7 +14,7 @@ function ListItem({ title, id, func, list }) {
                     {' '}
                     {i}{' '}
                 </MenuItem>
-            )) /*mulig at vi må ha annen eventKey her. Feilmelding: missing key prop for element in iterator*/}
+            ))}
         </DropdownButton>
     );
 }

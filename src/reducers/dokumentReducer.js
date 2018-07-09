@@ -3,7 +3,10 @@ import * as types from '../actions/actionTypes';
 const initialState = {
     dokument: '',
     isRedigertExternal:false,
-    sammenlignInfo:''
+    sammenlignInfo:{
+        sider:[]
+    },
+    showModal:false
 };
 
 export default function brevdataReducer(state = initialState, action) {
@@ -16,6 +19,8 @@ export default function brevdataReducer(state = initialState, action) {
             return { ...state, isRedigertExternal: action.isRedigertExternal };
         case types.SET_SAMMENLIGN_INFO:
             return { ...state, sammenlignInfo: action.sammenlignInfo };
+        case types.SET_SHOW_MODAL:
+            return { ...state, showModal: action.showModal };
 
         default:
             return state;

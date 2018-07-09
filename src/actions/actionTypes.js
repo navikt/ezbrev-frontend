@@ -13,4 +13,5 @@ export const SET_DOKUMENT = 'SET_DOKUMENT';
 export const ADD_ERROR='ADD_ERROR';
 export const SET_IS_REDIGERT_EXTERNAL='SET_IS_REDIGERT_EXTERNAL';
 export const SET_SAMMENLIGN_INFO='SET_SAMMENLIGN_INFO';
+export const SET_SHOW_MODAL='SET_SHOW_MODAL';
 //Her skal liste alle actions som skal kalle på reducere

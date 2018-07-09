@@ -11,3 +11,6 @@ export function setIsRedigertExternal(isRedigertExternal) {
 export function setSammenlignInfo(sammenlignInfo) {
     return {type: types.SET_SAMMENLIGN_INFO, sammenlignInfo:sammenlignInfo}
 }
+export function setShowModal(showModal) {
+    return {type: types.SET_SHOW_MODAL, showModal:showModal}
+}
