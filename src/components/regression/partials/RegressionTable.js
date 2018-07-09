@@ -1,5 +1,4 @@
 import React from 'react';
-import TableItem from '~/components/regression/partials/RegressionTableItem';
 import { bindActionCreators } from 'redux';
 import * as menyValgActions from '~/actions/menyValgActions';
 import * as menyValgActionsUtil from '~/actions/menyValgActionsUtil';
@@ -59,13 +58,13 @@ class RegressionTable extends React.Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        miljoList: state.regressjonMenyValg.miljoList,
-        brevInfo: state.regressjonMenyValg.brevInfo,
-        brevpakkeList: state.regressjonMenyValg.brevpakkeList,
-        brevmalList: state.regressjonMenyValg.brevmalList,
-        miljo: state.regressjonMenyValg.miljo,
-        brevpakke: state.regressjonMenyValg.brevpakke,
-        brevdataList: state.regressjonMenyValg.brevdataList
+        miljoList: state.regressjonReducer.regressjonMiljoList,
+        brevInfo: state.regressjonReducer.regressjonBrevInfo,
+        brevpakkeList: state.regressjonReducer.regressjonBrevpakkeList,
+        brevmalList: state.regressjonReducer.regressjonBrevmalList,
+        miljo: state.regressjonReducer.regressjonMiljo,
+        brevpakke: state.regressjonReducer.regressjonBrevpakke,
+        brevdataList: state.regressjonReducer.regressjonBrevdataList
     };
 }
 

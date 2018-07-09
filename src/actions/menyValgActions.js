@@ -29,10 +29,3 @@ export function setBrevInfo(json) {
 export function setBrevdataList(brevdataList) {
     return {type: types.SET_BREVDATALIST, brevdataList:brevdataList}
 }
-
-export function setBrevmalRegressionList(brevmalList) {
-    return {
-        type: types.SET_BREVMALREGRESSIONLIST,
-        brevmalList: brevmalList
-    };
-}

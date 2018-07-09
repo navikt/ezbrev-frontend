@@ -1,6 +1,7 @@
 import * as actions from '~/actions/menyValgActions';
 import * as api from '~/api';
 import { getBrevdataInBrevpakke } from '~/api';
+import * as regressionActions from '~/actions/regressionActions';
 
 export function fetchMiljoList() {
     return function(dispatch) {
@@ -15,12 +16,12 @@ export function fetchMiljoList() {
     };
 }
 
-export function selectMiljo(miljo) {
+export function selectMiljo(miljo, action = actions.setBrevInfo) {
     return function(dispatch) {
         return api
             .getBrevInfo(miljo)
             .then(json => {
-                dispatch(actions.setBrevInfo(json));
+                dispatch(action(json));
             })
             .catch(error => {
                 throw error;
@@ -59,7 +60,7 @@ export function setBrevdataList(brevpakke, brevmalList, brevmalIds) {
                         ? object[malid].push(brevdata)
                         : (object[malid] = [brevdata]);
                 });
-                dispatch(actions.setBrevdataList(object));
+                dispatch(regressionActions.setRegressionBrevdataList(object));
             })
             .catch(error => {
                 throw error;

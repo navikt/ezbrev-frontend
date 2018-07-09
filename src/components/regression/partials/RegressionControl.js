@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as menyValgActions from '~/actions/menyValgActions';
+import * as regressionActions from '~/actions/RegressionActions';
 import * as menyValgActionsUtil from '~/actions/menyValgActionsUtil';
 import ListItem from '../partials/ListItem';
 
@@ -37,9 +37,9 @@ class RegressionControl extends React.Component {
     };
 
     updateBrevpakke = brevpakke => {
-        this.props.actions.setBrevpakke(brevpakke);
+        this.props.actions.setRegressionBrevpakke(brevpakke);
         const brevmalList = this.setBrevMalList(brevpakke);
-        this.props.actions.setBrevmalRegressionList(brevmalList);
+        this.props.actions.setRegressionBrevmalList(brevmalList);
         let brevmalIds = [];
         brevmalList.forEach(item => brevmalIds.push(item.malId));
         this.props.utilActions.setBrevdataList(
@@ -57,8 +57,8 @@ class RegressionControl extends React.Component {
                         title={'Miljø: ' + this.props.miljo}
                         id="1"
                         func={miljo => {
-                            this.props.utilActions.selectMiljo(miljo);
-                            this.props.actions.setMiljo(miljo);
+                            this.props.utilActions.selectMiljo(miljo, regressionActions.setRegressionBrevInfo);
+                            this.props.actions.setRegressionMiljo(miljo);
                         }}
                         list={this.props.miljoList}
                     />
@@ -90,20 +90,20 @@ class RegressionControl extends React.Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        miljoList: state.regressjonMenyValg.miljoList,
-        brevInfo: state.regressjonMenyValg.brevInfo,
-        brevpakkeList: state.regressjonMenyValg.brevpakkeList,
-        brevmalList: state.regressjonMenyValg.brevmalList,
-        miljo: state.regressjonMenyValg.miljo,
-        brevpakke: state.regressjonMenyValg.brevpakke,
-        brevdataList: state.regressjonMenyValg.brevdataList
+        miljoList: state.regressjonReducer.regressjonMiljoList,
+        brevInfo: state.regressjonReducer.regressjonBrevInfo,
+        brevpakkeList: state.regressjonReducer.regressjonBrevpakkeList,
+        brevmalList: state.regressjonReducer.regressjonBrevmalList,
+        miljo: state.regressjonReducer.regressjonMiljo,
+        brevpakke: state.regressjonReducer.regressjonBrevpakke,
+        brevdataList: state.regressjonReducer.regressjonBrevdataList
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         utilActions: bindActionCreators(menyValgActionsUtil, dispatch),
-        actions: bindActionCreators(menyValgActions, dispatch)
+        actions: bindActionCreators(regressionActions, dispatch)
         /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
     };
 }
