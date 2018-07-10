@@ -113,6 +113,15 @@ export function getLastApprovedPDF(brevdataId) {
     return get(url).then(dokument => dokument.json());
 }
 
+
+export function getOutputXML(xml){
+    const url=`${serverUrl}/rest/xmlconverter/convert`;
+    const data={xml}
+    return post(url,data).then(res => {
+        return res.json();
+    });
+}
+
 export function post(url, data) {
     return fetch(url, {
         method: 'POST',

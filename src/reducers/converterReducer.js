@@ -7,10 +7,13 @@ const initialState = {
 
 export default function converterReducer(state = initialState, action) {
     switch (
-        action.type //tror vi må ha en action til her for når vi legger inn hele brevdata for første gang
+        action.type
         ) {
-        case types.ADD_ERROR:
-            return { ...state, errorList:[...state.errorList,action.error]};
+        case types.SET_INPUT_XML:
+            return { ...state, inputXML:action.inputXML};
+
+        case types.SET_OUTPUT_XML:
+            return { ...state, outputXML:action.outputXML};
 
         default:
             return state;
