@@ -12,3 +12,10 @@ a.active {                              /*Definerer hvilken farge aktive kompone
 nav {
     padding-top:20px;
 }
+
+.inline-div{
+    display:inline-block;
+}
+.inline-txtarea{
+    resize: none;
+}

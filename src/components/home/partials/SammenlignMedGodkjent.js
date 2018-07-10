@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 import * as dokumentActions from '~/actions/dokumentActions';
 import { bindActionCreators } from 'redux';
 import Highlight from 'react-highlight';
-//import ImageCarousel from './common/image_carousel';
-//import GenericModal from './common/modal';
+import ImageCarousel from '../../common/ImageCarousel';
+import GenericModal from '../../common/GenericModal'
 //
 // const modalStyle = {
 //     position: 'fixed',
@@ -22,6 +22,10 @@ class SammenlignMedGodkjent extends React.Component {
     constructor(props, context) {
         super(props, context);
     }
+    openDiffModal() {
+        this.refs.diffModal.open();
+    }
+
     convertToPNG = () => {
         let PNGArray = [];
         this.props.sammenlignInfo.sider.map(image =>
@@ -32,57 +36,33 @@ class SammenlignMedGodkjent extends React.Component {
 
     render() {
         return (
-            <Modal
-                aria-labelledby="SammenlignMedGodkjent"
-                // style={modalStyle}
-                backdrop={true}
-                show={this.props.showModal}
-                onHide={() => {
-                    this.props.actionsDok.setShowModal(false);
-                }}
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title>Sammenlign med godkjent</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {this.props.sammenlignInfo.sider.map(image => (
-                        <section>
-                            <img
-                                id={image}
-                                src={'data:image/png;base64,' + image}
-                                alt={''}
-                                height={'300'}
-                            />
-                            <Space />
-                        </section>
-                    ))}
+            <div>
+                <ImageCarousel ref={'imageCarousel'}
+                               title={`Godkjent versjon: ${this.props.sammenlignInfo.godkjentMalversjon} - Antall pixelfeil: ${this.props.sammenlignInfo.percentage}`}
+                               pages={this.props.sammenlignInfo.sider}>
                     <div>
                         <div className="pull-left">
                             <dl className="dl-horizontal">
-                                <dt>Antall tekstfeil</dt>
-                                <dd>
-                                    {this.props.sammenlignInfo.textErrorCount}
-                                </dd>
+                                <dt>Antall textfeil</dt>
+                                <dd>{this.props.sammenlignInfo.textErrorCount}</dd>
                                 <dt>Godkjent av</dt>
                                 <dd>{this.props.sammenlignInfo.godkjentAv}</dd>
                                 <dt>Godkjent miljø</dt>
-                                <dd>
-                                    {this.props.sammenlignInfo.godkjentMiljoe}
-                                </dd>
+                                <dd>{this.props.sammenlignInfo.godkjentMiljoe}</dd>
                                 <dt>Godkjent dato</dt>
-                                <dd>
-                                    {this.props.sammenlignInfo.godkjentDato}
-                                </dd>
+                                <dd>{this.props.sammenlignInfo.godkjentDato}</dd>
                             </dl>
                         </div>
                         <div className="pull-right">
-                            <Button className="pull-right brev-compare-btn btn btn-warning">
-                                Vis tekstendringer
-                            </Button>
+                            <Button onClick={this.openDiffModal.bind(this)}>Vis tekstendringer</Button>
                         </div>
                     </div>
-                </Modal.Body>
-            </Modal>
+                </ImageCarousel>
+
+                <GenericModal title="Tekstlig endring i brev" ref="diffModal">
+                    <Highlight className="diff">{this.props.sammenlignInfo.unifiedDiff}</Highlight>
+                </GenericModal>
+            </div>
         );
     }
 }
