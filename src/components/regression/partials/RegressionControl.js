@@ -3,23 +3,45 @@ import { Button, Col, Row } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as regressionActions from '~/actions/RegressionActions';
-import * as menyValgActionsUtil from '~/actions/menyValgActionsUtil';
+import * as regressionActionsUtil from '~/actions/regressionActionsUtil';
 import ListItem from '../partials/ListItem';
+import RegressionModal from '../partials/RegressionModal';
+import { getSimilarity } from '~/api';
 
 class RegressionControl extends React.Component {
     handleClick = () => {
-        console.log(this.props.brevInfo);
-        console.log('brevmalList', this.props.brevmalList);
-        console.log('brevdataList', this.props.brevdataList);
-        let brevdataIds = [];
+        this.props.actions.setRegressionModal(true);
+        let regressionObjects = this.getRegressionObjects();
+        let prosenter = {};
+        for (let i = 0; i < regressionObjects.length; i++) {
+            getSimilarity(this.props.miljo, regressionObjects[i]).then(
+                object => {
+                    const json = object.json;
+                    const input = object.input;
+                    'error' in json
+                        ? (prosenter[input.brevdataId] = json.message)
+                        : (prosenter[json.brevdataId] = json.percentage);
+                    this.props.actions.setRegressionSimilarity(
+                        JSON.parse(JSON.stringify(prosenter))
+                    );
+                }
+            );
+        }
+    };
+
+    getRegressionObjects = () => {
+        let regressionObjects = [];
         for (let key in this.props.brevdataList) {
             if (this.props.brevdataList[key].length > 0) {
                 this.props.brevdataList[key].forEach(brevdata =>
-                    brevdataIds.push(brevdata.brevdataId)
+                    regressionObjects.push({
+                        brevdataId: brevdata.brevdataId,
+                        brevmal: key
+                    })
                 );
             }
         }
-        console.log(brevdataIds);
+        return regressionObjects;
     };
 
     setBrevMalList = brevpakke => {
@@ -52,18 +74,21 @@ class RegressionControl extends React.Component {
     render() {
         return (
             <Row>
-                <Col sm={2}>
+                <Col sm={3}>
                     <ListItem
                         title={'Miljø: ' + this.props.miljo}
                         id="1"
                         func={miljo => {
-                            this.props.utilActions.selectMiljo(miljo, regressionActions.setRegressionBrevInfo);
+                            this.props.utilActions.selectMiljo(
+                                miljo,
+                                regressionActions.setRegressionBrevInfo
+                            );
                             this.props.actions.setRegressionMiljo(miljo);
                         }}
                         list={this.props.miljoList}
                     />
                 </Col>
-                <Col sm={2}>
+                <Col sm={3}>
                     <ListItem
                         title={'Brevpakke: ' + this.props.brevpakke}
                         id="1"
@@ -71,18 +96,16 @@ class RegressionControl extends React.Component {
                         list={this.props.brevpakkeList}
                     />
                 </Col>
-                <Col sm={2}>
+                <Col sm={3}>
                     <Button
+                        className={'btn btn-info'}
                         onClick={this.handleClick}
                         id="start_regresjonstest_button"
                     >
                         Start regresjonstest
                     </Button>
                 </Col>
-                <Col sm={2} className="regtest-info-box">
-                    <span className="regtest-info-test">Testet:</span>
-                    <span>Feilet:</span>
-                </Col>
+                <RegressionModal />
             </Row>
         );
     }
@@ -102,7 +125,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        utilActions: bindActionCreators(menyValgActionsUtil, dispatch),
+        utilActions: bindActionCreators(regressionActionsUtil, dispatch),
         actions: bindActionCreators(regressionActions, dispatch)
         /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
     };

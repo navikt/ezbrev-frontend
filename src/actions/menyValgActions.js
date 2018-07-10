@@ -24,6 +24,7 @@ export function setBrevmalList(brevpakke, brevInfo) {
 }
 
 export function setBrevInfo(json) {
+    console.log(json);
     return { type: types.SET_BREVINFO, brevInfo: json };
 }
 export function setBrevdataList(brevdataList) {

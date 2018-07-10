@@ -81,10 +81,9 @@ export function getDokument(brevmal, xml, rediger, miljo) {
     });
 }
 
-export function getBrevdataInBrevpakke(brevpakkeNavn, maler){
+export function getBrevdataInBrevpakke(brevpakkeNavn, maler) {
     const url = `${serverUrl}/rest/${brevpakkeNavn}/getBrevdatasByDokumentmalIds`;
-    return post(url, maler)
-        .then(json => json);
+    return post(url, maler).then(json => json);
 }
 
 export function post(url, data) {
@@ -94,6 +93,7 @@ export function post(url, data) {
         headers: { 'Content-Type': 'application/json' }
     }).then(res => res.json());
 }
+
 export function approveDokument(
     brevdataId,
     env,
@@ -109,9 +109,17 @@ export function approveDokument(
 }
 export function getLastApprovedPDF(brevdataId) {
     const url = `${serverUrl}/rest/brevdata/hentLastGodkjent/${brevdataId}`;
-    return get(url).then(dokument=>dokument.json());
+    return get(url).then(dokument => dokument.json());
 }
 
 function get(url) {
     return fetch(url); //returnerer et promise
+}
+
+export function getSimilarity(env, sammenlignPercentageObject) {
+    const url = `${serverUrl}/rest/sammenlignprosent/${env}`;
+    return post(url, sammenlignPercentageObject).then(res => ({
+        json: res,
+        input: sammenlignPercentageObject
+    }));
 }

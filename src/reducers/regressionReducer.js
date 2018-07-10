@@ -9,7 +9,9 @@ const initialState = {
     regressjonBrevpakkeList: [],
     regressjonBrevpakke: ' - ',
     regressjonBrevmalList: [],
-    regressjonBrevdataList: {}
+    regressjonBrevdataList: {},
+    regressionSimilarity: {},
+    regressionModal: false
 };
 
 function getBrevpakkeList(brevInfo) {
@@ -45,6 +47,10 @@ export default function regresjonMenyValgReducer(state = initialState, action) {
                 regressjonBrevInfo: action.brevInfo,
                 regressjonBrevpakkeList: getBrevpakkeList(action.brevInfo)
             });
+        case types.SET_REGRESSION_SIMILARITY:
+            return Object.assign({}, state, { regressionSimilarity: action.regressionSimilarity });
+        case types.SET_REGRESSION_MODAL:
+            return Object.assign({}, state, { regressionModal: action.regressionModal });
         default:
             return state;
     }

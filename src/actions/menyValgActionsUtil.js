@@ -45,38 +45,3 @@ export function selectBrevmal(brevmal, brevpakke) {
             });
     };
 }
-
-export function setBrevdataList(brevpakke, brevmalList, brevmalIds) {
-    return function(dispatch) {
-        getBrevdataInBrevpakke(brevpakke, {
-            brevmalIds: brevmalIds
-        })
-            .then(json => {
-                let object = {};
-                brevmalIds.forEach(malid => (object[malid] = []));
-                json.forEach(brevdata => {
-                    let malid = brevdata.dokumentmal.dokumenttypeId;
-                    malid in object
-                        ? object[malid].push(brevdata)
-                        : (object[malid] = [brevdata]);
-                });
-                dispatch(regressionActions.setRegressionBrevdataList(object));
-            })
-            .catch(error => {
-                throw error;
-            });
-    };
-}
-
-export function addBrevdata(brevmal, brevpakke) {
-    return function(dispatch) {
-        return api
-            .getBrevdataList(brevmal, brevpakke)
-            .then(brevdataList => {
-                dispatch(actions.addBrevdataList(brevdataList, brevmal));
-            })
-            .catch(error => {
-                throw error;
-            });
-    };
-}
