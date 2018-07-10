@@ -13,8 +13,10 @@ nav {
     padding-top:20px;
 }
 
-.custom-modal{
-    width:90%;
+
+
+.modal-dialog{
+    width: 95% !important;
 }
 
 .tester-modal {

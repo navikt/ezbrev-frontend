@@ -26,13 +26,6 @@ class SammenlignMedGodkjent extends React.Component {
         this.refs.diffModal.open();
     }
 
-    convertToPNG = () => {
-        let PNGArray = [];
-        this.props.sammenlignInfo.sider.map(image =>
-            PNGArray.push('data:image/png;base64,' + image)
-        );
-        return PNGArray;
-    };
 
     render() {
         return (

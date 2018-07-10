@@ -114,7 +114,6 @@ export function getLastApprovedPDF(brevdataId) {
 }
 
 export function post(url, data) {
-    console.log(data);
     return fetch(url, {
         method: 'POST',
         body: JSON.stringify(data),

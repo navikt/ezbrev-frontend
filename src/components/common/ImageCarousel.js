@@ -23,7 +23,7 @@ class ImageCarousel extends React.Component {
 
     render() {
         return (
-            <Modal bsSize="large" show={this.props.showModal} onHide={()=>this.props.actionsDok.setShowModal(false)}  id="test-id">
+            <Modal show={this.props.showModal} onHide={()=>this.props.actionsDok.setShowModal(false)}  id="test-id">
                 <Modal.Header closeButton>
                     <Modal.Title> {this.props.title} </Modal.Title>
                 </Modal.Header>
@@ -54,11 +54,7 @@ class ImageCarousel extends React.Component {
         for (let page = 0; page<(comparison.length);page++){
             let innerList=[newPages[page],comparison[page],approvedPages[page]]
             list.push(innerList)
-            let i = 1;
-            console.log("iterwasjon:"+ i);
-            i++;
         }
-        {console.log(list)}
         return list.map((images, key) => {
             return (
                 <CarouselItem key={key}>
