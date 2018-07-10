@@ -45,6 +45,7 @@ class XMLConverter extends React.Component {
                         <b> XML Output</b>
                     </p>
                     <textarea
+                        readOnly
                         cols="90"
                         rows="30"
                         className="inline-txtarea"
