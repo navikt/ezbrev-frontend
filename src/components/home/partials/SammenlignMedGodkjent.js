@@ -7,7 +7,7 @@ import * as dokumentActions from '~/actions/dokumentActions';
 import { bindActionCreators } from 'redux';
 import Highlight from 'react-highlight';
 import ImageCarousel from '../../common/ImageCarousel';
-import GenericModal from '../../common/GenericModal'
+import GenericModal from '../../common/GenericModal';
 //
 // const modalStyle = {
 //     position: 'fixed',
@@ -37,30 +37,48 @@ class SammenlignMedGodkjent extends React.Component {
     render() {
         return (
             <div>
-                <ImageCarousel ref={'imageCarousel'}
-                               title={`Godkjent versjon: ${this.props.sammenlignInfo.godkjentMalversjon} - Antall pixelfeil: ${this.props.sammenlignInfo.percentage}`}
-                               pages={this.props.sammenlignInfo.sider}>
+                <ImageCarousel
+                    ref={'imageCarousel'}
+                    title={`Godkjent versjon: ${
+                        this.props.sammenlignInfo.godkjentMalversjon
+                    } - Antall pixelfeil: ${
+                        this.props.sammenlignInfo.percentage
+                    }`}
+                    pages={this.props.sammenlignInfo.sider}
+                    newPages={this.props.sammenlignInfo.ny}
+                    approvedPages={this.props.sammenlignInfo.godkjent}
+                >
                     <div>
                         <div className="pull-left">
                             <dl className="dl-horizontal">
-                                <dt>Antall textfeil</dt>
-                                <dd>{this.props.sammenlignInfo.textErrorCount}</dd>
+                                <dt>Antall tekstfeil</dt>
+                                <dd>
+                                    {this.props.sammenlignInfo.textErrorCount}
+                                </dd>
                                 <dt>Godkjent av</dt>
                                 <dd>{this.props.sammenlignInfo.godkjentAv}</dd>
                                 <dt>Godkjent miljø</dt>
-                                <dd>{this.props.sammenlignInfo.godkjentMiljoe}</dd>
+                                <dd>
+                                    {this.props.sammenlignInfo.godkjentMiljoe}
+                                </dd>
                                 <dt>Godkjent dato</dt>
-                                <dd>{this.props.sammenlignInfo.godkjentDato}</dd>
+                                <dd>
+                                    {this.props.sammenlignInfo.godkjentDato}
+                                </dd>
                             </dl>
                         </div>
                         <div className="pull-right">
-                            <Button onClick={this.openDiffModal.bind(this)}>Vis tekstendringer</Button>
+                            <Button onClick={this.openDiffModal.bind(this)}>
+                                Vis tekstendringer
+                            </Button>
                         </div>
                     </div>
                 </ImageCarousel>
 
                 <GenericModal title="Tekstlig endring i brev" ref="diffModal">
-                    <Highlight className="diff">{this.props.sammenlignInfo.unifiedDiff}</Highlight>
+                    <Highlight className="diff">
+                        {this.props.sammenlignInfo.unifiedDiff}
+                    </Highlight>
                 </GenericModal>
             </div>
         );
