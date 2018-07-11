@@ -1,33 +1,36 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { Space } from '../../common/Scaffolding';
 import * as dokumentActionsUtil from '~/actions/dokumentActionsUtil';
 import { connect } from 'react-redux';
 import * as dokumentActions from '~/actions/dokumentActions';
 import { bindActionCreators } from 'redux';
-import Highlight from 'react-highlight';
 import ImageCarousel from '../../common/ImageCarousel';
 import GenericModal from '../../common/GenericModal';
-//
-// const modalStyle = {
-//     position: 'fixed',
-//     zIndex: 1040,
-//     top: 0,
-//     bottom: 0,
-//     left: 0,
-//     right: 0
-// };
 
 class SammenlignMedGodkjent extends React.Component {
-    constructor(props, context) {
-        super(props, context);
-    }
+
     openDiffModal() {
         this.refs.diffModal.open();
     }
 
+    highlightedText(line) {
+        if (line[0] === '-') {
+            return <p className="approved-text-line">{line}</p>;
+        } else if (line[0] === '+') {
+            return <p className="new-text-line">{line}</p>;
+        } else if (
+            line.substring(0, 2) === '@@' ||
+            line.substring(0, 3) === '+++' ||
+            line.substring(0, 3) === '---'
+        ) {
+            return <p className="grey-text-line">{line}</p>;
+        }
+    }
 
     render() {
+        const diffTextList = this.props.sammenlignInfo.unifiedDiff
+            ? this.props.sammenlignInfo.unifiedDiff
+            : [];
         return (
             <div>
                 <ImageCarousel
@@ -67,11 +70,14 @@ class SammenlignMedGodkjent extends React.Component {
                         </div>
                     </div>
                 </ImageCarousel>
-
                 <GenericModal title="Tekstlig endring i brev" ref="diffModal">
-                    <Highlight className="diff">
-                        {this.props.sammenlignInfo.unifiedDiff}
-                    </Highlight>
+                    <body>
+                        {diffTextList === []
+                            ? diffTextList.map(line =>
+                                  this.highlightedText(line)
+                              )
+                            : 'Ingen endringer'}
+                    </body>
                 </GenericModal>
             </div>
         );

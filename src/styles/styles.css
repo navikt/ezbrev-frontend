@@ -4,7 +4,7 @@
     margin: 0 auto;
 }
 
-a.active {                              /*Definerer hvilken farge aktive komponenter har */
+a.active {
     color: deeppink;
     font-weight: bold;
 }
@@ -36,3 +36,13 @@ nav {
     resize: none;
 }
 
+.approved-text-line{
+    background-color: #f9cccc;
+}
+
+.new-text-line{
+    background-color: #e0f9cc;
+}
+.grey-text-line{
+    color: grey;
+}
