@@ -16,6 +16,7 @@ export const SET_SAMMENLIGN_INFO='SET_SAMMENLIGN_INFO';
 export const SET_SHOW_MODAL='SET_SHOW_MODAL';
 export const SET_OUTPUT_XML='SET_OUTPUT_XML';
 export const SET_INPUT_XML='SET_INPUT_XML';
+export const SET_BREVPAKKE_VERSJON='SET_BREVPAKKE_VERSJON';
 
 
 //Her skal liste alle actions som skal kalle på reducere

@@ -5,6 +5,7 @@ const initialState = {
     brevpakke: '',
     brevmal: '',
     miljoList: ['t0', 't1', 't2', 'q0', 'q1', 'q2'],
+    brevpakkeVersjon:0,
     brevpakkeList: [],
     brevmalList: [],
     brevInfo: [],
@@ -37,6 +38,11 @@ export default function menyValgReducer(state = initialState, action) {
             return {
                 ...state,
                 miljoList: action.miljoList
+            };
+        case types.SET_BREVPAKKE_VERSJON:
+            return {
+                ...state,
+                brevpakkeVersjon: action.brevpakkeVersjon
             };
         case types.SET_BREVPAKKELIST:
             return {

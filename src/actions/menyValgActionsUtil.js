@@ -14,6 +14,20 @@ export function fetchMiljoList() {
     };
 }
 
+export function fetchBrevpakkeVersjon(miljo, brevpakkenavn){
+    return function(dispatch) {
+        return api
+            .getBrevpakkeVersjon(miljo,
+                brevpakkenavn)
+            .then(brevpakkeversjon => {
+                dispatch(actions.setBrevpakkeVersjon(brevpakkeversjon.version));
+            })
+            .catch(error => {
+                throw error;
+            });
+    };
+}
+
 export function selectMiljo(miljo) {
     return function(dispatch) {
         return api
@@ -28,7 +42,7 @@ export function selectMiljo(miljo) {
 }
 
 
-export function selectBrevpakke(brevpakke, brevInfo) {
+export function selectBrevpakke(miljo,brevpakke, brevInfo) {
     return actions.setBrevmalList(brevpakke, brevInfo);
 }
 

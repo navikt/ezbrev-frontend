@@ -32,8 +32,13 @@ export function getMiljoList() {
 }
 
 export function getBrevInfo(miljo) {
-    const url = `${serverUrl}/rest/${miljo}/dokumenttypeinfo`;
+    const url = `${serverUrl}/rest/brevmaler/${miljo}`;
     return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
+}
+
+export function getBrevpakkeVersjon(miljo,brevpakkenavn){
+    const url=`${serverUrl}/rest/brevpakkeversjon/${brevpakkenavn}/${miljo}`
+    return get(url).then(res=>res.json());
 }
 
 export function getBrevdataList(brevmal, brevpakke) {

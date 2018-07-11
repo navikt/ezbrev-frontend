@@ -8,7 +8,6 @@ import ImageCarousel from '../../common/ImageCarousel';
 import GenericModal from '../../common/GenericModal';
 
 class SammenlignMedGodkjent extends React.Component {
-
     openDiffModal() {
         this.refs.diffModal.open();
     }
@@ -24,6 +23,9 @@ class SammenlignMedGodkjent extends React.Component {
             line.substring(0, 3) === '---'
         ) {
             return <p className="grey-text-line">{line}</p>;
+        }else{
+            return(
+            <p> {line}</p>)
         }
     }
 
@@ -38,7 +40,7 @@ class SammenlignMedGodkjent extends React.Component {
                     title={`Godkjent versjon: ${
                         this.props.sammenlignInfo.godkjentMalversjon
                     } - Antall pixelfeil: ${
-                        this.props.sammenlignInfo.percentage
+                        this.props.sammenlignInfo.errors
                     }`}
                     pages={this.props.sammenlignInfo.sider}
                     newPages={this.props.sammenlignInfo.ny}
@@ -64,20 +66,14 @@ class SammenlignMedGodkjent extends React.Component {
                             </dl>
                         </div>
                         <div className="pull-right">
-                            <Button onClick={this.openDiffModal.bind(this)}>
+                            <Button onClick={this.openDiffModal.bind(this)} disabled={this.props.sammenlignInfo.textErrorCount===0}>
                                 Vis tekstendringer
                             </Button>
                         </div>
                     </div>
                 </ImageCarousel>
                 <GenericModal title="Tekstlig endring i brev" ref="diffModal">
-                    <body>
-                        {diffTextList === []
-                            ? diffTextList.map(line =>
-                                  this.highlightedText(line)
-                              )
-                            : 'Ingen endringer'}
-                    </body>
+                    {diffTextList.map(line => this.highlightedText(line))}
                 </GenericModal>
             </div>
         );
