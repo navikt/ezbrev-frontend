@@ -33,6 +33,21 @@ export function selectBrevpakke(brevpakke, brevInfo) {
     return actions.setBrevmalList(brevpakke, brevInfo);
 }
 
+export function fetchBrevpakkeVersjon(miljo, brevpakkenavn){
+    return function(dispatch) {
+        return api
+            .getBrevpakkeVersjon(miljo,
+                brevpakkenavn)
+            .then(brevpakkeversjon => {
+                dispatch(actions.setBrevpakkeVersjon(brevpakkeversjon.version));
+            })
+            .catch(error => {
+                throw error;
+            });
+    };
+}
+
+
 export function selectBrevmal(brevmal, brevpakke) {
     return function(dispatch) {
         return api

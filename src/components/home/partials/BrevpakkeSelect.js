@@ -14,7 +14,7 @@ function ListItem({ title, id, func, list }) {
                     {' '}
                     {i}{' '}
                 </MenuItem>
-            )) /*mulig at vi må ha annen eventKey her. Feilmelding: missing key prop for element in iterator*/}
+            ))}
         </DropdownButton>
     );
 }
@@ -71,6 +71,8 @@ class BrevpakkeSelect extends React.Component {
                         id="brevpakke_pick"
                         func={brevpakke => {
                             let brevInfo = this.props.brevInfo;
+                            let miljo=this.props.miljo;
+                            let brevpakkenavn=
                             this.props.utilActions.selectBrevpakke(
                                 brevpakke,
                                 brevInfo
@@ -125,6 +127,7 @@ BrevpakkeSelect.propTypes = {
 function mapStateToProps(state, ownProps) {
     return {
         miljoList: state.menyValg.miljoList,
+        miljo:state.menyValg.miljo,
         brevInfo: state.menyValg.brevInfo,
         brevpakkeList: state.menyValg.brevpakkeList,
         brevmalList: state.menyValg.brevmalList,

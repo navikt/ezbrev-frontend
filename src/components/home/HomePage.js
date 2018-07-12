@@ -4,6 +4,7 @@ import BrevpakkeSelect from './partials/BrevpakkeSelect';
 import BrevdataInput from './partials/BrevdataInput';
 import BrevdataMeta from './partials/BrevdataMeta';
 import ErrorDisplay from './partials/ErrorDisplay';
+import SammenlignMedGodkjent from './partials/SammenlignMedGodkjent';
 
 class HomePage extends React.Component {
     render() {
@@ -14,6 +15,7 @@ class HomePage extends React.Component {
                 <BrevdataInput />
                 <BrevdataMeta />
                 <ErrorDisplay/>
+                <SammenlignMedGodkjent/>
             </main>
         );
     }

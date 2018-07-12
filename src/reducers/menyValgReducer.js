@@ -5,6 +5,7 @@ const initialState = {
     brevpakke: '',
     brevmal: '',
     miljoList: ['t0', 't1', 't2', 'q0', 'q1', 'q2'],
+    brevpakkeVersjon:0,
     brevpakkeList: [],
     brevmalList: [],
     brevInfo: [],
@@ -20,14 +21,13 @@ function getBrevpakkeList(brevInfo) {
 }
 
 function getBrevmalList(brevpakke, brevInfo) {
-    //prøvde her å gi det inn som et objekt men usikker på om det er nødvendig
     let brevmalList = [];
     for (let i = 0; i < brevInfo.length; i++) {
         if (brevInfo[i].brevPakke === brevpakke) {
             let brevmal = brevInfo[i];
             brevmalList.push(brevmal);
         }
-    }
+    }console.log(brevmalList);
     return brevmalList;
 }
 
@@ -37,6 +37,11 @@ export default function menyValgReducer(state = initialState, action) {
             return {
                 ...state,
                 miljoList: action.miljoList
+            };
+        case types.SET_BREVPAKKE_VERSJON:
+            return {
+                ...state,
+                brevpakkeVersjon: action.brevpakkeVersjon
             };
         case types.SET_BREVPAKKELIST:
             return {

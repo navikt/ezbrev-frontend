@@ -1,20 +1,42 @@
 import React from 'react';
-import {Button} from 'react-bootstrap';
-import {Space} from '../../common/Scaffolding';
-import {connect} from 'react-redux';
+import { Button } from 'react-bootstrap';
+import { Space } from '../../common/Scaffolding';
+import { connect } from 'react-redux';
 import * as api from '../../../api/index';
 import * as dokumentActionsUtil from '../../../actions/dokumentActionsUtil';
 import * as brevdataActionsUtil from '../../../actions/brevdataActionsUtil';
-import {bindActionCreators} from 'redux';
-
+import * as dokumentActions from '../../../actions/dokumentActions';
+import { bindActionCreators } from 'redux';
 
 class BrevdataControl extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+    }
+
+    redigerBrev = () => {
+        const rediger = true;
+        this.props.utilActionsDok.produceDokument(
+            this.props.brevdata.dokumentmal.dokumenttypeId,
+            this.props.brevdata.xmlInnhold,
+            rediger,
+            this.props.miljo
+        );
+        this.props.actionsDok.setIsRedigertExternal(true);
+    };
+    hentBrev = () => {
+        this.props.utilActionsDok.showRedigertBrev(
+            this.props.miljo,
+            this.props.dokument.journalpostId,
+            this.props.dokument.dokumentInfoId
+        ),
+            this.props.actionsDok.setIsRedigertExternal(false);
+    };
+
     render() {
-        console.log(this.props.brevdata);
-        const producing = false;
         return (
             <div className="container-fluid">
-                <Button className={"btn btn-primary"}
+                <Button
+                    className={'btn btn-primary'}
                     onClick={() =>
                         api.updateXML(
                             this.props.brevdata.brevdataId,
@@ -25,7 +47,8 @@ class BrevdataControl extends React.Component {
                     Oppdater
                 </Button>
                 <Space />
-                <Button className={"btn btn-primary"}
+                <Button
+                    className={'btn btn-primary'}
                     onClick={() =>
                         this.props.utilActionsBrevdata.saveXMLAsNew(
                             this.props.brevpakke,
@@ -36,7 +59,8 @@ class BrevdataControl extends React.Component {
                     Lagre som ny
                 </Button>
                 <Space />
-                <Button className={"btn btn-primary"}
+                <Button
+                    className={'btn btn-primary'}
                     onClick={() => {
                         const rediger = false;
                         this.props.utilActionsDok.produceDokument(
@@ -50,22 +74,21 @@ class BrevdataControl extends React.Component {
                     Produser brev
                 </Button>
                 <Space />
-                <Button className={"btn btn-primary"}
-                    onClick={() => {
-                        const rediger = true;
-                        this.props.utilActionsDok.produceDokument(
-                            this.props.brevdata.dokumentmal.dokumenttypeId,
-                            this.props.brevdata.xmlInnhold,
-                            rediger,
-                            this.props.miljo
-                        );
-                    }}
-                >{producing ? 'Hent brev' : 'Rediger brev'}</Button>
                 <Button
-                    className={"pull-right btn btn-success" }
+                    className={'btn btn-primary'}
+                    onClick={
+                        this.props.isRedigertExternal
+                            ? () => this.hentBrev()
+                            : () => this.redigerBrev()
+                    }
+                >
+                    {this.props.isRedigertExternal
+                        ? 'Hent brev'
+                        : 'Rediger brev'}
+                </Button>
+                <Button
+                    className={'pull-right btn btn-success'}
                     onClick={() => {
-                        console.log('journalpostId:',this.props.dokument.journalpostId)
-                        console.log('dokumentInfoId:',this.props.dokument.dokumentInfoId)
                         api.approveDokument(
                             this.props.brevdata.brevdataId,
                             this.props.miljo,
@@ -82,7 +105,18 @@ class BrevdataControl extends React.Component {
                     Godkjenn
                 </Button>
                 <Space />
-                <Button className="pull-right brev-compare-btn btn btn-warning">
+                <Button
+                    className="pull-right brev-compare-btn btn btn-warning"
+                    onClick={() => {
+                        this.props.actionsDok.setShowModal(true);
+                        this.props.utilActionsDok.showSammenlignMedGodkjent(
+                            this.props.miljo,
+                            this.props.dokument.journalpostId,
+                            this.props.dokument.dokumentInfoId,
+                            this.props.brevdata.brevdataId
+                        );
+                    }}
+                >
                     Sammenlign med godkjent
                 </Button>
             </div>
@@ -95,14 +129,16 @@ function mapStateToProps(state, ownProps) {
         brevdata: state.brevdataReducer.brevdata,
         brevpakke: state.menyValg.brevpakke,
         miljo: state.menyValg.miljo,
-        dokument: state.dokument.dokument
+        dokument: state.dokumentReducer.dokument, //hvorfor er denne bare lilla??
+        isRedigertExternal: state.dokumentReducer.isRedigertExternal
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         utilActionsDok: bindActionCreators(dokumentActionsUtil, dispatch),
-        utilActionsBrevdata: bindActionCreators(brevdataActionsUtil,dispatch)
+        utilActionsBrevdata: bindActionCreators(brevdataActionsUtil, dispatch),
+        actionsDok: bindActionCreators(dokumentActions, dispatch)
     };
 }
 

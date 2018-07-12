@@ -17,6 +17,7 @@ export function produceDokument(brevmal, xml, rediger, miljo) {
         return api
             .getDokument(brevmal, xml, rediger, miljo)
             .then(dokument => {
+                console.log(dokument)
                 dispatch(actions.setDokument(dokument));
                 return dokument;
             }).then(dokument => ((dokument.metawriteUri!==null)?(window.open(dokument.metawriteUri)):(displayBase64PDF(dokument.document))))
@@ -25,9 +26,6 @@ export function produceDokument(brevmal, xml, rediger, miljo) {
             });
     };
 }
-
-
-
 
 
 export function showLastApprovedPDF(brevdataId){
@@ -41,3 +39,21 @@ export function showLastApprovedPDF(brevdataId){
     };
 }
 
+export function showRedigertBrev(miljo, journalpostId,dokumentInfoId){
+    return function(){
+        return api
+            .getRedigertBrev(miljo,journalpostId,dokumentInfoId)
+            .then(PDF=>displayBase64PDF(PDF.document)).catch(error=>{
+                throw(error)
+            })
+    }
+}
+
+export function showSammenlignMedGodkjent(miljo,journalpostId,dokumentInfoId,brevdataId){
+    return function(dispatch){
+        return api
+            .getSammenlignMedGodkjent(miljo,journalpostId,dokumentInfoId,brevdataId)
+            .then(sammenlignInfo=>{
+                dispatch(actions.setSammenlignInfo(sammenlignInfo))})
+    }
+}
