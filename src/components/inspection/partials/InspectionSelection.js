@@ -10,9 +10,13 @@ import * as api from '~/api';
 class InspectionSelection extends React.Component {
     setData = (input, restMethod) => {
         if (input !== '' && input) {
-            restMethod(this.props.miljo, this.props.brevsystem, input).then(x =>
-                this.props.actions.setInspectionData(x)
-            );
+            if (!isNaN(input)) {
+                restMethod(this.props.miljo, this.props.brevsystem, input).then(
+                    x => this.props.actions.setInspectionData(x)
+                );
+            } else {
+                console.log('Must be a number');
+            }
         }
     };
 

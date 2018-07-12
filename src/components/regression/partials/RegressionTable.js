@@ -8,10 +8,6 @@ import * as regressionActions from "~/actions/RegressionActions";
 import * as regressionActionsUtil from "~/actions/RegressionActionsUtil";
 
 class RegressionTable extends React.Component {
-    sammenlign = (brevdataId, brevmal) => {
-        console.log('Sammenlignet'); //, bestillPdfByBrevdataId(this.props.miljo, brevmal, brevdataId));
-    };
-
     render() {
         return (
             <div>
@@ -19,7 +15,6 @@ class RegressionTable extends React.Component {
                     <RegressionTableItem
                         key={item.malId}
                         item={item}
-                        sammenlign={this.sammenlign}
                     />
                 ))}
             </div>

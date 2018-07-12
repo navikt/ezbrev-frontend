@@ -162,3 +162,11 @@ export function getXmlByMottakerId(env, brevsystem, mottakerId) {
     const url = `${serverUrl}/rest/inspect/${env}/${brevsystem}/mottaker/${mottakerId}`;
     return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
 }
+
+export function bestillbrevdata(brevdataId, brevmal, miljo) {
+    const url = `${serverUrl}/rest/bestill/${miljo}/${brevdataId}`;
+    const data = { brevmal, rediger: false };
+    return post(url, data).then(res => {
+        return res.json();
+    });
+}

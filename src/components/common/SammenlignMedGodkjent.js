@@ -4,8 +4,8 @@ import * as dokumentActionsUtil from '~/actions/dokumentActionsUtil';
 import { connect } from 'react-redux';
 import * as dokumentActions from '~/actions/dokumentActions';
 import { bindActionCreators } from 'redux';
-import ImageCarousel from '../../common/ImageCarousel';
-import GenericModal from '../../common/GenericModal';
+import ImageCarousel from './ImageCarousel';
+import GenericModal from './GenericModal';
 
 class SammenlignMedGodkjent extends React.Component {
     openDiffModal() {

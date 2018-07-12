@@ -1,4 +1,4 @@
-import { getBrevdataInBrevpakke } from '~/api';
+import {getBrevdataInBrevpakke, getSimilarity} from '~/api';
 import * as regressionActions from '~/actions/RegressionActions';
 import * as menyValgActionsUtil from '~/actions/menyValgActionsUtil';
 

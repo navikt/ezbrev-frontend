@@ -4,7 +4,7 @@ import BrevpakkeSelect from './partials/BrevpakkeSelect';
 import BrevdataInput from './partials/BrevdataInput';
 import BrevdataMeta from './partials/BrevdataMeta';
 import ErrorDisplay from './partials/ErrorDisplay';
-import SammenlignMedGodkjent from './partials/SammenlignMedGodkjent';
+import SammenlignMedGodkjent from '../common/SammenlignMedGodkjent';
 
 class HomePage extends React.Component {
     render() {
