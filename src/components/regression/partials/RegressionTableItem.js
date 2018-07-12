@@ -23,6 +23,7 @@ class RegressionTableItem extends React.Component {
 
     render() {
         const item = this.props.item;
+        
         const sammenlign = this.props.sammenlign;
         return (
             <Panel>

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as regressionActions from '~/actions/RegressionActions';
 import * as regressionActionsUtil from '~/actions/regressionActionsUtil';
-import ListItem from '../partials/ListItem';
+import ListItem from '../../common/ListItem';
 import RegressionModal from '../partials/RegressionModal';
 import { getSimilarity } from '~/api';
 
