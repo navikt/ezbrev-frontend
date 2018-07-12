@@ -16,6 +16,7 @@ class RegressionControl extends React.Component {
         for (let i = 0; i < regressionObjects.length; i++) {
             getSimilarity(this.props.miljo, regressionObjects[i]).then(
                 object => {
+                    console.log(object)
                     const json = object.json;
                     const input = object.input;
                     'error' in json

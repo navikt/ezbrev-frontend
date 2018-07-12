@@ -101,7 +101,7 @@ export function getSammenlignMedGodkjent(env,journalpostId,dokumentInfoId,brevda
 
 export function getBrevdataInBrevpakke(brevpakkeNavn, maler) {
     const url = `${serverUrl}/rest/${brevpakkeNavn}/getBrevdatasByDokumentmalIds`;
-    return post(url, maler).then(json => json);
+    return post(url, maler).then(res => res.json());
 }
 
 
@@ -132,7 +132,6 @@ export function getOutputXML(xml){
 }
 
 export function post(url, data) {
-    console.log(data);
     return fetch(url, {
         method: 'POST',
         body: JSON.stringify(data),
@@ -146,10 +145,7 @@ function get(url) {
 
 export function getSimilarity(env, sammenlignPercentageObject) {
     const url = `${serverUrl}/rest/sammenlignprosent/${env}`;
-    return post(url, sammenlignPercentageObject).then(res => ({
-        json: res,
-        input: sammenlignPercentageObject
-    }));
+    return (post(url, sammenlignPercentageObject).then(res => res.json()).then(json => ({json: json, input: sammenlignPercentageObject})));
 }
 
 export function getXmlByJournalpostId(env, brevsystem, journalpostId) {
