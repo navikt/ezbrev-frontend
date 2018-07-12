@@ -123,3 +123,18 @@ export function getSimilarity(env, sammenlignPercentageObject) {
         input: sammenlignPercentageObject
     }));
 }
+
+export function getXmlByJournalpostId(env, brevsystem, journalpostId) {
+    const url = `${serverUrl}/rest/inspect/${env}/${brevsystem}/jpid/${journalpostId}`;
+    return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
+}
+
+export function getXmlByDokumentInfoId(env, brevsystem, dokumentInfoId) {
+    const url = `${serverUrl}/rest/inspect/${env}/${brevsystem}/dokid/${dokumentInfoId}`;
+    return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
+}
+
+export function getXmlByMottakerId(env, brevsystem, mottakerId) {
+    const url = `${serverUrl}/rest/inspect/${env}/${brevsystem}/mottaker/${mottakerId}`;
+    return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
+}

@@ -1,6 +1,4 @@
 import * as types from '../actions/actionTypes';
-import { getBrevdataList } from '~/api';
-//import { getBrevmalList, getBrevpakkeList } from '../reducers/menyValgReducer';
 
 const initialState = {
     regressjonMiljoList: [],
