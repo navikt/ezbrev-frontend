@@ -4,6 +4,8 @@ import * as menyValgActions from '~/actions/menyValgActions';
 import * as menyValgActionsUtil from '~/actions/menyValgActionsUtil';
 import {connect} from 'react-redux';
 import RegressionTableItem from '~/components/regression/partials/RegressionTableItem';
+import * as regressionActions from "~/actions/RegressionActions";
+import * as regressionActionsUtil from "~/actions/RegressionActionsUtil";
 
 class RegressionTable extends React.Component {
     sammenlign = (brevdataId, brevmal) => {
@@ -39,8 +41,8 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        utilActions: bindActionCreators(menyValgActionsUtil, dispatch),
-        actions: bindActionCreators(menyValgActions, dispatch)
+        utilActions: bindActionCreators(regressionActionsUtil, dispatch),
+        actions: bindActionCreators(regressionActions, dispatch)
         /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
     };
 }

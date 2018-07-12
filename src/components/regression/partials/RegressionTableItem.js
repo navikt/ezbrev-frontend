@@ -12,6 +12,9 @@ import * as menyValgActionsUtil from '~/actions/menyValgActionsUtil';
 import * as menyValgActions from '~/actions/menyValgActions';
 import { connect } from 'react-redux';
 import Brev from '../partials/Brev';
+import { getRegressionObjects } from '~/components/regression/partials/RegressionUtil';
+import * as regressionActions from "~/actions/RegressionActions";
+import * as regressionActionsUtil from "~/actions/RegressionActionsUtil";
 
 class RegressionTableItem extends React.Component {
     constructor(props) {
@@ -21,9 +24,22 @@ class RegressionTableItem extends React.Component {
         };
     }
 
+    regtestMal = malId => {
+        //this.props.actions.setRegressionModal(true);
+        let regressionObjects = getRegressionObjects(
+            [malId],
+            this.props.brevdataList
+        );
+        console.log(regressionObjects);
+        this.props.utilActions.startRegressionTest(
+            regressionObjects,
+            this.props.miljo
+        );
+    };
+
     render() {
         const item = this.props.item;
-        
+
         const sammenlign = this.props.sammenlign;
         return (
             <Panel>
@@ -33,16 +49,8 @@ class RegressionTableItem extends React.Component {
                     }
                 >
                     <Row>
-                        <Col sm={3}>{item.malId}</Col>
+                        <Col sm={6}>{item.malId}</Col>
                         <Col sm={3}>{item.tittel}</Col>
-                        <Col sm={3}>
-                            <Button
-                                className={'btn btn-primary'}
-                                onClick={this.handleClick}
-                            >
-                                hei
-                            </Button>
-                        </Col>
                     </Row>
                 </Panel.Heading>
                 {this.state.isShown ? (
@@ -52,11 +60,16 @@ class RegressionTableItem extends React.Component {
                                 <Col sm={3}>Beskrivelse</Col>
                                 <Col sm={3}>Likhet</Col>
                                 <Col sm={3}>
-                                    <Button bsSize="small">Regtest mal</Button>
+                                    <Button bsSize="small" onClick={() => this.regtestMal(item.malId)}>Regtest mal</Button>
                                 </Col>
                             </Row>
                         </ListGroupItem>
-                        {Brev(item.malId, sammenlign, this.props.brevdataList, this.props.regressionSimilarity)}
+                        {Brev(
+                            item.malId,
+                            sammenlign,
+                            this.props.brevdataList,
+                            this.props.regressionSimilarity
+                        )}
                     </ListGroup>
                 ) : null}
             </Panel>
@@ -79,8 +92,8 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        utilActions: bindActionCreators(menyValgActionsUtil, dispatch),
-        actions: bindActionCreators(menyValgActions, dispatch)
+        utilActions: bindActionCreators(regressionActionsUtil, dispatch),
+        actions: bindActionCreators(regressionActions, dispatch)
         /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
     };
 }

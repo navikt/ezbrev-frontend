@@ -7,54 +7,25 @@ import * as regressionActionsUtil from '~/actions/regressionActionsUtil';
 import ListItem from '../../common/ListItem';
 import RegressionModal from '../partials/RegressionModal';
 import { getSimilarity } from '~/api';
+import {getRegressionObjects} from "~/components/regression/partials/RegressionUtil";
 
 class RegressionControl extends React.Component {
     handleClick = () => {
         this.props.actions.setRegressionModal(true);
-        let regressionObjects = this.getRegressionObjects();
-        let prosenter = {};
-        for (let i = 0; i < regressionObjects.length; i++) {
-            getSimilarity(this.props.miljo, regressionObjects[i]).then(
-                object => {
-                    const json = object.json;
-                    const input = object.input;
-                    'error' in json
-                        ? (prosenter[input.brevdataId] = json.message)
-                        : (prosenter[json.brevdataId] = json.percentage);
-                    this.props.actions.setRegressionSimilarity(
-                        JSON.parse(JSON.stringify(prosenter))
-                    );
-                }
-            );
-        }
-    };
-
-    getRegressionObjects = () => {
-        let regressionObjects = [];
-        for (let key in this.props.brevdataList) {
-            if (this.props.brevdataList[key].length > 0) {
-                this.props.brevdataList[key].forEach(brevdata =>
-                    regressionObjects.push({
-                        brevdataId: brevdata.brevdataId,
-                        brevmal: key
-                    })
-                );
-            }
-        }
-        return regressionObjects;
+        let regressionObjects = getRegressionObjects(Object.keys(this.props.brevdataList), this.props.brevdataList);
+        this.props.utilActions.startRegressionTest(regressionObjects, this.props.miljo);
     };
 
     setBrevMalList = brevpakke => {
         let brevmalList = [];
-        this.props.brevInfo.forEach(
-            item =>
-                item.brevPakke === brevpakke
-                    ? brevmalList.push({
-                          malId: item.malID,
-                          tittel: item.dokumentTittel
-                      })
-                    : null
-        );
+        for (let i = 0; i < this.props.brevInfo.length; i++) {
+            if (this.props.brevInfo[i].brevPakke === brevpakke) {
+                brevmalList.push({
+                    malId: this.props.brevInfo[i].malID,
+                    tittel: this.props.brevInfo[i].dokumentTittel
+                });
+            }
+        }
         return brevmalList;
     };
 
@@ -99,7 +70,7 @@ class RegressionControl extends React.Component {
                 <Col sm={3}>
                     <Button
                         className={'btn btn-info'}
-                        onClick={this.handleClick}
+                        onClick={() => this.handleClick()}
                         id="start_regresjonstest_button"
                     >
                         Start regresjonstest

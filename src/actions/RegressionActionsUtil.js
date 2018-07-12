@@ -1,4 +1,4 @@
-import { getBrevdataInBrevpakke } from '~/api';
+import { getBrevdataInBrevpakke, getSimilarity } from '~/api';
 import * as regressionActions from '~/actions/RegressionActions';
 import * as menyValgActionsUtil from '~/actions/menyValgActionsUtil';
 
@@ -26,4 +26,24 @@ export function setBrevdataList(brevpakke, brevmalList, brevmalIds) {
 
 export function selectMiljo(miljo, action) {
     return menyValgActionsUtil.selectMiljo(miljo, action);
+}
+
+export function startRegressionTest(regressionObjects, env) {
+    return function(dispatch) {
+        let prosenter = {};
+        for (let i = 0; i < regressionObjects.length; i++) {
+            getSimilarity(env, regressionObjects[i]).then(object => {
+                const json = object.json;
+                const input = object.input;
+                'error' in json
+                    ? (prosenter[input.brevdataId] = json.message)
+                    : (prosenter[json.brevdataId] = json.percentage);
+                dispatch(
+                    regressionActions.setRegressionSimilarity(
+                        JSON.parse(JSON.stringify(prosenter))
+                    )
+                );
+            });
+        }
+    };
 }
