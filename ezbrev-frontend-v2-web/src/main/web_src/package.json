@@ -12,6 +12,7 @@
   "scripts": {
     "start": "npm-run-all --parallel test:watch server open:src lint:watch",
     "open:src": "webpack-dev-server --config ./webpack.config.js --port 3000 --mode development --open",
+    "build": "./node_modules/.bin/webpack",
     "lint": "node_modules/.bin/esw webpack.config.* src tools",
     "lint:watch": "npm run lint -- --watch",
     "test": "mocha --reporter progress tools/testSetup.js \"src/**/*.test.js\"",
@@ -71,7 +72,7 @@
     "redux-immutable-state-invariant": "1.2.3",
     "redux-logger": "^3.0.6",
     "style-loader": "^0.21.0",
-    "webpack": "^4.12.0",
+    "webpack": "4.16.0",
     "webpack-cli": "^2.1.4",
     "webpack-dev-server": "^3.1.4"
   },
