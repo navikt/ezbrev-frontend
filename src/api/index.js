@@ -99,7 +99,18 @@ export function getSammenlignMedGodkjent(env,journalpostId,dokumentInfoId,brevda
     return post(url,data).then(res=>{return res.json()})
 }
 
+export function getBrevdataInBrevpakke(brevpakkeNavn, maler) {
+    const url = `${serverUrl}/rest/${brevpakkeNavn}/getBrevdatasByDokumentmalIds`;
+    return post(url, maler).then(json => json);
+}
 
+export function post(url, data) {
+    return fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' }
+    }).then(res => res.json());
+}
 export function approveDokument(
     brevdataId,
     env,
@@ -118,7 +129,6 @@ export function getLastApprovedPDF(brevdataId) {
     return get(url).then(dokument => dokument.json());
 }
 
-
 export function getOutputXML(xml){
     const url=`${serverUrl}/rest/xmlconverter/convert`;
     const data={xml}
@@ -128,6 +138,7 @@ export function getOutputXML(xml){
 }
 
 export function post(url, data) {
+    console.log(data);
     return fetch(url, {
         method: 'POST',
         body: JSON.stringify(data),
@@ -137,4 +148,27 @@ export function post(url, data) {
 
 function get(url) {
     return fetch(url); //returnerer et promise
+}
+
+export function getSimilarity(env, sammenlignPercentageObject) {
+    const url = `${serverUrl}/rest/sammenlignprosent/${env}`;
+    return post(url, sammenlignPercentageObject).then(res => ({
+        json: res,
+        input: sammenlignPercentageObject
+    }));
+}
+
+export function getXmlByJournalpostId(env, brevsystem, journalpostId) {
+    const url = `${serverUrl}/rest/inspect/${env}/${brevsystem}/jpid/${journalpostId}`;
+    return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
+}
+
+export function getXmlByDokumentInfoId(env, brevsystem, dokumentInfoId) {
+    const url = `${serverUrl}/rest/inspect/${env}/${brevsystem}/dokid/${dokumentInfoId}`;
+    return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
+}
+
+export function getXmlByMottakerId(env, brevsystem, mottakerId) {
+    const url = `${serverUrl}/rest/inspect/${env}/${brevsystem}/mottaker/${mottakerId}`;
+    return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
 }

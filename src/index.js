@@ -47,5 +47,3 @@ if (module.hot) {
         );
     });
 }
-
-console.log(store);

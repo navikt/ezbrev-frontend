@@ -43,7 +43,6 @@ class BrevdataMeta extends React.Component {
                     id="brevdata_pick"
                     placeholder="Velg brevdata"
                     onSelect={brevdataId => {
-                        console.log(brevdataId);
                         this.props.utilActions.selectBrevdata(brevdataId);
                         this.setState({ brevdataId: brevdataId });
                         this.setState({ titlebrevdata: brevdataId });

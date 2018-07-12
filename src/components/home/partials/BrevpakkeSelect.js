@@ -40,7 +40,6 @@ class BrevpakkeSelect extends React.Component {
         };
     }
     checkRedigerbar() {
-        console.log(this.props.brevmal.redigerbar);
         if (this.props.brevmal === undefined || this.props.brevmal === '') {
             return 'Velg brevmal';
         } else if (this.props.brevmal.redigerbar) {
