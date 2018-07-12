@@ -74,7 +74,6 @@ class BrevpakkeSelect extends React.Component {
                             let miljo=this.props.miljo;
                             let brevpakkenavn=
                             this.props.utilActions.selectBrevpakke(
-                                miljo,
                                 brevpakke,
                                 brevInfo
                             );

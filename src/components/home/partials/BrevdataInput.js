@@ -28,7 +28,6 @@ render() {
 }
 
 BrevdataInput.propTypes = {
-    brevdataXML: PropTypes.string.isRequired,
     actions: PropTypes.object.isRequired
 };
 

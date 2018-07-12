@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
     menyValg,
     dokumentReducer,
     error,
-    converter
+    converter,
     regressjonReducer,
     inspection,
     inspectionDataReducer
