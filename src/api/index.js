@@ -32,8 +32,13 @@ export function getMiljoList() {
 }
 
 export function getBrevInfo(miljo) {
-    const url = `${serverUrl}/rest/${miljo}/dokumenttypeinfo`;
+    const url = `${serverUrl}/rest/brevmaler/${miljo}`;
     return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
+}
+
+export function getBrevpakkeVersjon(miljo,brevpakkenavn){
+    const url=`${serverUrl}/rest/brevpakkeversjon/${brevpakkenavn}/${miljo}`
+    return get(url).then(res=>res.json());
 }
 
 export function getBrevdataList(brevmal, brevpakke) {
@@ -81,18 +86,24 @@ export function getDokument(brevmal, xml, rediger, miljo) {
     });
 }
 
-export function getBrevdataInBrevpakke(brevpakkeNavn, maler) {
-    const url = `${serverUrl}/rest/${brevpakkeNavn}/getBrevdatasByDokumentmalIds`;
-    return post(url, maler).then(json => json);
+export function getRedigertBrev(miljo, jounralpostId, dokumentInfoId) {
+    const url = `${serverUrl}/rest/brev/${miljo}/${jounralpostId}/${dokumentInfoId}`;
+    return get(url).then(res => {
+        return res.json();
+    });
 }
 
-export function post(url, data) {
-    return fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: { 'Content-Type': 'application/json' }
-    }).then(res => res.json());
+export function getSammenlignMedGodkjent(env,journalpostId,dokumentInfoId,brevdataId){
+    const url=`${serverUrl}/rest/sammenlign`
+    const data={env,journalpostId,dokumentInfoId,brevdataId}
+    return post(url,data).then(res=>{return res.json()})
 }
+
+export function getBrevdataInBrevpakke(brevpakkeNavn, maler) {
+    const url = `${serverUrl}/rest/${brevpakkeNavn}/getBrevdatasByDokumentmalIds`;
+    return post(url, maler).then(res => res.json());
+}
+
 
 export function approveDokument(
     brevdataId,
@@ -112,16 +123,29 @@ export function getLastApprovedPDF(brevdataId) {
     return get(url).then(dokument => dokument.json());
 }
 
+export function getOutputXML(xml){
+    const url=`${serverUrl}/rest/xmlconverter/convert`;
+    const data={xml}
+    return post(url,data).then(res => {
+        return res.json();
+    });
+}
+
+export function post(url, data) {
+    return fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' }
+    });
+}
+
 function get(url) {
     return fetch(url); //returnerer et promise
 }
 
 export function getSimilarity(env, sammenlignPercentageObject) {
     const url = `${serverUrl}/rest/sammenlignprosent/${env}`;
-    return post(url, sammenlignPercentageObject).then(res => ({
-        json: res,
-        input: sammenlignPercentageObject
-    }));
+    return (post(url, sammenlignPercentageObject).then(res => res.json()).then(json => ({json: json, input: sammenlignPercentageObject})));
 }
 
 export function getXmlByJournalpostId(env, brevsystem, journalpostId) {
