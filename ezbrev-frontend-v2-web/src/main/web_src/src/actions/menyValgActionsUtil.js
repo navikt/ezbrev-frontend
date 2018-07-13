@@ -1,0 +1,62 @@
+import * as actions from '~/actions/menyValgActions';
+import * as api from '~/api';
+import { getBrevdataInBrevpakke } from '~/api';
+import * as regressionActions from '~/actions/regressionActions';
+
+export function fetchMiljoList() {
+    return function(dispatch) {
+        return api
+            .getMiljoList()
+            .then(miljoList => {
+                dispatch(actions.setMiljoList(miljoList));
+            })
+            .catch(error => {
+                throw error;
+            });
+    };
+}
+
+export function selectMiljo(miljo, action = actions.setBrevInfo) {
+    return function(dispatch) {
+        return api
+            .getBrevInfo(miljo)
+            .then(json => {
+                dispatch(action(json));
+            })
+            .catch(error => {
+                throw error;
+            });
+    };
+}
+
+export function selectBrevpakke(brevpakke, brevInfo) {
+    return actions.setBrevmalList(brevpakke, brevInfo);
+}
+
+export function fetchBrevpakkeVersjon(miljo, brevpakkenavn){
+    return function(dispatch) {
+        return api
+            .getBrevpakkeVersjon(miljo,
+                brevpakkenavn)
+            .then(brevpakkeversjon => {
+                dispatch(actions.setBrevpakkeVersjon(brevpakkeversjon.version));
+            })
+            .catch(error => {
+                throw error;
+            });
+    };
+}
+
+
+export function selectBrevmal(brevmal, brevpakke) {
+    return function(dispatch) {
+        return api
+            .getBrevdataList(brevmal, brevpakke)
+            .then(brevdataList => {
+                dispatch(actions.setBrevdataList(brevdataList));
+            })
+            .catch(error => {
+                throw error;
+            });
+    };
+}
