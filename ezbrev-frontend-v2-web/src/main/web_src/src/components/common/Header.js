@@ -6,7 +6,7 @@ const Header = () => {
         <div className="container-fluid">
             <nav className="navbar">
                 <div className="navbar-header">
-                    <span className="navbar-brand">Ez-Brev 3</span>
+                    <span className="navbar-brand">Ez-Brev 4 beta</span>
                 </div>
                 <div className="collapse navbar-collapse">
                     <ul className="nav navbar-nav">

@@ -19,6 +19,7 @@ class XMLConverter extends React.Component {
                                 this.props.inputXML
                             )
                         }
+                        disabled={this.props.inputXML === ''}
                     >
                         Konverter XML
                     </Button>

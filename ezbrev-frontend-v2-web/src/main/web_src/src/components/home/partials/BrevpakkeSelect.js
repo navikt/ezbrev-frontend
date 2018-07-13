@@ -1,51 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DropdownButton, MenuItem, Row } from 'react-bootstrap';
+import { DropdownButton, MenuItem, Row, FormControl } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as menyValgActionsUtil from '../../../actions/menyValgActionsUtil';
 import * as menyValgActions from '../../../actions/menyValgActions';
-
-function ListItem({ title, id, func, list }) {
-    return (
-        <DropdownButton  className={"btn btn-info"} title={title} id={id} onSelect={func}>
-            {list.map(i => (
-                <MenuItem key={i} eventKey={i}>
-                    {' '}
-                    {i}{' '}
-                </MenuItem>
-            ))}
-        </DropdownButton>
-    );
-}
-
-ListItem.propTypes = {
-    title: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    func: PropTypes.func.isRequired,
-    list: PropTypes.array.isRequired
-};
-
-//endre slik at knappene viser hvilket valg som er tatt, lagre dette i den lokale staten?
+import * as brevdataActions from '../../../actions/brevdataActions';
+import * as dokumentActions from '../../../actions/dokumentActions';
+import ListItem from '../../common/ListItem';
+import FormItem from '~/components/inspection/partials/FormItem';
 
 class BrevpakkeSelect extends React.Component {
-    //container component
-    constructor(props, context) {
-        super(props, context);
-
-        this.state = {
-            titlemiljo: 'Velg miljø',
-            titlebrevpakke: 'Velg brevpakke',
-            titlebrevmal: 'Velg brevmal'
-        };
-    }
     checkRedigerbar() {
         if (this.props.brevmal === undefined || this.props.brevmal === '') {
-            return 'Velg brevmal';
+            return 'Brevmal: ';
         } else if (this.props.brevmal.redigerbar) {
-            return this.props.brevmal + 'r';
+            return 'Brevmal: ' + this.props.brevmal + ' Redigerbar';
         } else {
-            return this.props.brevmal;
+            return 'Brevmal: ' + this.props.brevmal;
         }
     }
 
@@ -54,38 +26,60 @@ class BrevpakkeSelect extends React.Component {
             <section className="col-md-2 float-left">
                 <Row>
                     <ListItem
-                        title={this.state.titlemiljo}
+                        title={'Miljø: ' + this.props.miljo}
                         id="brevpakke_env_pick"
                         func={miljo => {
-                            this.props.utilActions.selectMiljo(miljo);
                             this.props.actions.setMiljo(miljo);
-                            this.setState({ titlemiljo: miljo });
+                            this.props.utilActions.selectMiljo(miljo);
+                            this.props.actionsBrevdata.setBrevdata('');
+                            this.props.actionsDok.setDokument('');
                         }}
                         list={this.props.miljoList}
                     />
                 </Row>
-                <br/>
+                <br />
                 <Row>
-                    <ListItem
-                        title={this.state.titlebrevpakke}
-                        id="brevpakke_pick"
-                        func={brevpakke => {
-                            let brevInfo = this.props.brevInfo;
-                            let miljo=this.props.miljo;
-                            let brevpakkenavn=
-                            this.props.utilActions.selectBrevpakke(
-                                brevpakke,
-                                brevInfo
-                            );
-                            this.props.actions.setBrevpakke(brevpakke);
-                            this.setState({ titlebrevpakke: brevpakke });
-                        }}
-                        list={this.props.brevpakkeList}
-                    />
+                    <div className="parent">
+                        <div className="child inline-block-child">
+                            <ListItem
+                                title={'Brevpakke: ' + this.props.brevpakke}
+                                id="brevpakke_pick"
+                                func={brevpakke => {
+                                    let brevInfo = this.props.brevInfo;
+                                    let miljo = this.props.miljo;
+                                    this.props.utilActions.selectBrevpakke(
+                                        brevpakke,
+                                        brevInfo
+                                    );
+                                    this.props.utilActions.fetchBrevpakkeVersjon(
+                                        miljo,
+                                        brevpakke
+                                    );
+                                    this.props.actions.setBrevpakke(brevpakke);
+                                    this.props.actionsBrevdata.setBrevdata('');
+                                    this.props.actionsDok.setDokument('');
+                                }}
+                                list={this.props.brevpakkeList}
+                                isDisabled={this.props.miljo === ''}
+                            />
+                        </div>
+                        <div className="child inline-block-child">
+                            <FormControl
+                                readOnly
+                                value={
+                                    this.props.brevpakkeVersjon
+                                        ? this.props.brevpakkeVersjon
+                                        : ''
+                                }
+                            />
+                        </div>
+                    </div>
                 </Row>
-                <br/>
+                <br />
                 <Row>
-                    <DropdownButton className={"btn btn-info"}
+                    <DropdownButton
+                        className={'btn btn-info'}
+                        disabled={this.props.brevpakke === ''}
                         title={this.checkRedigerbar()}
                         id={'brevpakke_mal_pick'}
                         onSelect={brevmal => {
@@ -94,7 +88,8 @@ class BrevpakkeSelect extends React.Component {
                                 this.props.brevpakke
                             );
                             this.props.actions.setBrevmal(brevmal);
-                            this.setState({ titlebrevmal: brevmal });
+                            this.props.actionsBrevdata.setBrevdata('');
+                            this.props.actionsDok.setDokument('');
                         }}
                     >
                         {this.props.brevmalList.map(i => (
@@ -127,19 +122,22 @@ BrevpakkeSelect.propTypes = {
 function mapStateToProps(state, ownProps) {
     return {
         miljoList: state.menyValg.miljoList,
-        miljo:state.menyValg.miljo,
+        miljo: state.menyValg.miljo,
         brevInfo: state.menyValg.brevInfo,
         brevpakkeList: state.menyValg.brevpakkeList,
         brevmalList: state.menyValg.brevmalList,
         brevpakke: state.menyValg.brevpakke,
-        brevmal: state.menyValg.brevmal
+        brevmal: state.menyValg.brevmal,
+        brevpakkeVersjon: state.menyValg.brevpakkeVersjon
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         utilActions: bindActionCreators(menyValgActionsUtil, dispatch),
-        actions: bindActionCreators(menyValgActions, dispatch)
+        actions: bindActionCreators(menyValgActions, dispatch),
+        actionsBrevdata: bindActionCreators(brevdataActions, dispatch),
+        actionsDok: bindActionCreators(dokumentActions, dispatch)
         /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
     };
 }

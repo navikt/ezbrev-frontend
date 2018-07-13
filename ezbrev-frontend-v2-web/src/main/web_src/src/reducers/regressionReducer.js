@@ -2,10 +2,10 @@ import * as types from '../actions/actionTypes';
 
 const initialState = {
     regressjonMiljoList: [],
-    regressjonMiljo: ' - ',
+    regressjonMiljo: '',
     regressjonBrevInfo: [],
     regressjonBrevpakkeList: [],
-    regressjonBrevpakke: ' - ',
+    regressjonBrevpakke: '',
     regressjonBrevmalList: [],
     regressjonBrevdataList: {},
     regressionSimilarity: {},
@@ -25,7 +25,7 @@ export default function regresjonMenyValgReducer(state = initialState, action) {
         case types.SET_MILJOLIST:
             return Object.assign({}, state, { regressjonMiljoList: action.miljoList });
         case types.SET_REGRESSION_MILJO:
-            return Object.assign({}, state, { regressjonMiljo: action.miljo });
+            return Object.assign({}, state, { regressjonMiljo: action.miljo , regressjonBrevpakke: '', regressjonBrevmalList: []});
         case types.SET_REGRESSION_BREVPAKKELIST:
             return Object.assign({}, state, {
                 regressjonBrevpakkeList: action.brevpakkeList

@@ -36,6 +36,12 @@ nav {
     resize: none;
 }
 
+.parent{
+    display: flex;
+    flex-direction: row;
+
+}
+
 .approved-text-line{
     background-color: #f9cccc;
 }
@@ -45,4 +51,9 @@ nav {
 }
 .grey-text-line{
     color: grey;
+}
+
+.list-group{
+    max-height:360px;
+    overflow-y: scroll;
 }

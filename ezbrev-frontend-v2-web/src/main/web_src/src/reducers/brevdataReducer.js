@@ -1,7 +1,8 @@
 import * as types from '../actions/actionTypes';
 
 const initialState = {
-    brevdata: ''
+    brevdata: '',
+    redigerbar: false
 };
 
 export default function brevdataReducer(state = initialState, action) {
@@ -18,7 +19,7 @@ export default function brevdataReducer(state = initialState, action) {
                 }
             };
         case types.SET_BREVDATA:
-            return { ...state, brevdata: action.brevdata };
+            return { ...state, brevdata: action.brevdata, redigerbar: (action.brevdata==="")?false:(action.brevdata.dokumentmal.redigerbar)};
         case types.CHANGE_BESKRIVELSE:
             return {
                 ...state,

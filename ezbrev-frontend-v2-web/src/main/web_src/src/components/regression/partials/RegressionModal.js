@@ -31,28 +31,8 @@ class RegressionModal extends React.Component {
                         <Modal.Title>Regressjonstest startet</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <h4>Text in a modal</h4>
-                        <p>
-                            Duis mollis, est non commodo luctus, nisi erat
-                            porttitor ligula.
-                        </p>
-                        <h4>Popover in a modal</h4>
-                        <p>
-                            there is a{' '}
-                            <OverlayTrigger overlay={popover}>
-                                <a href="#popover">popover</a>
-                            </OverlayTrigger>{' '}
-                            here
-                        </p>
-                        <h4>Tooltips in a modal</h4>
-                        <p>
-                            there is a{' '}
-                            <OverlayTrigger overlay={tooltip}>
-                                <a href="#tooltip">tooltip</a>
-                            </OverlayTrigger>{' '}
-                            here
-                        </p>
-
+                        <h4>Dette kan ta litt tid</h4>
+                        <p>Nyt livet, pust med magen, og ikke trykk på knappen. Da starter regresjonstesten på nytt.</p>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={this.handleClose}>Close</Button>

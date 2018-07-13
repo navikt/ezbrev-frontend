@@ -9,27 +9,27 @@ import * as dokumentActions from '../../../actions/dokumentActions';
 import { bindActionCreators } from 'redux';
 
 class BrevdataControl extends React.Component {
-    constructor(props, context) {
-        super(props, context);
-    }
-
     redigerBrev = () => {
         const rediger = true;
-        this.props.utilActionsDok.produceDokument(
-            this.props.brevdata.dokumentmal.dokumenttypeId,
-            this.props.brevdata.xmlInnhold,
-            rediger,
-            this.props.miljo
+        return (
+            this.props.utilActionsDok.produceDokument(
+                this.props.brevdata.dokumentmal.dokumenttypeId,
+                this.props.brevdata.xmlInnhold,
+                rediger,
+                this.props.miljo
+            ),
+            this.props.actionsDok.setIsRedigertExternal(true)
         );
-        this.props.actionsDok.setIsRedigertExternal(true);
     };
     hentBrev = () => {
-        this.props.utilActionsDok.showRedigertBrev(
-            this.props.miljo,
-            this.props.dokument.journalpostId,
-            this.props.dokument.dokumentInfoId
-        ),
-            this.props.actionsDok.setIsRedigertExternal(false);
+        return (
+            this.props.utilActionsDok.showRedigertBrev(
+                this.props.miljo,
+                this.props.dokument.journalpostId,
+                this.props.dokument.dokumentInfoId
+            ),
+            this.props.actionsDok.setIsRedigertExternal(false)
+        );
     };
 
     render() {
@@ -43,6 +43,7 @@ class BrevdataControl extends React.Component {
                             this.props.brevdata.xmlInnhold
                         )
                     }
+                    disabled={this.props.brevdata === ''}
                 >
                     Oppdater
                 </Button>
@@ -55,6 +56,7 @@ class BrevdataControl extends React.Component {
                             this.props.brevdata
                         )
                     }
+                    disabled={this.props.brevdata === ''}
                 >
                     Lagre som ny
                 </Button>
@@ -70,6 +72,7 @@ class BrevdataControl extends React.Component {
                             this.props.miljo
                         );
                     }}
+                    disabled={this.props.brevdata === ''}
                 >
                     Produser brev
                 </Button>
@@ -80,6 +83,9 @@ class BrevdataControl extends React.Component {
                         this.props.isRedigertExternal
                             ? () => this.hentBrev()
                             : () => this.redigerBrev()
+                    }
+                    disabled={
+                        this.props.brevdata === '' || !this.props.redigerbar
                     }
                 >
                     {this.props.isRedigertExternal
@@ -101,6 +107,7 @@ class BrevdataControl extends React.Component {
                                 this.props.brevdata.xmlInnhold
                             );
                     }}
+                disabled={this.props.dokument===''}
                 >
                     Godkjenn
                 </Button>
@@ -116,6 +123,7 @@ class BrevdataControl extends React.Component {
                             this.props.brevdata.brevdataId
                         );
                     }}
+                disabled={this.props.dokument===''||this.props.isRedigertExternal}
                 >
                     Sammenlign med godkjent
                 </Button>
@@ -129,8 +137,9 @@ function mapStateToProps(state, ownProps) {
         brevdata: state.brevdataReducer.brevdata,
         brevpakke: state.menyValg.brevpakke,
         miljo: state.menyValg.miljo,
-        dokument: state.dokumentReducer.dokument, //hvorfor er denne bare lilla??
-        isRedigertExternal: state.dokumentReducer.isRedigertExternal
+        dokument: state.dokumentReducer.dokument,
+        isRedigertExternal: state.dokumentReducer.isRedigertExternal,
+        redigerbar: state.brevdataReducer.redigerbar
     };
 }
 
@@ -146,3 +155,4 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(BrevdataControl);
+

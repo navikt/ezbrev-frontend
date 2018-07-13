@@ -66,6 +66,11 @@ class InspectionSelection extends React.Component {
                     <Button
                         className="float-left"
                         onClick={() => this.getXml()}
+                        disabled={this.props.miljo===''||this.props.brevsystem===''||
+                            (this.props.mottakerId==='' &&
+                            this.props.journalpostId==='' &&
+                            this.props.dokumentinfoId==='')
+                        }
                     >
                         Hent XML
                     </Button>

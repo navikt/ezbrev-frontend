@@ -6,31 +6,28 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as brevdataActions from '~/actions/brevdataActions';
 import * as dokumentActionsUtil from '~/actions/dokumentActionsUtil';
+import * as dokumentActions from '~/actions/dokumentActions';
 
 class BrevdataMeta extends React.Component {
     constructor(props, context) {
         super(props, context);
 
         this.onSelectSort = this.onSelectSort.bind(this);
-
-        this.state = {
-            brevdataId: '',
-            titlebrevdata: 'Velg brevdata'
-        };
     }
 
     onSelectSort(choice) {}
-    titleBrevdata(){
-        if (this.props.brevdataId===undefined){
-            return "Velg brevdata";
-        }else{
-            return this.props.brevdataId
+    titleBrevdata() {
+        if (this.props.brevdataId === undefined) {
+            return 'Velg brevdata';
+        } else {
+            return this.props.brevdataId;
         }
     }
     render() {
         return (
             <section className="col-md-4 float-left">
-                <DropdownButton className={"btn btn-info"}
+                <DropdownButton
+                    className={'btn btn-info'}
                     title="Sorter brevdata"
                     id="brevdata_sorter"
                     onSelect={this.onSelectSort}
@@ -38,23 +35,33 @@ class BrevdataMeta extends React.Component {
                     <MenuItem eventKey="1">Nyeste først</MenuItem>
                     <MenuItem eventKey="2">Eldste først</MenuItem>
                 </DropdownButton>
-                <DropdownButton className={"btn btn-info"}
-                    title={this.titleBrevdata()}
+                <div
+                    className="list-group"
                     id="brevdata_pick"
-                    placeholder="Velg brevdata"
-                    onSelect={brevdataId => {
-                        this.props.utilActions.selectBrevdata(brevdataId);
-                        this.setState({ brevdataId: brevdataId });
-                        this.setState({ titlebrevdata: brevdataId });
-                    }}
                 >
                     {this.props.brevdataList.map(i => (
-                        <MenuItem key={i.brevdataId} eventKey={i.brevdataId}>
-                            {' '}
-                            {i.brevdataId}{' '}
-                        </MenuItem>
+                        <button
+                            type="button"
+                            className="list-group-item"
+                            key={i.brevdataId}
+                            onClick={() => {
+                                this.props.utilActions.selectBrevdata(
+                                    i.brevdataId
+                                );
+                                this.props.actionsDok.setDokument('');
+                            }}
+                            disabled={this.props.brevmal === ''}
+                        >
+                            {i.beskrivelse}
+                            {' - '}
+                            {'id: '}
+                            {i.brevdataId}
+                            <br />
+                            {'Opprettet: '}
+                            {i.changeStamp.opprettetDato}{' '}
+                        </button>
                     )) /*mulig at vi må ha annen eventKey her. Feilmelding: missing key prop for element in iterator*/}
-                </DropdownButton>
+                </div>
                 <br />
                 <h5>Beskrivelse</h5>
                 <textarea
@@ -68,8 +75,16 @@ class BrevdataMeta extends React.Component {
                         );
                     }}
                 />
-                <br/>
-                <Button className={"btn btn-success"}onClick={()=>this.props.dokUtilActions.showLastApprovedPDF(this.props.brevdataId)}>
+                <br />
+                <Button
+                    className={'btn btn-success'}
+                    onClick={() =>
+                        this.props.utilActionsDok.showLastApprovedPDF(
+                            this.props.brevdata.brevdataId
+                        )
+                    }
+                    disabled={this.props.brevdata === ''}
+                >
                     Vis siste godkjente PDF
                 </Button>
             </section>
@@ -88,7 +103,8 @@ function mapStateToProps(state, ownProps) {
     return {
         brevdataList: state.menyValg.brevdataList,
         beskrivelse: state.brevdataReducer.brevdata.beskrivelse,
-        brevdataId:state.brevdataReducer.brevdata.brevdataId
+        brevdata: state.brevdataReducer.brevdata,
+        brevmal: state.menyValg.brevmal
     };
 }
 
@@ -96,7 +112,8 @@ function mapDispatchToProps(dispatch) {
     return {
         utilActions: bindActionCreators(brevdataActionsUtil, dispatch),
         actions: bindActionCreators(brevdataActions, dispatch),
-        dokUtilActions: bindActionCreators(dokumentActionsUtil,dispatch)
+        utilActionsDok: bindActionCreators(dokumentActionsUtil, dispatch),
+        actionsDok: bindActionCreators(dokumentActions, dispatch)
     };
 }
 
@@ -104,3 +121,29 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(BrevdataMeta);
+
+//
+// <DropdownButton
+//     className={'btn btn-info'}
+//     title={
+//         'Brevdata: ' +
+//         (this.props.brevdata.brevdataId ? this.props.brevdata.brevdataId : '')
+//     }
+//     id="brevdata_pick"
+//     placeholder="Velg brevdata"
+//     onSelect={brevdataId => {
+//         this.props.utilActions.selectBrevdata(brevdataId);
+//         this.props.actionsDok.setDokument('');
+//     }}
+//     disabled={this.props.brevmal === ''}
+// >
+//     {this.props.brevdataList.map(i => (
+//         <MenuItem key={i.brevdataId} eventKey={i.brevdataId}>
+//             {' '}
+//             {i.beskrivelse}{' - '}
+//             {'id: '}{i.brevdataId}<br/>
+//             {'Opprettet: '}{i.changeStamp.opprettetDato}
+//             {' '}
+//         </MenuItem>
+//     )) /*mulig at vi må ha annen eventKey her. Feilmelding: missing key prop for element in iterator*/}
+// </DropdownButton>

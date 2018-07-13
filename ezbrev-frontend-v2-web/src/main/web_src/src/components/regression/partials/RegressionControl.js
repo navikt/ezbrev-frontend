@@ -1,12 +1,11 @@
 import React from 'react';
-import { Button, Col, Row } from 'react-bootstrap';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import {Button, Col, Row} from 'react-bootstrap';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import * as regressionActions from '~/actions/regressionActions';
 import * as regressionActionsUtil from '~/actions/regressionActionsUtil';
 import ListItem from '../../common/ListItem';
 import RegressionModal from '../partials/RegressionModal';
-import { getSimilarity } from '~/api';
 import {getRegressionObjects} from "~/components/regression/partials/RegressionUtil";
 
 class RegressionControl extends React.Component {
@@ -65,6 +64,7 @@ class RegressionControl extends React.Component {
                         id="1"
                         func={brevpakke => this.updateBrevpakke(brevpakke)}
                         list={this.props.brevpakkeList}
+                        isDisabled={this.props.miljo===''}
                     />
                 </Col>
                 <Col sm={3}>
@@ -72,6 +72,7 @@ class RegressionControl extends React.Component {
                         className={'btn btn-info'}
                         onClick={() => this.handleClick()}
                         id="start_regresjonstest_button"
+                        disabled={this.props.brevpakke===''}
                     >
                         Start regresjonstest
                     </Button>

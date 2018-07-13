@@ -1,5 +1,6 @@
 import * as actions from '~/actions/dokumentActions';
 import * as api from '~/api';
+import {setIsRedigertExternal} from "~/actions/dokumentActions";
 
 export function displayBase64PDF(base64) {
     // Create src url.
@@ -17,10 +18,10 @@ export function produceDokument(brevmal, xml, rediger, miljo) {
         return api
             .getDokument(brevmal, xml, rediger, miljo)
             .then(dokument => {
-                console.log(dokument)
                 dispatch(actions.setDokument(dokument));
                 return dokument;
-            }).then(dokument => ((dokument.metawriteUri!==null)?(window.open(dokument.metawriteUri)):(displayBase64PDF(dokument.document))))
+            }).then(dokument => (
+                (dokument.metawriteUri!==null)?(window.open(dokument.metawriteUri),dispatch(actions.setIsRedigertExternal(true))):(displayBase64PDF(dokument.document))))
             .catch(error => {
                 throw error;
             });

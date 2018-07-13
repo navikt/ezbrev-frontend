@@ -10,7 +10,6 @@ export default function FormItem({ title, store, action }) {
                     <FormControl
                         type="text"
                         value={store}
-                        palceholder={'mottakerId'}
                         onChange={e => action(e.target.value)}
                     />
                 </FormGroup>

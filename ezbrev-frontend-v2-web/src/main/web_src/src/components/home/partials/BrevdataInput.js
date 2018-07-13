@@ -13,7 +13,7 @@ render() {
                     className="form-horizontal form-control"
                     id="brevdata_input"
                     placeholder="Legg inn XML"
-                    value={this.props.brevdataXML}
+                    value={this.props.brevdata.xmlInnhold}
                     onChange={event => {
                         this.props.actions.changeBrevdataXML(
                             event.target.value
@@ -33,17 +33,16 @@ BrevdataInput.propTypes = {
 
 function mapStateToProps(state, ownProps) {
     return {
-        brevdataXML: state.brevdataReducer.brevdata.xmlInnhold
+        brevdata: state.brevdataReducer.brevdata
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        /*changeXML: (args) => dispatch(action.change(args))*/
         actions: bindActionCreators(
             brevdataActions,
             dispatch
-        ) /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
+        )
     };
 }
 

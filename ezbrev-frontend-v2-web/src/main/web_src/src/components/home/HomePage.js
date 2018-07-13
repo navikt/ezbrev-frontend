@@ -14,8 +14,8 @@ class HomePage extends React.Component {
                 <BrevpakkeSelect />
                 <BrevdataInput />
                 <BrevdataMeta />
-                <ErrorDisplay/>
-                <SammenlignMedGodkjent/>
+                <ErrorDisplay />
+                <SammenlignMedGodkjent />
             </main>
         );
     }

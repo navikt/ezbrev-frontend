@@ -4,8 +4,8 @@ const initialState = {
     miljo: '',
     brevpakke: '',
     brevmal: '',
-    miljoList: ['t0', 't1', 't2', 'q0', 'q1', 'q2'],
-    brevpakkeVersjon:0,
+    miljoList: [],
+    brevpakkeVersjon: '',
     brevpakkeList: [],
     brevmalList: [],
     brevInfo: [],
@@ -27,7 +27,8 @@ function getBrevmalList(brevpakke, brevInfo) {
             let brevmal = brevInfo[i];
             brevmalList.push(brevmal);
         }
-    }console.log(brevmalList);
+    }
+    console.log(brevmalList);
     return brevmalList;
 }
 
@@ -69,12 +70,16 @@ export default function menyValgReducer(state = initialState, action) {
         case types.SET_MILJO:
             return {
                 ...state,
-                miljo: action.miljo
+                miljo: action.miljo,
+                brevpakke: '',
+                brevmal: '',
+                brevpakkeVersjon: ''
             };
         case types.SET_BREVPAKKE:
             return {
                 ...state,
-                brevpakke: action.brevpakke
+                brevpakke: action.brevpakke,
+                brevmal: ''
             };
         case types.SET_BREVMAL:
             return {
