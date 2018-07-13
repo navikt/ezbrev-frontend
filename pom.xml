@@ -11,12 +11,12 @@
     </parent>
 
     <groupId>no.nav.ezbrev-frontend</groupId>
-    <artifactId>ezbrev-frontend-v2</artifactId>
+    <artifactId>ezbrev-frontend</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
-        <application.name>ezbrev-frontend-v2</application.name>
+        <application.name>ezbrev-frontend</application.name>
         <application.version>${project.version}</application.version>
     </properties>
 

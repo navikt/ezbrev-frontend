@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="ezbrev-frontend-v2" target="1.8" />
+      <module name="ezbrev-frontend" target="1.8" />
       <module name="ezbrev-frontend-v2-app" target="1.8" />
       <module name="ezbrev-frontend-v2-web" target="1.8" />
     </bytecodeTargetLevel>

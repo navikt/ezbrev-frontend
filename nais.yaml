@@ -1,9 +1,9 @@
-image: "docker.adeo.no:5000/dok/ezbrev-backend-v4"
+image: "docker.adeo.no:5000/dok/ezbrev-frontend"
 replicas:
   min: 1
   max: 2
   cpuThresholdPercentage: 50
-port: 8081
+port: 8080
 healthcheck:
   liveness:
     path: internal/isAlive
