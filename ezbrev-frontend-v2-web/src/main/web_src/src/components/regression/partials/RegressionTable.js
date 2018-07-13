@@ -4,8 +4,8 @@ import * as menyValgActions from '~/actions/menyValgActions';
 import * as menyValgActionsUtil from '~/actions/menyValgActionsUtil';
 import {connect} from 'react-redux';
 import RegressionTableItem from '~/components/regression/partials/RegressionTableItem';
-import * as regressionActions from "~/actions/RegressionActions";
-import * as regressionActionsUtil from "~/actions/RegressionActionsUtil";
+import * as regressionActions from "~/actions/regressionActions";
+import * as regressionActionsUtil from "~/actions/regressionActionsUtil";
 
 class RegressionTable extends React.Component {
     render() {

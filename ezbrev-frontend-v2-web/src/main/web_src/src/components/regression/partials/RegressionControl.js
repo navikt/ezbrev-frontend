@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as regressionActions from '~/actions/RegressionActions';
+import * as regressionActions from '~/actions/regressionActions';
 import * as regressionActionsUtil from '~/actions/regressionActionsUtil';
 import ListItem from '../../common/ListItem';
 import RegressionModal from '../partials/RegressionModal';

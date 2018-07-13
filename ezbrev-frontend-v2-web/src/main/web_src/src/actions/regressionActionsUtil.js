@@ -1,5 +1,5 @@
 import {getBrevdataInBrevpakke, getSimilarity} from '~/api';
-import * as regressionActions from '~/actions/RegressionActions';
+import * as regressionActions from '~/actions/regressionActions';
 import * as menyValgActionsUtil from '~/actions/menyValgActionsUtil';
 
 export function setBrevdataList(brevpakke, brevmalList, brevmalIds) {

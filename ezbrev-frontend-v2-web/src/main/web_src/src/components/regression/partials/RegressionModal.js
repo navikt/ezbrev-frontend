@@ -6,9 +6,9 @@ import {
     Popover,
     Tooltip
 } from 'react-bootstrap';
-import * as regressionActions from '~/actions/RegressionActions';
+import * as regressionActions from '~/actions/regressionActions';
 import { bindActionCreators } from 'redux';
-import * as regressionActionsUtil from '~/actions/RegressionActionsUtil';
+import * as regressionActionsUtil from '~/actions/regressionActionsUtil';
 import { connect } from 'react-redux';
 
 class RegressionModal extends React.Component {
