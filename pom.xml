@@ -10,14 +10,19 @@
         <version>2.0.3.RELEASE</version>
     </parent>
 
-    <properties>
-    <application.name>ezbrev-frontend-v2</application.name>
-    <application.version>${project.version}</application.version>
-    </properties>
-
-    <groupId>no.nav</groupId>
+    <groupId>no.nav.ezbrev-frontend</groupId>
     <artifactId>ezbrev-frontend-v2</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-    
+    <properties>
+        <application.name>ezbrev-frontend-v2</application.name>
+        <application.version>${project.version}</application.version>
+    </properties>
+
+    <modules>
+        <module>ezbrev-frontend-v2-web</module>
+        <module>ezbrev-frontend-v2-app</module>
+    </modules>
+
 </project>

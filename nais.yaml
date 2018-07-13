@@ -3,14 +3,14 @@ replicas:
   min: 1
   max: 2
   cpuThresholdPercentage: 50
-port: 8080
+port: 8081
 healthcheck:
   liveness:
-    path: /isAlive
+    path: internal/isAlive
     initialDelay: 30
     failureThreshold: 10
   readiness:
-    path: /isReady
+    path: internal/isReady
     initialDelay: 30
     timeout: 3
 prometheus:

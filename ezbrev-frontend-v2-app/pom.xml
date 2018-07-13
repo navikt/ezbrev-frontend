@@ -5,22 +5,22 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>no.nav</groupId>
+        <groupId>no.nav.ezbrev-frontend</groupId>
         <artifactId>ezbrev-frontend-v2</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>no.nav</groupId>
     <artifactId>ezbrev-frontend-v2-app</artifactId>
     <version>1.0-SNAPSHOT</version>
 
 
 
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>no.nav.norg-frontend</groupId>-->
-            <!--<artifactId>norg2-frontend-web</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>no.nav.ezbrev-frontend</groupId>
+            <artifactId>ezbrev-frontend-v2-web</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
         <!--<classifier>classes</classifier>-->
 
@@ -29,6 +29,7 @@
             <!--<artifactId>logstash-logback-encoder</artifactId>-->
             <!--<version>${logstash.logback.encoder.version}</version>-->
         <!--</dependency>-->
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -57,7 +58,7 @@
                             <goal>repackage</goal>
                         </goals>
                         <configuration>
-                            <finalName>${application.name}</finalName>
+                            <finalName>app</finalName>
                         </configuration>
                     </execution>
                 </executions>

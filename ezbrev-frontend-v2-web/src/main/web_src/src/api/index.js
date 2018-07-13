@@ -2,7 +2,8 @@ import React from 'react';
 
 //@CrossOrigin(origins = "http://localhost:3000")     //dette må skrives inn i den aktuelle controlleren i back end
 
-const serverUrl = 'http://localhost:8080';
+// const serverUrl = 'http://localhost:8080';
+const serverUrl = window.serverUrl;
 //const serverUrl = 'https://ezbrev-backend-t4.nais.preprod.local';
 
 //http://localhost:8080/rest/t4/dokumenttypeinfo
@@ -10,7 +11,8 @@ const serverUrl = 'http://localhost:8080';
 //Må også kalle for å finne lagrede brevmaldata til venstre
 
 export function getMiljoList() {
-    const url = `${serverUrl}/rest/env`;
+    // const url = `/rest/env`;
+    const url = `/rest/env`;
     return get(url)
         .then(res => res.json())
         .then(json =>
@@ -32,27 +34,27 @@ export function getMiljoList() {
 }
 
 export function getBrevInfo(miljo) {
-    const url = `${serverUrl}/rest/brevmaler/${miljo}`;
+    const url = `/rest/brevmaler/${miljo}`;
     return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
 }
 
 export function getBrevpakkeVersjon(miljo,brevpakkenavn){
-    const url=`${serverUrl}/rest/brevpakkeversjon/${brevpakkenavn}/${miljo}`
+    const url=`/rest/brevpakkeversjon/${brevpakkenavn}/${miljo}`
     return get(url).then(res=>res.json());
 }
 
 export function getBrevdataList(brevmal, brevpakke) {
-    const url = `${serverUrl}/rest/${brevpakke}/${brevmal}/brevdata`;
+    const url = `/rest/${brevpakke}/${brevmal}/brevdata`;
     return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
 }
 
 export function getBrevdata(brevdataID) {
-    const url = `${serverUrl}/rest/getbrevdatabyid/${brevdataID}`;
+    const url = `/rest/getbrevdatabyid/${brevdataID}`;
     return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
 }
 
 export function updateXML(brevdataId, xml) {
-    const url = `${serverUrl}/rest/updatebrevdata`;
+    const url = `/rest/updatebrevdata`;
     let data = { brevdataId, xml };
     return post(url, data).then(res => {
         return res.json();
@@ -60,7 +62,7 @@ export function updateXML(brevdataId, xml) {
 }
 
 export function postBrevdataAsNew(brevpakkenavn, brevdata) {
-    const url = `${serverUrl}/rest/postbrevdata`;
+    const url = `/rest/postbrevdata`;
     const { dokumenttypeId, tittel, redigerbar } = brevdata.dokumentmal;
     const dokumentmal = dokumenttypeId;
     const Xml = brevdata.xmlInnhold; //Må matche navn i backend
@@ -79,7 +81,7 @@ export function postBrevdataAsNew(brevpakkenavn, brevdata) {
 }
 
 export function getDokument(brevmal, xml, rediger, miljo) {
-    const url = `${serverUrl}/rest/bestill/${miljo}`;
+    const url = `/rest/bestill/${miljo}`;
     const data = { brevmal, xml, rediger };
     return post(url, data).then(res => {
         return res.json();
@@ -87,20 +89,20 @@ export function getDokument(brevmal, xml, rediger, miljo) {
 }
 
 export function getRedigertBrev(miljo, jounralpostId, dokumentInfoId) {
-    const url = `${serverUrl}/rest/brev/${miljo}/${jounralpostId}/${dokumentInfoId}`;
+    const url = `/rest/brev/${miljo}/${jounralpostId}/${dokumentInfoId}`;
     return get(url).then(res => {
         return res.json();
     });
 }
 
 export function getSammenlignMedGodkjent(env,journalpostId,dokumentInfoId,brevdataId){
-    const url=`${serverUrl}/rest/sammenlign`
+    const url=`/rest/sammenlign`
     const data={env,journalpostId,dokumentInfoId,brevdataId}
     return post(url,data).then(res=>{return res.json()})
 }
 
 export function getBrevdataInBrevpakke(brevpakkeNavn, maler) {
-    const url = `${serverUrl}/rest/${brevpakkeNavn}/getBrevdatasByDokumentmalIds`;
+    const url = `/rest/${brevpakkeNavn}/getBrevdatasByDokumentmalIds`;
     return post(url, maler).then(res => res.json());
 }
 
@@ -112,19 +114,19 @@ export function approveDokument(
     journalpostId,
     dokumentInfoId
 ) {
-    const url = `${serverUrl}/rest/brevdata/godkjenn`;
+    const url = `/rest/brevdata/godkjenn`;
     let data = { brevdataId, env, beskrivelse, journalpostId, dokumentInfoId };
     return post(url, data).then(res => {
         return res.json();
     });
 }
 export function getLastApprovedPDF(brevdataId) {
-    const url = `${serverUrl}/rest/brevdata/hentLastGodkjent/${brevdataId}`;
+    const url = `/rest/brevdata/hentLastGodkjent/${brevdataId}`;
     return get(url).then(dokument => dokument.json());
 }
 
 export function getOutputXML(xml){
-    const url=`${serverUrl}/rest/xmlconverter/convert`;
+    const url=`/rest/xmlconverter/convert`;
     const data={xml}
     return post(url,data).then(res => {
         return res.json();
@@ -132,7 +134,7 @@ export function getOutputXML(xml){
 }
 
 export function post(url, data) {
-    return fetch(url, {
+    return fetch(window.serverUrl + url, {
         method: 'POST',
         body: JSON.stringify(data),
         headers: { 'Content-Type': 'application/json' }
@@ -140,31 +142,31 @@ export function post(url, data) {
 }
 
 function get(url) {
-    return fetch(url); //returnerer et promise
+    return fetch(window.serverUrl + url); //returnerer et promise
 }
 
 export function getSimilarity(env, sammenlignPercentageObject) {
-    const url = `${serverUrl}/rest/sammenlignprosent/${env}`;
+    const url = `/rest/sammenlignprosent/${env}`;
     return (post(url, sammenlignPercentageObject).then(res => res.json()).then(json => ({json: json, input: sammenlignPercentageObject})));
 }
 
 export function getXmlByJournalpostId(env, brevsystem, journalpostId) {
-    const url = `${serverUrl}/rest/inspect/${env}/${brevsystem}/jpid/${journalpostId}`;
+    const url = `/rest/inspect/${env}/${brevsystem}/jpid/${journalpostId}`;
     return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
 }
 
 export function getXmlByDokumentInfoId(env, brevsystem, dokumentInfoId) {
-    const url = `${serverUrl}/rest/inspect/${env}/${brevsystem}/dokid/${dokumentInfoId}`;
+    const url = `/rest/inspect/${env}/${brevsystem}/dokid/${dokumentInfoId}`;
     return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
 }
 
 export function getXmlByMottakerId(env, brevsystem, mottakerId) {
-    const url = `${serverUrl}/rest/inspect/${env}/${brevsystem}/mottaker/${mottakerId}`;
+    const url = `/rest/inspect/${env}/${brevsystem}/mottaker/${mottakerId}`;
     return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
 }
 
 export function bestillbrevdata(brevdataId, brevmal, miljo) {
-    const url = `${serverUrl}/rest/bestill/${miljo}/${brevdataId}`;
+    const url = `/rest/bestill/${miljo}/${brevdataId}`;
     const data = { brevmal, rediger: false };
     return post(url, data).then(res => {
         return res.json();

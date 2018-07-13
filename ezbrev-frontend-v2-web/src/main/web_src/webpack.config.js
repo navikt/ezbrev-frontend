@@ -12,7 +12,8 @@ const devMode = process.env.NODE_ENV !== 'production';
 
 const outputDir = {
     development: 'dist/devOutput',
-    production: 'dist/output'
+    // production: 'dist/output'
+    production: './../resources/public'
 };
 
 const statsOutputSettings = {
@@ -38,8 +39,8 @@ const webpackConfig = {
         hot: true,
         proxy: [
             {
-                context: ['/api', '/internal', '/me'],
-                target: 'http://localhost:8080'
+                context: ['/api', '/internal', '/me', '/config'],
+                target: 'http://localhost:8081'
             }
         ]
     },
@@ -49,7 +50,7 @@ const webpackConfig = {
                 NODE_ENV:
                     JSON.stringify(process.env.NODE_ENV) || '"development"',
                 CLIENT_VERSION: JSON.stringify(pkg.version) || '""',
-                REST_URL: '"http://d26jbsl01372.test.local:8443/ezbrev/rest"'
+                REST_URL: '"http://d26jbsl01372.test.local:8443/ezbrev/rest"',
             }
         }),
         new MiniCssExtractPlugin({
