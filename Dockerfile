@@ -9,7 +9,7 @@ RUN apt-get install build-essential checkinstall && apt-get build-dep imagemagic
 
 RUN apt-get update && apt-get -y install ghostscript && apt-get clean
 
-COPY app/target/app.jar /app/app.jar
+COPY ezbrev-frontend-v2-app/target/app.jar /app/app.jar
 
 ENV JAVA_OPTS="-Xmx512m \
                -Djava.security.egd=file:/dev/./urandom \
