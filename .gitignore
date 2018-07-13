@@ -10,6 +10,7 @@ dist/
 *.iml
 ./*.iml
 
+
 ### Autgenerete filer Frontend
 norg2-frontend-web/src/main/resources/public/
 norg2-frontend-web/src/main/web_src/node_modules/

@@ -1,4 +1,4 @@
-naisPipeline {
+naisPipeline{
     applicationName = "ezbrev-frontend-v2"
     dockerfileDir = "./app"
     deployEnvironmentT = "t4"
