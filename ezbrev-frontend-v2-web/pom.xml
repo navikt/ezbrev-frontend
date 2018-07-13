@@ -78,6 +78,25 @@
                         <artifactId>exec-maven-plugin</artifactId>
                         <executions>
                             <execution>
+                                <id>npm install</id>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <phase>generate-resources</phase>
+                                <configuration>
+                                    <executable>npm${script.extension}</executable>
+                                    <arguments>
+                                        <!--OK-->
+                                        <argument>install</argument>
+                                        <argument>--registry=http://registry.npmjs.org/</argument>
+                                        <argument>--https-proxy=http://155.55.60.117:8088</argument>
+                                        <argument>--proxy=http://155.55.60.117:8088</argument>
+                                        <!--OK end-->
+                                    </arguments>
+                                    <workingDirectory>${basedir}/src/main/web_src</workingDirectory>
+                                </configuration>
+                            </execution>
+                            <execution>
                                 <id>npm run build (with local node installation)</id>
                                 <goals>
                                     <goal>exec</goal>
