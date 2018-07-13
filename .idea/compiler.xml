@@ -6,11 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ezbrev-frontend-v2-app" />
+        <module name="app" />
         <module name="ezbrev-frontend-v2-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="app" target="1.8" />
       <module name="ezbrev-frontend-v2" target="1.8" />
       <module name="ezbrev-frontend-v2-app" target="1.8" />
       <module name="ezbrev-frontend-v2-web" target="1.8" />

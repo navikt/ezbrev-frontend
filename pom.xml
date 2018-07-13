@@ -22,7 +22,7 @@
 
     <modules>
         <module>ezbrev-frontend-v2-web</module>
-        <module>ezbrev-frontend-v2-app</module>
+        <module>app</module>
     </modules>
 
 </project>
