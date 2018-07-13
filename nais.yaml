@@ -1,4 +1,5 @@
 image: "docker.adeo.no:5000/dok/ezbrev-frontend"
+team: dokument
 replicas:
   min: 1
   max: 2
