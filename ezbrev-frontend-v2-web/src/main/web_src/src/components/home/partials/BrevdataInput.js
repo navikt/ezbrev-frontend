@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import BrevdataControl from './BrevdataControl';
 import { connect } from 'react-redux';
 import * as brevdataActions from '~/actions/brevdataActions';
+import *  as dokumentActions from '~/actions/dokumentActions';
 import { bindActionCreators } from 'redux';
 
 class BrevdataInput extends React.Component {
@@ -18,7 +19,9 @@ render() {
                         this.props.actions.changeBrevdataXML(
                             event.target.value
                         );
+                        this.props.actionsDok.setDokument('');
                     }}
+
                 />
 
                 <BrevdataControl />
@@ -42,6 +45,9 @@ function mapDispatchToProps(dispatch) {
         actions: bindActionCreators(
             brevdataActions,
             dispatch
+        ),
+        actionsDok: bindActionCreators(
+            dokumentActions,dispatch
         )
     };
 }

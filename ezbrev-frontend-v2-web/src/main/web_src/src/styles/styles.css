@@ -57,3 +57,8 @@ nav {
     max-height:360px;
     overflow-y: scroll;
 }
+
+.form-horizontal{
+    min-height:300px;
+    overflow-y: scroll;
+}
