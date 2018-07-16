@@ -17,7 +17,17 @@ function getBrevpakkeList(brevInfo) {
     for (let i = 0; i < brevInfo.length; i++) {
         brevpakkeList.push(brevInfo[i].brevPakke);
     }
-    return brevpakkeList.filter((x, i, a) => a.indexOf(x) === i);
+    return brevpakkeList.filter((x, i, a) => a.indexOf(x) === i).sort();
+}
+
+function sortBevmalList(list){
+    list.sort(function(a, b) {
+        if (a.malID > b.malID) {
+            return 1;
+        } else {
+            return -1;
+        }
+    });
 }
 
 function getBrevmalList(brevpakke, brevInfo) {
@@ -28,7 +38,7 @@ function getBrevmalList(brevpakke, brevInfo) {
             brevmalList.push(brevmal);
         }
     }
-    console.log(brevmalList);
+    sortBevmalList(brevmalList);
     return brevmalList;
 }
 

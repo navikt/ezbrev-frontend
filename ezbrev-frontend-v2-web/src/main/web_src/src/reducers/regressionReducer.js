@@ -17,7 +17,7 @@ function getBrevpakkeList(brevInfo) {
     for (let i = 0; i < brevInfo.length; i++) {
         brevpakkeList.push(brevInfo[i].brevPakke);
     }
-    return brevpakkeList.filter((x, i, a) => a.indexOf(x) === i);
+    return brevpakkeList.filter((x, i, a) => a.indexOf(x) === i).sort();
 }
 
 export default function regresjonMenyValgReducer(state = initialState, action) {

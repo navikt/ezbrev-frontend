@@ -9,25 +9,29 @@ const serverUrl = 'https://ezbrev-backend-q4.nais.preprod.local';
 //Må sortere denne infoen for å finne brevpakker og tilhørende brevmaler
 //Må også kalle for å finne lagrede brevmaldata til venstre
 
+function sortList(list) {
+    let sortedList = [];
+    for (let i = 0; i < list.length; i++) {
+        if (list[i][0] === 'q') {
+            sortedList.push(list[i]);
+        }
+    }
+    sortedList.sort(function(a, b) {
+        if (parseInt(a.slice(1), 10) > parseInt(b.slice(1), 10)) {
+            return 1;
+        } else {
+            return -1;
+        }
+    });
+    return sortedList;
+}
+
 export function getMiljoList() {
     const url = `${serverUrl}/rest/env`;
     return get(url)
         .then(res => res.json())
-        .then(json =>
-            json.sort(function(a, b) {
-                //evt lage egen funksjon for sort? og ha den et annet sted
-                if (a.charAt(0) > b.charAt(0)) {
-                    return 1;
-                } else if (a.charAt(0) === b.charAt(0)) {
-                    let a_num = Number(a.substring(1));
-                    let b_num = Number(b.substring(1));
-                    if (a_num > b_num) {
-                        return 1;
-                    }
-                } else {
-                    return -1;
-                }
-            })
+        .then(
+            json => sortList(json)
         );
 }
 
@@ -36,9 +40,9 @@ export function getBrevInfo(miljo) {
     return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
 }
 
-export function getBrevpakkeVersjon(miljo,brevpakke){
-    const url=`${serverUrl}/rest/brevpakkeversjon/${brevpakke}/${miljo}`
-    return get(url).then(res=>res.json());
+export function getBrevpakkeVersjon(miljo, brevpakke) {
+    const url = `${serverUrl}/rest/brevpakkeversjon/${brevpakke}/${miljo}`;
+    return get(url).then(res => res.json());
 }
 
 export function getBrevdataList(brevmal, brevpakke) {
@@ -93,17 +97,23 @@ export function getRedigertBrev(miljo, jounralpostId, dokumentInfoId) {
     });
 }
 
-export function getSammenlignMedGodkjent(env,journalpostId,dokumentInfoId,brevdataId){
-    const url=`${serverUrl}/rest/sammenlign`
-    const data={env,journalpostId,dokumentInfoId,brevdataId}
-    return post(url,data).then(res=>{return res.json()})
+export function getSammenlignMedGodkjent(
+    env,
+    journalpostId,
+    dokumentInfoId,
+    brevdataId
+) {
+    const url = `${serverUrl}/rest/sammenlign`;
+    const data = { env, journalpostId, dokumentInfoId, brevdataId };
+    return post(url, data).then(res => {
+        return res.json();
+    });
 }
 
 export function getBrevdataInBrevpakke(brevpakkeNavn, maler) {
     const url = `${serverUrl}/rest/${brevpakkeNavn}/getBrevdatasByDokumentmalIds`;
     return post(url, maler).then(res => res.json());
 }
-
 
 export function approveDokument(
     brevdataId,
@@ -123,10 +133,10 @@ export function getLastApprovedPDF(brevdataId) {
     return get(url).then(dokument => dokument.json());
 }
 
-export function getOutputXML(xml){
-    const url=`${serverUrl}/rest/xmlconverter/convert`;
-    const data={xml}
-    return post(url,data).then(res => {
+export function getOutputXML(xml) {
+    const url = `${serverUrl}/rest/xmlconverter/convert`;
+    const data = { xml };
+    return post(url, data).then(res => {
         return res.json();
     });
 }
@@ -141,14 +151,16 @@ export function post(url, data) {
 }
 
 function get(url) {
-    return fetch(url,{
+    return fetch(url, {
         credentials: 'include'
     }); //returnerer et promise
 }
 
 export function getSimilarity(env, sammenlignPercentageObject) {
     const url = `${serverUrl}/rest/sammenlignprosent/${env}`;
-    return (post(url, sammenlignPercentageObject).then(res => res.json()).then(json => ({json: json, input: sammenlignPercentageObject})));
+    return post(url, sammenlignPercentageObject)
+        .then(res => res.json())
+        .then(json => ({ json: json, input: sammenlignPercentageObject }));
 }
 
 export function getXmlByJournalpostId(env, brevsystem, journalpostId) {
