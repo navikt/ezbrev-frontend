@@ -3,13 +3,16 @@ import { NavLink } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from '~/actions/menyValgActionsUtil'; //Spør om miljoliste når siden lastes
+import * as Actions from '~/actions/menyValgActionsUtil'; //Spør om miljoliste når siden lastes
 
 class Header extends React.Component {
     handleClick = () => {
-        const miljoList = this.props.miljoList;
-        this.props.actions.fetchMiljoList();
-        miljoList != this.props.miljoList ?
+        if (this.props.miljoList.length !== 0) {
+            console.log(this.props.miljoList.length);
+            window.alert('Du er allerede pålogget');
+        } else {
+            this.props.actions.fetchMiljoList();
+        }
     };
 
     render() {
@@ -58,7 +61,7 @@ class Header extends React.Component {
                             </li>
                             <li>
                                 <a>
-                                    <Button onClick={this.handleClick}>
+                                    <Button onClick={() => this.handleClick()}>
                                         Log in
                                     </Button>
                                 </a>
@@ -79,7 +82,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(actions, dispatch)
+        actions: bindActionCreators(Actions, dispatch)
     };
 }
 
