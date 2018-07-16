@@ -2,8 +2,8 @@ import React from 'react';
 
 //@CrossOrigin(origins = "http://localhost:3000")     //dette må skrives inn i den aktuelle controlleren i back end
 
-//const serverUrl = 'http://localhost:8080';
-const serverUrl = 'https://ezbrev-backend-t4.nais.preprod.local';
+const serverUrl = 'http://localhost:8080';
+//const serverUrl = 'https://ezbrev-backend-t4.nais.preprod.local';
 
 //http://localhost:8080/rest/t4/dokumenttypeinfo
 //Må sortere denne infoen for å finne brevpakker og tilhørende brevmaler
@@ -135,12 +135,15 @@ export function post(url, data) {
     return fetch(url, {
         method: 'POST',
         body: JSON.stringify(data),
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include'
     });
 }
 
 function get(url) {
-    return fetch(url); //returnerer et promise
+    return fetch(url,{
+        credentials: 'include'
+    }); //returnerer et promise
 }
 
 export function getSimilarity(env, sammenlignPercentageObject) {

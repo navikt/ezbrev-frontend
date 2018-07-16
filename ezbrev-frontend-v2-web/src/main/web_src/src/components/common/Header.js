@@ -1,71 +1,89 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Button, OverlayTrigger, Popover } from 'react-bootstrap';
-import LogInForm from './LogInForm';
+import { Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from '~/actions/menyValgActionsUtil'; //Spør om miljoliste når siden lastes
 
-const Header = () => {
-    const logInPopover = (
-        <Popover id="popover-trigger-click-root-close" title="Log in:">
-            <LogInForm />
-        </Popover>
-    );
+class Header extends React.Component {
+    handleClick = () => {
+        const miljoList = this.props.miljoList;
+        this.props.actions.fetchMiljoList();
+        miljoList != this.props.miljoList ?
+    };
 
-    return (
-        <div className="container-fluid">
-            <nav className="navbar">
-                <div className="navbar-header">
-                    <span className="navbar-brand">Ez-Brev 4 beta</span>
-                </div>
-                <div className="collapse navbar-collapse">
-                    <ul className="nav navbar-nav">
-                        <li className="active">
-                            <NavLink to="/" exact activeClassName="active">
-                                Rediger brevdata
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink
-                                to="/regression"
-                                className="navbar-link"
-                                activeClassName="active"
-                            >
-                                Regresjonstest
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/inspection" activeClassName="active">
-                                XML Inspeksjon
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/converter" activeClassName="active">
-                                XML Converter
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/admin" activeClassName="active">
-                                Admin
-                            </NavLink>
-                        </li>
-                        <li>
-                            <a>
-                                <OverlayTrigger
-                                    trigger="click"
-                                    rootClose
-                                    placement="bottom"
-                                    overlay={logInPopover}
+    render() {
+        return (
+            <div className="container-fluid">
+                <nav className="navbar">
+                    <div className="navbar-header">
+                        <span className="navbar-brand">Ez-Brev 4 beta</span>
+                    </div>
+                    <div className="collapse navbar-collapse">
+                        <ul className="nav navbar-nav">
+                            <li className="active">
+                                <NavLink to="/" exact activeClassName="active">
+                                    Rediger brevdata
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="/regression"
+                                    className="navbar-link"
+                                    activeClassName="active"
                                 >
-                                    <Button>
+                                    Regresjonstest
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="/inspection"
+                                    activeClassName="active"
+                                >
+                                    XML Inspeksjon
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="/converter"
+                                    activeClassName="active"
+                                >
+                                    XML Converter
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/admin" activeClassName="active">
+                                    Admin
+                                </NavLink>
+                            </li>
+                            <li>
+                                <a>
+                                    <Button onClick={this.handleClick}>
                                         Log in
                                     </Button>
-                                </OverlayTrigger>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    );
-};
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        );
+    }
+}
 
-export default Header;
+function mapStateToProps(state, ownProps) {
+    return {
+        miljoList: state.menyValg.miljoList
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(actions, dispatch)
+    };
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Header);
