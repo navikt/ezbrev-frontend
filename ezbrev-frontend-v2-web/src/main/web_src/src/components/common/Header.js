@@ -1,7 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { Button, OverlayTrigger, Popover } from 'react-bootstrap';
+import LogInForm from './LogInForm';
 
 const Header = () => {
+    const logInPopover = (
+        <Popover id="popover-trigger-click-root-close" title="Log in:">
+            <LogInForm />
+        </Popover>
+    );
+
     return (
         <div className="container-fluid">
             <nav className="navbar">
@@ -38,6 +46,20 @@ const Header = () => {
                             <NavLink to="/admin" activeClassName="active">
                                 Admin
                             </NavLink>
+                        </li>
+                        <li>
+                            <a>
+                                <OverlayTrigger
+                                    trigger="click"
+                                    rootClose
+                                    placement="bottom"
+                                    overlay={logInPopover}
+                                >
+                                    <Button>
+                                        Log in
+                                    </Button>
+                                </OverlayTrigger>
+                            </a>
                         </li>
                     </ul>
                 </div>
