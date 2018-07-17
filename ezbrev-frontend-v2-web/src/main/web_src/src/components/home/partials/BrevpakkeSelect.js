@@ -15,9 +15,9 @@ class BrevpakkeSelect extends React.Component {
         if (this.props.brevmal === undefined || this.props.brevmal === '') {
             return 'Brevmal: ';
         } else if (this.props.brevmal.redigerbar) {
-            return 'Brevmal: ' + this.props.brevmal + ' Redigerbar';
+            return 'Brevmal: ' + this.props.brevmal.malID + ' Redigerbar';
         } else {
-            return 'Brevmal: ' + this.props.brevmal;
+            return 'Brevmal: ' + this.props.brevmal.malID;
         }
     }
 
@@ -93,7 +93,8 @@ class BrevpakkeSelect extends React.Component {
                         }}
                     >
                         {this.props.brevmalList.map(i => (
-                            <MenuItem key={i.malID} eventKey={i.malID}>
+                            <MenuItem key={i.malID} eventKey={i}>
+
                                 {' '}
                                 {i.malID +
                                     ' - ' +
