@@ -5,21 +5,19 @@ import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter } from 'react-router-redux';
 import { AppContainer } from 'react-hot-loader';
-import * as api from '~/api';
-import {setIsAdmin} from "./actions/adminActions";
 
 import configureStore from './store/configureStore';
 import './styles/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { App } from './App';
-import { fetchMiljoList } from '~/actions/menyValgActionsUtil'; //Spør om miljoliste når siden lastes
+import { fetchMiljoList,fetchIsAdmin } from '~/actions/menyValgActionsUtil';
 
 const history = createHistory();
 export const store = configureStore(history);
 const target = document.getElementById('root');
 store.dispatch(fetchMiljoList());
-store.dispatch(setIsAdmin(api.getIsAdmin()))
+store.dispatch(fetchIsAdmin());
 
 store.subscribe(() => {
     console.log('Current state:', store.getState());

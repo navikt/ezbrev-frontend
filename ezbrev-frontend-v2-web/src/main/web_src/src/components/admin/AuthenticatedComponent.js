@@ -11,9 +11,12 @@ class AuthenticatedComponent extends React.Component {
 
     render() {
         console.log(this.props.isAdmin)
-        return this.props.isAdmin
-            ? <AdminPage/>
-            : null
+
+        if(this.props.isAdmin){
+            return <AdminPage/>;
+        }
+
+        return <p>Du har ikke admin-tilgang.</p>;
     }
 
 }

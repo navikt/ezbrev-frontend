@@ -195,5 +195,5 @@ export function bestillbrevdata(brevdataId, brevmal, miljo) {
 
  export function getIsAdmin(){
     const url=`${serverUrl}/rest/admin/isAdmin`;
-    return get(url).then(res=>res.json()).then(res=>!!res);
+    return get(url).then(res => res.json());
  }
