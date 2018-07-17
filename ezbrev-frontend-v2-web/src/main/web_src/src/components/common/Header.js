@@ -3,7 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as Actions from '~/actions/menyValgActionsUtil'; //Spør om miljoliste når siden lastes
+import * as Actions from '~/actions/menyValgActionsUtil';
+import ErrorModal from "./ErrorModal"; //Spør om miljoliste når siden lastes
 
 class Header extends React.Component {
     handleClick = () => {
@@ -39,6 +40,7 @@ class Header extends React.Component {
                                 </NavLink>
                             </li>
                             <li>
+                                <ErrorModal/>
                                 <NavLink
                                     to="/inspection"
                                     activeClassName="active"
