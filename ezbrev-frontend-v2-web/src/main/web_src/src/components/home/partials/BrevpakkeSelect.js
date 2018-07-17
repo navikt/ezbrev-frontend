@@ -84,7 +84,7 @@ class BrevpakkeSelect extends React.Component {
                         id={'brevpakke_mal_pick'}
                         onSelect={brevmal => {
                             this.props.utilActions.selectBrevmal(
-                                brevmal,
+                                brevmal.malID,
                                 this.props.brevpakke
                             );
                             this.props.actions.setBrevmal(brevmal);

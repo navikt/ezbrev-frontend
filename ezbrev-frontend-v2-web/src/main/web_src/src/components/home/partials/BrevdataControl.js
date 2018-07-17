@@ -13,7 +13,7 @@ class BrevdataControl extends React.Component {
         const rediger = true;
         return (
             this.props.utilActionsDok.produceDokument(
-                this.props.brevdata.dokumentmal.dokumenttypeId,
+                this.props.brevmal.malID,
                 this.props.brevdata.xmlInnhold,
                 rediger,
                 this.props.miljo
@@ -53,10 +53,11 @@ class BrevdataControl extends React.Component {
                     onClick={() =>
                         this.props.utilActionsBrevdata.saveXMLAsNew(
                             this.props.brevpakke,
-                            this.props.brevdata
+                            this.props.brevdata,
+                            this.props.brevmal
                         )
                     }
-                    disabled={this.props.brevdata === ''}
+                    disabled={this.props.brevmal === ''}
                 >
                     Lagre som ny
                 </Button>
@@ -72,7 +73,7 @@ class BrevdataControl extends React.Component {
                             this.props.miljo
                         );
                     }}
-                    disabled={this.props.brevdata === ''}
+                    disabled={this.props.brevmal === ''}
                 >
                     Produser brev
                 </Button>
@@ -85,7 +86,7 @@ class BrevdataControl extends React.Component {
                             : () => this.redigerBrev()
                     }
                     disabled={
-                        this.props.brevdata === '' || !this.props.redigerbar
+                        this.props.brevmal === '' || !this.props.redigerbar
                     }
                 >
                     {this.props.isRedigertExternal
@@ -139,7 +140,8 @@ function mapStateToProps(state, ownProps) {
         miljo: state.menyValg.miljo,
         dokument: state.dokumentReducer.dokument,
         isRedigertExternal: state.dokumentReducer.isRedigertExternal,
-        redigerbar: state.brevdataReducer.redigerbar
+        redigerbar: state.brevdataReducer.redigerbar,
+        brevmal:state.menyValg.brevmal
     };
 }
 

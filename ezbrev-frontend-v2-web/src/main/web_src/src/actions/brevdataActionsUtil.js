@@ -11,9 +11,9 @@ export function selectBrevdata(brevdataId) {
     };
 }
 
-export function saveXMLAsNew(brevpakkenavn,brevdata) {
+export function saveXMLAsNew(brevpakkenavn,brevdata,brevmal) {
     return function (dispatch) {
-        return api.postBrevdataAsNew(brevpakkenavn,brevdata).then(brevdata => {
+        return api.postBrevdataAsNew(brevpakkenavn,brevdata,brevmal).then(brevdata => {
             dispatch(actions.setBrevdata(brevdata));
         }).catch(error => {
             throw(error);

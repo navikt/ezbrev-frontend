@@ -63,10 +63,11 @@ export function updateXML(brevdataId, xml) {
     });
 }
 
-export function postBrevdataAsNew(brevpakkenavn, brevdata) {
+export function postBrevdataAsNew(brevpakkenavn, brevdata, brevmal) {
     const url = `${serverUrl}/rest/postbrevdata`;
-    const { dokumenttypeId, tittel, redigerbar } = brevdata.dokumentmal;
-    const dokumentmal = dokumenttypeId;
+    const dokumentmal=brevmal.malID;
+    const tittel=brevmal.dokumentTittel;
+    const redigerbar=brevmal.redigerbar;
     const Xml = brevdata.xmlInnhold; //Må matche navn i backend
     const beskrivelse = brevdata.beskrivelse;
     const data = {
