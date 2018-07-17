@@ -16,13 +16,13 @@ export function fetchMiljoList() {
     };
 }
 
-export function fetchBrevpakkeVersjon(miljo, brevpakke){
+export function fetchBrevpakkeVersjon(miljo, brevpakke,action=actions.setbrevpakkeVersjon){
     return function(dispatch) {
         return api
             .getBrevpakkeVersjon(miljo,
                 brevpakke)
             .then(brevpakkeversjon => {
-                dispatch(actions.setBrevpakkeVersjon(brevpakkeversjon.version));
+                dispatch(action(brevpakkeversjon.version));
             })
             .catch(error => {
                 throw error;
