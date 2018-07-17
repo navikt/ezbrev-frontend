@@ -20,7 +20,7 @@ class AdminBrevdata extends React.Component {
                                 bsSize="xsmall"
                                 onClick={() => {
                                     api.deleteBrevdataExternal(brevdata.brevdataId)
-                                    this.props.actions.deleteBrevdataInternal(brevdata.brevdataId)
+                                    this.props.actions.deleteBrevdataInternal(brevdata.brevdataId,this.props.malId)
                                 }}
                             >
                                 Slette

@@ -35,9 +35,10 @@ export function setAdminModal(adminModal) {
     };
 }
 
-export function deleteBrevdataInternal(brevdataId) {
+export function deleteBrevdataInternal(brevdataId, malId) {
     return {
         type: types.DELETE_BREVDATA_INTERNAL,
-        brevdataId:brevdataId
+        brevdataId:brevdataId,
+        malId:malId
     };
 }

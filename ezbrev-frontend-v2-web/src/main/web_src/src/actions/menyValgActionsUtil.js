@@ -16,7 +16,7 @@ export function fetchMiljoList() {
     };
 }
 
-export function fetchBrevpakkeVersjon(miljo, brevpakke,action=actions.setbrevpakkeVersjon){
+export function fetchBrevpakkeVersjon(miljo, brevpakke,action=actions.setBrevpakkeVersjon){
     return function(dispatch) {
         return api
             .getBrevpakkeVersjon(miljo,

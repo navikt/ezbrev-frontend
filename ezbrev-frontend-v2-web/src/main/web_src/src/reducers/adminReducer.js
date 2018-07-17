@@ -50,7 +50,10 @@ export default function adminReducer(state = initialState, action) {
             return Object.assign({}, state, { adminModal: action.adminModal });
         case types.DELETE_BREVDATA_INTERNAL:
             console.log(state.adminBrevdataList);
-            return Object.assign({}, state, { adminBrevdataList: (state.adminBrevdataList[action.malId].filter(({brevdataId}) => brevdataId !== action.brevdataId))});
+            return {...state,
+                adminBrevdataList:{...state.adminBrevdataList,
+                [action.malId]: state.adminBrevdataList[action.malId].filter(({brevdataId}) => brevdataId !== action.brevdataId)
+        } };
         default:
             return state;
     }

@@ -185,3 +185,10 @@ export function bestillbrevdata(brevdataId, brevmal, miljo) {
         return res.json();
     });
 }
+ export function deleteBrevdataExternal(brevdataId){
+    const url=`${serverUrl}/rest/admin/brevdata/${brevdataId}`;
+    return fetch(url, {
+         method: 'DELETE',
+         credentials: 'include'
+     });
+ }
