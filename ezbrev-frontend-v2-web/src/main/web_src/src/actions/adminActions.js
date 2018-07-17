@@ -42,3 +42,9 @@ export function deleteBrevdataInternal(brevdataId, malId) {
         malId:malId
     };
 }
+
+export function setIsAdmin(isAdmin) {
+    return {
+        type: types.SET_IS_ADMIN,
+        isAdmin:isAdmin};
+}

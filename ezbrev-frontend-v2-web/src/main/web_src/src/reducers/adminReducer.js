@@ -8,7 +8,8 @@ const initialState = {
     adminBrevpakke: '',
     adminBrevmalList: [],
     adminBrevdataList: {},
-    adminBrevpakkeVersjon:''
+    adminBrevpakkeVersjon:'',
+    isAdmin:false
     };
 
 function getBrevpakkeList(brevInfo) {
@@ -49,11 +50,12 @@ export default function adminReducer(state = initialState, action) {
         case types.SET_ADMIN_MODAL:
             return Object.assign({}, state, { adminModal: action.adminModal });
         case types.DELETE_BREVDATA_INTERNAL:
-            console.log(state.adminBrevdataList);
             return {...state,
                 adminBrevdataList:{...state.adminBrevdataList,
                 [action.malId]: state.adminBrevdataList[action.malId].filter(({brevdataId}) => brevdataId !== action.brevdataId)
         } };
+        case types.SET_IS_ADMIN:
+            return{...state,isAdmin:action.isAdmin}
         default:
             return state;
     }
