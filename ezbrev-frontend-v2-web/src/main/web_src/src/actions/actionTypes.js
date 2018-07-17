@@ -37,6 +37,7 @@ export const SET_BREVSYSTEM = 'SET_BREVSYSTEM';
 export const SET_INSPECTION_DATA = 'SET_INSPECTION_DATA';
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
+export const SET_PING = 'SET_PING';
 
 
 //Her skal liste alle actions som skal kalle på reducere

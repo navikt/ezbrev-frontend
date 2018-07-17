@@ -7,8 +7,10 @@ import * as menyValgActionsUtil from '../../../actions/menyValgActionsUtil';
 import * as menyValgActions from '../../../actions/menyValgActions';
 import * as brevdataActions from '../../../actions/brevdataActions';
 import * as dokumentActions from '../../../actions/dokumentActions';
+import * as pingActions from '../../../actions/pingActions';
 import ListItem from '../../common/ListItem';
 import FormItem from '~/components/inspection/partials/FormItem';
+import {getPingByEnv} from "../../../api";
 
 class BrevpakkeSelect extends React.Component {
     checkRedigerbar() {
@@ -33,6 +35,9 @@ class BrevpakkeSelect extends React.Component {
                             this.props.utilActions.selectMiljo(miljo);
                             this.props.actionsBrevdata.setBrevdata('');
                             this.props.actionsDok.setDokument('');
+                            getPingByEnv(miljo).then(ping =>
+                                this.props.pingActions.setPing(ping)
+                            );
                         }}
                         list={this.props.miljoList}
                     />
@@ -135,6 +140,7 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
     return {
         utilActions: bindActionCreators(menyValgActionsUtil, dispatch),
+        pingActions: bindActionCreators(pingActions, dispatch),
         actions: bindActionCreators(menyValgActions, dispatch),
         actionsBrevdata: bindActionCreators(brevdataActions, dispatch),
         actionsDok: bindActionCreators(dokumentActions, dispatch)

@@ -4,9 +4,12 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as regressionActions from '~/actions/regressionActions';
 import * as regressionActionsUtil from '~/actions/regressionActionsUtil';
+import * as pingActions from '~/actions/pingActions';
+
 import ListItem from '../../common/ListItem';
 import RegressionModal from '../partials/RegressionModal';
 import {getRegressionObjects} from "~/components/regression/partials/RegressionUtil";
+import {getPingByEnv} from "../../../api";
 
 class RegressionControl extends React.Component {
     handleClick = () => {
@@ -54,6 +57,9 @@ class RegressionControl extends React.Component {
                                 regressionActions.setRegressionBrevInfo
                             );
                             this.props.actions.setRegressionMiljo(miljo);
+                            getPingByEnv(miljo).then(ping =>
+                                this.props.pingActions.setPing(ping)
+                            );
                         }}
                         list={this.props.miljoList}
                     />
@@ -98,7 +104,8 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
     return {
         utilActions: bindActionCreators(regressionActionsUtil, dispatch),
-        actions: bindActionCreators(regressionActions, dispatch)
+        actions: bindActionCreators(regressionActions, dispatch),
+        pingActions: bindActionCreators(pingActions, dispatch)
         /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
     };
 }

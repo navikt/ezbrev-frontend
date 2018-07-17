@@ -1,10 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as Actions from '~/actions/menyValgActionsUtil';
-import ErrorModal from "./ErrorModal"; //Spør om miljoliste når siden lastes
+import ErrorModal from './ErrorModal';
+import Ping from "./Ping";
 
 class Header extends React.Component {
     handleClick = () => {
@@ -14,6 +15,14 @@ class Header extends React.Component {
         } else {
             this.props.actions.fetchMiljoList();
         }
+    };
+
+    popoverClick = () => {
+        return (
+            <Popover id="popover-trigger-hover-focus" title="Selftest">
+                <Ping />
+            </Popover>
+        );
     };
 
     render() {
@@ -40,7 +49,7 @@ class Header extends React.Component {
                                 </NavLink>
                             </li>
                             <li>
-                                <ErrorModal/>
+                                <ErrorModal />
                                 <NavLink
                                     to="/inspection"
                                     activeClassName="active"
@@ -67,6 +76,15 @@ class Header extends React.Component {
                                         Log in
                                     </Button>
                                 </a>
+                            </li>
+                            <li>
+                                <OverlayTrigger
+                                    trigger={['hover', 'focus']}
+                                    placement="left"
+                                    overlay={this.popoverClick()}
+                                >
+                                    <a>Ping</a>
+                                </OverlayTrigger>
                             </li>
                         </ul>
                     </div>
