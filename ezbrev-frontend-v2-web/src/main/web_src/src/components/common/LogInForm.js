@@ -10,6 +10,7 @@ import {
 } from 'react-bootstrap';
 
 export default function LogInForm({ title, id, func, list, isDisabled }) {
+    console.log('Loginform')
     const submit = e => {
         e.preventDefault();
         const username = e.target[0].value;
