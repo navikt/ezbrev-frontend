@@ -54,14 +54,14 @@ class BrevdataControl extends React.Component {
                 <Space />
                 <Button
                     className={'btn btn-primary'}
-                    onClick={() =>
+                    onClick={() => {
                         this.props.utilActionsBrevdata.saveXMLAsNew(
                             this.props.brevpakke,
                             this.props.brevdataBeskrivelse,
                             this.props.xmlInnhold,
                             this.props.brevmal
-                        )
-                    }
+                        );
+                    }}
                     disabled={
                         this.props.xmlInnhold === '' ||
                         this.props.brevdataBeskrivelse === '' ||
@@ -133,17 +133,17 @@ class BrevdataControl extends React.Component {
                     className="pull-right brev-compare-btn btn btn-warning"
                     onClick={() => {
                         this.props.actionsDok.setShowModal(true);
-                        if(this.props.dokument===''){
-                        this.props.utilActionsDok.showSammenlignMedGodkjent(
-                            this.props.miljo,
-                            this.props.brevdataId,
-                            null,
-                            null,
-                            this.props.brevmal,
-                            this.props.xmlInnhold,
-                            false,
-                        );}
-                        else{
+                        if (this.props.dokument === '') {
+                            this.props.utilActionsDok.showSammenlignMedGodkjent(
+                                this.props.miljo,
+                                this.props.brevdataId,
+                                null,
+                                null,
+                                this.props.brevmal,
+                                this.props.xmlInnhold,
+                                false
+                            );
+                        } else {
                             this.props.utilActionsDok.showSammenlignMedGodkjent(
                                 this.props.miljo,
                                 this.props.brevdataId,
@@ -151,11 +151,14 @@ class BrevdataControl extends React.Component {
                                 this.props.dokumentInfoId,
                                 this.props.brevmal,
                                 this.props.xmlInnhold,
-                                false,
-                            )
+                                false
+                            );
                         }
                     }}
-                    disabled={this.props.brevmal===''|| this.props.xmlInnhold===''}
+                    disabled={
+                        this.props.brevmal === '' ||
+                        this.props.xmlInnhold === ''
+                    }
                 >
                     Sammenlign med godkjent
                 </Button>

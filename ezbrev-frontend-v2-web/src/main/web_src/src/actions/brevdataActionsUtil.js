@@ -1,5 +1,6 @@
 import * as api from '~/api';
 import * as actions from '~/actions/brevdataActions';
+import * as actionsMenyValg from '~/actions/menyValgActions';
 
 export function selectBrevdata(brevdataId) {
     return function(dispatch) {
@@ -44,7 +45,9 @@ export function saveXMLAsNew(
                         brevdata.xmlInnhold
                     )
                 );
+                return brevdata;
             })
+            .then(brevdata => dispatch(actionsMenyValg.addItemBrevdataList(brevdata)))
             .catch(error => {
                 throw error;
             });

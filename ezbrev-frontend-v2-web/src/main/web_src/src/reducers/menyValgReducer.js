@@ -10,7 +10,7 @@ const initialState = {
     brevmalList: [],
     brevInfo: [],
     brevdataList: [],
-    redigerbar:false
+    redigerbar: false
 };
 
 function getBrevpakkeList(brevInfo) {
@@ -78,6 +78,12 @@ export default function menyValgReducer(state = initialState, action) {
                 ...state,
                 brevdataList: action.brevdataList
             };
+        case types.ADD_ITEM_BREVDATALIST:
+            console.log('inne i reducer, brevdata ',action.brevdata)
+            return {
+                ...state,
+                brevdataList: [...state.brevdataList, action.brevdata]
+            };
         case types.SET_MILJO:
             return {
                 ...state,
@@ -85,15 +91,15 @@ export default function menyValgReducer(state = initialState, action) {
                 brevpakke: '',
                 brevmal: '',
                 brevpakkeVersjon: '',
-                brevmalList:[],
-                brevdatalist:[]
+                brevmalList: [],
+                brevdataList: []
             };
         case types.SET_BREVPAKKE:
             return {
                 ...state,
                 brevpakke: action.brevpakke,
                 brevmal: '',
-                brevdataList:[]
+                brevdataList: []
             };
         case types.SET_BREVMAL:
             return {
