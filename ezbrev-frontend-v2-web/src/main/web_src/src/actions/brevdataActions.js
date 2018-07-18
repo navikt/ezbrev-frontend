@@ -16,3 +16,8 @@ export function changeBrevdataXML(brevdataXML) {
 export function changeBeskrivelse(beskrivelse) {
     return { type: types.CHANGE_BESKRIVELSE, beskrivelse: beskrivelse };
 }
+
+export function setIsRedigertInternal(isRedigertInternal) {
+    return {type: types.SET_IS_REDIGERT_INTERNAL, isRedigertInternal:isRedigertInternal}
+
+}

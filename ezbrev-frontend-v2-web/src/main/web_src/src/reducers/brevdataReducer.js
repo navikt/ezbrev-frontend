@@ -4,7 +4,8 @@ const initialState = {
     beskrivelse: '',
     brevdataId: '',
     changeStamp: '',
-    xmlInnhold: ''
+    xmlInnhold: '',
+    isRedigertInternal:false
 };
 
 export default function brevdataReducer(state = initialState, action) {
@@ -15,7 +16,8 @@ export default function brevdataReducer(state = initialState, action) {
             console.log(action);
             return {
                 ...state,
-                xmlInnhold: action.brevdataXML
+                xmlInnhold: action.brevdataXML,
+                isRedigertInternal:true
             };
         case types.SET_BREVDATA:
             return {
@@ -23,14 +25,21 @@ export default function brevdataReducer(state = initialState, action) {
                 beskrivelse: action.beskrivelse,
                 brevdataId: action.brevdataId,
                 changeStamp: action.changeStamp,
-                xmlInnhold: action.xmlInnhold
+                xmlInnhold: action.xmlInnhold,
+                isRedigertInternal:false
             };
         case types.CHANGE_BESKRIVELSE:
             return {
                 ...state,
-                beskrivelse: action.beskrivelse
+                beskrivelse: action.beskrivelse,
+                isRedigertInternal:true
             };
-
+        case types.SET_IS_REDIGERT_INTERNAL:
+            console.log(action);
+            return {
+                ...state,
+                isRedigertInternal:action.isRedigertInternal
+            };
         default:
             return state;
     }

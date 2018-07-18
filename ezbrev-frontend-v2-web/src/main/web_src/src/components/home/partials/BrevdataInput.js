@@ -10,7 +10,7 @@ class BrevdataInput extends React.Component {
         return (
             <section className="col-md-6 float-left">
                 <textarea
-                    className="form-horizontal form-control"
+                    className="xml-form form-horizontal form-control"
                     id="brevdata_input"
                     placeholder="Legg inn XML"
                     value={this.props.xmlInnhold}

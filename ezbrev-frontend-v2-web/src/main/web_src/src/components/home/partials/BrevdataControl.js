@@ -6,6 +6,7 @@ import * as api from '../../../api/index';
 import * as dokumentActionsUtil from '../../../actions/dokumentActionsUtil';
 import * as brevdataActionsUtil from '../../../actions/brevdataActionsUtil';
 import * as dokumentActions from '../../../actions/dokumentActions';
+import * as brevdataActions from '../../../actions/brevdataActions';
 import { bindActionCreators } from 'redux';
 
 class BrevdataControl extends React.Component {
@@ -43,7 +44,10 @@ class BrevdataControl extends React.Component {
                             this.props.xmlInnhold
                         )
                     }
-                    disabled={this.props.brevdataId === ''}
+                    disabled={
+                        this.props.brevmal === '' ||
+                        this.props.xmlInnhold === ''
+                    }
                 >
                     Oppdater
                 </Button>
@@ -53,14 +57,15 @@ class BrevdataControl extends React.Component {
                     onClick={() =>
                         this.props.utilActionsBrevdata.saveXMLAsNew(
                             this.props.brevpakke,
-                            this.props.beskrivelse,
+                            this.props.brevdataBeskrivelse,
                             this.props.xmlInnhold,
                             this.props.brevmal
                         )
                     }
                     disabled={
                         this.props.xmlInnhold === '' ||
-                        this.props.brevdataBeskrivelse === ''
+                        this.props.brevdataBeskrivelse === '' ||
+                        this.props.brevmal === ''
                     }
                 >
                     Lagre som ny
@@ -76,6 +81,7 @@ class BrevdataControl extends React.Component {
                             rediger,
                             this.props.miljo
                         );
+                        this.props.actionsBrevdata.setIsRedigertInternal(false);
                     }}
                     disabled={
                         this.props.xmlInnhold === '' ||
@@ -106,7 +112,7 @@ class BrevdataControl extends React.Component {
                         api.approveDokument(
                             this.props.brevdataId,
                             this.props.miljo,
-                            this.props.beskrivelse,
+                            this.props.brevdataBeskrivelse,
                             this.props.dokument.journalpostId,
                             this.props.dokument.dokumentInfoId
                         ),
@@ -115,7 +121,10 @@ class BrevdataControl extends React.Component {
                                 this.props.xmlInnhold
                             );
                     }}
-                    disabled={this.props.dokument === ''}
+                    disabled={
+                        this.props.dokument === '' ||
+                        this.props.isRedigertInternal
+                    }
                 >
                     Godkjenn
                 </Button>
@@ -124,17 +133,29 @@ class BrevdataControl extends React.Component {
                     className="pull-right brev-compare-btn btn btn-warning"
                     onClick={() => {
                         this.props.actionsDok.setShowModal(true);
+                        if(this.props.dokument===''){
                         this.props.utilActionsDok.showSammenlignMedGodkjent(
                             this.props.miljo,
-                            this.props.dokument.journalpostId,
-                            this.props.dokument.dokumentInfoId,
-                            this.props.brevdataId
-                        );
+                            this.props.brevdataId,
+                            null,
+                            null,
+                            this.props.brevmal,
+                            this.props.xmlInnhold,
+                            false,
+                        );}
+                        else{
+                            this.props.utilActionsDok.showSammenlignMedGodkjent(
+                                this.props.miljo,
+                                this.props.brevdataId,
+                                this.props.journalpostId,
+                                this.props.dokumentInfoId,
+                                this.props.brevmal,
+                                this.props.xmlInnhold,
+                                false,
+                            )
+                        }
                     }}
-                    disabled={
-                        this.props.dokument === '' ||
-                        this.props.isRedigertExternal
-                    }
+                    disabled={this.props.brevmal===''|| this.props.xmlInnhold===''}
                 >
                     Sammenlign med godkjent
                 </Button>
@@ -152,6 +173,7 @@ function mapStateToProps(state, ownProps) {
         miljo: state.menyValg.miljo,
         dokument: state.dokumentReducer.dokument,
         isRedigertExternal: state.dokumentReducer.isRedigertExternal,
+        isRedigertInternal: state.brevdataReducer.isRedigertInternal,
         redigerbar: state.menyValg.redigerbar,
         brevmal: state.menyValg.brevmal
     };
@@ -161,7 +183,8 @@ function mapDispatchToProps(dispatch) {
     return {
         utilActionsDok: bindActionCreators(dokumentActionsUtil, dispatch),
         utilActionsBrevdata: bindActionCreators(brevdataActionsUtil, dispatch),
-        actionsDok: bindActionCreators(dokumentActions, dispatch)
+        actionsDok: bindActionCreators(dokumentActions, dispatch),
+        actionsBrevdata: bindActionCreators(brevdataActions, dispatch)
     };
 }
 

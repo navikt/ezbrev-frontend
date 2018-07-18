@@ -30,9 +30,7 @@ export function getMiljoList() {
     const url = `${serverUrl}/rest/env`;
     return get(url)
         .then(res => res.json())
-        .then(
-            json => sortList(json)
-        );
+        .then(json => sortList(json));
 }
 
 export function getBrevInfo(miljo) {
@@ -63,11 +61,11 @@ export function updateXML(brevdataId, xml) {
     });
 }
 
-export function postBrevdataAsNew(brevpakkenavn, beskrivelse,Xml, brevmal) {
+export function postBrevdataAsNew(brevpakkenavn, beskrivelse, Xml, brevmal) {
     const url = `${serverUrl}/rest/postbrevdata`;
-    const dokumentmal=brevmal.malID;
-    const tittel=brevmal.dokumentTittel;
-    const redigerbar=brevmal.redigerbar;
+    const dokumentmal = brevmal.malID;
+    const tittel = brevmal.dokumentTittel;
+    const redigerbar = brevmal.redigerbar;
     const data = {
         brevpakkenavn,
         dokumentmal,
@@ -100,10 +98,21 @@ export function getSammenlignMedGodkjent(
     env,
     journalpostId,
     dokumentInfoId,
-    brevdataId
+    brevdataId,
+    brevmal,
+    xml,
+    rediger
 ) {
     const url = `${serverUrl}/rest/sammenlign`;
-    const data = { env, journalpostId, dokumentInfoId, brevdataId };
+    const data = {
+        env,
+        journalpostId,
+        dokumentInfoId,
+        brevdataId,
+        brevmal,
+        xml,
+        rediger
+    };
     return post(url, data).then(res => {
         return res.json();
     });
