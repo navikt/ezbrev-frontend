@@ -5,18 +5,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as Actions from '~/actions/menyValgActionsUtil';
 import ErrorModal from './ErrorModal';
-import Ping from "./Ping";
+import Ping from './Ping';
 
 class Header extends React.Component {
-    handleClick = () => {
-        if (this.props.miljoList.length !== 0) {
-            console.log(this.props.miljoList.length);
-            window.alert('Du er allerede pålogget');
-        } else {
-            this.props.actions.fetchMiljoList();
-        }
-    };
-
     popoverClick = () => {
         return (
             <Popover id="popover-trigger-hover-focus" title="Selftest">
@@ -24,6 +15,17 @@ class Header extends React.Component {
             </Popover>
         );
     };
+
+    logIn = () =>
+        this.props.miljoList.length === 0 ? (
+            <a>
+                <Button onClick={() => this.props.actions.fetchMiljoList()}>
+                    Log in
+                </Button>
+            </a>
+        ) : (
+            <div />
+        );
 
     render() {
         return (
@@ -70,13 +72,7 @@ class Header extends React.Component {
                                     Admin
                                 </NavLink>
                             </li>
-                            <li>
-                                <a>
-                                    <Button onClick={() => this.handleClick()}>
-                                        Log in
-                                    </Button>
-                                </a>
-                            </li>
+                            <li>{this.logIn()}</li>
                             <li>
                                 <OverlayTrigger
                                     trigger={['hover', 'focus']}

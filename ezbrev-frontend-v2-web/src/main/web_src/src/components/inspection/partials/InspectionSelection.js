@@ -11,6 +11,14 @@ import * as errorActions from '~/actions/errorActions';
 import { getPingByEnv } from '../../../api';
 
 class InspectionSelection extends React.Component {
+    constructor(props) {
+        super(props);
+
+        const miljo = localStorage.getItem('inspectionMiljo');
+        miljo !== null ? this.selectMiljo(miljo) : '';
+        const brevsystem = localStorage.getItem('brevsystem');
+        brevsystem !== null ? this.selectBrevsystem(brevsystem) : '';
+    }
     setData = (input, restMethod) => {
         if (input !== '' && input) {
             if (!isNaN(input)) {
@@ -24,6 +32,15 @@ class InspectionSelection extends React.Component {
                 );
             }
         }
+    };
+
+    selectMiljo = miljo => {
+        this.props.actions.setMiljo(miljo);
+        getPingByEnv(miljo).then(ping => this.props.pingActions.setPing(ping));
+    };
+
+    selectBrevsystem = brevsystem => {
+        this.props.actions.setBrevsystem(brevsystem);
     };
 
     getXml = () => {
@@ -40,10 +57,7 @@ class InspectionSelection extends React.Component {
                         title={'Miljø: ' + this.props.miljo}
                         id="1"
                         func={miljo => {
-                            this.props.actions.setMiljo(miljo);
-                            getPingByEnv(miljo).then(ping =>
-                                this.props.pingActions.setPing(ping)
-                            );
+                            this.selectMiljo(miljo);
                         }}
                         list={this.props.miljoList}
                     />
@@ -52,9 +66,7 @@ class InspectionSelection extends React.Component {
                     <ListItem
                         title={'Brevsystem: ' + this.props.brevsystem}
                         id="1"
-                        func={brevsystem =>
-                            this.props.actions.setBrevsystem(brevsystem)
-                        }
+                        func={brevsystem => this.selectBrevsystem(brevsystem)}
                         list={['DOKSYS', 'HP']}
                     />
                 </Row>
