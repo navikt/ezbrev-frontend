@@ -14,7 +14,7 @@ class BrevdataControl extends React.Component {
         return (
             this.props.utilActionsDok.produceDokument(
                 this.props.brevmal.malID,
-                this.props.brevdata.xmlInnhold,
+                this.props.xmlInnhold,
                 rediger,
                 this.props.miljo
             ),
@@ -39,11 +39,11 @@ class BrevdataControl extends React.Component {
                     className={'btn btn-primary'}
                     onClick={() =>
                         api.updateXML(
-                            this.props.brevdata.brevdataId,
-                            this.props.brevdata.xmlInnhold
+                            this.props.brevdataId,
+                            this.props.xmlInnhold
                         )
                     }
-                    disabled={this.props.brevdata === ''}
+                    disabled={this.props.brevdataId === ''}
                 >
                     Oppdater
                 </Button>
@@ -53,11 +53,15 @@ class BrevdataControl extends React.Component {
                     onClick={() =>
                         this.props.utilActionsBrevdata.saveXMLAsNew(
                             this.props.brevpakke,
-                            this.props.brevdata,
+                            this.props.beskrivelse,
+                            this.props.xmlInnhold,
                             this.props.brevmal
                         )
                     }
-                    disabled={this.props.brevmal === ''}
+                    disabled={
+                        this.props.xmlInnhold === '' ||
+                        this.props.brevdataBeskrivelse === ''
+                    }
                 >
                     Lagre som ny
                 </Button>
@@ -67,13 +71,16 @@ class BrevdataControl extends React.Component {
                     onClick={() => {
                         const rediger = false;
                         this.props.utilActionsDok.produceDokument(
-                            this.props.brevdata.dokumentmal.dokumenttypeId,
-                            this.props.brevdata.xmlInnhold,
+                            this.props.brevmal.malID,
+                            this.props.xmlInnhold,
                             rediger,
                             this.props.miljo
                         );
                     }}
-                    disabled={this.props.brevmal === ''}
+                    disabled={
+                        this.props.xmlInnhold === '' ||
+                        this.props.brevmal === ''
+                    }
                 >
                     Produser brev
                 </Button>
@@ -86,7 +93,7 @@ class BrevdataControl extends React.Component {
                             : () => this.redigerBrev()
                     }
                     disabled={
-                        this.props.brevmal === '' || !this.props.redigerbar
+                        this.props.xmlInnhold === '' || !this.props.redigerbar
                     }
                 >
                     {this.props.isRedigertExternal
@@ -97,18 +104,18 @@ class BrevdataControl extends React.Component {
                     className={'pull-right btn btn-success'}
                     onClick={() => {
                         api.approveDokument(
-                            this.props.brevdata.brevdataId,
+                            this.props.brevdataId,
                             this.props.miljo,
-                            this.props.brevdata.beskrivelse,
+                            this.props.beskrivelse,
                             this.props.dokument.journalpostId,
                             this.props.dokument.dokumentInfoId
                         ),
                             api.updateXML(
-                                this.props.brevdata.brevdataId,
-                                this.props.brevdata.xmlInnhold
+                                this.props.brevdataId,
+                                this.props.xmlInnhold
                             );
                     }}
-                disabled={this.props.dokument===''}
+                    disabled={this.props.dokument === ''}
                 >
                     Godkjenn
                 </Button>
@@ -121,10 +128,13 @@ class BrevdataControl extends React.Component {
                             this.props.miljo,
                             this.props.dokument.journalpostId,
                             this.props.dokument.dokumentInfoId,
-                            this.props.brevdata.brevdataId
+                            this.props.brevdataId
                         );
                     }}
-                disabled={this.props.dokument===''||this.props.isRedigertExternal}
+                    disabled={
+                        this.props.dokument === '' ||
+                        this.props.isRedigertExternal
+                    }
                 >
                     Sammenlign med godkjent
                 </Button>
@@ -135,13 +145,15 @@ class BrevdataControl extends React.Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        brevdata: state.brevdataReducer.brevdata,
+        brevdataBeskrivelse: state.brevdataReducer.beskrivelse,
+        brevdataId: state.brevdataReducer.brevdataId,
+        xmlInnhold: state.brevdataReducer.xmlInnhold,
         brevpakke: state.menyValg.brevpakke,
         miljo: state.menyValg.miljo,
         dokument: state.dokumentReducer.dokument,
         isRedigertExternal: state.dokumentReducer.isRedigertExternal,
-        redigerbar: state.brevdataReducer.redigerbar,
-        brevmal:state.menyValg.brevmal
+        redigerbar: state.menyValg.redigerbar,
+        brevmal: state.menyValg.brevmal
     };
 }
 
@@ -157,4 +169,3 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(BrevdataControl);
-

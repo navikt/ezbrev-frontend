@@ -8,8 +8,6 @@ import regressjonReducer from './regressionReducer';
 import inspection from './inspectionReducer';
 import inspectionDataReducer from './inspectionDataReducer';
 
-
-
 const rootReducer = combineReducers({
     brevdataReducer,
     menyValg,

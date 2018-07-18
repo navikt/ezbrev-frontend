@@ -31,7 +31,7 @@ class BrevpakkeSelect extends React.Component {
                         func={miljo => {
                             this.props.actions.setMiljo(miljo);
                             this.props.utilActions.selectMiljo(miljo);
-                            this.props.actionsBrevdata.setBrevdata('');
+                            this.props.actionsBrevdata.setBrevdata('','','','');
                             this.props.actionsDok.setDokument('');
                         }}
                         list={this.props.miljoList}
@@ -56,7 +56,7 @@ class BrevpakkeSelect extends React.Component {
                                         brevpakke
                                     );
                                     this.props.actions.setBrevpakke(brevpakke);
-                                    this.props.actionsBrevdata.setBrevdata('');
+                                    this.props.actionsBrevdata.setBrevdata('','','','');
                                     this.props.actionsDok.setDokument('');
                                 }}
                                 list={this.props.brevpakkeList}
@@ -88,7 +88,7 @@ class BrevpakkeSelect extends React.Component {
                                 this.props.brevpakke
                             );
                             this.props.actions.setBrevmal(brevmal);
-                            this.props.actionsBrevdata.setBrevdata('');
+                            this.props.actionsBrevdata.setBrevdata('','','','');
                             this.props.actionsDok.setDokument('');
                         }}
                     >
@@ -110,15 +110,6 @@ class BrevpakkeSelect extends React.Component {
     }
 }
 
-BrevpakkeSelect.propTypes = {
-    miljoList: PropTypes.array.isRequired,
-    brevInfo: PropTypes.array.isRequired,
-    brevpakkeList: PropTypes.array.isRequired,
-    brevmalList: PropTypes.array.isRequired,
-    brevpakke: PropTypes.string.isRequired,
-    actions: PropTypes.object.isRequired,
-    utilActions: PropTypes.object.isRequired
-};
 
 function mapStateToProps(state, ownProps) {
     return {
@@ -139,7 +130,7 @@ function mapDispatchToProps(dispatch) {
         actions: bindActionCreators(menyValgActions, dispatch),
         actionsBrevdata: bindActionCreators(brevdataActions, dispatch),
         actionsDok: bindActionCreators(dokumentActions, dispatch)
-        /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
+
     };
 }
 
