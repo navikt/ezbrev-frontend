@@ -68,7 +68,10 @@ export function showSammenlignMedGodkjent(
     miljo,
     journalpostId,
     dokumentInfoId,
-    brevdataId
+    brevdataId,
+    brevmal,
+    xml,
+    rediger
 ) {
     return function(dispatch) {
         return api
@@ -76,7 +79,10 @@ export function showSammenlignMedGodkjent(
                 miljo,
                 journalpostId,
                 dokumentInfoId,
-                brevdataId
+                brevdataId,
+                brevmal,
+                xml,
+                rediger
             )
             .then(sammenlignInfo => {
                 dispatch(actions.setSammenlignInfo(sammenlignInfo));

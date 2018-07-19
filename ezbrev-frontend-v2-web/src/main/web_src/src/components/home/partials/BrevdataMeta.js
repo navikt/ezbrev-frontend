@@ -16,13 +16,7 @@ class BrevdataMeta extends React.Component {
     }
 
     onSelectSort(choice) {}
-    titleBrevdata() {
-        if (this.props.brevdataId === undefined) {
-            return 'Velg brevdata';
-        } else {
-            return this.props.brevdataId;
-        }
-    }
+
     render() {
         return (
             <section className="col-md-4 float-left">
@@ -35,10 +29,7 @@ class BrevdataMeta extends React.Component {
                     <MenuItem eventKey="1">Nyeste først</MenuItem>
                     <MenuItem eventKey="2">Eldste først</MenuItem>
                 </DropdownButton>
-                <div
-                    className="list-group"
-                    id="brevdata_pick"
-                >
+                <div className="list-group" id="brevdata_pick">
                     {this.props.brevdataList.map(i => (
                         <button
                             type="button"
@@ -60,7 +51,7 @@ class BrevdataMeta extends React.Component {
                             {'Opprettet: '}
                             {i.changeStamp.opprettetDato}{' '}
                         </button>
-                    )) /*mulig at vi må ha annen eventKey her. Feilmelding: missing key prop for element in iterator*/}
+                    ))}
                 </div>
                 <br />
                 <h5>Beskrivelse</h5>
@@ -68,7 +59,7 @@ class BrevdataMeta extends React.Component {
                     className="form-horizontal form-control"
                     id="brevdata_beskrivele"
                     placeholder="Fyll inn beskrivelse"
-                    value={this.props.beskrivelse}
+                    value={this.props.brevdataBeskrivelse}
                     onChange={event => {
                         this.props.actions.changeBeskrivelse(
                             event.target.value
@@ -80,10 +71,10 @@ class BrevdataMeta extends React.Component {
                     className={'btn btn-success'}
                     onClick={() =>
                         this.props.utilActionsDok.showLastApprovedPDF(
-                            this.props.brevdata.brevdataId
+                            this.props.brevdataId
                         )
                     }
-                    disabled={this.props.brevdata === ''}
+                    disabled={this.props.brevdataId === ''}
                 >
                     Vis siste godkjente PDF
                 </Button>
@@ -92,8 +83,6 @@ class BrevdataMeta extends React.Component {
     }
 }
 
-//må sette brevdataListen inn som en liste av knapper
-//sette inn beskrivelse-boks
 
 BrevdataMeta.propTypes = {
     brevdataList: PropTypes.array.isRequired
@@ -102,8 +91,7 @@ BrevdataMeta.propTypes = {
 function mapStateToProps(state, ownProps) {
     return {
         brevdataList: state.menyValg.brevdataList,
-        beskrivelse: state.brevdataReducer.brevdata.beskrivelse,
-        brevdata: state.brevdataReducer.brevdata,
+        brevdataBeskrivelse: state.brevdataReducer.beskrivelse,
         brevmal: state.menyValg.brevmal
     };
 }
@@ -121,29 +109,3 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(BrevdataMeta);
-
-//
-// <DropdownButton
-//     className={'btn btn-info'}
-//     title={
-//         'Brevdata: ' +
-//         (this.props.brevdata.brevdataId ? this.props.brevdata.brevdataId : '')
-//     }
-//     id="brevdata_pick"
-//     placeholder="Velg brevdata"
-//     onSelect={brevdataId => {
-//         this.props.utilActions.selectBrevdata(brevdataId);
-//         this.props.actionsDok.setDokument('');
-//     }}
-//     disabled={this.props.brevmal === ''}
-// >
-//     {this.props.brevdataList.map(i => (
-//         <MenuItem key={i.brevdataId} eventKey={i.brevdataId}>
-//             {' '}
-//             {i.beskrivelse}{' - '}
-//             {'id: '}{i.brevdataId}<br/>
-//             {'Opprettet: '}{i.changeStamp.opprettetDato}
-//             {' '}
-//         </MenuItem>
-//     )) /*mulig at vi må ha annen eventKey her. Feilmelding: missing key prop for element in iterator*/}
-// </DropdownButton>

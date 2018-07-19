@@ -9,7 +9,8 @@ const initialState = {
     brevpakkeList: [],
     brevmalList: [],
     brevInfo: [],
-    brevdataList: []
+    brevdataList: [],
+    redigerbar: false
 };
 
 function getBrevpakkeList(brevInfo) {
@@ -20,7 +21,7 @@ function getBrevpakkeList(brevInfo) {
     return brevpakkeList.filter((x, i, a) => a.indexOf(x) === i).sort();
 }
 
-function sortBevmalList(list){
+function sortBevmalList(list) {
     list.sort(function(a, b) {
         if (a.malID > b.malID) {
             return 1;
@@ -77,24 +78,35 @@ export default function menyValgReducer(state = initialState, action) {
                 ...state,
                 brevdataList: action.brevdataList
             };
+        case types.ADD_ITEM_BREVDATALIST:
+            console.log('inne i reducer, brevdata ',action.brevdata)
+            return {
+                ...state,
+                brevdataList: [...state.brevdataList, action.brevdata]
+            };
         case types.SET_MILJO:
             return {
                 ...state,
                 miljo: action.miljo,
                 brevpakke: '',
                 brevmal: '',
-                brevpakkeVersjon: ''
+                brevpakkeVersjon: '',
+                brevmalList: [],
+                brevdataList: []
             };
         case types.SET_BREVPAKKE:
             return {
                 ...state,
                 brevpakke: action.brevpakke,
-                brevmal: ''
+                brevmal: '',
+                brevdataList: []
             };
         case types.SET_BREVMAL:
             return {
                 ...state,
-                brevmal: action.brevmal
+                brevmal: action.brevmal,
+                redigerbar:
+                    action.brevmal === '' ? false : action.brevmal.redigerbar
             };
         default:
             return state;

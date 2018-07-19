@@ -9,8 +9,6 @@ import inspection from './inspectionReducer';
 import inspectionDataReducer from './inspectionDataReducer';
 import ping from './pingReducer';
 
-
-
 const rootReducer = combineReducers({
     brevdataReducer,
     menyValg,

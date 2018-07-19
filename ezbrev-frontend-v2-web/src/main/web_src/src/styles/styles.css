@@ -64,3 +64,6 @@ nav {
     max-height:360px;
     overflow-y: scroll;
 }
+.xml-form{
+    min-height: 360px;
+}
