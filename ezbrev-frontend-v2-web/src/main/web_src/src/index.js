@@ -9,9 +9,8 @@ import configureStore from './store/configureStore';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/styles.css';
 
-
 import { App } from './App';
-import { fetchMiljoList,fetchIsAdmin } from '~/actions/menyValgActionsUtil';
+import { fetchMiljoList, fetchIsAdmin } from '~/actions/menyValgActionsUtil';
 import { setPing } from '~/actions/pingActions';
 import { getPing } from './api';
 

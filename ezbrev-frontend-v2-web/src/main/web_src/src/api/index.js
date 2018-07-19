@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 //@CrossOrigin(origins = "http://localhost:3000")     //dette må skrives inn i den aktuelle controlleren i back end
 
 //const serverUrl = 'http://localhost:8080';
@@ -8,6 +9,9 @@ const serverUrl = 'https://ezbrev-backend-q4.nais.preprod.local';
 //http://localhost:8080/rest/t4/dokumenttypeinfo
 //Må sortere denne infoen for å finne brevpakker og tilhørende brevmaler
 //Må også kalle for å finne lagrede brevmaldata til venstre
+
+
+
 
 function sortList(list) {
     let sortedList = [];
@@ -28,9 +32,7 @@ function sortList(list) {
 
 export function getMiljoList() {
     const url = `${serverUrl}/rest/env`;
-    return get(url)
-        .then(res => res.json())
-        .then(json => sortList(json));
+    return get(url).then(res => res.json()).then(json => sortList(json));
 }
 
 export function getBrevInfo(miljo) {
@@ -155,13 +157,32 @@ export function post(url, data) {
         body: JSON.stringify(data),
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
+    }).then(res => {
+        if (!res.ok) {
+            res.json().then(error => errorHandler(error));
+            throw res;
+        } else {
+            return res;
+        }
     });
 }
 
 function get(url) {
     return fetch(url, {
         credentials: 'include'
-    }); //returnerer et promise
+    }).then(res => {
+        if (!res.ok) {
+            res.json().then(error => errorHandler(error));
+            throw res;
+        } else {
+            return res;
+        }
+    });
+}
+
+export function errorHandler(error){
+    console.log('inne i errorHandler. feilen er ', error);
+    alert('Error: '+error.error+'\n'+'Status: '+error.status+'\n'+'Feilmelding: '+error.message);
 }
 
 export function getSimilarity(env, sammenlignPercentageObject) {
@@ -198,6 +219,13 @@ export function deleteBrevdataExternal(brevdataId) {
     return fetch(url, {
         method: 'DELETE',
         credentials: 'include'
+    }).then(res => {
+        if (!res.ok) {
+            res.json().then(error => errorHandler(error));
+            throw res;
+        } else {
+            return res;
+        }
     });
 }
 

@@ -24,7 +24,7 @@ class BrevdataMeta extends React.Component {
                     className={'btn btn-info'}
                     title="Sorter brevdata"
                     id="brevdata_sorter"
-                    onSelect={this.onSelectSort}
+                    // onSelect={this.props.actions.sortBrevdataList(sortingKey)}
                 >
                     <MenuItem eventKey="1">Nyeste først</MenuItem>
                     <MenuItem eventKey="2">Eldste først</MenuItem>
@@ -92,7 +92,8 @@ function mapStateToProps(state, ownProps) {
     return {
         brevdataList: state.menyValg.brevdataList,
         brevdataBeskrivelse: state.brevdataReducer.beskrivelse,
-        brevmal: state.menyValg.brevmal
+        brevmal: state.menyValg.brevmal,
+        brevdataId:state.brevdataReducer.brevdataId
     };
 }
 
