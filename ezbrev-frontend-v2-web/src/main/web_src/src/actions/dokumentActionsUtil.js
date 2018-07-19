@@ -1,4 +1,5 @@
 import * as actions from '~/actions/dokumentActions';
+import * as errorActions from '~/actions/errorActions';
 import * as api from '~/api';
 import { setIsRedigertExternal } from '~/actions/dokumentActions';
 
@@ -25,13 +26,16 @@ export function produceDokument(brevmal, xml, rediger, miljo) {
                 dispatch(actions.setDokument(dokument));
                 return dokument;
             })
-            .then(
-                dokument =>
-                    dokument.metawriteUri !== null
-                        ? (window.open(dokument.metawriteUri),
+            .then(dokument => {
+                if ('error' in dokument) {
+                    dispatch(errorActions.displayError(dokument.message, dokument.status + " " + dokument.error));
+                } else {
+                    return dokument.metawriteUri !== null
+                        ? (window.open(dokument.metawriteUri()),
                           dispatch(actions.setIsRedigertExternal(true)))
-                        : displayBase64PDF(dokument.document)
-            )
+                        : displayBase64PDF(dokument.document);
+                }
+            })
             .catch(error => {
                 throw error;
             });
