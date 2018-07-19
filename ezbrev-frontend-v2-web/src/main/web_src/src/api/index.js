@@ -215,3 +215,34 @@ export function getPingByEnv(env) {
     const url = `${serverUrl}/internal/selftest/${env}`;
     return get(url).then(res => res.json());
 }
+
+export function getAdminPngPages(miljo,brevdataId){
+    const url=`${serverUrl}/rest/bestill/pngpages/${miljo}/${brevdataId}`;
+    return get(url).then(res=>res.json());
+}
+
+export function getMaskList(brevdataId){
+    const url=`${serverUrl}/rest/admin/brevdata/${brevdataId}/masks`;
+    return get(url).then(res=>res.json());
+}
+
+export function deleteSingleMaskByMaskId(maskId){
+    const url=`${serverUrl}/rest/admin/mask/${maskId}`
+    return fetch(url, {
+        method: 'DELETE',
+        credentials: 'include'
+    });
+}
+
+export function deleteAllMasksByBrevdataid(brevdataId){
+    const url=`${serverUrl}/rest/admin/brevdata/${brevdataId}/masks`
+    return fetch(url, {
+        method: 'DELETE',
+        credentials: 'include'
+    });
+}
+
+export function saveMaskList(brevdataId,maskList){
+    const url=`${serverUrl}/rest/admin/brevdata/${brevdataId}/masks`;
+    return post(url,maskList).then(res=>res.json());
+}

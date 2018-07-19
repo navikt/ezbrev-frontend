@@ -19,7 +19,7 @@ class RegressionModal extends React.Component {
             <div>
                 <Modal
                     show={this.props.isShown}
-                    onHide={() => this.handleClose()}
+                    onHide={this.handleClose}
                 >
                     <Modal.Header closeButton>
                         <Modal.Title>Regressjonstest startet</Modal.Title>

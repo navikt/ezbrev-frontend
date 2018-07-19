@@ -26,7 +26,10 @@ export function setAdminBrevmalList(brevmalList) {
 }
 
 export function setAdminBrevpakkeVersjon(brevpakkeVersjon) {
-    return {type: types.SET_ADMIN_BREVPAKKE_VERSJON, brevpakkeVersjon: brevpakkeVersjon};
+    return {
+        type: types.SET_ADMIN_BREVPAKKE_VERSJON,
+        brevpakkeVersjon: brevpakkeVersjon
+    };
 }
 export function setAdminModal(adminModal) {
     return {
@@ -38,13 +41,48 @@ export function setAdminModal(adminModal) {
 export function deleteBrevdataInternal(brevdataId, malId) {
     return {
         type: types.DELETE_BREVDATA_INTERNAL,
-        brevdataId:brevdataId,
-        malId:malId
+        brevdataId: brevdataId,
+        malId: malId
     };
 }
 
 export function setIsAdmin(isAdmin) {
     return {
         type: types.SET_IS_ADMIN,
-        isAdmin:isAdmin};
+        isAdmin: isAdmin
+    };
+}
+
+export function setAdminPngPages(pngPages) {
+    return {
+        type: types.SET_ADMIN_PNGPAGES,
+        pngPages: pngPages
+    };
+}
+
+export function setAdminActivePage(activePage) {
+    return {
+        type: types.SET_ADMIN_ACTIVE_PAGE,
+        activePage: activePage
+    };
+}
+
+export function setMaskList(maskList) {
+    return {
+        type: types.SET_ADMIN_MASKLIST,
+        maskList: maskList
+    };
+}
+export function setAdminChanged(changed) {
+    return {
+        type: types.SET_ADMIN_CHANGED,
+        changed: changed
+    };
+}
+
+export function setAdminShowModal(showModal) {
+    return {
+        type: types.SET_ADMIN_SHOW_MODAL,
+        showModal: showModal
+    };
 }

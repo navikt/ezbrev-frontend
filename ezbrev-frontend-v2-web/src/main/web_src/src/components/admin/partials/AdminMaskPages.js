@@ -1,11 +1,10 @@
 import React from 'react';
-import GenericModal from '../common/modal';
-import { Button, Col, Grid, Image, Row } from 'react-bootstrap';
+import { Button, Col, Grid, Image, Row, Modal } from 'react-bootstrap';
 import { values } from 'lodash';
-import $ from 'jquery';
 import 'jcrop';
-import { Space } from '../common/scaffolding';
-import adminActions from '~/actions/adminAdctions';
+import $ from 'jquery';
+import { Space } from '../../common/scaffolding';
+import adminActions from '~/actions/adminActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -14,14 +13,14 @@ class AdminMaskPages extends React.Component {
         super(props);
         this.state = {};
     }
-
-    componentDidMount() {
-        this.unMaskStore = MaskStore.listen(() => {
-            if (MaskStore.isNew()) {
-                this.open();
-            }
-        });
-    }
+    //
+    // componentDidMount() {
+    //     this.unMaskStore = MaskStore.listen(() => {
+    //         if (MaskStore.isNew()) {
+    //             this.open();
+    //         }
+    //     });
+    // }
 
     componentWillUnmount() {
         this.unMaskStore();
@@ -42,21 +41,13 @@ class AdminMaskPages extends React.Component {
     }
 
     changePage(page) {
-        this.setState({
-            active: page,
-            changed: true
-        });
+        this.props.actionsAdmin.setAdminActivePage(page);
+        this.setState({ changed: true, active: page });
     }
 
-    open() {
-        this.setState({
-            pages: MaskStore.getPngPages(),
-            masks: MaskStore.getMasks(),
-            active: 0,
-            changed: true
-        });
-        this.refs.modal.open();
-    }
+    // open() {
+    //     this.refs.modal.open();
+    // }
 
     jcrop() {
         const { changed } = this.state;
@@ -144,9 +135,9 @@ class AdminMaskPages extends React.Component {
     }
 
     render() {
-        const pages = this.state.pages || [];
+        const pages = this.state.admin.pngPages || [];
         return (
-            <GenericModal ref="modal" title="Maskering" bsSize="large">
+            <Modal show= { this.props.showModal } onHide={this.props.actionsAdmin.setAdminShowModal(false)} title="Maskering" bsSize="large">
                 <Grid>
                     <Row>
                         <Col md={2}>
@@ -212,7 +203,7 @@ class AdminMaskPages extends React.Component {
                         </Col>
                     </Row>
                 </Grid>
-            </GenericModal>
+            </Modal>
         );
     }
 }
@@ -220,15 +211,19 @@ class AdminMaskPages extends React.Component {
 function mapStateToProps(state, ownProps) {
     return {
         page: state.admin.pngPages,
-        active:state.admin.activePage,
+        //active: state.admin.activePage,
         masks: state.admin.masks,
-        changed:state.admin.changed
-}
+        showModal: state.admin.showModal
+        // changed: state.admin.changed
+    };
 }
 
 function mapDispatchToProps(dispatch) {
-    bindActionCreators(adminActions, dispatch);
+    return {
+        actionsAdmin: bindActionCreators(adminActions, dispatch)
+    };
 }
+
 export default connect(
     mapStateToProps,
     mapDispatchToProps

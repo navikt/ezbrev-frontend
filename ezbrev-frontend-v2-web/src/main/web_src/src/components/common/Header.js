@@ -32,7 +32,7 @@ class Header extends React.Component {
             <div className="container-fluid">
                 <nav className="navbar">
                     <div className="navbar-header">
-                        <span className="navbar-brand">Ez-Brev 4 beta</span>
+                        <span className="navbar-brand">Ez-Brev 4 ALPHA</span>
                     </div>
                     <div className="collapse navbar-collapse">
                         <ul className="nav navbar-nav">
