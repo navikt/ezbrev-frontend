@@ -43,8 +43,6 @@ class SammenlignMedGodkjent extends React.Component {
                         this.props.sammenlignInfo.errors
                     }`}
                     pages={this.props.sammenlignInfo.sider}
-                    newPages={this.props.sammenlignInfo.ny}
-                    approvedPages={this.props.sammenlignInfo.godkjent}
                 >
                     <div>
                         <div className="pull-left">
