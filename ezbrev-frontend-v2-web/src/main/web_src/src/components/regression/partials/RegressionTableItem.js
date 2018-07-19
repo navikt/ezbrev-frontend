@@ -34,7 +34,6 @@ class RegressionTableItem extends React.Component {
             [malId],
             this.props.brevdataList
         );
-        console.log(regressionObjects);
         this.props.utilActions.startRegressionTest(
             regressionObjects,
             this.props.miljo

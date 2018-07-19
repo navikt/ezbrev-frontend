@@ -1,4 +1,5 @@
 import * as actions from '~/actions/dokumentActions';
+import * as dokumentActions from '~/actions/dokumentActionsUtil';
 import * as errorActions from '~/actions/errorActions';
 import * as api from '~/api';
 import { setIsRedigertExternal } from '~/actions/dokumentActions';
@@ -28,7 +29,12 @@ export function produceDokument(brevmal, xml, rediger, miljo) {
             })
             .then(dokument => {
                 if ('error' in dokument) {
-                    dispatch(errorActions.displayError(dokument.message, dokument.status + " " + dokument.error));
+                    dispatch(
+                        errorActions.displayError(
+                            dokument.message,
+                            dokument.status + ' ' + dokument.error
+                        )
+                    );
                 } else {
                     return dokument.metawriteUri !== null
                         ? (window.open(dokument.metawriteUri()),
@@ -85,7 +91,17 @@ export function showSammenlignMedGodkjent(
                 rediger
             )
             .then(sammenlignInfo => {
-                dispatch(actions.setSammenlignInfo(sammenlignInfo));
+                if ('error' in sammenlignInfo) {
+                    dispatch(
+                        errorActions.displayError(
+                            sammenlignInfo.message,
+                            sammenlignInfo.status + ' ' + sammenlignInfo.error
+                        )
+                    );
+                } else {
+                    dispatch(actions.setSammenlignInfo(sammenlignInfo));
+                    dispatch(dokumentActions.setShowModal(true));
+                }
             });
     };
 }

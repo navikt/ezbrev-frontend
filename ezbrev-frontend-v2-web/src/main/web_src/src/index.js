@@ -6,8 +6,9 @@ import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter } from 'react-router-redux';
 import { AppContainer } from 'react-hot-loader';
 import configureStore from './store/configureStore';
-import './styles/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/styles.css';
+
 
 import { App } from './App';
 import { fetchMiljoList,fetchIsAdmin } from '~/actions/menyValgActionsUtil';

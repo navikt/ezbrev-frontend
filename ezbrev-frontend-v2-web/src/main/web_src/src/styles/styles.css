@@ -14,16 +14,16 @@ nav {
 }
 
 .pingItem{
-    background-color: lightpink !important;
+    background-color: lightpink;
+    border: 1px solid lightblue;
 }
 
 .pingOK{
-    background-color: lightgreen !important;
-    border: 1px solid lightblue !important;
+    background-color: #c9eebd;
 }
 
 .modal-dialog{
-    width: 95% !important;
+    width: 95%;
 }
 
 .tester-modal {

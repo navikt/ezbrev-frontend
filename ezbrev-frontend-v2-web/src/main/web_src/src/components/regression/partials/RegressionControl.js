@@ -20,7 +20,7 @@ class RegressionControl extends React.Component {
         miljo !== null ? this.selectMiljo(miljo) : '';
     }
 
-    handleClick = () => {
+    startRegression = () => {
         this.props.actions.setRegressionModal(true);
         let regressionObjects = getRegressionObjects(
             Object.keys(this.props.brevdataList),
@@ -91,7 +91,7 @@ class RegressionControl extends React.Component {
                 <Col sm={3}>
                     <Button
                         className={'btn btn-info'}
-                        onClick={() => this.handleClick()}
+                        onClick={() => this.startRegression()}
                         id="start_regresjonstest_button"
                         disabled={this.props.brevpakke === ''}
                     >
