@@ -13,7 +13,14 @@ nav {
     padding-top:20px;
 }
 
+.pingItem{
+    background-color: lightpink !important;
+}
 
+.pingOK{
+    background-color: lightgreen !important;
+    border: 1px solid lightblue !important;
+}
 
 .modal-dialog{
     width: 95% !important;
@@ -56,4 +63,7 @@ nav {
 .list-group{
     max-height:360px;
     overflow-y: scroll;
+}
+.xml-form{
+    min-height: 360px;
 }

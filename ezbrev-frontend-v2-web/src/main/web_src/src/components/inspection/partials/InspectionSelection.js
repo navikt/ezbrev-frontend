@@ -6,8 +6,19 @@ import { connect } from 'react-redux';
 import * as inspectionActions from '~/actions/InspectionActions';
 import FormItem from '~/components/inspection/partials/FormItem';
 import * as api from '~/api';
+import * as pingActions from '~/actions/pingActions';
+import * as errorActions from '~/actions/errorActions';
+import { getPingByEnv } from '../../../api';
 
 class InspectionSelection extends React.Component {
+    constructor(props) {
+        super(props);
+
+        const miljo = localStorage.getItem('inspectionMiljo');
+        miljo !== null ? this.selectMiljo(miljo) : '';
+        const brevsystem = localStorage.getItem('brevsystem');
+        brevsystem !== null ? this.selectBrevsystem(brevsystem) : '';
+    }
     setData = (input, restMethod) => {
         if (input !== '' && input) {
             if (!isNaN(input)) {
@@ -15,9 +26,21 @@ class InspectionSelection extends React.Component {
                     x => this.props.actions.setInspectionData(x)
                 );
             } else {
-                console.log('Must be a number');
+                this.props.errorActions.displayError(
+                    'Input må være tall',
+                    'Inputfeil'
+                );
             }
         }
+    };
+
+    selectMiljo = miljo => {
+        this.props.actions.setMiljo(miljo);
+        getPingByEnv(miljo).then(ping => this.props.pingActions.setPing(ping));
+    };
+
+    selectBrevsystem = brevsystem => {
+        this.props.actions.setBrevsystem(brevsystem);
     };
 
     getXml = () => {
@@ -33,7 +56,9 @@ class InspectionSelection extends React.Component {
                     <ListItem
                         title={'Miljø: ' + this.props.miljo}
                         id="1"
-                        func={miljo => this.props.actions.setMiljo(miljo)}
+                        func={miljo => {
+                            this.selectMiljo(miljo);
+                        }}
                         list={this.props.miljoList}
                     />
                 </Row>
@@ -41,9 +66,7 @@ class InspectionSelection extends React.Component {
                     <ListItem
                         title={'Brevsystem: ' + this.props.brevsystem}
                         id="1"
-                        func={brevsystem =>
-                            this.props.actions.setBrevsystem(brevsystem)
-                        }
+                        func={brevsystem => this.selectBrevsystem(brevsystem)}
                         list={['DOKSYS', 'HP']}
                     />
                 </Row>
@@ -66,10 +89,12 @@ class InspectionSelection extends React.Component {
                     <Button
                         className="float-left"
                         onClick={() => this.getXml()}
-                        disabled={this.props.miljo===''||this.props.brevsystem===''||
-                            (this.props.mottakerId==='' &&
-                            this.props.journalpostId==='' &&
-                            this.props.dokumentinfoId==='')
+                        disabled={
+                            this.props.miljo === '' ||
+                            this.props.brevsystem === '' ||
+                            (this.props.mottakerId === '' &&
+                                this.props.journalpostId === '' &&
+                                this.props.dokumentinfoId === '')
                         }
                     >
                         Hent XML
@@ -93,7 +118,10 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(inspectionActions, dispatch)
+        actions: bindActionCreators(inspectionActions, dispatch),
+        pingActions: bindActionCreators(pingActions, dispatch),
+        errorActions: bindActionCreators(errorActions, dispatch)
+
         /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
     };
 }

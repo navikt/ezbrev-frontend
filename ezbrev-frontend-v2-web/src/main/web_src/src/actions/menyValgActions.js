@@ -33,3 +33,7 @@ export function setBrevInfo(json) {
 export function setBrevdataList(brevdataList) {
     return {type: types.SET_BREVDATALIST, brevdataList:brevdataList}
 }
+
+export function addItemBrevdataList(brevdata){
+    return {type: types.ADD_ITEM_BREVDATALIST, brevdata: brevdata}
+}
