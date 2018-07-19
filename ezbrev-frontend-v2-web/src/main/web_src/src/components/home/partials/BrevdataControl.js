@@ -132,7 +132,6 @@ class BrevdataControl extends React.Component {
                 <Button
                     className="pull-right brev-compare-btn btn btn-warning"
                     onClick={() => {
-                        this.props.actionsDok.setShowModal(true);
                         if (this.props.dokument === '') {
                             this.props.utilActionsDok.showSammenlignMedGodkjent(
                                 this.props.miljo,

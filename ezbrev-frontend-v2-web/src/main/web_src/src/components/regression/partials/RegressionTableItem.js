@@ -43,7 +43,6 @@ class RegressionTableItem extends React.Component {
     sammenlign = (brevdataId, dokumenttypeId) => {
         bestillbrevdata(brevdataId, dokumenttypeId, this.props.miljo).then(
             json => {
-                this.props.actionsDok.setShowModal(true);
                 this.props.utilActionsDok.showSammenlignMedGodkjent(
                     this.props.miljo,
                     json.journalpostId,

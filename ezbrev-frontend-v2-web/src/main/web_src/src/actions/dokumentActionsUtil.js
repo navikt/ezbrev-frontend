@@ -1,5 +1,5 @@
 import * as actions from '~/actions/dokumentActions';
-import * as dokumentActions from '~/actions/dokumentActionsUtil';
+import * as dokumentActions from '~/actions/dokumentActions';
 import * as errorActions from '~/actions/errorActions';
 import * as api from '~/api';
 import { setIsRedigertExternal } from '~/actions/dokumentActions';

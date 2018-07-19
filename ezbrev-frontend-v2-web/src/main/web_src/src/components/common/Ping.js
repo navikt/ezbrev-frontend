@@ -9,6 +9,7 @@ class Ping extends React.Component {
         const ping = this.props.ping;
         return (
             <div>
+                <Row><Col sm={12}> Miljø: {this.props.env} </Col></Row>
                 <Row><Col sm={12}> Tid: {ping.aggregateResponseTime} </Col></Row>
                 <Row><Col sm={12}> Status: {ping.aggregateResultText} </Col> </Row>
                 <Panel>
@@ -33,7 +34,8 @@ class Ping extends React.Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        ping: state.ping.ping
+        ping: state.ping.ping,
+        env: state.ping.env
     };
 }
 

@@ -193,18 +193,18 @@ export function bestillbrevdata(brevdataId, brevmal, miljo) {
         return res.json();
     });
 }
- export function deleteBrevdataExternal(brevdataId){
-    const url=`${serverUrl}/rest/admin/brevdata/${brevdataId}`;
+export function deleteBrevdataExternal(brevdataId) {
+    const url = `${serverUrl}/rest/admin/brevdata/${brevdataId}`;
     return fetch(url, {
-         method: 'DELETE',
-         credentials: 'include'
-     });
- }
+        method: 'DELETE',
+        credentials: 'include'
+    });
+}
 
- export function getIsAdmin(){
-    const url=`${serverUrl}/rest/admin/isAdmin`;
+export function getIsAdmin() {
+    const url = `${serverUrl}/rest/admin/isAdmin`;
     return get(url).then(res => res.json());
- }
+}
 
 export function getPing() {
     const url = `${serverUrl}/internal/selftest`;
@@ -213,5 +213,7 @@ export function getPing() {
 
 export function getPingByEnv(env) {
     const url = `${serverUrl}/internal/selftest/${env}`;
-    return get(url).then(res => res.json());
+    return get(url)
+        .then(res => res.json())
+        .then(json => ({ json, env: env }));
 }

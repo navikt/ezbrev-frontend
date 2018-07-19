@@ -18,8 +18,9 @@ import { getPing } from './api';
 const history = createHistory();
 export const store = configureStore(history);
 const target = document.getElementById('root');
+
 store.dispatch(fetchMiljoList());
-getPing().then(ping => store.dispatch(setPing(ping)));
+getPing().then(ping => store.dispatch(setPing({json:ping, env:"ikke valgt"})));
 store.dispatch(fetchIsAdmin());
 
 store.subscribe(() => {

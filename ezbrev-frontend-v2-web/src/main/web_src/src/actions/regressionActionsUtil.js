@@ -2,7 +2,12 @@ import { getBrevdataInBrevpakke, getSimilarity } from '~/api';
 import * as regressionActions from '~/actions/regressionActions';
 import * as menyValgActionsUtil from '~/actions/menyValgActionsUtil';
 
-export function setBrevdataList(brevpakke, brevmalList, brevmalIds, action=regressionActions.setRegressionBrevdataList) {
+export function setBrevdataList(
+    brevpakke,
+    brevmalList,
+    brevmalIds,
+    action = regressionActions.setRegressionBrevdataList
+) {
     return function(dispatch) {
         getBrevdataInBrevpakke(brevpakke, {
             brevmalIds: brevmalIds
@@ -28,10 +33,13 @@ export function selectMiljo(miljo, action) {
     return menyValgActionsUtil.selectMiljo(miljo, action);
 }
 
-export function startRegressionTest(regressionObjects, env) {
+export function startRegressionTest(
+    regressionObjects,
+    env,
+    numberOfObjInParaelell = 1
+) {
     return function(dispatch) {
         let prosenter = {};
-        let numberOfObj = 2;
         for (let i = 0; i < regressionObjects.length; i++) {
             prosenter[regressionObjects[i].brevdataId] = 'Henter data...';
         }
@@ -40,10 +48,22 @@ export function startRegressionTest(regressionObjects, env) {
                 JSON.parse(JSON.stringify(prosenter))
             )
         );
-        chainMultipleRegressionObjects(regressionObjects, numberOfObj, env, prosenter, dispatch);
+        chainMultipleRegressionObjects(
+            regressionObjects,
+            numberOfObjInParaelell,
+            env,
+            prosenter,
+            dispatch
+        );
     };
 }
-function chainMultipleRegressionObjects(regressionObjects, numberOfObj, env, prosenter, dispatch){
+function chainMultipleRegressionObjects(
+    regressionObjects,
+    numberOfObj,
+    env,
+    prosenter,
+    dispatch
+) {
     let chain = Promise.resolve();
     for (let i = 0; i < regressionObjects.length; i = i + numberOfObj) {
         chain = chain.then(function() {
@@ -66,6 +86,7 @@ function chainMultipleRegressionObjects(regressionObjects, numberOfObj, env, pro
     }
 }
 
+//If you want to test multiple regression objects at a time.
 function promiseRegressionObjects(
     start,
     numberOfObj,
