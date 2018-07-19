@@ -136,20 +136,20 @@ class BrevdataControl extends React.Component {
                         if (this.props.dokument === '') {
                             this.props.utilActionsDok.showSammenlignMedGodkjent(
                                 this.props.miljo,
+                                null,
+                                null,
                                 this.props.brevdataId,
-                                null,
-                                null,
-                                this.props.brevmal,
+                                this.props.brevmal.malID,
                                 this.props.xmlInnhold,
                                 false
                             );
                         } else {
                             this.props.utilActionsDok.showSammenlignMedGodkjent(
                                 this.props.miljo,
-                                this.props.brevdataId,
                                 this.props.journalpostId,
                                 this.props.dokumentInfoId,
-                                this.props.brevmal,
+                                this.props.brevdataId,
+                                this.props.brevmal.malID,
                                 this.props.xmlInnhold,
                                 false
                             );
