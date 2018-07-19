@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
     regressjonReducer,
     inspection,
     inspectionDataReducer,
-    admin
+    admin,
     inspectionDataReducer,
     ping
 });
