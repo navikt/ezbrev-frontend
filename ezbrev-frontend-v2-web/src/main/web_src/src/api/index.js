@@ -185,3 +185,13 @@ export function bestillbrevdata(brevdataId, brevmal, miljo) {
         return res.json();
     });
 }
+
+export function getPing() {
+    const url = `${serverUrl}/internal/selftest`;
+    return get(url).then(res => res.json());
+}
+
+export function getPingByEnv(env) {
+    const url = `${serverUrl}/internal/selftest/${env}`;
+    return get(url).then(res => res.json());
+}

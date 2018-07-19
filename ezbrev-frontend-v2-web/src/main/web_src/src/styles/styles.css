@@ -13,7 +13,14 @@ nav {
     padding-top:20px;
 }
 
+.pingItem{
+    background-color: lightpink !important;
+}
 
+.pingOK{
+    background-color: lightgreen !important;
+    border: 1px solid lightblue !important;
+}
 
 .modal-dialog{
     width: 95% !important;

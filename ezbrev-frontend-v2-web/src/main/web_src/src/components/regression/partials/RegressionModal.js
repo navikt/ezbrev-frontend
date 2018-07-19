@@ -15,12 +15,6 @@ class RegressionModal extends React.Component {
     handleClose = () => this.props.actions.setRegressionModal(false);
 
     render() {
-        const popover = (
-            <Popover id="modal-popover" title="popover">
-                very popover. such engagement
-            </Popover>
-        );
-        const tooltip = <Tooltip id="modal-tooltip">wow.</Tooltip>;
         return (
             <div>
                 <Modal
