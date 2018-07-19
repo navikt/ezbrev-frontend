@@ -9,7 +9,11 @@ const initialState = {
     adminBrevmalList: [],
     adminBrevdataList: {},
     adminBrevpakkeVersjon:'',
-    isAdmin:false
+    isAdmin:false,
+    pngPages:'',
+    activePage:'',
+    masks:'',
+    changed:''
     };
 
 function getBrevpakkeList(brevInfo) {
