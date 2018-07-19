@@ -2,7 +2,7 @@ import { getBrevdataInBrevpakke, getSimilarity } from '~/api';
 import * as regressionActions from '~/actions/regressionActions';
 import * as menyValgActionsUtil from '~/actions/menyValgActionsUtil';
 
-export function setBrevdataList(brevpakke, brevmalList, brevmalIds, action=regressionActions.setRegresionBrevdataList) {
+export function setBrevdataList(brevpakke, brevmalList, brevmalIds, action=regressionActions.setRegressionBrevdataList) {
     return function(dispatch) {
         getBrevdataInBrevpakke(brevpakke, {
             brevmalIds: brevmalIds
