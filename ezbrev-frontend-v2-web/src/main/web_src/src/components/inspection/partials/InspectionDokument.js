@@ -32,21 +32,37 @@ export default class InspectionDocument extends React.Component {
     };
 
     setHeader = (title, id, time, mal, xml) => {
-        return (
-            <div>
-                <Col sm={3}>{title + id}</Col>
-                <Col sm={3}>{time}</Col>
-                <Col sm={2}>{mal}</Col>
-                <Col sm={2}>
-                    <CopyToClipboard text={xml}>
-                        <Button>Kopier til clipboard</Button>
-                    </CopyToClipboard>
-                </Col>
-                <Col sm={2}>
-                    <Button onClick={() => this.setState({isShown: !this.state.isShown})}>Toggle</Button>
-                </Col>
-            </div>
-        );
+
+            if(showXML){
+                this.setState({isShown: !this.state.isShown};
+                return (
+                <div>
+                    <Col sm={3}>{title + id}</Col>
+                    <Col sm={3}>{time}</Col>
+                    <Col sm={2}>{mal}</Col>
+                    <Col sm={2}>
+                        <CopyToClipboard text={xml}>
+                            <Button>Kopier til clipboard</Button>
+                        </CopyToClipboard>
+                    </Col>
+
+                </div>
+                )}else {
+                return(
+                <div>
+                    <Col sm={3}>{title + id}</Col>
+                    <Col sm={3}>{time}</Col>
+                    <Col sm={2}>{mal}</Col>
+                    <Col sm={2}>
+                        <CopyToClipboard text={xml}>
+                            <Button>Kopier til clipboard</Button>
+                        </CopyToClipboard>
+                    </Col>
+                    <Col sm={2}>
+                        <Button onClick={() => this.setState({isShown: !this.state.isShown})}>Toggle</Button>
+                    </Col>
+                </div>
+                )};
     };
 
     toggle = () => {
