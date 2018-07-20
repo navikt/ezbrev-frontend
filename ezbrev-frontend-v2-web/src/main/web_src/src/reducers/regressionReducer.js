@@ -17,7 +17,7 @@ function getBrevpakkeList(brevInfo) {
     for (let i = 0; i < brevInfo.length; i++) {
         brevpakkeList.push(brevInfo[i].brevPakke);
     }
-    return brevpakkeList.filter((x, i, a) => a.indexOf(x) === i);
+    return brevpakkeList.filter((x, i, a) => a.indexOf(x) === i).sort();
 }
 
 export default function regresjonMenyValgReducer(state = initialState, action) {
@@ -25,12 +25,14 @@ export default function regresjonMenyValgReducer(state = initialState, action) {
         case types.SET_MILJOLIST:
             return Object.assign({}, state, { regressjonMiljoList: action.miljoList });
         case types.SET_REGRESSION_MILJO:
+            localStorage.setItem("regressionMiljo", action.miljo);
             return Object.assign({}, state, { regressjonMiljo: action.miljo , regressjonBrevpakke: '', regressjonBrevmalList: []});
         case types.SET_REGRESSION_BREVPAKKELIST:
             return Object.assign({}, state, {
                 regressjonBrevpakkeList: action.brevpakkeList
             });
         case types.SET_REGRESSION_BREVPAKKE:
+            localStorage.setItem("regressionBrevpakke", action.brevpakke);
             return Object.assign({}, state, { regressjonBrevpakke: action.brevpakke });
         case types.SET_REGRESSION_BREVMALLIST:
             return Object.assign({}, state, {

@@ -42,7 +42,11 @@ class InspectionTable extends React.Component {
                 </Col>
             );
         } else {
-            return <div>Fant ikke XML</div>;
+            if (this.props.inspectionData.mottakerId === null) {
+                return <div>Fant ikke XML</div>;
+            } else {
+                return <div />;
+            }
         }
     }
 }

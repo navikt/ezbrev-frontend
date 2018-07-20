@@ -1,18 +1,35 @@
 import React from 'react';
-import {Button, Col, Row} from 'react-bootstrap';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
+import { Button, Col, Row } from 'react-bootstrap';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import * as regressionActions from '~/actions/regressionActions';
 import * as regressionActionsUtil from '~/actions/regressionActionsUtil';
+import * as pingActions from '~/actions/pingActions';
+
 import ListItem from '../../common/ListItem';
 import RegressionModal from '../partials/RegressionModal';
-import {getRegressionObjects} from "~/components/regression/partials/RegressionUtil";
+import { getRegressionObjects } from '~/components/regression/partials/RegressionUtil';
+import { getPingByEnv } from '../../../api';
+import BrevpakkeListListener from "./BrevpakkeListListener";
 
 class RegressionControl extends React.Component {
-    handleClick = () => {
+    constructor(props) {
+        super(props);
+
+        const miljo = localStorage.getItem('regressionMiljo');
+        miljo !== null ? this.selectMiljo(miljo) : '';
+    }
+
+    startRegression = () => {
         this.props.actions.setRegressionModal(true);
-        let regressionObjects = getRegressionObjects(Object.keys(this.props.brevdataList), this.props.brevdataList);
-        this.props.utilActions.startRegressionTest(regressionObjects, this.props.miljo);
+        let regressionObjects = getRegressionObjects(
+            Object.keys(this.props.brevdataList),
+            this.props.brevdataList
+        );
+        this.props.utilActions.startRegressionTest(
+            regressionObjects,
+            this.props.miljo
+        );
     };
 
     setBrevMalList = brevpakke => {
@@ -41,6 +58,15 @@ class RegressionControl extends React.Component {
         );
     };
 
+    selectMiljo = miljo => {
+        this.props.utilActions.selectMiljo(
+            miljo,
+            regressionActions.setRegressionBrevInfo
+        );
+        this.props.actions.setRegressionMiljo(miljo);
+        getPingByEnv(miljo).then(ping => this.props.pingActions.setPing(ping));
+    };
+
     render() {
         return (
             <Row>
@@ -48,13 +74,7 @@ class RegressionControl extends React.Component {
                     <ListItem
                         title={'Miljø: ' + this.props.miljo}
                         id="1"
-                        func={miljo => {
-                            this.props.utilActions.selectMiljo(
-                                miljo,
-                                regressionActions.setRegressionBrevInfo
-                            );
-                            this.props.actions.setRegressionMiljo(miljo);
-                        }}
+                        func={miljo => this.selectMiljo(miljo)}
                         list={this.props.miljoList}
                     />
                 </Col>
@@ -64,15 +84,16 @@ class RegressionControl extends React.Component {
                         id="1"
                         func={brevpakke => this.updateBrevpakke(brevpakke)}
                         list={this.props.brevpakkeList}
-                        isDisabled={this.props.miljo===''}
+                        isDisabled={this.props.miljo === ''}
                     />
+                    <BrevpakkeListListener action={this.updateBrevpakke} />
                 </Col>
                 <Col sm={3}>
                     <Button
                         className={'btn btn-info'}
-                        onClick={() => this.handleClick()}
+                        onClick={() => this.startRegression()}
                         id="start_regresjonstest_button"
-                        disabled={this.props.brevpakke===''}
+                        disabled={this.props.brevpakke === ''}
                     >
                         Start regresjonstest
                     </Button>
@@ -86,10 +107,9 @@ class RegressionControl extends React.Component {
 function mapStateToProps(state, ownProps) {
     return {
         miljoList: state.regressjonReducer.regressjonMiljoList,
+        miljo: state.regressjonReducer.regressjonMiljo,
         brevInfo: state.regressjonReducer.regressjonBrevInfo,
         brevpakkeList: state.regressjonReducer.regressjonBrevpakkeList,
-        brevmalList: state.regressjonReducer.regressjonBrevmalList,
-        miljo: state.regressjonReducer.regressjonMiljo,
         brevpakke: state.regressjonReducer.regressjonBrevpakke,
         brevdataList: state.regressjonReducer.regressjonBrevdataList
     };
@@ -98,7 +118,8 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
     return {
         utilActions: bindActionCreators(regressionActionsUtil, dispatch),
-        actions: bindActionCreators(regressionActions, dispatch)
+        actions: bindActionCreators(regressionActions, dispatch),
+        pingActions: bindActionCreators(pingActions, dispatch)
         /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
     };
 }

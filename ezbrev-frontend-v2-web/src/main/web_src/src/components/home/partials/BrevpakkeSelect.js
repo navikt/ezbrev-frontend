@@ -1,23 +1,24 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { DropdownButton, MenuItem, Row, FormControl } from 'react-bootstrap';
+import { DropdownButton, FormControl, MenuItem, Row } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as menyValgActionsUtil from '../../../actions/menyValgActionsUtil';
 import * as menyValgActions from '../../../actions/menyValgActions';
 import * as brevdataActions from '../../../actions/brevdataActions';
 import * as dokumentActions from '../../../actions/dokumentActions';
+import * as pingActions from '../../../actions/pingActions';
 import ListItem from '../../common/ListItem';
 import FormItem from '~/components/inspection/partials/FormItem';
+import {getPingByEnv} from "../../../api";
 
 class BrevpakkeSelect extends React.Component {
-    checkRedigerbar() {
+    setTitleName() {
         if (this.props.brevmal === undefined || this.props.brevmal === '') {
             return 'Brevmal: ';
         } else if (this.props.brevmal.redigerbar) {
-            return 'Brevmal: ' + this.props.brevmal + ' Redigerbar';
+            return 'Brevmal: ' + this.props.brevmal.malID + ' Redigerbar';
         } else {
-            return 'Brevmal: ' + this.props.brevmal;
+            return 'Brevmal: ' + this.props.brevmal.malID;
         }
     }
 
@@ -31,8 +32,10 @@ class BrevpakkeSelect extends React.Component {
                         func={miljo => {
                             this.props.actions.setMiljo(miljo);
                             this.props.utilActions.selectMiljo(miljo);
-                            this.props.actionsBrevdata.setBrevdata('');
                             this.props.actionsDok.setDokument('');
+                            getPingByEnv(miljo).then(ping =>
+                                this.props.pingActions.setPing(ping)
+                            );
                         }}
                         list={this.props.miljoList}
                     />
@@ -56,7 +59,6 @@ class BrevpakkeSelect extends React.Component {
                                         brevpakke
                                     );
                                     this.props.actions.setBrevpakke(brevpakke);
-                                    this.props.actionsBrevdata.setBrevdata('');
                                     this.props.actionsDok.setDokument('');
                                 }}
                                 list={this.props.brevpakkeList}
@@ -80,20 +82,19 @@ class BrevpakkeSelect extends React.Component {
                     <DropdownButton
                         className={'btn btn-info'}
                         disabled={this.props.brevpakke === ''}
-                        title={this.checkRedigerbar()}
+                        title={this.setTitleName()}
                         id={'brevpakke_mal_pick'}
                         onSelect={brevmal => {
                             this.props.utilActions.selectBrevmal(
-                                brevmal,
+                                brevmal.malID,
                                 this.props.brevpakke
                             );
                             this.props.actions.setBrevmal(brevmal);
-                            this.props.actionsBrevdata.setBrevdata('');
                             this.props.actionsDok.setDokument('');
                         }}
                     >
                         {this.props.brevmalList.map(i => (
-                            <MenuItem key={i.malID} eventKey={i.malID}>
+                            <MenuItem key={i.malID} eventKey={i}>
                                 {' '}
                                 {i.malID +
                                     ' - ' +
@@ -108,16 +109,6 @@ class BrevpakkeSelect extends React.Component {
         );
     }
 }
-
-BrevpakkeSelect.propTypes = {
-    miljoList: PropTypes.array.isRequired,
-    brevInfo: PropTypes.array.isRequired,
-    brevpakkeList: PropTypes.array.isRequired,
-    brevmalList: PropTypes.array.isRequired,
-    brevpakke: PropTypes.string.isRequired,
-    actions: PropTypes.object.isRequired,
-    utilActions: PropTypes.object.isRequired
-};
 
 function mapStateToProps(state, ownProps) {
     return {
@@ -135,10 +126,10 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
     return {
         utilActions: bindActionCreators(menyValgActionsUtil, dispatch),
+        pingActions: bindActionCreators(pingActions, dispatch),
         actions: bindActionCreators(menyValgActions, dispatch),
         actionsBrevdata: bindActionCreators(brevdataActions, dispatch),
         actionsDok: bindActionCreators(dokumentActions, dispatch)
-        /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
     };
 }
 

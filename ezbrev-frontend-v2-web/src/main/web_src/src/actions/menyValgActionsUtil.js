@@ -1,4 +1,5 @@
 import * as actions from '~/actions/menyValgActions';
+import * as adminActions from '~/actions/adminActions';
 import * as api from '~/api';
 import { getBrevdataInBrevpakke } from '~/api';
 import * as regressionActions from '~/actions/regressionActions';
@@ -16,13 +17,27 @@ export function fetchMiljoList() {
     };
 }
 
-export function fetchBrevpakkeVersjon(miljo, brevpakke){
+export function fetchIsAdmin() {
+    return function(dispatch) {
+        return api
+            .getIsAdmin()
+            .then(isAdmin => {
+                dispatch(adminActions.setIsAdmin(isAdmin));
+            })
+            .catch(error => {
+                throw error;
+            });
+    };
+}
+
+
+export function fetchBrevpakkeVersjon(miljo, brevpakke,action=actions.setBrevpakkeVersjon){
     return function(dispatch) {
         return api
             .getBrevpakkeVersjon(miljo,
                 brevpakke)
             .then(brevpakkeversjon => {
-                dispatch(actions.setBrevpakkeVersjon(brevpakkeversjon.version));
+                dispatch(action(brevpakkeversjon.version));
             })
             .catch(error => {
                 throw error;

@@ -3,25 +3,22 @@ import PropTypes from 'prop-types';
 import BrevdataControl from './BrevdataControl';
 import { connect } from 'react-redux';
 import * as brevdataActions from '~/actions/brevdataActions';
-import *  as dokumentActions from '~/actions/dokumentActions';
 import { bindActionCreators } from 'redux';
 
 class BrevdataInput extends React.Component {
-render() {
+    render() {
         return (
             <section className="col-md-6 float-left">
                 <textarea
-                    className="form-horizontal form-control"
+                    className="xml-form form-horizontal form-control"
                     id="brevdata_input"
                     placeholder="Legg inn XML"
-                    value={this.props.brevdata.xmlInnhold}
+                    value={this.props.xmlInnhold}
                     onChange={event => {
                         this.props.actions.changeBrevdataXML(
                             event.target.value
                         );
-                        this.props.actionsDok.setDokument('');
                     }}
-
                 />
 
                 <BrevdataControl />
@@ -36,19 +33,13 @@ BrevdataInput.propTypes = {
 
 function mapStateToProps(state, ownProps) {
     return {
-        brevdata: state.brevdataReducer.brevdata
+        xmlInnhold: state.brevdataReducer.xmlInnhold
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(
-            brevdataActions,
-            dispatch
-        ),
-        actionsDok: bindActionCreators(
-            dokumentActions,dispatch
-        )
+        actions: bindActionCreators(brevdataActions, dispatch)
     };
 }
 

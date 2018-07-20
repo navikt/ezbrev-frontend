@@ -13,10 +13,17 @@ nav {
     padding-top:20px;
 }
 
+.pingItem{
+    background-color: lightpink;
+    border: 1px solid lightblue;
+}
 
+.pingOK{
+    background-color: #c9eebd;
+}
 
 .modal-dialog{
-    width: 95% !important;
+    width: 45%;
 }
 
 .tester-modal {
@@ -57,8 +64,6 @@ nav {
     max-height:360px;
     overflow-y: scroll;
 }
-
-.form-horizontal{
-    min-height:300px;
-    overflow-y: scroll;
+.xml-form{
+    min-height: 360px;
 }

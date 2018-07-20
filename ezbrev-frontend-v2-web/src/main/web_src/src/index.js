@@ -5,18 +5,22 @@ import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter } from 'react-router-redux';
 import { AppContainer } from 'react-hot-loader';
-
 import configureStore from './store/configureStore';
-import './styles/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/styles.css';
 
 import { App } from './App';
-import { fetchMiljoList } from '~/actions/menyValgActionsUtil'; //Spør om miljoliste når siden lastes
+import { fetchMiljoList, fetchIsAdmin } from '~/actions/menyValgActionsUtil';
+import { setPing } from '~/actions/pingActions';
+import { getPing } from './api';
 
 const history = createHistory();
 export const store = configureStore(history);
 const target = document.getElementById('root');
+
 store.dispatch(fetchMiljoList());
+getPing().then(ping => store.dispatch(setPing({json:ping, env:"ikke valgt"})));
+store.dispatch(fetchIsAdmin());
 
 store.subscribe(() => {
     console.log('Current state:', store.getState());

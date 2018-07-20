@@ -7,8 +7,8 @@ import converter from './converterReducer';
 import regressjonReducer from './regressionReducer';
 import inspection from './inspectionReducer';
 import inspectionDataReducer from './inspectionDataReducer';
-
-
+import admin from './adminReducer';
+import ping from './pingReducer';
 
 const rootReducer = combineReducers({
     brevdataReducer,
@@ -18,7 +18,10 @@ const rootReducer = combineReducers({
     converter,
     regressjonReducer,
     inspection,
-    inspectionDataReducer
+    inspectionDataReducer,
+    admin,
+    inspectionDataReducer,
+    ping
 });
 
 export default rootReducer;

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Modal, Carousel, CarouselItem, Button } from 'react-bootstrap';
-import {bindActionCreators} from "redux";
-import * as dokumentActions from "~/actions/dokumentActions";
-import {connect} from "react-redux";
+import { bindActionCreators } from 'redux';
+import * as dokumentActions from '~/actions/dokumentActions';
+import { connect } from 'react-redux';
 
 class ImageCarousel extends React.Component {
     constructor(props) {
@@ -23,7 +23,11 @@ class ImageCarousel extends React.Component {
 
     render() {
         return (
-            <Modal show={this.props.showModal} onHide={()=>this.props.actionsDok.setShowModal(false)}  id="test-id">
+            <Modal
+                show={this.props.showModal}
+                onHide={() => this.props.actionsDok.setShowModal(false)}
+                id="test-id"
+            >
                 <Modal.Header closeButton>
                     <Modal.Title> {this.props.title} </Modal.Title>
                 </Modal.Header>
@@ -48,27 +52,15 @@ class ImageCarousel extends React.Component {
 
     renderImages() {
         const comparison = this.props.pages ? this.props.pages : [];
-        const newPages= this.props.newPages ? this.props.newPages : [];
-        const approvedPages= this.props.approvedPages ? this.props.approvedPages : [];
-        let list=[];
-        for (let page = 0; page<(comparison.length);page++){
-            let innerList=[newPages[page],comparison[page],approvedPages[page]]
-            list.push(innerList)
-        }
-        return list.map((images, key) => {
+        return comparison.map((image, key) => {
             return (
                 <CarouselItem key={key}>
-                    <div className="tester-modal">
-
                     <div>
-                        <img className="image" src={'data:image/png;base64,' + images[0]} alt=""/>
-                    </div>
-                    <div >
-                        <img className="image" src={'data:image/png;base64,' + images[1]} alt="" />
-                    </div>
-                    <div >
-                        <img className="image" src={'data:image/png;base64,' + images[2]} alt="" />
-                    </div>
+                        <img
+                            className="image"
+                            src={'data:image/png;base64,' + image}
+                            alt=""
+                        />
                     </div>
                     <div className="carousel-caption">
                         <h4>
