@@ -10,15 +10,31 @@ import * as dokumentActions from '~/actions/dokumentActions';
 import * as menyValgActions from '~/actions/menyValgActions';
 
 class BrevdataMeta extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+
+        this.state = {
+            sortBy: 'Sorter brevdata'
+        };
+    }
+
     render() {
         return (
             <section className="col-md-4 float-left">
                 <DropdownButton
                     className={'btn btn-info'}
-                    title="Sorter brevdata"
+                    title={this.state.sortBy}
                     id="brevdata_sorter"
                     onSelect={sortingKey => {
-                        return( this.props.actionsMenyValg.sortBrevdataList(sortingKey));
+                        this.setState({
+                            sortBy:
+                                sortingKey === '1'
+                                    ? 'Nyeste først'
+                                    : 'Eldste først'
+                        });
+                        return this.props.actionsMenyValg.sortBrevdataList(
+                            sortingKey
+                        );
                     }}
                 >
                     <MenuItem key="1" eventKey="1">
