@@ -20,10 +20,11 @@ class BrevdataMeta extends React.Component {
 
     render() {
         return (
-            <section className="col-md-4 float-left">
+            <section className="col-md-3 float-left">
                 <DropdownButton
-                    className={'btn btn-info'}
                     title={this.state.sortBy}
+                    bsStyle="fill"
+                    className={'btn btn-fill'}
                     id="brevdata_sorter"
                     onSelect={sortingKey => {
                         this.setState({
@@ -84,7 +85,7 @@ class BrevdataMeta extends React.Component {
                 />
                 <br />
                 <Button
-                    className={'btn btn-success'}
+                    className={'btn btn-fill'}
                     onClick={() =>
                         this.props.utilActionsDok.showLastApprovedPDF(
                             this.props.brevdataId

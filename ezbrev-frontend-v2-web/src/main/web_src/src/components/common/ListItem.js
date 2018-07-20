@@ -1,14 +1,15 @@
 import React from 'react';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 
-export default function ListItem({ title, id, func, list, isDisabled }) {
+export default function ListItem({ title, id, func, list, isDisabled, className, bsStyle }) {
     return (
         <DropdownButton
-            className={'btn btn-info'}
+            className={className+ " text-left"}
             title={title}
             id={id}
             onSelect={func}
             disabled={isDisabled}
+            bsStyle={bsStyle}
         >
             {list.map(item => (
                 <MenuItem key={item} eventKey={item}>

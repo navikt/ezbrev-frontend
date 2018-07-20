@@ -11,17 +11,17 @@ export default function Brev(
         return brevdataList[malId].map(brevdata => (
             <ListGroupItem key={brevdata.brevdataId}>
                 <Row>
-                    <Col sm={3}>
+                    <Col sm={4}>
                         {brevdata.beskrivelse + ' Id: ' + brevdata.brevdataId}
                     </Col>
-                    <Col sm={3}>
+                    <Col sm={4}>
                         {isNaN(regressionSimilarity[brevdata.brevdataId])
                             ? regressionSimilarity[brevdata.brevdataId]
                             : regressionSimilarity[brevdata.brevdataId] + '%'}
                     </Col>
-                    <Col sm={3}>
+                    <Col sm={4}>
                         <Button
-                            className={'btn btn-primary'}
+                            className={'btn'}
                             bsSize="xsmall"
                             onClick={() =>
                                 sammenlign(

@@ -64,18 +64,19 @@ class RegressionTableItem extends React.Component {
                     }
                 >
                     <Row>
-                        <Col sm={6}>{item.malId}</Col>
-                        <Col sm={3}>{item.tittel}</Col>
+                        <Col sm={8}>{item.malId}</Col>
+                        <Col sm={4}>{item.tittel}</Col>
                     </Row>
                 </Panel.Heading>
                 {this.state.isShown ? (
                     <ListGroup>
                         <ListGroupItem>
                             <Row>
-                                <Col sm={3}>Beskrivelse</Col>
-                                <Col sm={3}>Likhet</Col>
-                                <Col sm={3}>
+                                <Col sm={4}>Beskrivelse</Col>
+                                <Col sm={4}>Likhet</Col>
+                                <Col sm={4}>
                                     <Button
+                                        className="btn"
                                         bsSize="small"
                                         onClick={() =>
                                             this.regtestMal(item.malId)

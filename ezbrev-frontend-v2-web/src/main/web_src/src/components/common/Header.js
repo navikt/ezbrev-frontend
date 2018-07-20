@@ -19,7 +19,10 @@ class Header extends React.Component {
     logIn = () =>
         this.props.miljoList.length === 0 ? (
             <a>
-                <Button onClick={() => this.props.actions.fetchMiljoList()}>
+                <Button onClick={() => {
+                    this.props.actions.fetchMiljoList();
+                    this.props.miljoList.length === 0 ? alert('Dersom du sliter med å logge inn må gå til "http//:ezbrev-backend-q4.nais.preprod.local". Deretter trykke "Avansert" og "Fortsett"'):null;
+                }}>
                     Log in
                 </Button>
             </a>
@@ -29,60 +32,60 @@ class Header extends React.Component {
 
     render() {
         return (
-            <div className="container-fluid">
+            <div>
                 <nav className="navbar">
-                    <div className="navbar-header">
-                        <span className="navbar-brand">Ez-Brev 4 beta</span>
-                    </div>
-                    <div className="collapse navbar-collapse">
-                        <ul className="nav navbar-nav">
-                            <li className="active">
-                                <NavLink to="/" exact activeClassName="active">
-                                    Rediger brevdata
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink
-                                    to="/regression"
-                                    className="navbar-link"
-                                    activeClassName="active"
-                                >
-                                    Regresjonstest
-                                </NavLink>
-                            </li>
-                            <li>
-                                <ErrorModal />
-                                <NavLink
-                                    to="/inspection"
-                                    activeClassName="active"
-                                >
-                                    XML Inspeksjon
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink
-                                    to="/converter"
-                                    activeClassName="active"
-                                >
-                                    XML Converter
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/admin" activeClassName="active">
-                                    Admin
-                                </NavLink>
-                            </li>
-                            <li>{this.logIn()}</li>
-                            <li>
-                                <OverlayTrigger
-                                    trigger={['hover', 'focus']}
-                                    placement="left"
-                                    overlay={this.popoverClick()}
-                                >
-                                    <a>Ping</a>
-                                </OverlayTrigger>
-                            </li>
-                        </ul>
+                    <div className="pageSize">
+                        <div className="flex-row center-vertically">
+                            <div className="navbar-header">
+                                <span className="navbar-brand">Ez</span>
+                            </div>
+                            <ul className="nav navbar-nav navbar-flex">
+                                <li className="active">
+                                    <NavLink to="/" exact activeClassName="active">
+                                        Rediger brevdata
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        to="/regression"
+                                        className="navbar-link"
+                                        activeClassName="active"
+                                    >
+                                        Regresjonstest
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <ErrorModal />
+                                    <NavLink
+                                        to="/inspection"
+                                        activeClassName="active"
+                                    >
+                                        XML Inspeksjon
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        to="/converter"
+                                        activeClassName="active"
+                                    >
+                                        XML Converter
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/admin" activeClassName="active">
+                                        Admin
+                                    </NavLink>
+                                </li>
+                                <li>{this.logIn()}</li>
+                            </ul>
+                            <OverlayTrigger
+                                trigger={['hover', 'focus']}
+                                placement="bottom"
+                                overlay={this.popoverClick()}
+                            >
+                                <div><a className="ping">Ping</a></div>
+                            </OverlayTrigger>
+                        </div>
                     </div>
                 </nav>
             </div>
