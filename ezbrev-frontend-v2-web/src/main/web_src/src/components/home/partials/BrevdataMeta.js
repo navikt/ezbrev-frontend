@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, DropdownButton, MenuItem } from 'react-bootstrap';
+import {Button, DropdownButton, ListGroupItem, MenuItem} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import * as brevdataActionsUtil from '~/actions/brevdataActionsUtil';
 import { connect } from 'react-redux';
@@ -46,8 +46,8 @@ class BrevdataMeta extends React.Component {
                 </DropdownButton>
                 <div className="list-group" id="brevdata_pick">
                     {this.props.brevdataList.map(i => (
-                        <button
-                            type="button"
+                        <ListGroupItem
+                            type="button "
                             className="list-group-item"
                             key={i.brevdataId}
                             onClick={() => {
@@ -57,6 +57,7 @@ class BrevdataMeta extends React.Component {
                                 this.props.actionsDok.setDokument('');
                             }}
                             disabled={this.props.brevmal === ''}
+                            active={i.brevdataId===this.props.brevdataId}
                         >
                             {i.beskrivelse}
                             {' - '}
@@ -65,7 +66,7 @@ class BrevdataMeta extends React.Component {
                             <br />
                             {'Opprettet: '}
                             {i.changeStamp.opprettetDato}{' '}
-                        </button>
+                        </ListGroupItem>
                     ))}
                 </div>
                 <br />
