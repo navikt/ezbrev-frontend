@@ -11,7 +11,6 @@ const initialState = {
 export default function brevdataReducer(state = initialState, action) {
     switch (action.type) {
         case types.CHANGE_BREVDATA_XML:
-            console.log(action);
             return {
                 ...state,
                 xmlInnhold: action.brevdataXML,

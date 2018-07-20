@@ -93,7 +93,6 @@ export default function menyValgReducer(state = initialState, action) {
                 brevdataList: action.brevdataList
             };
         case types.ADD_ITEM_BREVDATALIST:
-            console.log('inne i reducer, brevdata ', action.brevdata);
             return {
                 ...state,
                 brevdataList: [...state.brevdataList, action.brevdata]

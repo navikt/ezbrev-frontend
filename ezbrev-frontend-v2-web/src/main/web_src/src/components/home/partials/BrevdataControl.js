@@ -7,6 +7,7 @@ import * as dokumentActionsUtil from '../../../actions/dokumentActionsUtil';
 import * as brevdataActionsUtil from '../../../actions/brevdataActionsUtil';
 import * as dokumentActions from '../../../actions/dokumentActions';
 import * as brevdataActions from '../../../actions/brevdataActions';
+import {tempAlert} from "../../common/tempAlert";
 import { bindActionCreators } from 'redux';
 
 class BrevdataControl extends React.Component {
@@ -38,11 +39,13 @@ class BrevdataControl extends React.Component {
             <div className="container-fluid">
                 <Button
                     className={'btn btn-primary'}
-                    onClick={() =>
+                    onClick={() => {
                         api.updateXML(
                             this.props.brevdataId,
                             this.props.xmlInnhold
-                        )
+                        ).then(brevdata=>
+                        tempAlert(('Brevdata ble oppdatert.'), 5000));
+                    }
                     }
                     disabled={
                         this.props.brevmal === '' ||
@@ -61,6 +64,7 @@ class BrevdataControl extends React.Component {
                             this.props.xmlInnhold,
                             this.props.brevmal
                         );
+                        tempAlert('Brevdata ble lagret som ny.', 5000);
                     }}
                     disabled={
                         this.props.xmlInnhold === '' ||
@@ -115,11 +119,12 @@ class BrevdataControl extends React.Component {
                             this.props.brevdataBeskrivelse,
                             this.props.dokument.journalpostId,
                             this.props.dokument.dokumentInfoId
-                        ),
-                            api.updateXML(
-                                this.props.brevdataId,
-                                this.props.xmlInnhold
-                            );
+                        );
+                        api.updateXML(
+                            this.props.brevdataId,
+                            this.props.xmlInnhold
+                        );
+                        tempAlert('Brevet ble godkjent.', 5000);
                     }}
                     disabled={
                         this.props.dokument === '' ||
