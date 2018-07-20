@@ -28,19 +28,11 @@ export function produceDokument(brevmal, xml, rediger, miljo) {
                 return dokument;
             })
             .then(dokument => {
-                if ('error' in dokument) {
-                    dispatch(
-                        errorActions.displayError(
-                            dokument.message,
-                            dokument.status + ' ' + dokument.error
-                        )
-                    );
-                } else {
-                    return dokument.metawriteUri !== null
-                        ? (window.open(dokument.metawriteUri()),
-                          dispatch(actions.setIsRedigertExternal(true)))
-                        : displayBase64PDF(dokument.document);
-                }
+                console.log(dokument);
+                dokument.metawriteUri !== null
+                    ? (window.open(dokument.metawriteUri),
+                      dispatch(actions.setIsRedigertExternal(true)))
+                    : displayBase64PDF(dokument.document);
             })
             .catch(error => {
                 throw error;
