@@ -191,8 +191,12 @@ export function errorHandler(error) {
 
 export function getSimilarity(env, sammenlignPercentageObject) {
     const url = `${serverUrl}/rest/sammenlignprosent/${env}`;
-    return post(url, sammenlignPercentageObject)
-        .then(res => res.json())
+    return fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(sammenlignPercentageObject),
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include'
+    }).then(res => res.json())
         .then(json => ({ json: json, input: sammenlignPercentageObject }));
 }
 
