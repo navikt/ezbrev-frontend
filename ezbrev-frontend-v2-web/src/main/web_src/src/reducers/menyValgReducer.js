@@ -30,6 +30,20 @@ function sortBevmalList(list) {
         }
     });
 }
+function compareFunction(a, b, sortingKey) {
+    console.log(b);
+    if (sortingKey === 1) {
+        return (
+            new Date(b.changeStamp.opprettetDato) -
+            new Date(a.changeStamp.opprettetDato)
+        );
+    } else {
+        return (
+            new Date(a.changeStamp.opprettetDato) -
+            new Date(b.changeStamp.opprettetDato)
+        );
+    }
+}
 
 function getBrevmalList(brevpakke, brevInfo) {
     let brevmalList = [];
@@ -79,7 +93,7 @@ export default function menyValgReducer(state = initialState, action) {
                 brevdataList: action.brevdataList
             };
         case types.ADD_ITEM_BREVDATALIST:
-            console.log('inne i reducer, brevdata ',action.brevdata)
+            console.log('inne i reducer, brevdata ', action.brevdata);
             return {
                 ...state,
                 brevdataList: [...state.brevdataList, action.brevdata]
@@ -107,6 +121,22 @@ export default function menyValgReducer(state = initialState, action) {
                 brevmal: action.brevmal,
                 redigerbar:
                     action.brevmal === '' ? false : action.brevmal.redigerbar
+            };
+        case types.SORT_BREVDATALIST:
+            let sortingKey = action.sortingKey;
+            let list = [...state.brevdataList];
+            list.sort(function(a, b) {
+                const dateA = new Date(a.changeStamp.opprettetDato);
+                const dateB = new Date(b.changeStamp.opprettetDato);
+                if (sortingKey === '1') {
+                    return dateB - dateA;
+                } else {
+                    return dateA - dateB;
+                }
+            });
+            return {
+                ...state,
+                brevdataList: list
             };
         default:
             return state;

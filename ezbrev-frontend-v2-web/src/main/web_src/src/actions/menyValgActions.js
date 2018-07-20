@@ -37,3 +37,7 @@ export function setBrevdataList(brevdataList) {
 export function addItemBrevdataList(brevdata){
     return {type: types.ADD_ITEM_BREVDATALIST, brevdata: brevdata}
 }
+
+export function sortBrevdataList(sortingKey){
+    return {type: types.SORT_BREVDATALIST, sortingKey: sortingKey}
+}

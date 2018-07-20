@@ -1,16 +1,9 @@
 import React from 'react';
 
-
 //@CrossOrigin(origins = "http://localhost:3000")     //dette må skrives inn i den aktuelle controlleren i back end
 
 //const serverUrl = 'http://localhost:8080';
 const serverUrl = 'https://ezbrev-backend-q4.nais.preprod.local';
-
-//http://localhost:8080/rest/t4/dokumenttypeinfo
-//Må sortere denne infoen for å finne brevpakker og tilhørende brevmaler
-//Må også kalle for å finne lagrede brevmaldata til venstre
-
-
 
 
 function sortList(list) {
@@ -32,12 +25,14 @@ function sortList(list) {
 
 export function getMiljoList() {
     const url = `${serverUrl}/rest/env`;
-    return get(url).then(res => res.json()).then(json => sortList(json));
+    return get(url)
+        .then(res => res.json())
+        .then(json => sortList(json));
 }
 
 export function getBrevInfo(miljo) {
     const url = `${serverUrl}/rest/brevmaler/${miljo}`;
-    return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
+    return get(url).then(res => res.json());
 }
 
 export function getBrevpakkeVersjon(miljo, brevpakke) {
@@ -47,12 +42,12 @@ export function getBrevpakkeVersjon(miljo, brevpakke) {
 
 export function getBrevdataList(brevmal, brevpakke) {
     const url = `${serverUrl}/rest/${brevpakke}/${brevmal}/brevdata`;
-    return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
+    return get(url).then(res => res.json());
 }
 
 export function getBrevdata(brevdataID) {
     const url = `${serverUrl}/rest/getbrevdatabyid/${brevdataID}`;
-    return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
+    return get(url).then(res => res.json());
 }
 
 export function updateXML(brevdataId, xml) {
@@ -180,9 +175,18 @@ function get(url) {
     });
 }
 
-export function errorHandler(error){
+export function errorHandler(error) {
     console.log('inne i errorHandler. feilen er ', error);
-    alert('Error: '+error.error+'\n'+'Status: '+error.status+'\n'+'Feilmelding: '+error.message);
+    alert(
+        'Error: ' +
+            error.error +
+            '\n' +
+            'Status: ' +
+            error.status +
+            '\n' +
+            'Feilmelding: ' +
+            error.message
+    );
 }
 
 export function getSimilarity(env, sammenlignPercentageObject) {
@@ -194,17 +198,17 @@ export function getSimilarity(env, sammenlignPercentageObject) {
 
 export function getXmlByJournalpostId(env, brevsystem, journalpostId) {
     const url = `${serverUrl}/rest/inspect/${env}/${brevsystem}/jpid/${journalpostId}`;
-    return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
+    return get(url).then(res => res.json());
 }
 
 export function getXmlByDokumentInfoId(env, brevsystem, dokumentInfoId) {
     const url = `${serverUrl}/rest/inspect/${env}/${brevsystem}/dokid/${dokumentInfoId}`;
-    return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
+    return get(url).then(res => res.json());
 }
 
 export function getXmlByMottakerId(env, brevsystem, mottakerId) {
     const url = `${serverUrl}/rest/inspect/${env}/${brevsystem}/mottaker/${mottakerId}`;
-    return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
+    return get(url).then(res => res.json());
 }
 
 export function bestillbrevdata(brevdataId, brevmal, miljo) {

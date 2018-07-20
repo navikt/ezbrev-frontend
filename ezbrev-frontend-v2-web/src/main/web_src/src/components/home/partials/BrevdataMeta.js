@@ -7,16 +7,9 @@ import { bindActionCreators } from 'redux';
 import * as brevdataActions from '~/actions/brevdataActions';
 import * as dokumentActionsUtil from '~/actions/dokumentActionsUtil';
 import * as dokumentActions from '~/actions/dokumentActions';
+import * as menyValgActions from '~/actions/menyValgActions';
 
 class BrevdataMeta extends React.Component {
-    constructor(props, context) {
-        super(props, context);
-
-        this.onSelectSort = this.onSelectSort.bind(this);
-    }
-
-    onSelectSort(choice) {}
-
     render() {
         return (
             <section className="col-md-4 float-left">
@@ -24,10 +17,16 @@ class BrevdataMeta extends React.Component {
                     className={'btn btn-info'}
                     title="Sorter brevdata"
                     id="brevdata_sorter"
-                    // onSelect={this.props.actions.sortBrevdataList(sortingKey)}
+                    onSelect={sortingKey => {
+                        return( this.props.actionsMenyValg.sortBrevdataList(sortingKey));
+                    }}
                 >
-                    <MenuItem eventKey="1">Nyeste først</MenuItem>
-                    <MenuItem eventKey="2">Eldste først</MenuItem>
+                    <MenuItem key="1" eventKey="1">
+                        Nyeste først
+                    </MenuItem>
+                    <MenuItem key="2" eventKey="2">
+                        Eldste først
+                    </MenuItem>
                 </DropdownButton>
                 <div className="list-group" id="brevdata_pick">
                     {this.props.brevdataList.map(i => (
@@ -83,7 +82,6 @@ class BrevdataMeta extends React.Component {
     }
 }
 
-
 BrevdataMeta.propTypes = {
     brevdataList: PropTypes.array.isRequired
 };
@@ -93,7 +91,7 @@ function mapStateToProps(state, ownProps) {
         brevdataList: state.menyValg.brevdataList,
         brevdataBeskrivelse: state.brevdataReducer.beskrivelse,
         brevmal: state.menyValg.brevmal,
-        brevdataId:state.brevdataReducer.brevdataId
+        brevdataId: state.brevdataReducer.brevdataId
     };
 }
 
@@ -102,7 +100,8 @@ function mapDispatchToProps(dispatch) {
         utilActions: bindActionCreators(brevdataActionsUtil, dispatch),
         actions: bindActionCreators(brevdataActions, dispatch),
         utilActionsDok: bindActionCreators(dokumentActionsUtil, dispatch),
-        actionsDok: bindActionCreators(dokumentActions, dispatch)
+        actionsDok: bindActionCreators(dokumentActions, dispatch),
+        actionsMenyValg: bindActionCreators(menyValgActions, dispatch)
     };
 }
 
