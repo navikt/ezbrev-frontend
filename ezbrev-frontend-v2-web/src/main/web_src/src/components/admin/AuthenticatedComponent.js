@@ -16,7 +16,7 @@ class AuthenticatedComponent extends React.Component {
             return <AdminPage/>;
         }
 
-        return <p>Du har ikke admin-tilgang.</p>;
+        return <AdminPage/>;
     }
 
 }
