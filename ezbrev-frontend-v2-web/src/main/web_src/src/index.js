@@ -42,9 +42,9 @@ if (module.hot) {
         ReactDOM.render(
             <AppContainer>
                 <Provider store={store}>
-                    <ConnectedRouter history={history}>
+                    <HashRouter history={history}>
                         <App />
-                    </ConnectedRouter>
+                    </HashRouter>
                 </Provider>
             </AppContainer>,
             target
