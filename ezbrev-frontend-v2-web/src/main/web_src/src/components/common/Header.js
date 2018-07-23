@@ -19,7 +19,7 @@ class Header extends React.Component {
                         this.props.actions.fetchMiljoList();
                         this.props.miljoList.length === 0
                             ? alert(
-                                  'Dersom du sliter med å logge inn må gå til "http//:ezbrev-backend-q4.nais.preprod.local". Deretter trykke "Avansert" og "Fortsett"'
+                                  'Dersom du sliter med å logge inn kan kan du gå til "http//:ezbrev-backend-q4.nais.preprod.local". Deretter trykke "Avansert" og "Fortsett"'
                               )
                             : null;
                     }}

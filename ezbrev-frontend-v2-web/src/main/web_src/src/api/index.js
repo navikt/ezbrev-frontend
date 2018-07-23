@@ -75,9 +75,9 @@ export function postBrevdataAsNew(brevpakkenavn, beskrivelse, Xml, brevmal) {
     });
 }
 
-export function getDokument(brevmal, xml, rediger, miljo) {
+export function getDokument(brevmal, xml, rediger, miljo, utledRegisterInfo) {
     const url = `${serverUrl}/rest/bestill/${miljo}`;
-    const data = { brevmal, xml, rediger };
+    const data = { brevmal, xml, rediger, utledRegisterInfo };
     return post(url, data).then(res => {
         return res.json();
     });

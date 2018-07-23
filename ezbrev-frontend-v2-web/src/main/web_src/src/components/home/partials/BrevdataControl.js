@@ -94,7 +94,8 @@ class BrevdataControl extends React.Component {
                             this.props.brevmal.malID,
                             this.props.xmlInnhold,
                             rediger,
-                            this.props.miljo
+                            this.props.miljo,
+                            this.props.registerCheckbox
                         );
                         this.props.actionsBrevdata.setIsRedigertInternal(false);
                     }}
@@ -193,7 +194,8 @@ function mapStateToProps(state, ownProps) {
         isRedigertInternal: state.brevdataReducer.isRedigertInternal,
         redigerbar: state.menyValg.redigerbar,
         brevmal: state.menyValg.brevmal,
-        brevdataList: state.menyValg.brevdataList
+        brevdataList: state.menyValg.brevdataList,
+        registerCheckbox: state.menyValg.registerCheckbox
     };
 }
 

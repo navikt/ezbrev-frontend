@@ -54,5 +54,6 @@ export const SHOW_MODAL = 'SHOW_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
 export const SET_PING = 'SET_PING';
 export const SET_IS_LOADING = 'SET_IS_LOADING';
+export const SET_REGISTER_CHECKBOX = 'SET_REGISTER_CHECKBOX';
 
 //Her skal liste alle actions som skal kalle på reducere

@@ -1,5 +1,11 @@
 import React from 'react';
-import {Button, DropdownButton, ListGroupItem, MenuItem} from 'react-bootstrap';
+import {
+    Button,
+    Checkbox,
+    DropdownButton,
+    ListGroupItem,
+    MenuItem
+} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import * as brevdataActionsUtil from '~/actions/brevdataActionsUtil';
 import { connect } from 'react-redux';
@@ -17,6 +23,10 @@ class BrevdataMeta extends React.Component {
             sortBy: 'Sorter brevdata'
         };
     }
+
+    toggleCheckbox = e => {
+        this.props.actionsMenyValg.setRegisterCheckbox(e);
+    };
 
     render() {
         return (
@@ -57,7 +67,7 @@ class BrevdataMeta extends React.Component {
                                 this.props.actionsDok.setDokument('');
                             }}
                             disabled={this.props.brevmal === ''}
-                            active={i.brevdataId===this.props.brevdataId}
+                            active={i.brevdataId === this.props.brevdataId}
                         >
                             {i.beskrivelse}
                             {' - '}
@@ -69,6 +79,13 @@ class BrevdataMeta extends React.Component {
                         </ListGroupItem>
                     ))}
                 </div>
+                Bruk registerinformasjon
+                <Checkbox
+                    title="Bruk registerinformasjon"
+                    validationState="success"
+                    defaultChecked={true}
+                    onClick={e => this.toggleCheckbox(e.target.checked)}
+                />
                 <br />
                 <h5>Beskrivelse</h5>
                 <textarea

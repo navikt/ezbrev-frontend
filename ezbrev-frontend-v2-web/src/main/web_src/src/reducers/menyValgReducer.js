@@ -10,7 +10,8 @@ const initialState = {
     brevmalList: [],
     brevInfo: [],
     brevdataList: [],
-    redigerbar: false
+    redigerbar: false,
+    registerCheckbox: true
 };
 
 function getBrevpakkeList(brevInfo) {
@@ -136,6 +137,11 @@ export default function menyValgReducer(state = initialState, action) {
             return {
                 ...state,
                 brevdataList: list
+            };
+        case types.SET_REGISTER_CHECKBOX:
+            return {
+                ...state,
+                registerCheckbox: action.registerCheckbox
             };
         default:
             return state;

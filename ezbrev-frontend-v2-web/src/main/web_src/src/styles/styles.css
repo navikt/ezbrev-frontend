@@ -169,11 +169,16 @@ nav {
 .grey-text-line{
     color: grey;
 }
+li{
+    display: flex !important;
+    align-items: center;
+}
 
 .list-group{
     max-height:360px;
     overflow-y: scroll;
 }
+
 .xml-form{
     min-height: 360px;
 }
