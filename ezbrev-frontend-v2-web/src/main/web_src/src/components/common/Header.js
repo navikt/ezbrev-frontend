@@ -10,13 +10,6 @@ import Ping from './Ping';
 import SpinningWheel from './SpinningWheel';
 
 class Header extends React.Component {
-    popoverClick = () => {
-        return (
-            <Popover id="popover-trigger-hover-focus" title="Selftest">
-                <Ping />
-            </Popover>
-        );
-    };
 
     logIn = () =>
         this.props.miljoList.length === 0 ? (
@@ -94,15 +87,7 @@ class Header extends React.Component {
                                 <li>{this.logIn()}</li>
                             </ul>
                             <SpinningWheel/>
-                            <OverlayTrigger
-                                trigger={['hover', 'focus']}
-                                placement="bottom"
-                                overlay={this.popoverClick()}
-                            >
-                                <div>
-                                    <a className="ping">Selftest</a>
-                                </div>
-                            </OverlayTrigger>
+                            <Ping/>
                         </div>
                     </div>
                 </nav>

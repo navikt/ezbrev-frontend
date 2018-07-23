@@ -115,6 +115,14 @@ nav {
     margin-top:20px;
 }
 
+.glyph-success{
+    color: greenyellow;
+}
+
+.glyph-fail{
+    color: red;
+}
+
 .pingItem{
     background-color: lightpink;
     border: 1px solid lightblue;
