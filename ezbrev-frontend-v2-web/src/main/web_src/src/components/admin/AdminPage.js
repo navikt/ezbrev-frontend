@@ -9,7 +9,7 @@ import AdminTable from'./partials/AdminTable';
 class AdminPage extends React.Component {
     render() {
         return (
-            <main className="container-fluid">
+            <main className="container-fluid pageSize">
                 <h4>Admin</h4>
                 <AdminControl/>
                 <AdminTable/>

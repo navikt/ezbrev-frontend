@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
-import { ConnectedRouter } from 'react-router-redux';
+import { HashRouter } from 'react-router-dom';
 import { AppContainer } from 'react-hot-loader';
 import configureStore from './store/configureStore';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -29,9 +29,9 @@ store.subscribe(() => {
 ReactDOM.render(
     <AppContainer>
         <Provider store={store}>
-            <ConnectedRouter history={history}>
+            <HashRouter>
                 <App />
-            </ConnectedRouter>
+            </HashRouter>
         </Provider>
     </AppContainer>,
     target
