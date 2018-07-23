@@ -176,7 +176,6 @@ function get(url) {
 }
 
 export function errorHandler(error) {
-    console.log('inne i errorHandler. feilen er ', error);
     alert(
         'Error: ' +
             error.error +

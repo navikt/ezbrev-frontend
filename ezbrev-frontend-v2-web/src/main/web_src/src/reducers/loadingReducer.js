@@ -23,6 +23,8 @@ export default function loadingReducer(state = initialState, action) {
         case types.SET_BREVINFO:
         case types.SET_BREVDATALIST:
         case types.SET_REGRESSION_SIMILARITY:
+        case types.SET_REGRESSION_BREVDATALIST:
+        case types.SET_REGRESSION_BREVINFO:
             return { ...state, isLoading: false };
         default:
             return state;

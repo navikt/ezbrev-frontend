@@ -3,7 +3,7 @@ import * as dokumentActions from '~/actions/dokumentActions';
 import * as errorActions from '~/actions/errorActions';
 import * as api from '~/api';
 import { setIsRedigertExternal } from '~/actions/dokumentActions';
-import {setIsLoading} from "./loadingActions";
+import { setIsLoading } from './loadingActions';
 
 export function displayBase64PDF(base64) {
     // Create src url.
@@ -37,6 +37,7 @@ export function produceDokument(brevmal, xml, rediger, miljo) {
                     : displayBase64PDF(dokument.document);
             })
             .catch(error => {
+                dispatch(setIsLoading(false));
                 throw error;
             });
     };
@@ -49,6 +50,7 @@ export function showLastApprovedPDF(brevdataId) {
             .getLastApprovedPDF(brevdataId)
             .then(PDF => displayBase64PDF(PDF.document))
             .catch(error => {
+                dispatch(setIsLoading(false));
                 throw error;
             });
     };
@@ -61,6 +63,7 @@ export function showRedigertBrev(miljo, journalpostId, dokumentInfoId) {
             .getRedigertBrev(miljo, journalpostId, dokumentInfoId)
             .then(PDF => displayBase64PDF(PDF.document))
             .catch(error => {
+                dispatch(setIsLoading(false));
                 throw error;
             });
     };
@@ -99,6 +102,10 @@ export function showSammenlignMedGodkjent(
                     dispatch(actions.setSammenlignInfo(sammenlignInfo));
                     dispatch(dokumentActions.setShowModal(true));
                 }
+            })
+            .catch(error => {
+                dispatch(setIsLoading(false));
+                throw error;
             });
     };
 }

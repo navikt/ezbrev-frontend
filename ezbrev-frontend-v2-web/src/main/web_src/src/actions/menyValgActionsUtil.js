@@ -14,6 +14,7 @@ export function fetchMiljoList() {
                 dispatch(actions.setMiljoList(miljoList));
             })
             .catch(error => {
+                dispatch(setIsLoading(false));
                 throw error;
             });
     };
@@ -43,6 +44,7 @@ export function fetchBrevpakkeVersjon(miljo, brevpakke,action=actions.setBrevpak
                 dispatch(action(brevpakkeversjon.version));
             })
             .catch(error => {
+                dispatch(setIsLoading(false));
                 throw error;
             });
     };
@@ -57,6 +59,7 @@ export function selectMiljo(miljo, action = actions.setBrevInfo) {
                 dispatch(action(json));
             })
             .catch(error => {
+                dispatch(setIsLoading(false));
                 throw error;
             });
     };
@@ -75,6 +78,7 @@ export function selectBrevmal(brevmal, brevpakke) {
                 dispatch(actions.setBrevdataList(brevdataList));
             })
             .catch(error => {
+                dispatch(setIsLoading(false));
                 throw error;
             });
     };

@@ -1,7 +1,7 @@
 import { getBrevdataInBrevpakke, getSimilarity } from '~/api';
 import * as regressionActions from '~/actions/regressionActions';
 import * as menyValgActionsUtil from '~/actions/menyValgActionsUtil';
-import {setIsLoading} from "./loadingActions";
+import { setIsLoading } from './loadingActions';
 
 export function setBrevdataList(
     brevpakke,
@@ -26,6 +26,7 @@ export function setBrevdataList(
                 dispatch(action(object));
             })
             .catch(error => {
+                dispatch(setIsLoading(false));
                 throw error;
             });
     };
@@ -41,7 +42,6 @@ export function startRegressionTest(
     numberOfObjInParaelell = 1
 ) {
     return function(dispatch) {
-        dispatch(setIsLoading(true));
         let prosenter = {};
         for (let i = 0; i < regressionObjects.length; i++) {
             prosenter[regressionObjects[i].brevdataId] = 'Henter data...';

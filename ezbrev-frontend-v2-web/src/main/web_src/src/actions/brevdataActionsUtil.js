@@ -20,6 +20,7 @@ export function selectBrevdata(brevdataId) {
                 );
             })
             .catch(error => {
+                dispatch(setIsLoading(false));
                 throw error;
             });
     };
@@ -56,6 +57,7 @@ export function saveXMLAsNew(
                 return brevdata;
             })
             .catch(error => {
+                dispatch(setIsLoading(false));
                 throw error;
             });
     };

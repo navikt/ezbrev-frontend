@@ -11,6 +11,7 @@ export function convertXML(inputXML) {
                 dispatch(actions.setOutputXML(res.xml));
             })
             .catch(error => {
+                dispatch(setIsLoading(false));
                 throw error;
             });
     };
