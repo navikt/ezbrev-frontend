@@ -7,7 +7,7 @@ import SammenlignMedGodkjent from "~/components/common/SammenlignMedGodkjent";
 class RegressionPage extends React.Component {
     render() {
         return (
-            <main className="container-fluid">
+            <main className="container-fluid pageSize">
                 <h4>Regresjonstest</h4>
                 <RegressionControl />
                 <RegressionTable />

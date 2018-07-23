@@ -16,13 +16,11 @@ class Ping extends React.Component {
                     {ping.checks.map(service => (
                         <ListGroupItem key={service.endpoint} className={"ping"+service.resultText+" pingItem"}>
                             <Row>
-                                <Row>
-                                    <Col md={6}>{service.endpoint}</Col>
-                                    <Col md={6}>{service.responseTime}</Col>
-                                </Row>
-                                <Row>
-                                    <Col md={12}>{service.errorMessage}</Col>
-                                </Row>
+                                <Col md={6}>{service.endpoint}</Col>
+                                <Col md={6}>{service.responseTime}</Col>
+                            </Row>
+                            <Row>
+                                <Col md={12}>{service.errorMessage}</Col>
                             </Row>
                         </ListGroupItem>
                     ))}

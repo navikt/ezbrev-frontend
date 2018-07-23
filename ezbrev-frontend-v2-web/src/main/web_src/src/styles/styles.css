@@ -1,16 +1,109 @@
 #app {
     font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    color: #4d4d4d;
     margin: 0 auto;
 }
 
-a.active {
-    color: deeppink;
+* {
+    border-radius: 0 !important;
+    font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #eeeeee;
+}
+
+.big{
+    min-width: 75%;
+}
+
+.center-vertically {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+
+
+.btn-group-fill{
+    width: 100%;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.pageSize{
+    margin-left: 5%;
+    margin-right: 5%;
+    height: 100%;
+}
+drop-down-button-fill{
+    display: block;
+    width: 100%;
+}
+
+.fill {
+    width: 100%;
+}
+
+.btn-fill{
+    width: 100%;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.ping {
+    height: 100%;
+    padding: 15px 15px;
+    display: flex;
+    justify-content: center;
+    float: right;
+}
+
+.navbar {
+    height: 6vh;
+    margin-top: 0;
+    margin-bottom: 4vh;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.ul{
+    height: 100%;
+}
+
+.flex-row{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar-flex{
+    width: 100%;
+    display: flex;
+}
+
+.navbar-brand{
+    color: white;
+    font-size: 14px;
     font-weight: bold;
 }
 
+.btn {
+    text-align: left;
+    color: black;
+}
+
+a {
+    color: #ffffff;
+}
+
+
+a:hover{
+    background-color: rgba(0,0,0,0) !important;
+    color: #cccccc;
+}
+
 nav {
-    padding-top:20px;
+    background-color: #337ab7;
+    margin-top:20px;
 }
 
 .pingItem{

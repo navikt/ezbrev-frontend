@@ -5,7 +5,7 @@ import InspectionTable from "~/components/inspection/partials/InspectionTable";
 class InspectionPage extends React.Component {
     render() {
         return (
-            <main className="container-fluid">
+            <main className="container-fluid pageSize">
                 <h4>XML Inspeksjon</h4>
                 <InspectionSelection />
                 <InspectionTable />

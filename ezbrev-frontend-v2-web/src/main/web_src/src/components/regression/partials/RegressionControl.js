@@ -70,7 +70,7 @@ class RegressionControl extends React.Component {
     render() {
         return (
             <Row>
-                <Col sm={3}>
+                <Col sm={4}>
                     <ListItem
                         title={'Miljø: ' + this.props.miljo}
                         id="1"
@@ -78,7 +78,7 @@ class RegressionControl extends React.Component {
                         list={this.props.miljoList}
                     />
                 </Col>
-                <Col sm={3}>
+                <Col sm={4}>
                     <ListItem
                         title={'Brevpakke: ' + this.props.brevpakke}
                         id="1"
@@ -88,9 +88,9 @@ class RegressionControl extends React.Component {
                     />
                     <BrevpakkeListListener action={this.updateBrevpakke} />
                 </Col>
-                <Col sm={3}>
+                <Col sm={4}>
                     <Button
-                        className={'btn btn-info'}
+                        className={'btn'}
                         onClick={() => this.startRegression()}
                         id="start_regresjonstest_button"
                         disabled={this.props.brevpakke === ''}

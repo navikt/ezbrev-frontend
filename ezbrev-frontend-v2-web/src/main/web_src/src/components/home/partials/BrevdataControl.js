@@ -37,9 +37,9 @@ class BrevdataControl extends React.Component {
 
     render() {
         return (
-            <div className="container-fluid">
+            <div>
                 <Button
-                    className={'btn btn-primary'}
+                    className={'btn'}
                     onClick={() => {
                         api.updateXML(
                             this.props.brevdataId,
@@ -67,9 +67,8 @@ class BrevdataControl extends React.Component {
                 >
                     Oppdater
                 </Button>
-                <Space />
                 <Button
-                    className={'btn btn-primary'}
+                    className={'btn'}
                     onClick={() => {
                         this.props.utilActionsBrevdata.saveXMLAsNew(
                             this.props.brevpakke,
@@ -87,9 +86,8 @@ class BrevdataControl extends React.Component {
                 >
                     Lagre som ny
                 </Button>
-                <Space />
                 <Button
-                    className={'btn btn-primary'}
+                    className={'btn'}
                     onClick={() => {
                         const rediger = false;
                         this.props.utilActionsDok.produceDokument(
@@ -107,9 +105,8 @@ class BrevdataControl extends React.Component {
                 >
                     Produser brev
                 </Button>
-                <Space />
                 <Button
-                    className={'btn btn-primary'}
+                    className={'btn'}
                     onClick={
                         this.props.isRedigertExternal
                             ? () => this.hentBrev()
@@ -124,7 +121,7 @@ class BrevdataControl extends React.Component {
                         : 'Rediger brev'}
                 </Button>
                 <Button
-                    className={'pull-right btn btn-success'}
+                    className={'pull-right btn'}
                     onClick={() => {
                         api.approveDokument(
                             this.props.brevdataId,
@@ -146,9 +143,8 @@ class BrevdataControl extends React.Component {
                 >
                     Godkjenn
                 </Button>
-                <Space />
                 <Button
-                    className="pull-right brev-compare-btn btn btn-warning"
+                    className="pull-right brev-compare-btn btn"
                     onClick={() => {
                         if (this.props.dokument === '') {
                             this.props.utilActionsDok.showSammenlignMedGodkjent(
