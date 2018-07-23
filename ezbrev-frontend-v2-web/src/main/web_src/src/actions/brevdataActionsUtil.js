@@ -5,6 +5,7 @@ import { tempAlert } from '~/components/common/tempAlert';
 
 export function selectBrevdata(brevdataId) {
     return function(dispatch) {
+        dispatch
         return api
             .getBrevdata(brevdataId)
             .then(brevdata => {
