@@ -1,11 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button, OverlayTrigger, Popover } from 'react-bootstrap';
+import ReactLoading from 'react-loading';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as Actions from '~/actions/menyValgActionsUtil';
 import ErrorModal from './ErrorModal';
 import Ping from './Ping';
+import SpinningWheel from './SpinningWheel';
 
 class Header extends React.Component {
     popoverClick = () => {
@@ -19,10 +21,16 @@ class Header extends React.Component {
     logIn = () =>
         this.props.miljoList.length === 0 ? (
             <a>
-                <Button onClick={() => {
-                    this.props.actions.fetchMiljoList();
-                    this.props.miljoList.length === 0 ? alert('Dersom du sliter med å logge inn må gå til "http//:ezbrev-backend-q4.nais.preprod.local". Deretter trykke "Avansert" og "Fortsett"'):null;
-                }}>
+                <Button
+                    onClick={() => {
+                        this.props.actions.fetchMiljoList();
+                        this.props.miljoList.length === 0
+                            ? alert(
+                                  'Dersom du sliter med å logge inn må gå til "http//:ezbrev-backend-q4.nais.preprod.local". Deretter trykke "Avansert" og "Fortsett"'
+                              )
+                            : null;
+                    }}
+                >
                     Log in
                 </Button>
             </a>
@@ -41,7 +49,11 @@ class Header extends React.Component {
                             </div>
                             <ul className="nav navbar-nav navbar-flex">
                                 <li className="active">
-                                    <NavLink to="/" exact activeClassName="active">
+                                    <NavLink
+                                        to="/"
+                                        exact
+                                        activeClassName="active"
+                                    >
                                         Rediger brevdata
                                     </NavLink>
                                 </li>
@@ -72,18 +84,24 @@ class Header extends React.Component {
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/admin" activeClassName="active">
+                                    <NavLink
+                                        to="/admin"
+                                        activeClassName="active"
+                                    >
                                         Admin
                                     </NavLink>
                                 </li>
                                 <li>{this.logIn()}</li>
                             </ul>
+                            <SpinningWheel/>
                             <OverlayTrigger
                                 trigger={['hover', 'focus']}
                                 placement="bottom"
                                 overlay={this.popoverClick()}
                             >
-                                <div><a className="ping">Ping</a></div>
+                                <div>
+                                    <a className="ping">Selftest</a>
+                                </div>
                             </OverlayTrigger>
                         </div>
                     </div>

@@ -9,6 +9,7 @@ import inspection from './inspectionReducer';
 import inspectionDataReducer from './inspectionDataReducer';
 import admin from './adminReducer';
 import ping from './pingReducer';
+import loading from './loadingReducer';
 
 const rootReducer = combineReducers({
     brevdataReducer,
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
     inspectionDataReducer,
     admin,
     inspectionDataReducer,
-    ping
+    ping,
+    loading
 });
 
 export default rootReducer;

@@ -3,6 +3,7 @@ import * as dokumentActions from '~/actions/dokumentActions';
 import * as errorActions from '~/actions/errorActions';
 import * as api from '~/api';
 import { setIsRedigertExternal } from '~/actions/dokumentActions';
+import {setIsLoading} from "./loadingActions";
 
 export function displayBase64PDF(base64) {
     // Create src url.
@@ -21,6 +22,7 @@ export function displayBase64PDF(base64) {
 
 export function produceDokument(brevmal, xml, rediger, miljo) {
     return function(dispatch) {
+        dispatch(setIsLoading(true));
         return api
             .getDokument(brevmal, xml, rediger, miljo)
             .then(dokument => {
@@ -41,7 +43,8 @@ export function produceDokument(brevmal, xml, rediger, miljo) {
 }
 
 export function showLastApprovedPDF(brevdataId) {
-    return function() {
+    return function(dispatch) {
+        dispatch(setIsLoading(true));
         return api
             .getLastApprovedPDF(brevdataId)
             .then(PDF => displayBase64PDF(PDF.document))
@@ -52,7 +55,8 @@ export function showLastApprovedPDF(brevdataId) {
 }
 
 export function showRedigertBrev(miljo, journalpostId, dokumentInfoId) {
-    return function() {
+    return function(dispatch) {
+        dispatch(setIsLoading(true));
         return api
             .getRedigertBrev(miljo, journalpostId, dokumentInfoId)
             .then(PDF => displayBase64PDF(PDF.document))
@@ -72,6 +76,7 @@ export function showSammenlignMedGodkjent(
     rediger
 ) {
     return function(dispatch) {
+        dispatch(setIsLoading(true));
         return api
             .getSammenlignMedGodkjent(
                 miljo,

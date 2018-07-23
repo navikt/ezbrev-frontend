@@ -1,6 +1,5 @@
 import * as regressionActionsUtil from '~/actions/regressionActionsUtil';
 import * as menyValgActionsUtil from '~/actions/menyValgActionsUtil';
-import * as api from '~/api'
 
 export function setAdminBrevdataList(brevpakke, brevmalList, brevmalIds,action) {
     return regressionActionsUtil.setBrevdataList(brevpakke,brevmalList,brevmalIds,action);

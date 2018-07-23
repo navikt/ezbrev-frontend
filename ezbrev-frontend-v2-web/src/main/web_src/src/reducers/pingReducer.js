@@ -7,7 +7,7 @@ const initialState = {
 
 export default function errorReducer(state = initialState, action) {
     switch (
-        action.type //tror vi må ha en action til her for når vi legger inn hele brevdata for første gang
+        action.type
     ) {
         case types.SET_PING:
             return { ...state, ping: action.ping, env: action.env };

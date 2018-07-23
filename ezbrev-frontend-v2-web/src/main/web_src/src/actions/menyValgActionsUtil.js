@@ -3,9 +3,11 @@ import * as adminActions from '~/actions/adminActions';
 import * as api from '~/api';
 import { getBrevdataInBrevpakke } from '~/api';
 import * as regressionActions from '~/actions/regressionActions';
+import {setIsLoading} from "./loadingActions";
 
 export function fetchMiljoList() {
     return function(dispatch) {
+        dispatch(setIsLoading(true));
         return api
             .getMiljoList()
             .then(miljoList => {
@@ -33,6 +35,7 @@ export function fetchIsAdmin() {
 
 export function fetchBrevpakkeVersjon(miljo, brevpakke,action=actions.setBrevpakkeVersjon){
     return function(dispatch) {
+        dispatch(setIsLoading(true));
         return api
             .getBrevpakkeVersjon(miljo,
                 brevpakke)
@@ -47,6 +50,7 @@ export function fetchBrevpakkeVersjon(miljo, brevpakke,action=actions.setBrevpak
 
 export function selectMiljo(miljo, action = actions.setBrevInfo) {
     return function(dispatch) {
+        dispatch(setIsLoading(true));
         return api
             .getBrevInfo(miljo)
             .then(json => {
@@ -64,6 +68,7 @@ export function selectBrevpakke(brevpakke, brevInfo) {
 
 export function selectBrevmal(brevmal, brevpakke) {
     return function(dispatch) {
+        dispatch(setIsLoading(true));
         return api
             .getBrevdataList(brevmal, brevpakke)
             .then(brevdataList => {
