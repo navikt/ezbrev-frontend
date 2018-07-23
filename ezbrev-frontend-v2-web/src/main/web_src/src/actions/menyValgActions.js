@@ -41,3 +41,6 @@ export function addItemBrevdataList(brevdata){
 export function sortBrevdataList(sortingKey){
     return {type: types.SORT_BREVDATALIST, sortingKey: sortingKey}
 }
+export function setRegisterCheckbox(bool){
+    return {type: types.SET_REGISTER_CHECKBOX, registerCheckbox: bool}
+}

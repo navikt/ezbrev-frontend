@@ -1,23 +1,13 @@
 import React from 'react';
-import {
-    Button,
-    Col,
-    ListGroup,
-    ListGroupItem,
-    Panel,
-    Row
-} from 'react-bootstrap';
+import { Col, ListGroup, ListGroupItem, Panel, Row } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
-import * as menyValgActionsUtil from '~/actions/menyValgActionsUtil';
-import * as menyValgActions from '~/actions/menyValgActions';
 import { connect } from 'react-redux';
 import * as adminActions from '~/actions/adminActions';
 import * as adminActionsUtil from '~/actions/adminActionsUtil';
 import { bestillbrevdata } from '~/api';
-import * as brevdataActionsUtil from "~/actions/brevdataActionsUtil";
-import * as dokumentActions from "~/actions/dokumentActions";
-import * as dokumentActionsUtil from "~/actions/dokumentActionsUtil";
-import AdminBrevdata from "./AdminBrevdata";
+import * as dokumentActions from '~/actions/dokumentActions';
+import * as dokumentActionsUtil from '~/actions/dokumentActionsUtil';
+import AdminBrevdata from './AdminBrevdata';
 
 class AdminTableItem extends React.Component {
     constructor(props) {
@@ -47,11 +37,10 @@ class AdminTableItem extends React.Component {
                         <ListGroupItem>
                             <Row>
                                 <Col sm={3}>Beskrivelse </Col>
-                                <Col sm={3}>
-                                </Col>
+                                <Col sm={3} />
                             </Row>
                         </ListGroupItem>
-                        <AdminBrevdata malId={item.malId}/>
+                        <AdminBrevdata malId={item.malId} />
                     </ListGroup>
                 ) : null}
             </Panel>
@@ -67,8 +56,7 @@ function mapStateToProps(state, ownProps) {
         brevmalList: state.admin.adminBrevmalList,
         miljo: state.admin.adminMiljo,
         brevpakke: state.admin.adminBrevpakke,
-        brevdataList: state.admin.adminBrevdataList,
-
+        brevdataList: state.admin.adminBrevdataList
     };
 }
 
@@ -78,7 +66,6 @@ function mapDispatchToProps(dispatch) {
         actions: bindActionCreators(adminActions, dispatch),
         utilActionsDok: bindActionCreators(dokumentActionsUtil, dispatch),
         actionsDok: bindActionCreators(dokumentActions, dispatch)
-
     };
 }
 

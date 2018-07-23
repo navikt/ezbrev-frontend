@@ -19,16 +19,15 @@ export function displayBase64PDF(base64) {
     pdfwindow.document.body.style.margin = '0px 0px 0px 0px';
 }
 
-export function produceDokument(brevmal, xml, rediger, miljo) {
+export function produceDokument(brevmal, xml, rediger, miljo, utledRegisterInfo) {
     return function(dispatch) {
         return api
-            .getDokument(brevmal, xml, rediger, miljo)
+            .getDokument(brevmal, xml, rediger, miljo, utledRegisterInfo)
             .then(dokument => {
                 dispatch(actions.setDokument(dokument));
                 return dokument;
             })
             .then(dokument => {
-                console.log(dokument);
                 dokument.metawriteUri !== null
                     ? (window.open(dokument.metawriteUri),
                       dispatch(actions.setIsRedigertExternal(true)))
