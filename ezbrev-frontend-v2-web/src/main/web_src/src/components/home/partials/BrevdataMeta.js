@@ -23,7 +23,6 @@ class BrevdataMeta extends React.Component {
             <section className="col-md-3 float-left">
                 <DropdownButton
                     title={this.state.sortBy}
-                    bsStyle="fill"
                     className={'btn btn-fill'}
                     id="brevdata_sorter"
                     onSelect={sortingKey => {
