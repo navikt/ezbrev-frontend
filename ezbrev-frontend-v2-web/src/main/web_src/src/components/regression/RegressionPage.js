@@ -8,7 +8,6 @@ class RegressionPage extends React.Component {
     render() {
         return (
             <main className="container-fluid pageSize">
-                <h4>Regresjonstest</h4>
                 <RegressionControl />
                 <RegressionTable />
                 <SammenlignMedGodkjent/>

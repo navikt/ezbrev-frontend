@@ -13,7 +13,8 @@ body {
 }
 
 .big{
-    min-width: 75%;
+    min-width: 73%;
+    padding-right: 10px;
 }
 
 .center-vertically {
@@ -46,8 +47,11 @@ drop-down-button-fill{
 
 .btn-fill{
     width: 100%;
-    background-color: #fff;
     border-color: #ccc;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .ping {
@@ -59,10 +63,14 @@ drop-down-button-fill{
 }
 
 .navbar {
-    height: 6vh;
+    height: 7vh;
     margin-top: 0;
-    margin-bottom: 4vh;
+    margin-bottom: 6vh;
     background-color: rgba(0,0,0,0.8);
+}
+
+.padding-right {
+    padding-right: 15px;
 }
 
 .ul{
@@ -87,8 +95,9 @@ drop-down-button-fill{
 }
 
 .btn {
-    text-align: left;
+
     color: black;
+    background-color: white;
 }
 
 a {
@@ -159,4 +168,19 @@ nav {
 }
 .xml-form{
     min-height: 360px;
+}
+
+.dropdown {
+    min-width: 100%;
+}
+
+.title-span {
+    width: 90%;
+}
+
+.padding-bottom {
+    padding-bottom: 15px;
+}
+.padding-bottom-small {
+    padding-bottom: 10px;
 }

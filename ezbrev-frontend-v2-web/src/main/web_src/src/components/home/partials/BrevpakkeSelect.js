@@ -30,14 +30,13 @@ class BrevpakkeSelect extends React.Component {
 
     render() {
         return (
-            <Col md="3">
+            <Col md={3}>
                 <div>
                     <Row>
-                        <ButtonGroup className="btn-fill">
+                        <ButtonGroup className="btn-fill padding-right">
                             <ListItem
                                 className="btn-fill"
-                                bsStyle="fill"
-                                title={'Miljø: ' + this.props.miljo}
+                                title={"Miljø:" + this.props.miljo}
                                 id="brevpakke_env_pick"
                                 func={miljo => {
                                     this.props.actions.setMiljo(miljo);
@@ -80,7 +79,7 @@ class BrevpakkeSelect extends React.Component {
                                     isDisabled={this.props.miljo === ''}
                                 />
                             </div>
-                            <div className="child inline-block-child">
+                            <div className="child inline-block-child padding-right">
                                 <FormControl
                                     readOnly
                                     value={
@@ -93,9 +92,9 @@ class BrevpakkeSelect extends React.Component {
                         </div>
                     </Row>
                     <br />
-                    <Row>
+                    <Row className="padding-right">
                         <DropdownButton
-                            bsStyle="fill"
+                            className="btn-fill"
                             disabled={this.props.brevpakke === ''}
                             title={this.setTitleName()}
                             id={'brevpakke_mal_pick'}

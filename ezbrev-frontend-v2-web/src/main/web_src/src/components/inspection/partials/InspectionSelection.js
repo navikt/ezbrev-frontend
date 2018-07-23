@@ -19,6 +19,7 @@ class InspectionSelection extends React.Component {
         const brevsystem = localStorage.getItem('brevsystem');
         brevsystem !== null ? this.selectBrevsystem(brevsystem) : '';
     }
+
     setData = (input, restMethod) => {
         if (input !== '' && input) {
             if (!isNaN(input)) {
@@ -26,10 +27,7 @@ class InspectionSelection extends React.Component {
                     x => this.props.actions.setInspectionData(x)
                 );
             } else {
-                this.props.errorActions.displayError(
-                    'Input må være tall',
-                    'Inputfeil'
-                );
+                alert('Input må være et tall.');
             }
         }
     };
@@ -44,6 +42,7 @@ class InspectionSelection extends React.Component {
     };
 
     getXml = () => {
+        this.props.actions.setInspectionData({});
         this.setData(this.props.mottakerId, api.getXmlByMottakerId);
         this.setData(this.props.journalpostId, api.getXmlByJournalpostId);
         this.setData(this.props.dokumentinfoId, api.getXmlByDokumentInfoId);
@@ -54,6 +53,7 @@ class InspectionSelection extends React.Component {
             <Col md={2}>
                 <Row sm={3}>
                     <ListItem
+                        className="btn-fill"
                         title={'Miljø: ' + this.props.miljo}
                         id="1"
                         func={miljo => {
@@ -64,6 +64,7 @@ class InspectionSelection extends React.Component {
                 </Row>
                 <Row sm={3}>
                     <ListItem
+                        className="btn-fill"
                         title={'Brevsystem: ' + this.props.brevsystem}
                         id="1"
                         func={brevsystem => this.selectBrevsystem(brevsystem)}
