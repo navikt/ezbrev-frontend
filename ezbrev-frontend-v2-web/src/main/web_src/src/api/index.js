@@ -5,7 +5,6 @@ import React from 'react';
 //const serverUrl = 'http://localhost:8080';
 const serverUrl = 'https://ezbrev-backend-q4.nais.preprod.local';
 
-
 function sortList(list) {
     let sortedList = [];
     for (let i = 0; i < list.length; i++) {
@@ -195,7 +194,8 @@ export function getSimilarity(env, sammenlignPercentageObject) {
         body: JSON.stringify(sammenlignPercentageObject),
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
-    }).then(res => res.json())
+    })
+        .then(res => res.json())
         .then(json => ({ json: json, input: sammenlignPercentageObject }));
 }
 
@@ -248,7 +248,9 @@ export function getPing() {
 
 export function getPingByEnv(env) {
     const url = `${serverUrl}/internal/selftest/${env}`;
-    return get(url)
+    return fetch(url, {
+        credentials: 'include'
+    })
         .then(res => res.json())
         .then(json => ({ json, env: env }));
 }
