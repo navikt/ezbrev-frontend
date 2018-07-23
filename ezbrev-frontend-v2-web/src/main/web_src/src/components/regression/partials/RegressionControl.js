@@ -7,7 +7,6 @@ import * as regressionActionsUtil from '~/actions/regressionActionsUtil';
 import * as pingActions from '~/actions/pingActions';
 
 import ListItem from '../../common/ListItem';
-import RegressionModal from '../partials/RegressionModal';
 import { getRegressionObjects } from '~/components/regression/partials/RegressionUtil';
 import { getPingByEnv } from '../../../api';
 import BrevpakkeListListener from './BrevpakkeListListener';
@@ -21,7 +20,6 @@ class RegressionControl extends React.Component {
     }
 
     startRegression = () => {
-        this.props.actions.setRegressionModal(true);
         let regressionObjects = getRegressionObjects(
             Object.keys(this.props.brevdataList),
             this.props.brevdataList
@@ -71,7 +69,7 @@ class RegressionControl extends React.Component {
         return (
             <div className="padding-bottom">
                 <Row>
-                    <Col sm={2}>
+                    <Col sm={3}>
                         <ListItem
                             className="btn-fill"
                             title={'Miljø: ' + this.props.miljo}
@@ -80,7 +78,7 @@ class RegressionControl extends React.Component {
                             list={this.props.miljoList}
                         />
                     </Col>
-                    <Col sm={2}>
+                    <Col sm={3}>
                         <ListItem
                             className="btn-fill"
                             title={'Brevpakke: ' + this.props.brevpakke}
@@ -91,7 +89,7 @@ class RegressionControl extends React.Component {
                         />
                         <BrevpakkeListListener action={this.updateBrevpakke} />
                     </Col>
-                    <Col sm={2}>
+                    <Col sm={3}>
                         <Button
                             className="fill"
                             onClick={() => this.startRegression()}
@@ -101,7 +99,6 @@ class RegressionControl extends React.Component {
                             Start regresjonstest
                         </Button>
                     </Col>
-                    <RegressionModal />
                 </Row>
             </div>
         );

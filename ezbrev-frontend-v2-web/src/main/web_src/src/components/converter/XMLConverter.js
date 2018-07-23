@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Col, Row } from 'react-bootstrap';
 import { Space } from '../common/Scaffolding';
 import { bindActionCreators } from 'redux';
 import * as converterActions from '~/actions/converterActions';
@@ -10,51 +10,58 @@ import { connect } from 'react-redux';
 class XMLConverter extends React.Component {
     render() {
         return (
-            <section>
-                <br />
-                <div>
-                    <Button
-                        onClick={() =>
-                            this.props.utilActions.convertXML(
-                                this.props.inputXML
-                            )
-                        }
-                        disabled={this.props.inputXML === ''}
-                    >
-                        Konverter XML
-                    </Button>
-                </div>
-                <br />
-                <div className="inline-div">
-                    <p>
-                        <b> XML Input </b>
-                    </p>
-                    <textarea
-                        cols="90"
-                        rows="30"
-                        className="inline-txtarea"
-                        placeholder="Legg inn/skriv inn XML"
-                        value={this.props.inputXML}
-                        onChange={event => {
-                            this.props.actions.setInputXML(event.target.value);
-                        }}
-                    />
-                </div>
-                <Space />
-                <div className="inline-div">
-                    <p>
-                        <b> XML Output</b>
-                    </p>
-                    <textarea
-                        readOnly
-                        cols="90"
-                        rows="30"
-                        className="inline-txtarea"
-                        placeholder="Her kommer den konverterte XMLen"
-                        value={this.props.outputXML}
-                    />
-                </div>
-            </section>
+            <div>
+                <Row>
+                    <Col sm={2}>
+                        <Button
+                            className="fill"
+                            onClick={() =>
+                                this.props.utilActions.convertXML(
+                                    this.props.inputXML
+                                )
+                            }
+                            disabled={this.props.inputXML === ''}
+                        >
+                            Konverter XML
+                        </Button>
+                    </Col>
+                </Row>
+                <br/>
+                <section>
+                    <div className="inline-div">
+                        <p>
+                            <b> XML Input </b>
+                        </p>
+                        <textarea
+                            cols="90"
+                            rows="40"
+                            className="inline-txtarea"
+                            placeholder="Legg inn/skriv inn XML"
+                            value={this.props.inputXML}
+                            onChange={event => {
+                                this.props.actions.setInputXML(
+                                    event.target.value
+                                );
+                            }}
+                        />
+                    </div>
+                    <Space />
+                    <div className="inline-div">
+                        <p>
+                            <b> XML Output</b>
+                        </p>
+                        <textarea
+                            readOnly
+                            cols="90"
+                            rows="40"
+                            className="inline-txtarea"
+                            placeholder="Her kommer den konverterte XMLen"
+                            value={this.props.outputXML}
+                        />
+                    </div>
+                    <br />
+                </section>
+            </div>
         );
     }
 }
