@@ -35,12 +35,18 @@ class AdminMaskPages extends React.Component {
 
     onCropComplete = (crop, pixelCrop) => {
         console.log('onCropComplete, pixelCrop:', pixelCrop);
-        const xstart=pixelCrop.x;
-        const xslutt=pixelCrop.x + pixelCrop.width;
-        const ystart=pixelCrop.y;
-        const yslutt=pixelCrop.y + pixelCrop.height;
-        const sidenr=this.props.active;
-        this.props.actionsAdmin.setMask({xstart,xslutt,ystart,yslutt,sidenr});
+        const xstart = pixelCrop.x;
+        const xslutt = pixelCrop.x + pixelCrop.width;
+        const ystart = pixelCrop.y;
+        const yslutt = pixelCrop.y + pixelCrop.height;
+        const sidenr = this.props.active;
+        this.props.actionsAdmin.setMask({
+            xstart,
+            xslutt,
+            ystart,
+            yslutt,
+            sidenr
+        });
     };
 
     onCropChange = crop => {
@@ -59,7 +65,7 @@ class AdminMaskPages extends React.Component {
                 <Modal.Body>
                     <Grid>
                         <Row>
-                            <Col md={2} >
+                            <Col md={2}>
                                 <div
                                     style={{
                                         overflowY: 'scroll'
@@ -98,21 +104,34 @@ class AdminMaskPages extends React.Component {
                                         minWidth={0}
                                         minHeight={0}
                                     />
-                                    <Button
-                                        bsSize="small"
-                                        bsStyle="success"
-                                        onClick={()=>{
-                                            this.props.utilActionsAdmin.saveMask(this.props.miljo,this.props.brevdataId,this.props.mask)
-                                        }}
-                                    >
-                                        Lagre
-                                    </Button>
-                                    <Space />
-                                    <Button bsSize="small" bsStyle="danger"
-                                    onClick={()=>{this.props.utilActionsAdmin.deleteMasks(this.props.miljo,this.props.brevdataId)}}>
-                                        Fjern alle
-                                    </Button>
-
+                                    <Row>
+                                        <Button
+                                            bsSize="small"
+                                            bsStyle="success"
+                                            onClick={() => {
+                                                this.props.utilActionsAdmin.saveMask(
+                                                    this.props.miljo,
+                                                    this.props.brevdataId,
+                                                    this.props.mask
+                                                );
+                                            }}
+                                        >
+                                            Lagre
+                                        </Button>
+                                        <Space />
+                                        <Button
+                                            bsSize="small"
+                                            bsStyle="danger"
+                                            onClick={() => {
+                                                this.props.utilActionsAdmin.deleteMasks(
+                                                    this.props.miljo,
+                                                    this.props.brevdataId
+                                                );
+                                            }}
+                                        >
+                                            Fjern alle
+                                        </Button>
+                                    </Row>
                                 </div>
                             </Col>
                         </Row>
@@ -128,18 +147,17 @@ function mapStateToProps(state, ownProps) {
         pages: state.admin.pngPages,
         active: state.admin.activePage,
         showModal: state.admin.showModal,
-        mask:state.admin.mask,
-        brevdataId:state.admin.adminBrevdataId,
+        mask: state.admin.mask,
+        brevdataId: state.admin.adminBrevdataId,
         miljo: state.admin.adminMiljo,
-        isLoading:state.loading.isLoading
-
+        isLoading: state.loading.isLoading
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         actionsAdmin: bindActionCreators(adminActions, dispatch),
-        utilActionsAdmin:bindActionCreators(adminActionsUtil,dispatch)
+        utilActionsAdmin: bindActionCreators(adminActionsUtil, dispatch)
     };
 }
 
