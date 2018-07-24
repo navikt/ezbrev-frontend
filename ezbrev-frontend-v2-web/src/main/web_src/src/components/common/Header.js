@@ -40,7 +40,7 @@ class Header extends React.Component {
                             <div className="navbar-header">
                                 <span className="navbar-brand">Ez</span>
                             </div>
-                            <ul className="nav navbar-nav navbar-flex">
+                            <ul className="nav navbar-nav navbar-flex center-content">
                                 <li className="active">
                                     <NavLink
                                         to="/"
