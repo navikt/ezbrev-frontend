@@ -24,13 +24,7 @@ class RegressionTable extends React.Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        miljoList: state.regressjonReducer.regressjonMiljoList,
-        brevInfo: state.regressjonReducer.regressjonBrevInfo,
-        brevpakkeList: state.regressjonReducer.regressjonBrevpakkeList,
         brevmalList: state.regressjonReducer.regressjonBrevmalList,
-        miljo: state.regressjonReducer.regressjonMiljo,
-        brevpakke: state.regressjonReducer.regressjonBrevpakke,
-        brevdataList: state.regressjonReducer.regressjonBrevdataList
     };
 }
 
