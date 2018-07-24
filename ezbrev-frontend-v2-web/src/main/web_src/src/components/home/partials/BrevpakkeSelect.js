@@ -1,5 +1,11 @@
 import React from 'react';
-import { DropdownButton, FormControl, MenuItem, Row } from 'react-bootstrap';
+import {
+    ButtonGroup, Col,
+    DropdownButton,
+    FormControl,
+    MenuItem,
+    Row
+} from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as menyValgActionsUtil from '../../../actions/menyValgActionsUtil';
@@ -9,7 +15,7 @@ import * as dokumentActions from '../../../actions/dokumentActions';
 import * as pingActions from '../../../actions/pingActions';
 import ListItem from '../../common/ListItem';
 import FormItem from '~/components/inspection/partials/FormItem';
-import {getPingByEnv} from "../../../api";
+import { getPingByEnv } from '../../../api';
 
 class BrevpakkeSelect extends React.Component {
     setTitleName() {
@@ -24,88 +30,97 @@ class BrevpakkeSelect extends React.Component {
 
     render() {
         return (
-            <section className="col-md-2 float-left">
-                <Row>
-                    <ListItem
-                        title={'Miljø: ' + this.props.miljo}
-                        id="brevpakke_env_pick"
-                        func={miljo => {
-                            this.props.actions.setMiljo(miljo);
-                            this.props.utilActions.selectMiljo(miljo);
-                            this.props.actionsDok.setDokument('');
-                            getPingByEnv(miljo).then(ping =>
-                                this.props.pingActions.setPing(ping)
-                            );
-                        }}
-                        list={this.props.miljoList}
-                    />
-                </Row>
-                <br />
-                <Row>
-                    <div className="parent">
-                        <div className="child inline-block-child">
+            <Col md={3}>
+                <div>
+                    <Row>
+                        <ButtonGroup className="btn-fill padding-right">
                             <ListItem
-                                title={'Brevpakke: ' + this.props.brevpakke}
-                                id="brevpakke_pick"
-                                func={brevpakke => {
-                                    let brevInfo = this.props.brevInfo;
-                                    let miljo = this.props.miljo;
-                                    this.props.utilActions.selectBrevpakke(
-                                        brevpakke,
-                                        brevInfo
-                                    );
-                                    this.props.utilActions.fetchBrevpakkeVersjon(
-                                        miljo,
-                                        brevpakke
-                                    );
-                                    this.props.actions.setBrevpakke(brevpakke);
+                                className="btn-fill"
+                                title={"Miljø:" + this.props.miljo}
+                                id="brevpakke_env_pick"
+                                func={miljo => {
+                                    this.props.actions.setMiljo(miljo);
+                                    this.props.utilActions.selectMiljo(miljo);
                                     this.props.actionsDok.setDokument('');
+                                    getPingByEnv(miljo).then(ping =>
+                                        this.props.pingActions.setPing(ping)
+                                    );
                                 }}
-                                list={this.props.brevpakkeList}
-                                isDisabled={this.props.miljo === ''}
+                                list={this.props.miljoList}
                             />
+                        </ButtonGroup>
+                    </Row>
+                    <br />
+                    <Row>
+                        <div className="parent">
+                            <div className="child inline-block-child big">
+                                <ListItem
+                                    className="btn-fill"
+                                    bsStyle="fill"
+                                    title={'Brevpakke: ' + this.props.brevpakke}
+                                    id="brevpakke_pick"
+                                    func={brevpakke => {
+                                        let brevInfo = this.props.brevInfo;
+                                        let miljo = this.props.miljo;
+                                        this.props.utilActions.selectBrevpakke(
+                                            brevpakke,
+                                            brevInfo
+                                        );
+                                        this.props.utilActions.fetchBrevpakkeVersjon(
+                                            miljo,
+                                            brevpakke
+                                        );
+                                        this.props.actions.setBrevpakke(
+                                            brevpakke
+                                        );
+                                        this.props.actionsDok.setDokument('');
+                                    }}
+                                    list={this.props.brevpakkeList}
+                                    isDisabled={this.props.miljo === ''}
+                                />
+                            </div>
+                            <div className="child inline-block-child padding-right">
+                                <FormControl
+                                    readOnly
+                                    value={
+                                        this.props.brevpakkeVersjon
+                                            ? this.props.brevpakkeVersjon
+                                            : ''
+                                    }
+                                />
+                            </div>
                         </div>
-                        <div className="child inline-block-child">
-                            <FormControl
-                                readOnly
-                                value={
-                                    this.props.brevpakkeVersjon
-                                        ? this.props.brevpakkeVersjon
-                                        : ''
-                                }
-                            />
-                        </div>
-                    </div>
-                </Row>
-                <br />
-                <Row>
-                    <DropdownButton
-                        className={'btn btn-info'}
-                        disabled={this.props.brevpakke === ''}
-                        title={this.setTitleName()}
-                        id={'brevpakke_mal_pick'}
-                        onSelect={brevmal => {
-                            this.props.utilActions.selectBrevmal(
-                                brevmal.malID,
-                                this.props.brevpakke
-                            );
-                            this.props.actions.setBrevmal(brevmal);
-                            this.props.actionsDok.setDokument('');
-                        }}
-                    >
-                        {this.props.brevmalList.map(i => (
-                            <MenuItem key={i.malID} eventKey={i}>
-                                {' '}
-                                {i.malID +
-                                    ' - ' +
-                                    (i.redigerbar ? 'Redigerbar' : '') +
-                                    ' - ' +
-                                    i.dokumentTittel}{' '}
-                            </MenuItem>
-                        )) /*mulig at vi må ha annen eventKey her. Feilmelding: missing key prop for element in iterator*/}
-                    </DropdownButton>
-                </Row>
-            </section>
+                    </Row>
+                    <br />
+                    <Row className="padding-right">
+                        <DropdownButton
+                            className="btn-fill"
+                            disabled={this.props.brevpakke === ''}
+                            title={this.setTitleName()}
+                            id={'brevpakke_mal_pick'}
+                            onSelect={brevmal => {
+                                this.props.utilActions.selectBrevmal(
+                                    brevmal.malID,
+                                    this.props.brevpakke
+                                );
+                                this.props.actions.setBrevmal(brevmal);
+                                this.props.actionsDok.setDokument('');
+                            }}
+                        >
+                            {this.props.brevmalList.map(i => (
+                                <MenuItem key={i.malID} eventKey={i}>
+                                    {' '}
+                                    {i.malID +
+                                        ' - ' +
+                                        (i.redigerbar ? 'Redigerbar' : '') +
+                                        ' - ' +
+                                        i.dokumentTittel}{' '}
+                                </MenuItem>
+                            )) /*mulig at vi må ha annen eventKey her. Feilmelding: missing key prop for element in iterator*/}
+                        </DropdownButton>
+                    </Row>
+                </div>
+            </Col>
         );
     }
 }

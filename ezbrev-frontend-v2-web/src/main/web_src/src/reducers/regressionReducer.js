@@ -8,8 +8,7 @@ const initialState = {
     regressjonBrevpakke: '',
     regressjonBrevmalList: [],
     regressjonBrevdataList: {},
-    regressionSimilarity: {},
-    regressionModal: false
+    regressionSimilarity: {}
 };
 
 function getBrevpakkeList(brevInfo) {
@@ -49,8 +48,6 @@ export default function regresjonMenyValgReducer(state = initialState, action) {
             });
         case types.SET_REGRESSION_SIMILARITY:
             return Object.assign({}, state, { regressionSimilarity: action.regressionSimilarity });
-        case types.SET_REGRESSION_MODAL:
-            return Object.assign({}, state, { regressionModal: action.regressionModal });
         default:
             return state;
     }

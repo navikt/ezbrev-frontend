@@ -5,19 +5,16 @@ const initialState = {
     brevdataId: '',
     changeStamp: '',
     xmlInnhold: '',
-    isRedigertInternal:false
+    isRedigertInternal: false
 };
 
 export default function brevdataReducer(state = initialState, action) {
-    switch (
-        action.type
-    ) {
+    switch (action.type) {
         case types.CHANGE_BREVDATA_XML:
-            console.log(action);
             return {
                 ...state,
                 xmlInnhold: action.brevdataXML,
-                isRedigertInternal:true
+                isRedigertInternal: true
             };
         case types.SET_BREVDATA:
             return {
@@ -26,20 +23,20 @@ export default function brevdataReducer(state = initialState, action) {
                 brevdataId: action.brevdataId,
                 changeStamp: action.changeStamp,
                 xmlInnhold: action.xmlInnhold,
-                isRedigertInternal:false
+                isRedigertInternal: false
             };
         case types.CHANGE_BESKRIVELSE:
             return {
                 ...state,
                 beskrivelse: action.beskrivelse,
-                isRedigertInternal:true
+                isRedigertInternal: true
             };
         case types.SET_IS_REDIGERT_INTERNAL:
-            console.log(action);
             return {
                 ...state,
-                isRedigertInternal:action.isRedigertInternal
+                isRedigertInternal: action.isRedigertInternal
             };
+
         default:
             return state;
     }

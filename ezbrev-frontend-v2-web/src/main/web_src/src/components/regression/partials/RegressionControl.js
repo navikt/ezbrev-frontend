@@ -7,21 +7,21 @@ import * as regressionActionsUtil from '~/actions/regressionActionsUtil';
 import * as pingActions from '~/actions/pingActions';
 
 import ListItem from '../../common/ListItem';
-import RegressionModal from '../partials/RegressionModal';
 import { getRegressionObjects } from '~/components/regression/partials/RegressionUtil';
 import { getPingByEnv } from '../../../api';
-import BrevpakkeListListener from "./BrevpakkeListListener";
+import BrevpakkeListListener from './BrevpakkeListListener';
 
 class RegressionControl extends React.Component {
     constructor(props) {
         super(props);
 
-        const miljo = localStorage.getItem('regressionMiljo');
-        miljo !== null ? this.selectMiljo(miljo) : '';
+        if (Object.keys(this.props.brevdataList).length === 0) {
+            const miljo = localStorage.getItem('regressionMiljo');
+            miljo !== null ? this.selectMiljo(miljo) : '';
+        }
     }
 
-    handleClick = () => {
-        this.props.actions.setRegressionModal(true);
+    startRegression = () => {
         let regressionObjects = getRegressionObjects(
             Object.keys(this.props.brevdataList),
             this.props.brevdataList
@@ -47,7 +47,8 @@ class RegressionControl extends React.Component {
 
     updateBrevpakke = brevpakke => {
         this.props.actions.setRegressionBrevpakke(brevpakke);
-        const brevmalList = this.setBrevMalList(brevpakke);
+        let brevmalList = this.setBrevMalList(brevpakke);
+        brevmalList.sort((a, b) => a.malId - b.malId);
         this.props.actions.setRegressionBrevmalList(brevmalList);
         let brevmalIds = [];
         brevmalList.forEach(item => brevmalIds.push(item.malId));
@@ -69,37 +70,40 @@ class RegressionControl extends React.Component {
 
     render() {
         return (
-            <Row>
-                <Col sm={3}>
-                    <ListItem
-                        title={'Miljø: ' + this.props.miljo}
-                        id="1"
-                        func={miljo => this.selectMiljo(miljo)}
-                        list={this.props.miljoList}
-                    />
-                </Col>
-                <Col sm={3}>
-                    <ListItem
-                        title={'Brevpakke: ' + this.props.brevpakke}
-                        id="1"
-                        func={brevpakke => this.updateBrevpakke(brevpakke)}
-                        list={this.props.brevpakkeList}
-                        isDisabled={this.props.miljo === ''}
-                    />
-                    <BrevpakkeListListener action={this.updateBrevpakke} />
-                </Col>
-                <Col sm={3}>
-                    <Button
-                        className={'btn btn-info'}
-                        onClick={() => this.handleClick()}
-                        id="start_regresjonstest_button"
-                        disabled={this.props.brevpakke === ''}
-                    >
-                        Start regresjonstest
-                    </Button>
-                </Col>
-                <RegressionModal />
-            </Row>
+            <div className="padding-bottom">
+                <Row>
+                    <Col sm={3}>
+                        <ListItem
+                            className="btn-fill"
+                            title={'Miljø: ' + this.props.miljo}
+                            id="1"
+                            func={miljo => this.selectMiljo(miljo)}
+                            list={this.props.miljoList}
+                        />
+                    </Col>
+                    <Col sm={3}>
+                        <ListItem
+                            className="btn-fill"
+                            title={'Brevpakke: ' + this.props.brevpakke}
+                            id="1"
+                            func={brevpakke => this.updateBrevpakke(brevpakke)}
+                            list={this.props.brevpakkeList}
+                            isDisabled={this.props.miljo === ''}
+                        />
+                        <BrevpakkeListListener action={this.updateBrevpakke} />
+                    </Col>
+                    <Col sm={3}>
+                        <Button
+                            className="fill"
+                            onClick={() => this.startRegression()}
+                            id="start_regresjonstest_button"
+                            disabled={this.props.brevpakke === ''}
+                        >
+                            Start regresjonstest
+                        </Button>
+                    </Col>
+                </Row>
+            </div>
         );
     }
 }

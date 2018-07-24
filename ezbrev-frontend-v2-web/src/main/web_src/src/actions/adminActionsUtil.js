@@ -3,21 +3,11 @@ import * as menyValgActionsUtil from '~/actions/menyValgActionsUtil';
 import * as adminActions from '~/actions/adminActions';
 import * as api from '~/api';
 
-export function setAdminBrevdataList(
-    brevpakke,
-    brevmalList,
-    brevmalIds,
-    action
-) {
-    return regressionActionsUtil.setBrevdataList(
-        brevpakke,
-        brevmalList,
-        brevmalIds,
-        action
-    );
+export function setAdminBrevdataList(brevpakke, brevmalList, brevmalIds,action) {
+    return regressionActionsUtil.setBrevdataList(brevpakke,brevmalList,brevmalIds,action);
 }
-export function fetchAdminBrevpakkeVersjon(miljo, brevpakke, action) {
-    return menyValgActionsUtil.fetchBrevpakkeVersjon(miljo, brevpakke, action);
+export function fetchAdminBrevpakkeVersjon(miljo,brevpakke,action){
+    return menyValgActionsUtil.fetchBrevpakkeVersjon(miljo,brevpakke,action);
 }
 
 export function selectAdminMiljo(miljo, action) {

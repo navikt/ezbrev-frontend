@@ -9,7 +9,7 @@ export default class InspectionDocument extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isShown: false
+            isShown: this.props.showXML
         };
     }
 
@@ -43,7 +43,13 @@ export default class InspectionDocument extends React.Component {
                     </CopyToClipboard>
                 </Col>
                 <Col sm={2}>
-                    <Button onClick={() => this.setState({isShown: !this.state.isShown})}>Toggle</Button>
+                    <Button
+                        onClick={() =>
+                            this.setState({ isShown: !this.state.isShown })
+                        }
+                    >
+                        Toggle
+                    </Button>
                 </Col>
             </div>
         );
@@ -65,35 +71,16 @@ export default class InspectionDocument extends React.Component {
                     document.brevmal,
                     document.xml
                 )}
-
-                data={this.state.isShown ? <Highlight className="xml">{this.xmlToString(document.xml)}</Highlight> : <div></div>}
+                data={
+                    this.state.isShown ? (
+                        <Highlight className="xml">
+                            {this.xmlToString(document.xml)}
+                        </Highlight>
+                    ) : (
+                        <div />
+                    )
+                }
             />
         );
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

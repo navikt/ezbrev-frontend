@@ -4,6 +4,7 @@ export const SET_BREVMALLIST = 'SET_BREVMALLIST';
 export const SET_BREVINFO = 'SET_BREVINFO';
 export const SET_BREVDATALIST = 'SET_BREVDATALIST';
 export const ADD_ITEM_BREVDATALIST = 'ADD_ITEM_BREVDATALIST';
+export const SORT_BREVDATALIST = 'SORT_BREVDATALIST';
 export const SET_BREVDATA = 'SET_BREVDATA';
 export const SET_MILJO = 'SET_MILJO';
 export const SET_BREVPAKKE = 'SET_BREVPAKKE';
@@ -57,5 +58,7 @@ export const SET_ADMIN_CHANGED='SET_ADMIN_CHANGED';
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
 export const SET_PING = 'SET_PING';
+export const SET_IS_LOADING = 'SET_IS_LOADING';
+export const SET_REGISTER_CHECKBOX = 'SET_REGISTER_CHECKBOX';
 
 //Her skal liste alle actions som skal kalle på reducere

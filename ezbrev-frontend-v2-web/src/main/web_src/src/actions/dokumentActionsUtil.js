@@ -1,7 +1,9 @@
 import * as actions from '~/actions/dokumentActions';
+import * as dokumentActions from '~/actions/dokumentActions';
 import * as errorActions from '~/actions/errorActions';
 import * as api from '~/api';
 import { setIsRedigertExternal } from '~/actions/dokumentActions';
+import { setIsLoading } from './loadingActions';
 
 export function displayBase64PDF(base64) {
     // Create src url.
@@ -18,47 +20,51 @@ export function displayBase64PDF(base64) {
     pdfwindow.document.body.style.margin = '0px 0px 0px 0px';
 }
 
-export function produceDokument(brevmal, xml, rediger, miljo) {
+export function produceDokument(brevmal, xml, rediger, miljo, utledRegisterInfo) {
     return function(dispatch) {
+        dispatch(setIsLoading(true));
         return api
-            .getDokument(brevmal, xml, rediger, miljo)
+            .getDokument(brevmal, xml, rediger, miljo, utledRegisterInfo)
             .then(dokument => {
                 dispatch(actions.setDokument(dokument));
                 return dokument;
             })
             .then(dokument => {
-                if ('error' in dokument) {
-                    dispatch(errorActions.displayError(dokument.message, dokument.status + " " + dokument.error));
-                } else {
-                    return dokument.metawriteUri !== null
-                        ? (window.open(dokument.metawriteUri()),
-                          dispatch(actions.setIsRedigertExternal(true)))
-                        : displayBase64PDF(dokument.document);
-                }
+                dokument.metawriteUri !== null
+                    ? (window.open(dokument.metawriteUri),
+                      dispatch(actions.setIsRedigertExternal(true)))
+                    : displayBase64PDF(dokument.document);
             })
             .catch(error => {
+                dispatch(setIsLoading(false));
                 throw error;
             });
     };
 }
 
 export function showLastApprovedPDF(brevdataId) {
-    return function() {
+    return function(dispatch) {
+        dispatch(setIsLoading(true));
         return api
             .getLastApprovedPDF(brevdataId)
-            .then(PDF => displayBase64PDF(PDF.document))
+            .then(PDF => {displayBase64PDF(PDF.document)
+                dispatch(setIsLoading(false));
+            })
             .catch(error => {
+                dispatch(setIsLoading(false));
                 throw error;
             });
     };
 }
 
 export function showRedigertBrev(miljo, journalpostId, dokumentInfoId) {
-    return function() {
+    return function(dispatch) {
+        dispatch(setIsLoading(true));
         return api
             .getRedigertBrev(miljo, journalpostId, dokumentInfoId)
             .then(PDF => displayBase64PDF(PDF.document))
             .catch(error => {
+                dispatch(setIsLoading(false));
                 throw error;
             });
     };
@@ -74,6 +80,7 @@ export function showSammenlignMedGodkjent(
     rediger
 ) {
     return function(dispatch) {
+        dispatch(setIsLoading(true));
         return api
             .getSammenlignMedGodkjent(
                 miljo,
@@ -85,7 +92,21 @@ export function showSammenlignMedGodkjent(
                 rediger
             )
             .then(sammenlignInfo => {
-                dispatch(actions.setSammenlignInfo(sammenlignInfo));
+                if ('error' in sammenlignInfo) {
+                    dispatch(
+                        errorActions.displayError(
+                            sammenlignInfo.message,
+                            sammenlignInfo.status + ' ' + sammenlignInfo.error
+                        )
+                    );
+                } else {
+                    dispatch(actions.setSammenlignInfo(sammenlignInfo));
+                    dispatch(dokumentActions.setShowModal(true));
+                }
+            })
+            .catch(error => {
+                dispatch(setIsLoading(false));
+                throw error;
             });
     };
 }

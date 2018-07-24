@@ -1,55 +1,111 @@
 import React from 'react';
-import {Button, Col, ListGroupItem, Row} from 'react-bootstrap';
-import * as api from '../../../api';
-import {bindActionCreators} from "redux";
+import { Button, Col, ListGroupItem, Modal, Row } from 'react-bootstrap';
+import { bindActionCreators } from 'redux';
 import * as adminActions from '~/actions/adminActions';
 import * as adminActionsUtil from '~/actions/adminActionsUtil';
-import {connect} from "react-redux";
+import { connect } from 'react-redux';
+import * as api from '../../../api/index';
 
 class AdminBrevdata extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showModal: false,
+            beskrivelse: '',
+            brevdataId: 0,
+            malId: 0
+        };
+    }
+    detetionConfirm = (beskrivelse, brevdataId, malId) => {
+        this.setState({ showModal: true, beskrivelse:beskrivelse, brevdataId:brevdataId, malId:malId });
+    };
+
+    handleClose = () => {
+        this.setState({ showModal: false });
+    };
+
+    deleteBrevdata = (brevdataId, malId) => {
+        this.handleClose();
+        api.deleteBrevdataExternal(brevdataId);
+        this.props.actions.deleteBrevdataInternal(brevdataId, malId);
+    };
+
     render() {
         if (this.props.malId in this.props.brevdataList) {
-            return this.props.brevdataList[this.props.malId].map(brevdata => (
-                <ListGroupItem key={brevdata.brevdataId}>
-                    <Row>
-                        <Col sm={3}>
-                            {brevdata.beskrivelse + ' Id: ' + brevdata.brevdataId}
-                        </Col>
-                        <Col sm={3}>
+            return (
+                <div>
+                    {this.props.brevdataList[this.props.malId].map(brevdata => (
+                        <ListGroupItem key={brevdata.brevdataId}>
+                            <Row>
+                                <Col sm={3}>
+                                    {brevdata.beskrivelse +
+                                        ' Id: ' +
+                                        brevdata.brevdataId}
+                                </Col>
+                                <Col sm={3}>
+                                    <Button
+                                        className={'btn btn-primary'}
+                                        bsSize="xsmall"
+                                        onClick={() => {
+                                            this.detetionConfirm(
+                                                brevdata.beskrivelse,
+                                                brevdata.brevdataId,
+                                                this.props.malId
+                                            );
+                                        }}
+                                    >
+                                        Slette
+                                    </Button>
+                                </Col>
+                                <Col sm={3}>
+                                    <Button
+                                        className={'btn btn-primary'}
+                                        bsSize="xsmall"
+                                        onClick={()=>{
+                                            this.props.utilActions.fetchAdminPngPages(this.props.miljo,brevdata.brevdataId);
+                                            this.props.utilActions.fetchMaskList(brevdata.brevdataId);
+                                            this.props.actions.setShowModal(true);
+                                        }}
+
+
+                                    >
+                                        Rediger maskering
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </ListGroupItem>
+                    ))}
+                    <Modal
+                        show={this.state.showModal}
+                        onHide={this.handleClose}
+                    >
+                        <Modal.Header>
+                            <Modal.Title>Bekreft sletting</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <h4>Ønsker du å slette brevdata {this.state.beskrivelse}?</h4>
+                        </Modal.Body>
+                        <Modal.Footer>
                             <Button
-                                className={'btn btn-primary'}
-                                bsSize="xsmall"
-                                onClick={() => {
-                                    api.deleteBrevdataExternal(brevdata.brevdataId)
-                                    this.props.actions.deleteBrevdataInternal(brevdata.brevdataId,this.props.malId)
-                                }}
+                                onClick={() =>
+                                    this.deleteBrevdata(
+                                        this.state.brevdataId,
+                                        this.state.malId
+                                    )
+                                }
                             >
-                                Slette
+                                Ja
                             </Button>
-                        </Col>
-                        <Col sm={3}>
-                            <Button
-                                className={'btn btn-primary'}
-                                bsSize="xsmall"
-                                onClick={()=>{
-                                    this.props.utilActions.fetchAdminPngPages(this.props.miljo,brevdata.brevdataId);
-                                    this.props.utilActions.fetchMaskList(brevdata.brevdataId);
-                                    this.props.actions.setShowModal(true);
-                                }}
-                            >
-                                Rediger maskering
-                            </Button>
-                        </Col>
-                    </Row>
-                </ListGroupItem>
-            ));
-        }
-        else{
+                            <Button onClick={this.handleClose}>Nei</Button>
+                        </Modal.Footer>
+                    </Modal>
+                </div>
+            );
+        } else {
             return null;
         }
     }
 }
-
 
 function mapStateToProps(state, ownProps) {
     return {

@@ -53,10 +53,6 @@ class SammenlignMedGodkjent extends React.Component {
                                 </dd>
                                 <dt>Godkjent av</dt>
                                 <dd>{this.props.sammenlignInfo.godkjentAv}</dd>
-                                <dt>Godkjent miljø</dt>
-                                <dd>
-                                    {this.props.sammenlignInfo.godkjentMiljoe}
-                                </dd>
                                 <dt>Godkjent dato</dt>
                                 <dd>
                                     {this.props.sammenlignInfo.godkjentDato}

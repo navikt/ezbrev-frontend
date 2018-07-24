@@ -5,10 +5,6 @@ import React from 'react';
 //const serverUrl = 'http://localhost:8080';
 const serverUrl = 'https://ezbrev-backend-q4.nais.preprod.local';
 
-//http://localhost:8080/rest/t4/dokumenttypeinfo
-//Må sortere denne infoen for å finne brevpakker og tilhørende brevmaler
-//Må også kalle for å finne lagrede brevmaldata til venstre
-
 function sortList(list) {
     let sortedList = [];
     for (let i = 0; i < list.length; i++) {
@@ -35,7 +31,7 @@ export function getMiljoList() {
 
 export function getBrevInfo(miljo) {
     const url = `${serverUrl}/rest/brevmaler/${miljo}`;
-    return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
+    return get(url).then(res => res.json());
 }
 
 export function getBrevpakkeVersjon(miljo, brevpakke) {
@@ -45,12 +41,12 @@ export function getBrevpakkeVersjon(miljo, brevpakke) {
 
 export function getBrevdataList(brevmal, brevpakke) {
     const url = `${serverUrl}/rest/${brevpakke}/${brevmal}/brevdata`;
-    return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
+    return get(url).then(res => res.json());
 }
 
 export function getBrevdata(brevdataID) {
     const url = `${serverUrl}/rest/getbrevdatabyid/${brevdataID}`;
-    return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
+    return get(url).then(res => res.json());
 }
 
 export function updateXML(brevdataId, xml) {
@@ -79,9 +75,9 @@ export function postBrevdataAsNew(brevpakkenavn, beskrivelse, Xml, brevmal) {
     });
 }
 
-export function getDokument(brevmal, xml, rediger, miljo) {
+export function getDokument(brevmal, xml, rediger, miljo, utledRegisterInfo) {
     const url = `${serverUrl}/rest/bestill/${miljo}`;
-    const data = { brevmal, xml, rediger };
+    const data = { brevmal, xml, rediger, utledRegisterInfo };
     return post(url, data).then(res => {
         return res.json();
     });
@@ -155,35 +151,67 @@ export function post(url, data) {
         body: JSON.stringify(data),
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
+    }).then(res => {
+        if (!res.ok) {
+            res.json().then(error => errorHandler(error));
+            throw res;
+        } else {
+            return res;
+        }
     });
 }
 
 function get(url) {
     return fetch(url, {
         credentials: 'include'
-    }); //returnerer et promise
+    }).then(res => {
+        if (!res.ok) {
+            res.json().then(error => errorHandler(error));
+            throw res;
+        } else {
+            return res;
+        }
+    });
+}
+
+export function errorHandler(error) {
+    alert(
+        'Error: ' +
+            error.error +
+            '\n' +
+            'Status: ' +
+            error.status +
+            '\n' +
+            'Feilmelding: ' +
+            error.message
+    );
 }
 
 export function getSimilarity(env, sammenlignPercentageObject) {
     const url = `${serverUrl}/rest/sammenlignprosent/${env}`;
-    return post(url, sammenlignPercentageObject)
+    return fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(sammenlignPercentageObject),
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include'
+    })
         .then(res => res.json())
         .then(json => ({ json: json, input: sammenlignPercentageObject }));
 }
 
 export function getXmlByJournalpostId(env, brevsystem, journalpostId) {
     const url = `${serverUrl}/rest/inspect/${env}/${brevsystem}/jpid/${journalpostId}`;
-    return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
+    return get(url).then(res => res.json());
 }
 
 export function getXmlByDokumentInfoId(env, brevsystem, dokumentInfoId) {
     const url = `${serverUrl}/rest/inspect/${env}/${brevsystem}/dokid/${dokumentInfoId}`;
-    return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
+    return get(url).then(res => res.json());
 }
 
 export function getXmlByMottakerId(env, brevsystem, mottakerId) {
     const url = `${serverUrl}/rest/inspect/${env}/${brevsystem}/mottaker/${mottakerId}`;
-    return get(url).then(res => res.json()); //må sjekke om res.ok er true før vi gjør om til json
+    return get(url).then(res => res.json());
 }
 
 export function bestillbrevdata(brevdataId, brevmal, miljo) {
@@ -193,18 +221,25 @@ export function bestillbrevdata(brevdataId, brevmal, miljo) {
         return res.json();
     });
 }
- export function deleteBrevdataExternal(brevdataId){
-    const url=`${serverUrl}/rest/admin/brevdata/${brevdataId}`;
+export function deleteBrevdataExternal(brevdataId) {
+    const url = `${serverUrl}/rest/admin/brevdata/${brevdataId}`;
     return fetch(url, {
-         method: 'DELETE',
-         credentials: 'include'
-     });
- }
+        method: 'DELETE',
+        credentials: 'include'
+    }).then(res => {
+        if (!res.ok) {
+            res.json().then(error => errorHandler(error));
+            throw res;
+        } else {
+            return res;
+        }
+    });
+}
 
- export function getIsAdmin(){
-    const url=`${serverUrl}/rest/admin/isAdmin`;
+export function getIsAdmin() {
+    const url = `${serverUrl}/rest/admin/isAdmin`;
     return get(url).then(res => res.json());
- }
+}
 
 export function getPing() {
     const url = `${serverUrl}/internal/selftest`;
@@ -213,7 +248,11 @@ export function getPing() {
 
 export function getPingByEnv(env) {
     const url = `${serverUrl}/internal/selftest/${env}`;
-    return get(url).then(res => res.json());
+    return fetch(url, {
+        credentials: 'include'
+    })
+        .then(res => res.json())
+        .then(json => ({ json, env: env }));
 }
 
 export function getAdminPngPages(miljo,brevdataId){

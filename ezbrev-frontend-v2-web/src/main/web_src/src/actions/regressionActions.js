@@ -31,9 +31,3 @@ export function setRegressionBrevmalList(brevmalList) {
         brevmalList: brevmalList
     };
 }
-export function setRegressionModal(regressionModal) {
-    return {
-        type: types.SET_REGRESSION_MODAL,
-        regressionModal: regressionModal
-    };
-}

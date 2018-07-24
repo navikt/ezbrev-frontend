@@ -10,8 +10,6 @@ class AuthenticatedComponent extends React.Component {
     }
 
     render() {
-        console.log(this.props.isAdmin)
-
         if(this.props.isAdmin){
             return <AdminPage/>;
         }

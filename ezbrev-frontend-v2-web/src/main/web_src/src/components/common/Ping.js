@@ -1,49 +1,49 @@
 import React from 'react';
-import { Col, Grid, Panel, Row, ListGroupItem } from 'react-bootstrap';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as actions from '~/actions/pingActions';
+import {Glyphicon, OverlayTrigger, Popover} from 'react-bootstrap';
+import {connect} from 'react-redux';
+import PingInfo from "./PingInfo";
 
 class Ping extends React.Component {
-    render() {
-        const ping = this.props.ping;
+    popoverClick = () => {
         return (
-            <div>
-                <Row><Col sm={12}> Tid: {ping.aggregateResponseTime} </Col></Row>
-                <Row><Col sm={12}> Status: {ping.aggregateResultText} </Col> </Row>
-                <Panel>
-                    {ping.checks.map(service => (
-                        <ListGroupItem key={service.endpoint} className={"ping"+service.resultText+" pingItem"}>
-                            <Row>
-                                <Row>
-                                    <Col md={6}>{service.endpoint}</Col>
-                                    <Col md={6}>{service.responseTime}</Col>
-                                </Row>
-                                <Row>
-                                    <Col md={12}>{service.errorMessage}</Col>
-                                </Row>
-                            </Row>
-                        </ListGroupItem>
-                    ))}
-                </Panel>
-            </div>
+            <Popover id="popover-trigger-hover-focus" title="Selftest">
+                <PingInfo />
+            </Popover>
+        );
+    };
+    pingIcon=()=>{
+        if (this.props.error){
+            return(
+                <Glyphicon glyph="glyphicon glyphicon-remove" className="glyph-fail "/>
+            )
+        }else{
+            return(
+                <Glyphicon glyph="glyphicon glyphicon-ok" className="glyph-success"/>
+            )
+        }
+    }
+    render() {
+        return (
+            <OverlayTrigger
+                trigger={['hover', 'focus']}
+                placement="bottom"
+                overlay={this.popoverClick()}
+            >
+                <div>
+
+                    <a className="ping">
+                        {this.pingIcon()}
+                    </a>
+                </div>
+            </OverlayTrigger>
         );
     }
 }
 
 function mapStateToProps(state, ownProps) {
     return {
-        ping: state.ping.ping
+        error: state.ping.error
     };
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(actions, dispatch)
-    };
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Ping);
+export default connect(mapStateToProps)(Ping);

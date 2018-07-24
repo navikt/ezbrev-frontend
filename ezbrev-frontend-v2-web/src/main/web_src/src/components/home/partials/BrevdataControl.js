@@ -7,6 +7,8 @@ import * as dokumentActionsUtil from '../../../actions/dokumentActionsUtil';
 import * as brevdataActionsUtil from '../../../actions/brevdataActionsUtil';
 import * as dokumentActions from '../../../actions/dokumentActions';
 import * as brevdataActions from '../../../actions/brevdataActions';
+import * as menyValgActions from '../../../actions/menyValgActions';
+import { tempAlert } from '../../common/tempAlert';
 import { bindActionCreators } from 'redux';
 
 class BrevdataControl extends React.Component {
@@ -35,15 +37,29 @@ class BrevdataControl extends React.Component {
 
     render() {
         return (
-            <div className="container-fluid">
+            <div>
                 <Button
-                    className={'btn btn-primary'}
-                    onClick={() =>
+                    className={'btn'}
+                    onClick={() => {
                         api.updateXML(
                             this.props.brevdataId,
                             this.props.xmlInnhold
                         )
-                    }
+                            .then(
+                                this.props.actionsMenyvalg.setBrevdata(
+                                    this.props.brevdataBeskrivelse,
+                                    this.props.brevdataId,
+                                    this.props.changeStampBrevdata,
+                                    this.props.xmlInnhold
+                                )
+                            )
+                            .then(
+                                this.props.actionsMenyValg.setBrevdataList(
+                                    this.props.brevdataList
+                                )
+                            );
+                        tempAlert('Brevdata ble oppdatert.', 5000);
+                    }}
                     disabled={
                         this.props.brevmal === '' ||
                         this.props.xmlInnhold === ''
@@ -51,9 +67,8 @@ class BrevdataControl extends React.Component {
                 >
                     Oppdater
                 </Button>
-                <Space />
                 <Button
-                    className={'btn btn-primary'}
+                    className={'btn'}
                     onClick={() => {
                         this.props.utilActionsBrevdata.saveXMLAsNew(
                             this.props.brevpakke,
@@ -61,6 +76,7 @@ class BrevdataControl extends React.Component {
                             this.props.xmlInnhold,
                             this.props.brevmal
                         );
+                        tempAlert('Brevdata ble lagret som ny.', 5000);
                     }}
                     disabled={
                         this.props.xmlInnhold === '' ||
@@ -70,16 +86,16 @@ class BrevdataControl extends React.Component {
                 >
                     Lagre som ny
                 </Button>
-                <Space />
                 <Button
-                    className={'btn btn-primary'}
+                    className={'btn'}
                     onClick={() => {
                         const rediger = false;
                         this.props.utilActionsDok.produceDokument(
                             this.props.brevmal.malID,
                             this.props.xmlInnhold,
                             rediger,
-                            this.props.miljo
+                            this.props.miljo,
+                            this.props.registerCheckbox
                         );
                         this.props.actionsBrevdata.setIsRedigertInternal(false);
                     }}
@@ -90,9 +106,8 @@ class BrevdataControl extends React.Component {
                 >
                     Produser brev
                 </Button>
-                <Space />
                 <Button
-                    className={'btn btn-primary'}
+                    className={'btn'}
                     onClick={
                         this.props.isRedigertExternal
                             ? () => this.hentBrev()
@@ -107,7 +122,7 @@ class BrevdataControl extends React.Component {
                         : 'Rediger brev'}
                 </Button>
                 <Button
-                    className={'pull-right btn btn-success'}
+                    className={'pull-right btn'}
                     onClick={() => {
                         api.approveDokument(
                             this.props.brevdataId,
@@ -115,11 +130,12 @@ class BrevdataControl extends React.Component {
                             this.props.brevdataBeskrivelse,
                             this.props.dokument.journalpostId,
                             this.props.dokument.dokumentInfoId
-                        ),
-                            api.updateXML(
-                                this.props.brevdataId,
-                                this.props.xmlInnhold
-                            );
+                        );
+                        api.updateXML(
+                            this.props.brevdataId,
+                            this.props.xmlInnhold
+                        );
+                        tempAlert('Brevet ble godkjent.', 4000);
                     }}
                     disabled={
                         this.props.dokument === '' ||
@@ -128,11 +144,9 @@ class BrevdataControl extends React.Component {
                 >
                     Godkjenn
                 </Button>
-                <Space />
                 <Button
-                    className="pull-right brev-compare-btn btn btn-warning"
+                    className="pull-right brev-compare-btn btn"
                     onClick={() => {
-                        this.props.actionsDok.setShowModal(true);
                         if (this.props.dokument === '') {
                             this.props.utilActionsDok.showSammenlignMedGodkjent(
                                 this.props.miljo,
@@ -172,13 +186,16 @@ function mapStateToProps(state, ownProps) {
         brevdataBeskrivelse: state.brevdataReducer.beskrivelse,
         brevdataId: state.brevdataReducer.brevdataId,
         xmlInnhold: state.brevdataReducer.xmlInnhold,
+        changeStampBrevdata: state.brevdataReducer.changeStamp,
         brevpakke: state.menyValg.brevpakke,
         miljo: state.menyValg.miljo,
         dokument: state.dokumentReducer.dokument,
         isRedigertExternal: state.dokumentReducer.isRedigertExternal,
         isRedigertInternal: state.brevdataReducer.isRedigertInternal,
         redigerbar: state.menyValg.redigerbar,
-        brevmal: state.menyValg.brevmal
+        brevmal: state.menyValg.brevmal,
+        brevdataList: state.menyValg.brevdataList,
+        registerCheckbox: state.menyValg.registerCheckbox
     };
 }
 
@@ -187,7 +204,8 @@ function mapDispatchToProps(dispatch) {
         utilActionsDok: bindActionCreators(dokumentActionsUtil, dispatch),
         utilActionsBrevdata: bindActionCreators(brevdataActionsUtil, dispatch),
         actionsDok: bindActionCreators(dokumentActions, dispatch),
-        actionsBrevdata: bindActionCreators(brevdataActions, dispatch)
+        actionsBrevdata: bindActionCreators(brevdataActions, dispatch),
+        actionsMenyvalg: bindActionCreators(menyValgActions, dispatch)
     };
 }
 

@@ -1,26 +1,39 @@
-import {getBrevdataInBrevpakke, getSimilarity} from '~/api';
+import { getBrevdataInBrevpakke, getSimilarity } from '~/api';
 import * as regressionActions from '~/actions/regressionActions';
 import * as menyValgActionsUtil from '~/actions/menyValgActionsUtil';
+import { setIsLoading } from './loadingActions';
 
-export function setBrevdataList(brevpakke, brevmalList, brevmalIds, action=regressionActions.setRegressionBrevdataList) {
+export function setBrevdataList(
+    brevpakke,
+    brevmalList,
+    brevmalIds,
+    action = regressionActions.setRegressionBrevdataList
+) {
     return function(dispatch) {
-        getBrevdataInBrevpakke(brevpakke, {
-            brevmalIds: brevmalIds
-        })
-            .then(json => {
-                let object = {};
-                brevmalIds.forEach(malid => (object[malid] = []));
-                json.forEach(brevdata => {
+        dispatch(setIsLoading(true));
+        let promises = [];
+        for (let i = 0; i < brevmalIds.length; i++) {
+            promises.push(
+                getBrevdataInBrevpakke(brevpakke, {
+                    brevmalIds: [brevmalIds[i]]
+                })
+            );
+        }
+
+        Promise.all(promises).then(resolvedPromises => {
+            let object = {};
+            brevmalIds.forEach(malid => (object[malid] = []));
+            resolvedPromises.forEach(res => {
+                res.forEach(brevdata => {
                     let malid = brevdata.dokumentmal.dokumenttypeId;
                     malid in object
                         ? object[malid].push(brevdata)
                         : (object[malid] = [brevdata]);
                 });
-                dispatch(action(object));
-            })
-            .catch(error => {
-                throw error;
             });
+            dispatch(setIsLoading(false));
+            dispatch(action(object));
+        });
     };
 }
 
@@ -28,22 +41,81 @@ export function selectMiljo(miljo, action) {
     return menyValgActionsUtil.selectMiljo(miljo, action);
 }
 
-export function startRegressionTest(regressionObjects, env) {
+export function startRegressionTest(
+    regressionObjects,
+    env,
+    numberOfObjInParaelell = 1
+) {
     return function(dispatch) {
         let prosenter = {};
         for (let i = 0; i < regressionObjects.length; i++) {
-            getSimilarity(env, regressionObjects[i]).then(object => {
-                const json = object.json;
-                const input = object.input;
-                'error' in json
-                    ? (prosenter[input.brevdataId] = json.message)
-                    : (prosenter[json.brevdataId] = json.percentage);
+            prosenter[regressionObjects[i].brevdataId] = 'Henter data...';
+        }
+        dispatch(
+            regressionActions.setRegressionSimilarity(
+                JSON.parse(JSON.stringify(prosenter))
+            )
+        );
+        chainMultipleRegressionObjects(
+            regressionObjects,
+            numberOfObjInParaelell,
+            env,
+            prosenter,
+            dispatch
+        );
+    };
+}
+function chainMultipleRegressionObjects(
+    regressionObjects,
+    numberOfObj,
+    env,
+    prosenter,
+    dispatch
+) {
+    let chain = Promise.resolve();
+    for (let i = 0; i < regressionObjects.length; i = i + numberOfObj) {
+        chain = chain.then(function() {
+            let promise = promiseRegressionObjects(
+                i,
+                numberOfObj,
+                regressionObjects,
+                env,
+                prosenter
+            );
+            promise.then(x =>
                 dispatch(
                     regressionActions.setRegressionSimilarity(
                         JSON.parse(JSON.stringify(prosenter))
                     )
-                );
-            });
+                )
+            );
+            return promise;
+        });
+    }
+}
+
+//If you want to test multiple regression objects at a time.
+function promiseRegressionObjects(
+    start,
+    numberOfObj,
+    regressionObjects,
+    env,
+    prosenter
+) {
+    return new Promise(function(resolve, dispatch) {
+        let promises = [];
+        const length = regressionObjects.length;
+        for (let j = start; j < start + numberOfObj && j < length; j++) {
+            promises.push(getSimilarity(env, regressionObjects[j]));
         }
-    };
+        Promise.all(promises).then(resolvedPromises => {
+            resolvedPromises.forEach(res => {
+                'error' in res.json
+                    ? (prosenter[res.input.brevdataId] = res.json.message)
+                    : (prosenter[res.json.brevdataId] = res.json.percentage);
+                prosenter[res.json.brevdataId] = res.json.percentage;
+            });
+            resolve(prosenter);
+        });
+    });
 }

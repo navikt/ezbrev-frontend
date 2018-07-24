@@ -7,21 +7,23 @@ import InspectionTableItem from '~/components/inspection/partials/InspectionTabl
 import InspectionDokument from '~/components/inspection/partials/InspectionDokument';
 
 class InspectionTable extends React.Component {
-    mapDocuments = documentArray => {
+    mapDocuments = (documentArray,showXML) => {
         return documentArray.map(document => (
             <InspectionDokument
                 key={document.dokumentInfoId}
                 document={document}
+                showXML={showXML}
             />
         ));
     };
 
     mapJournalposts = () => {
+        let showXML=(this.props.inspectionData.journalposts.length===1);
         return this.props.inspectionData.journalposts.map(journalpost => (
             <InspectionTableItem
                 key={journalpost.journalpostId}
                 header={'JournalId ' + journalpost.journalpostId}
-                data={this.mapDocuments(journalpost.dokuments)}
+                data={this.mapDocuments(journalpost.dokuments,showXML)}
             />
         ));
     };
@@ -42,7 +44,11 @@ class InspectionTable extends React.Component {
                 </Col>
             );
         } else {
-            return <div>Fant ikke XML</div>;
+            if (this.props.inspectionData.mottakerId === null) {
+                return <div>Fant ikke XML</div>;
+            } else {
+                return <div />;
+            }
         }
     }
 }

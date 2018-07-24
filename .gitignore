@@ -2,6 +2,7 @@ node_modules
 /npm-debug.log
 dist/
 .idea/
+.idea
 .idea_modules/
 
 ### JetBrains template

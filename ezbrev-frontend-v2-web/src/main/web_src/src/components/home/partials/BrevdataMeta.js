@@ -1,5 +1,11 @@
 import React from 'react';
-import { Button, DropdownButton, MenuItem } from 'react-bootstrap';
+import {
+    Button,
+    Checkbox,
+    DropdownButton,
+    ListGroupItem,
+    MenuItem
+} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import * as brevdataActionsUtil from '~/actions/brevdataActionsUtil';
 import { connect } from 'react-redux';
@@ -7,32 +13,51 @@ import { bindActionCreators } from 'redux';
 import * as brevdataActions from '~/actions/brevdataActions';
 import * as dokumentActionsUtil from '~/actions/dokumentActionsUtil';
 import * as dokumentActions from '~/actions/dokumentActions';
+import * as menyValgActions from '~/actions/menyValgActions';
 
 class BrevdataMeta extends React.Component {
     constructor(props, context) {
         super(props, context);
 
-        this.onSelectSort = this.onSelectSort.bind(this);
+        this.state = {
+            sortBy: 'Sorter brevdata'
+        };
     }
 
-    onSelectSort(choice) {}
+    toggleCheckbox = e => {
+        this.props.actionsMenyValg.setRegisterCheckbox(e);
+    };
 
     render() {
         return (
-            <section className="col-md-4 float-left">
+            <section className="col-md-3 float-left">
                 <DropdownButton
-                    className={'btn btn-info'}
-                    title="Sorter brevdata"
+                    title={this.state.sortBy}
+                    className={'btn btn-fill'}
                     id="brevdata_sorter"
-                    onSelect={this.onSelectSort}
+                    onSelect={sortingKey => {
+                        this.setState({
+                            sortBy:
+                                sortingKey === '1'
+                                    ? 'Nyeste først'
+                                    : 'Eldste først'
+                        });
+                        return this.props.actionsMenyValg.sortBrevdataList(
+                            sortingKey
+                        );
+                    }}
                 >
-                    <MenuItem eventKey="1">Nyeste først</MenuItem>
-                    <MenuItem eventKey="2">Eldste først</MenuItem>
+                    <MenuItem key="1" eventKey="1">
+                        Nyeste først
+                    </MenuItem>
+                    <MenuItem key="2" eventKey="2">
+                        Eldste først
+                    </MenuItem>
                 </DropdownButton>
                 <div className="list-group" id="brevdata_pick">
                     {this.props.brevdataList.map(i => (
-                        <button
-                            type="button"
+                        <ListGroupItem
+                            type="button "
                             className="list-group-item"
                             key={i.brevdataId}
                             onClick={() => {
@@ -42,6 +67,7 @@ class BrevdataMeta extends React.Component {
                                 this.props.actionsDok.setDokument('');
                             }}
                             disabled={this.props.brevmal === ''}
+                            active={i.brevdataId === this.props.brevdataId}
                         >
                             {i.beskrivelse}
                             {' - '}
@@ -50,9 +76,16 @@ class BrevdataMeta extends React.Component {
                             <br />
                             {'Opprettet: '}
                             {i.changeStamp.opprettetDato}{' '}
-                        </button>
+                        </ListGroupItem>
                     ))}
                 </div>
+                Bruk registerinformasjon
+                <Checkbox
+                    title="Bruk registerinformasjon"
+                    validationState="success"
+                    defaultChecked={false}
+                    onClick={e => this.toggleCheckbox(e.target.checked)}
+                />
                 <br />
                 <h5>Beskrivelse</h5>
                 <textarea
@@ -68,7 +101,7 @@ class BrevdataMeta extends React.Component {
                 />
                 <br />
                 <Button
-                    className={'btn btn-success'}
+                    className={'btn btn-fill'}
                     onClick={() =>
                         this.props.utilActionsDok.showLastApprovedPDF(
                             this.props.brevdataId
@@ -83,7 +116,6 @@ class BrevdataMeta extends React.Component {
     }
 }
 
-
 BrevdataMeta.propTypes = {
     brevdataList: PropTypes.array.isRequired
 };
@@ -92,7 +124,8 @@ function mapStateToProps(state, ownProps) {
     return {
         brevdataList: state.menyValg.brevdataList,
         brevdataBeskrivelse: state.brevdataReducer.beskrivelse,
-        brevmal: state.menyValg.brevmal
+        brevmal: state.menyValg.brevmal,
+        brevdataId: state.brevdataReducer.brevdataId
     };
 }
 
@@ -101,7 +134,8 @@ function mapDispatchToProps(dispatch) {
         utilActions: bindActionCreators(brevdataActionsUtil, dispatch),
         actions: bindActionCreators(brevdataActions, dispatch),
         utilActionsDok: bindActionCreators(dokumentActionsUtil, dispatch),
-        actionsDok: bindActionCreators(dokumentActions, dispatch)
+        actionsDok: bindActionCreators(dokumentActions, dispatch),
+        actionsMenyValg: bindActionCreators(menyValgActions, dispatch)
     };
 }
 

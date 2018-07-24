@@ -3,15 +3,18 @@ import * as adminActions from '~/actions/adminActions';
 import * as api from '~/api';
 import { getBrevdataInBrevpakke } from '~/api';
 import * as regressionActions from '~/actions/regressionActions';
+import {setIsLoading} from "./loadingActions";
 
 export function fetchMiljoList() {
     return function(dispatch) {
+        dispatch(setIsLoading(true));
         return api
             .getMiljoList()
             .then(miljoList => {
                 dispatch(actions.setMiljoList(miljoList));
             })
             .catch(error => {
+                dispatch(setIsLoading(false));
                 throw error;
             });
     };
@@ -33,6 +36,7 @@ export function fetchIsAdmin() {
 
 export function fetchBrevpakkeVersjon(miljo, brevpakke,action=actions.setBrevpakkeVersjon){
     return function(dispatch) {
+        dispatch(setIsLoading(true));
         return api
             .getBrevpakkeVersjon(miljo,
                 brevpakke)
@@ -40,6 +44,7 @@ export function fetchBrevpakkeVersjon(miljo, brevpakke,action=actions.setBrevpak
                 dispatch(action(brevpakkeversjon.version));
             })
             .catch(error => {
+                dispatch(setIsLoading(false));
                 throw error;
             });
     };
@@ -47,12 +52,14 @@ export function fetchBrevpakkeVersjon(miljo, brevpakke,action=actions.setBrevpak
 
 export function selectMiljo(miljo, action = actions.setBrevInfo) {
     return function(dispatch) {
+        dispatch(setIsLoading(true));
         return api
             .getBrevInfo(miljo)
             .then(json => {
                 dispatch(action(json));
             })
             .catch(error => {
+                dispatch(setIsLoading(false));
                 throw error;
             });
     };
@@ -64,12 +71,14 @@ export function selectBrevpakke(brevpakke, brevInfo) {
 
 export function selectBrevmal(brevmal, brevpakke) {
     return function(dispatch) {
+        dispatch(setIsLoading(true));
         return api
             .getBrevdataList(brevmal, brevpakke)
             .then(brevdataList => {
                 dispatch(actions.setBrevdataList(brevdataList));
             })
             .catch(error => {
+                dispatch(setIsLoading(false));
                 throw error;
             });
     };
