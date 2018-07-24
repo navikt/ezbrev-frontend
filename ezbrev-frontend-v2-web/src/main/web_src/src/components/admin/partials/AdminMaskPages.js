@@ -51,7 +51,7 @@ class AdminMaskPages extends React.Component {
         const pages = this.props.pages || [];
         return (
             <Modal
-                show={this.props.showModal}
+                show={this.props.showModal && !this.props.isLoading}
                 onHide={() => this.props.actionsAdmin.setAdminShowModal(false)}
                 title="Maskering"
                 bsSize="large"
@@ -130,8 +130,9 @@ function mapStateToProps(state, ownProps) {
         showModal: state.admin.showModal,
         mask:state.admin.mask,
         brevdataId:state.admin.adminBrevdataId,
-        miljo: state.admin.adminMiljo
-        // changed: state.admin.changed
+        miljo: state.admin.adminMiljo,
+        isLoading:state.loading.isLoading
+
     };
 }
 

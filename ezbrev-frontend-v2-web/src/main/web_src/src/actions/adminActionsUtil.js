@@ -37,17 +37,6 @@ export function fetchAdminPngPages(miljo, brevdataId) {
     };
 }
 
-export function fetchMaskList(brevdataId) {
-    return function(dispatch) {
-        dispatch(setIsLoading(true));
-        api.getMaskList(brevdataId)
-            .then(maskList => dispatch(adminActions.setMaskList(maskList)))
-            .catch(error => {
-                dispatch(setIsLoading(false));
-                throw error;
-            });
-    };
-}
 export function deleteMasks(miljo, brevdataId) {
     return function(dispatch) {
         dispatch(setIsLoading(true));
