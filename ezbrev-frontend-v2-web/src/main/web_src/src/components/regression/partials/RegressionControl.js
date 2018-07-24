@@ -15,8 +15,10 @@ class RegressionControl extends React.Component {
     constructor(props) {
         super(props);
 
-        const miljo = localStorage.getItem('regressionMiljo');
-        miljo !== null ? this.selectMiljo(miljo) : '';
+        if (Object.keys(this.props.brevdataList).length === 0) {
+            const miljo = localStorage.getItem('regressionMiljo');
+            miljo !== null ? this.selectMiljo(miljo) : '';
+        }
     }
 
     startRegression = () => {
@@ -45,7 +47,8 @@ class RegressionControl extends React.Component {
 
     updateBrevpakke = brevpakke => {
         this.props.actions.setRegressionBrevpakke(brevpakke);
-        const brevmalList = this.setBrevMalList(brevpakke);
+        let brevmalList = this.setBrevMalList(brevpakke);
+        brevmalList.sort((a, b) => a.malId - b.malId);
         this.props.actions.setRegressionBrevmalList(brevmalList);
         let brevmalIds = [];
         brevmalList.forEach(item => brevmalIds.push(item.malId));

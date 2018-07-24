@@ -210,7 +210,7 @@ export function getXmlByDokumentInfoId(env, brevsystem, dokumentInfoId) {
 }
 
 export function getXmlByMottakerId(env, brevsystem, mottakerId) {
-    const url = `${serverUrl}/rest/inspect/${env}/${brevsystem}/mottaker/${mottakerId}`;
+    const url = `${serverUrl}/rest/inspect/${env}/${brevsystem}/hurtigmottaker/${mottakerId}`;
     return get(url).then(res => res.json());
 }
 

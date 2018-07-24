@@ -11,24 +11,29 @@ export function setBrevdataList(
 ) {
     return function(dispatch) {
         dispatch(setIsLoading(true));
-        getBrevdataInBrevpakke(brevpakke, {
-            brevmalIds: brevmalIds
-        })
-            .then(json => {
-                let object = {};
-                brevmalIds.forEach(malid => (object[malid] = []));
-                json.forEach(brevdata => {
+        let promises = [];
+        for (let i = 0; i < brevmalIds.length; i++) {
+            promises.push(
+                getBrevdataInBrevpakke(brevpakke, {
+                    brevmalIds: [brevmalIds[i]]
+                })
+            );
+        }
+
+        Promise.all(promises).then(resolvedPromises => {
+            let object = {};
+            brevmalIds.forEach(malid => (object[malid] = []));
+            resolvedPromises.forEach(res => {
+                res.forEach(brevdata => {
                     let malid = brevdata.dokumentmal.dokumenttypeId;
                     malid in object
                         ? object[malid].push(brevdata)
                         : (object[malid] = [brevdata]);
                 });
-                dispatch(action(object));
-            })
-            .catch(error => {
-                dispatch(setIsLoading(false));
-                throw error;
             });
+            dispatch(setIsLoading(false));
+            dispatch(action(object));
+        });
     };
 }
 
