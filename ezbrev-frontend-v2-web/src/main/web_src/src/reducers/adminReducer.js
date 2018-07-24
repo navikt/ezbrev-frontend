@@ -13,7 +13,6 @@ const initialState = {
     isAdmin: false,
     pngPages: '',
     activePage: 0,
-    maskList: '',
     showModal: false,
     mask:{}
     // changed: true
@@ -94,8 +93,6 @@ export default function adminReducer(state = initialState, action) {
             return { ...state, pngPages: list };
         case types.SET_ADMIN_ACTIVE_PAGE:
             return { ...state, activePage: action.activePage };
-        case types.SET_ADMIN_MASKLIST:
-            return { ...state, maskList: action.maskList };
         case types.SET_ADMIN_MASK:
             return { ...state, mask: action.mask };
         case types.SET_ADMIN_CHANGED:

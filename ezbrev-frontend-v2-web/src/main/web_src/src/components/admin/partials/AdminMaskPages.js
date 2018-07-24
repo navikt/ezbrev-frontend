@@ -127,7 +127,6 @@ function mapStateToProps(state, ownProps) {
     return {
         pages: state.admin.pngPages,
         active: state.admin.activePage,
-        masks: state.admin.masks,
         showModal: state.admin.showModal,
         mask:state.admin.mask,
         brevdataId:state.admin.adminBrevdataId,
