@@ -8,20 +8,21 @@ import { bindActionCreators } from 'redux';
 class BrevdataInput extends React.Component {
     render() {
         return (
-            <section className="col-md-6 float-left">
-                <textarea
-                    rows="33"
-                    className="xml-form form-horizontal form-control"
-                    id="brevdata_input"
-                    placeholder="Legg inn XML"
-                    value={this.props.xmlInnhold}
-                    onChange={event => {
-                        this.props.actions.changeBrevdataXML(
-                            event.target.value
-                        );
-                    }}
-                />
-
+            <section className="col-md-6">
+                <div className="padding-bottom">
+                    <textarea
+                        rows="33"
+                        className="xml-form form-horizontal form-control"
+                        id="brevdata_input"
+                        placeholder="Legg inn XML"
+                        value={this.props.xmlInnhold}
+                        onChange={event => {
+                            this.props.actions.changeBrevdataXML(
+                                event.target.value
+                            );
+                        }}
+                    />
+                </div>
                 <BrevdataControl />
             </section>
         );

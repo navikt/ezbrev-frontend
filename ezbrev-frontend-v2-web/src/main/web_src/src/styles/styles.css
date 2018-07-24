@@ -6,6 +6,7 @@
 * {
     border-radius: 0 !important;
     font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    white-space: normal !important;
 }
 
 body {
@@ -23,7 +24,11 @@ body {
     height: 100%;
 }
 
-
+.button-row{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
 
 .btn-group-fill{
     width: 100%;
@@ -95,7 +100,6 @@ drop-down-button-fill{
 }
 
 .btn {
-    min-width: 120px;
     color: black;
     background-color: white;
 }
@@ -194,6 +198,23 @@ nav {
 .padding-bottom {
     padding-bottom: 15px;
 }
+
 .padding-bottom-small {
     padding-bottom: 10px;
+}
+
+.margin-bottom {
+    margin-bottom: 15px;
+}
+
+.dropdown-menu{
+    width: 100%;
+}
+
+li:hover{
+    background-color: rgba(0,0,0,0.1);
+}
+
+.btn.disabled, .btn[disabled], fieldset[disabled]{
+    opacity: .40;
 }
