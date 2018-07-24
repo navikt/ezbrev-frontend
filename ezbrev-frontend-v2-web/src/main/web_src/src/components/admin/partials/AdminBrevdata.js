@@ -66,6 +66,7 @@ class AdminBrevdata extends React.Component {
                                             this.props.utilActions.fetchAdminPngPages(this.props.miljo,brevdata.brevdataId);
                                             this.props.utilActions.fetchMaskList(brevdata.brevdataId);
                                             this.props.actions.setAdminShowModal(true);
+                                            this.props.actions.setAdminBrevdataId(brevdata.brevdataId)
                                         }}
 
 
@@ -77,7 +78,7 @@ class AdminBrevdata extends React.Component {
                         </ListGroupItem>
                     ))}
                     <Modal
-                        show={this.state.showModal}
+                        show={this.state.showModal&&!this.props.isLoading}
                         onHide={this.handleClose}
                     >
                         <Modal.Header>
@@ -116,7 +117,8 @@ function mapStateToProps(state, ownProps) {
         brevmalList: state.admin.adminBrevmalList,
         miljo: state.admin.adminMiljo,
         brevpakke: state.admin.adminBrevpakke,
-        brevdataList: state.admin.adminBrevdataList
+        brevdataList: state.admin.adminBrevdataList,
+        isLoading:state.loading.isLoading
     };
 }
 

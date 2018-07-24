@@ -8,12 +8,14 @@ const initialState = {
     adminBrevpakke: '',
     adminBrevmalList: [],
     adminBrevdataList: {},
+    adminBrevdataId:'',
     adminBrevpakkeVersjon: '',
     isAdmin: false,
     pngPages: '',
     activePage: 0,
     maskList: '',
-    showModal: false
+    showModal: false,
+    mask:{}
     // changed: true
 };
 
@@ -54,6 +56,10 @@ export default function adminReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 adminBrevdataList: action.brevdataList
             });
+        case types.SET_ADMIN_BREVDATA_ID:
+            return Object.assign({}, state, {
+                adminBrevdataId: action.brevdataId
+            });
         case types.SET_ADMIN_BREVINFO:
             return Object.assign({}, state, {
                 adminBrevInfo: action.brevInfo,
@@ -81,10 +87,17 @@ export default function adminReducer(state = initialState, action) {
             return { ...state, isAdmin: action.isAdmin };
         case types.SET_ADMIN_PNGPAGES:
             return { ...state, pngPages: action.pngPages };
+        case types.REPLACE_ADMIN_PNGPAGE:
+            console.log('inne i reduceren')
+            let list=[... state.pngPages];
+            list[state.activePage]=action.pngPage;
+            return { ...state, pngPages: list };
         case types.SET_ADMIN_ACTIVE_PAGE:
             return { ...state, activePage: action.activePage };
         case types.SET_ADMIN_MASKLIST:
             return { ...state, maskList: action.maskList };
+        case types.SET_ADMIN_MASK:
+            return { ...state, mask: action.mask };
         case types.SET_ADMIN_CHANGED:
             return { ...state, changed: action.changed };
         case types.SET_ADMIN_SHOW_MODAL:

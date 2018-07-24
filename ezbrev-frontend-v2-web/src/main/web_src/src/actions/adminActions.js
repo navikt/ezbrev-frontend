@@ -18,6 +18,13 @@ export function setAdminBrevdataList(brevdataList) {
     };
 }
 
+export function setAdminBrevdataId(brevdataId) {
+    return {
+        type: types.SET_ADMIN_BREVDATA_ID,
+        brevdataId: brevdataId
+    };
+}
+
 export function setAdminBrevmalList(brevmalList) {
     return {
         type: types.SET_ADMIN_BREVMALLIST,
@@ -59,6 +66,12 @@ export function setAdminPngPages(pngPages) {
         pngPages: pngPages
     };
 }
+export function replaceAdminPngPage(pngPage) {
+    return {
+        type: types.REPLACE_ADMIN_PNGPAGE,
+        pngPage: pngPage
+    };
+}
 
 export function setAdminActivePage(activePage) {
     return {
@@ -84,5 +97,11 @@ export function setAdminShowModal(showModal) {
     return {
         type: types.SET_ADMIN_SHOW_MODAL,
         showModal: showModal
+    };
+}
+export function setMask(mask) {
+    return {
+        type: types.SET_ADMIN_MASK,
+        mask: mask
     };
 }

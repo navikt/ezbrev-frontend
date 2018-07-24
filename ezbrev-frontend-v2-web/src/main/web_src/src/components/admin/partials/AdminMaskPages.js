@@ -2,9 +2,11 @@ import React from 'react';
 import { Button, Col, Grid, Image, Row, Modal } from 'react-bootstrap';
 import { Space } from '../../common/scaffolding';
 import * as adminActions from '~/actions/adminActions';
-import ReactCrop from 'react-image-crop';
+import ReactCrop, { makeAspectCrop } from 'react-image-crop';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import * as adminActionsUtil from '~/actions/adminActionsUtil';
+import 'react-image-crop/dist/ReactCrop.css';
 
 class AdminMaskPages extends React.Component {
     constructor(props) {
@@ -16,15 +18,32 @@ class AdminMaskPages extends React.Component {
         this.setState({ changed: true, active: page });
     }
 
-    handleCrop() {}
+    onImageLoaded = image => {
+        this.setState({
+            crop: makeAspectCrop(
+                {
+                    x: 0,
+                    y: 0,
+                    width: 50
+                },
+                image.naturalWidth / image.naturalHeight
+            ),
 
-    getActivePageMasks() {}
+            image
+        });
+    };
 
-    clearMasks() {}
+    onCropComplete = (crop, pixelCrop) => {
+        console.log('onCropComplete, pixelCrop:', pixelCrop);
+        const xstart=pixelCrop.x;
+        const xslutt=pixelCrop.x + pixelCrop.width;
+        const ystart=pixelCrop.y;
+        const yslutt=pixelCrop.y + pixelCrop.height;
+        const sidenr=this.props.active;
+        this.props.actionsAdmin.setMask({xstart,xslutt,ystart,yslutt,sidenr});
+    };
 
-    saveMasks() {}
-
-    onChange = crop => {
+    onCropChange = crop => {
         this.setState({ crop });
     };
 
@@ -40,10 +59,9 @@ class AdminMaskPages extends React.Component {
                 <Modal.Body>
                     <Grid>
                         <Row>
-                            <Col md={2}>
+                            <Col md={2} >
                                 <div
                                     style={{
-
                                         overflowY: 'scroll'
                                     }}
                                 >
@@ -74,29 +92,25 @@ class AdminMaskPages extends React.Component {
                                         }
                                         alt={'Missing image'}
                                         crop={this.state.crop}
-                                        ref="crop"
-
+                                        onImageLoaded={this.onImageLoaded}
+                                        onComplete={this.onCropComplete}
+                                        onChange={this.onCropChange}
                                     />
                                     <Button
                                         bsSize="small"
-                                        bsStyle="info"
-                                    >
-                                        Masker
-                                    </Button>
-                                    <Space />
-                                    <Button
-                                        bsSize="small"
-                                        bsStyle="danger"
-                                    >
-                                        Fjern alle
-                                    </Button>
-                                    <Button
-                                        className="pull-right"
-                                        bsSize="small"
                                         bsStyle="success"
+                                        onClick={()=>{
+                                            this.props.utilActionsAdmin.saveMask(this.props.brevdataId,this.props.mask)
+                                        }}
                                     >
                                         Lagre
                                     </Button>
+                                    <Space />
+                                    <Button bsSize="small" bsStyle="danger"
+                                    onClick={()=>{this.props.utilActionsAdmin.deleteMasks(this.props.brevdataId)}}>
+                                        Fjern alle
+                                    </Button>
+
                                 </div>
                             </Col>
                         </Row>
@@ -112,14 +126,17 @@ function mapStateToProps(state, ownProps) {
         pages: state.admin.pngPages,
         active: state.admin.activePage,
         masks: state.admin.masks,
-        showModal: state.admin.showModal
+        showModal: state.admin.showModal,
+        mask:state.admin.mask,
+        brevdataId:state.admin.adminBrevdataId
         // changed: state.admin.changed
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actionsAdmin: bindActionCreators(adminActions, dispatch)
+        actionsAdmin: bindActionCreators(adminActions, dispatch),
+        utilActionsAdmin:bindActionCreators(adminActionsUtil,dispatch)
     };
 }
 
