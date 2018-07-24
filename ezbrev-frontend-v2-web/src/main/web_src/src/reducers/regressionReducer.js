@@ -8,6 +8,7 @@ const initialState = {
     regressjonBrevpakke: '',
     regressjonBrevmalList: [],
     regressjonBrevdataList: {},
+    brevpakkeVersjon: "",
     regressionSimilarity: {}
 };
 
@@ -22,17 +23,25 @@ function getBrevpakkeList(brevInfo) {
 export default function regresjonMenyValgReducer(state = initialState, action) {
     switch (action.type) {
         case types.SET_MILJOLIST:
-            return Object.assign({}, state, { regressjonMiljoList: action.miljoList });
+            return Object.assign({}, state, {
+                regressjonMiljoList: action.miljoList
+            });
         case types.SET_REGRESSION_MILJO:
-            localStorage.setItem("regressionMiljo", action.miljo);
-            return Object.assign({}, state, { regressjonMiljo: action.miljo , regressjonBrevpakke: '', regressjonBrevmalList: []});
+            localStorage.setItem('regressionMiljo', action.miljo);
+            return Object.assign({}, state, {
+                regressjonMiljo: action.miljo,
+                regressjonBrevpakke: '',
+                regressjonBrevmalList: []
+            });
         case types.SET_REGRESSION_BREVPAKKELIST:
             return Object.assign({}, state, {
                 regressjonBrevpakkeList: action.brevpakkeList
             });
         case types.SET_REGRESSION_BREVPAKKE:
-            localStorage.setItem("regressionBrevpakke", action.brevpakke);
-            return Object.assign({}, state, { regressjonBrevpakke: action.brevpakke });
+            localStorage.setItem('regressionBrevpakke', action.brevpakke);
+            return Object.assign({}, state, {
+                regressjonBrevpakke: action.brevpakke
+            });
         case types.SET_REGRESSION_BREVMALLIST:
             return Object.assign({}, state, {
                 regressjonBrevmalList: action.brevmalList
@@ -47,7 +56,13 @@ export default function regresjonMenyValgReducer(state = initialState, action) {
                 regressjonBrevpakkeList: getBrevpakkeList(action.brevInfo)
             });
         case types.SET_REGRESSION_SIMILARITY:
-            return Object.assign({}, state, { regressionSimilarity: action.regressionSimilarity });
+            return Object.assign({}, state, {
+                regressionSimilarity: action.regressionSimilarity
+            });
+        case types.SET_REGRESSION_BREVPAKKE_VERSJON:
+            return Object.assign({}, state, {
+                brevpakkeVersjon: action.brevpakkeVersjon
+            });
         default:
             return state;
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Row } from 'react-bootstrap';
+import { Button, Col, FormControl, Row } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as regressionActions from '~/actions/regressionActions';
@@ -10,6 +10,8 @@ import ListItem from '../../common/ListItem';
 import { getRegressionObjects } from '~/components/regression/partials/RegressionUtil';
 import { getPingByEnv } from '../../../api';
 import BrevpakkeListListener from './BrevpakkeListListener';
+import * as menyValgActionsUtil from '../../../actions/menyValgActionsUtil';
+import {setBrevpakkeVersjon} from "../../../actions/regressionActions";
 
 class RegressionControl extends React.Component {
     constructor(props) {
@@ -57,6 +59,12 @@ class RegressionControl extends React.Component {
             brevmalList,
             brevmalIds
         );
+        console.log("i update brevpakke")
+        this.props.utilActions.fetchBrevpakkeVersjon(
+            this.props.miljo,
+            brevpakke,
+            setBrevpakkeVersjon
+        );
     };
 
     selectMiljo = miljo => {
@@ -72,7 +80,7 @@ class RegressionControl extends React.Component {
         return (
             <div className="padding-bottom">
                 <Row>
-                    <Col sm={3}>
+                    <Col sm={4}>
                         <ListItem
                             className="btn-fill"
                             title={'Miljø: ' + this.props.miljo}
@@ -81,18 +89,35 @@ class RegressionControl extends React.Component {
                             list={this.props.miljoList}
                         />
                     </Col>
-                    <Col sm={3}>
-                        <ListItem
-                            className="btn-fill"
-                            title={'Brevpakke: ' + this.props.brevpakke}
-                            id="1"
-                            func={brevpakke => this.updateBrevpakke(brevpakke)}
-                            list={this.props.brevpakkeList}
-                            isDisabled={this.props.miljo === ''}
-                        />
+                    <Col sm={4}>
+                        <div className="parent">
+                            <div className="child inline-block-child big">
+                                <ListItem
+                                    className="btn-fill"
+                                    title={'Brevpakke: ' + this.props.brevpakke}
+                                    id="1"
+                                    func={brevpakke =>
+                                        this.updateBrevpakke(brevpakke)
+                                    }
+                                    list={this.props.brevpakkeList}
+                                    isDisabled={this.props.miljo === ''}
+                                />
+                            </div>
+                            <div className="child inline-block-child small">
+                                <FormControl
+                                    className="brevpakke-versjon"
+                                    readOnly
+                                    value={
+                                        this.props.brevpakkeVersjon
+                                            ? this.props.brevpakkeVersjon
+                                            : ''
+                                    }
+                                />
+                            </div>
+                        </div>
                         <BrevpakkeListListener action={this.updateBrevpakke} />
                     </Col>
-                    <Col sm={3}>
+                    <Col sm={4}>
                         <Button
                             className="fill"
                             onClick={() => this.startRegression()}
@@ -115,7 +140,8 @@ function mapStateToProps(state, ownProps) {
         brevInfo: state.regressjonReducer.regressjonBrevInfo,
         brevpakkeList: state.regressjonReducer.regressjonBrevpakkeList,
         brevpakke: state.regressjonReducer.regressjonBrevpakke,
-        brevdataList: state.regressjonReducer.regressjonBrevdataList
+        brevdataList: state.regressjonReducer.regressjonBrevdataList,
+        brevpakkeVersjon: state.regressjonReducer.brevpakkeVersjon
     };
 }
 

@@ -17,8 +17,15 @@ body {
 }
 
 .big{
-    min-width: 73%;
+    flex: 1 0 0;
     padding-right: 10px;
+}
+
+.small{
+    width: 100px;
+    display: inline-block;
+    float: right;
+    position: relative;
 }
 
 .center-vertically {
@@ -164,7 +171,6 @@ nav {
 .parent{
     display: flex;
     flex-direction: row;
-
 }
 
 .approved-text-line{
@@ -235,4 +241,12 @@ code>span{
 
 code.xml{
     font-weight: bold;
+}
+
+.form-control{
+    min-width: 60px;
+}
+
+.brevpakke-versjon{
+    text-align: center;
 }
