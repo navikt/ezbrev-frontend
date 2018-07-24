@@ -5,12 +5,15 @@
 
 * {
     border-radius: 0 !important;
-    font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    white-space: normal !important;
+
 }
+
 
 body {
     background-color: #eeeeee;
+    font-size: 14px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    white-space: normal;
 }
 
 .big{
@@ -106,6 +109,7 @@ drop-down-button-fill{
 
 a {
     color: #ffffff;
+    white-space: normal !important;
 }
 
 
@@ -217,4 +221,18 @@ li:hover{
 
 .btn.disabled, .btn[disabled], fieldset[disabled]{
     opacity: .40;
+}
+
+pre{
+    font-family: Menlo,Monaco,Consolas,Courier New,monospace;
+    font-size: 13px;
+}
+
+code>span{
+    color: navy;
+    font-weight: 400;
+}
+
+code.xml{
+    font-weight: bold;
 }

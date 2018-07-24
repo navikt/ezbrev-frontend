@@ -9,7 +9,7 @@ export default function InspectionDocumentItem({ header, data }) {
         <Panel>
             <Panel.Heading>
                 <Row>
-                    <Col md={10}>
+                    <Col md={12}>
                         {header}
                     </Col>
                 </Row>

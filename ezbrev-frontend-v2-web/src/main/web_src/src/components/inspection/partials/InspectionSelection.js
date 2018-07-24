@@ -51,7 +51,7 @@ class InspectionSelection extends React.Component {
     render() {
         return (
             <Col md={2}>
-                <Row sm={3}>
+                <Row sm={3} className="padding-bottom">
                     <ListItem
                         className="btn-fill"
                         title={'Miljø: ' + this.props.miljo}
@@ -62,7 +62,7 @@ class InspectionSelection extends React.Component {
                         list={this.props.miljoList}
                     />
                 </Row>
-                <Row sm={3}>
+                <Row sm={3} className="padding-bottom">
                     <ListItem
                         className="btn-fill"
                         title={'Brevsystem: ' + this.props.brevsystem}
