@@ -273,20 +273,16 @@ export function deleteSingleMaskByMaskId(maskId){
     });
 }
 
-export function deleteAllMasksByBrevdataId(brevdataId){
-    const url=`${serverUrl}/rest/admin/brevdata/${brevdataId}/masks`
+export function deleteAllMasksByBrevdataId(miljo,brevdataId){
+    const url=`${serverUrl}/rest/admin/brevdata/${brevdataId}/masks/${miljo}`
     return fetch(url, {
         method: 'DELETE',
         credentials: 'include'
-    });
+    }).then(res=>res.json());
 }
 
-export function saveMaskList(brevdataId,maskList){
-    const url=`${serverUrl}/rest/admin/brevdata/${brevdataId}/masks`;
-    return post(url,maskList).then(res=>res.json());
-}
-export function postMask(brevdataId,mask){
-    const url=`${serverUrl}/rest/admin/brevdata/${brevdataId}/masks`;
+export function postMask(miljo,brevdataId,mask){
+    const url=`${serverUrl}/rest/admin/brevdata/${brevdataId}/masks/${miljo}`;
     let {xstart,xslutt,ystart,yslutt,sidenr}=mask;
     const data={xstart,xslutt,ystart,yslutt,sidenr};
     return post(url,data).then(res=>res.json());

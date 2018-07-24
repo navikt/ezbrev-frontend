@@ -48,33 +48,30 @@ export function fetchMaskList(brevdataId) {
             });
     };
 }
-export function deleteMasks(brevdataId) {
+export function deleteMasks(miljo, brevdataId) {
     return function(dispatch) {
         dispatch(setIsLoading(true));
-        api.deleteAllMasksByBrevdataId(brevdataId)
-            .then(
-                pages=>{
-                    dispatch(adminActions.setAdminPngPages(pages))
-                }
-            ).catch(error => {
-            dispatch(setIsLoading(false));
-            throw error;
-        });
+        api.deleteAllMasksByBrevdataId(miljo, brevdataId)
+            .then(pages => {
+                dispatch(adminActions.setAdminPngPages(pages));
+            })
+            .catch(error => {
+                dispatch(setIsLoading(false));
+                throw error;
+            });
     };
 }
 
-
-export function saveMask(brevdataId,mask) {
+export function saveMask(miljo, brevdataId, mask) {
     return function(dispatch) {
         dispatch(setIsLoading(true));
-        api.postMask(brevdataId,mask)
-            .then(
-                page=>{
-                    dispatch(adminActions.replaceAdminPngPage(page.png))
-                }
-            ).catch(error => {
-            dispatch(setIsLoading(false));
-            throw error;
-        });
+        api.postMask(miljo, brevdataId, mask)
+            .then(page => {
+                dispatch(adminActions.replaceAdminPngPage(page.png));
+            })
+            .catch(error => {
+                dispatch(setIsLoading(false));
+                throw error;
+            });
     };
 }

@@ -95,19 +95,21 @@ class AdminMaskPages extends React.Component {
                                         onImageLoaded={this.onImageLoaded}
                                         onComplete={this.onCropComplete}
                                         onChange={this.onCropChange}
+                                        minWidth={0}
+                                        minHeight={0}
                                     />
                                     <Button
                                         bsSize="small"
                                         bsStyle="success"
                                         onClick={()=>{
-                                            this.props.utilActionsAdmin.saveMask(this.props.brevdataId,this.props.mask)
+                                            this.props.utilActionsAdmin.saveMask(this.props.miljo,this.props.brevdataId,this.props.mask)
                                         }}
                                     >
                                         Lagre
                                     </Button>
                                     <Space />
                                     <Button bsSize="small" bsStyle="danger"
-                                    onClick={()=>{this.props.utilActionsAdmin.deleteMasks(this.props.brevdataId)}}>
+                                    onClick={()=>{this.props.utilActionsAdmin.deleteMasks(this.props.miljo,this.props.brevdataId)}}>
                                         Fjern alle
                                     </Button>
 
@@ -128,7 +130,8 @@ function mapStateToProps(state, ownProps) {
         masks: state.admin.masks,
         showModal: state.admin.showModal,
         mask:state.admin.mask,
-        brevdataId:state.admin.adminBrevdataId
+        brevdataId:state.admin.adminBrevdataId,
+        miljo: state.admin.adminMiljo
         // changed: state.admin.changed
     };
 }
