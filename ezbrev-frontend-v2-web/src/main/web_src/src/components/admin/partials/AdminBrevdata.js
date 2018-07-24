@@ -16,7 +16,7 @@ class AdminBrevdata extends React.Component {
             malId: 0
         };
     }
-    detetionConfirm = (beskrivelse, brevdataId, malId) => {
+    deletionConfirm = (beskrivelse, brevdataId, malId) => {
         this.setState({ showModal: true, beskrivelse:beskrivelse, brevdataId:brevdataId, malId:malId });
     };
 
@@ -47,7 +47,7 @@ class AdminBrevdata extends React.Component {
                                         className={'btn btn-primary'}
                                         bsSize="xsmall"
                                         onClick={() => {
-                                            this.detetionConfirm(
+                                            this.deletionConfirm(
                                                 brevdata.beskrivelse,
                                                 brevdata.brevdataId,
                                                 this.props.malId
@@ -62,9 +62,10 @@ class AdminBrevdata extends React.Component {
                                         className={'btn btn-primary'}
                                         bsSize="xsmall"
                                         onClick={()=>{
+                                            console.log('onclick')
                                             this.props.utilActions.fetchAdminPngPages(this.props.miljo,brevdata.brevdataId);
                                             this.props.utilActions.fetchMaskList(brevdata.brevdataId);
-                                            this.props.actions.setShowModal(true);
+                                            this.props.actions.setAdminShowModal(true);
                                         }}
 
 

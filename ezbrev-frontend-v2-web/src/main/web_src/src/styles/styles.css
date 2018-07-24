@@ -199,3 +199,11 @@ li{
 .padding-bottom-small {
     padding-bottom: 10px;
 }
+
+.admin-modal{
+    display:flex;
+}
+
+.ReactCrop__image {
+    width: 100%;
+}
