@@ -26,6 +26,7 @@ export default function loadingReducer(state = initialState, action) {
         case types.SET_REGRESSION_BREVDATALIST:
         case types.SET_REGRESSION_BREVINFO:
         case types.SET_ADMIN_PNGPAGES:
+        case types.REPLACE_ADMIN_PNGPAGE:
             return { ...state, isLoading: false };
         default:
             return state;
