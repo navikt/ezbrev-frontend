@@ -83,7 +83,7 @@ class BrevdataMeta extends React.Component {
                 <Checkbox
                     title="Bruk registerinformasjon"
                     validationState="success"
-                    defaultChecked={true}
+                    defaultChecked={false}
                     onClick={e => this.toggleCheckbox(e.target.checked)}
                 />
                 <br />

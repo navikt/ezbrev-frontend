@@ -11,7 +11,7 @@ const initialState = {
     brevInfo: [],
     brevdataList: [],
     redigerbar: false,
-    registerCheckbox: true
+    registerCheckbox: false
 };
 
 function getBrevpakkeList(brevInfo) {

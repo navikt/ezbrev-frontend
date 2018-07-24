@@ -47,7 +47,9 @@ export function showLastApprovedPDF(brevdataId) {
         dispatch(setIsLoading(true));
         return api
             .getLastApprovedPDF(brevdataId)
-            .then(PDF => displayBase64PDF(PDF.document))
+            .then(PDF => {displayBase64PDF(PDF.document)
+                dispatch(setIsLoading(false));
+            })
             .catch(error => {
                 dispatch(setIsLoading(false));
                 throw error;
