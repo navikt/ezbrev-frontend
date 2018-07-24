@@ -37,9 +37,9 @@ class BrevdataControl extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="button-row">
                 <Button
-                    className={'btn'}
+                    className={'btn margin-bottom'}
                     onClick={() => {
                         api.updateXML(
                             this.props.brevdataId,
@@ -68,7 +68,7 @@ class BrevdataControl extends React.Component {
                     Oppdater
                 </Button>
                 <Button
-                    className={'btn'}
+                    className={'btn margin-bottom'}
                     onClick={() => {
                         this.props.utilActionsBrevdata.saveXMLAsNew(
                             this.props.brevpakke,
@@ -87,7 +87,7 @@ class BrevdataControl extends React.Component {
                     Lagre som ny
                 </Button>
                 <Button
-                    className={'btn'}
+                    className={'btn margin-bottom'}
                     onClick={() => {
                         const rediger = false;
                         this.props.utilActionsDok.produceDokument(
@@ -107,7 +107,7 @@ class BrevdataControl extends React.Component {
                     Produser brev
                 </Button>
                 <Button
-                    className={'btn'}
+                    className={'btn margin-bottom'}
                     onClick={
                         this.props.isRedigertExternal
                             ? () => this.hentBrev()
@@ -122,7 +122,7 @@ class BrevdataControl extends React.Component {
                         : 'Rediger brev'}
                 </Button>
                 <Button
-                    className={'pull-right btn'}
+                    className={'btn margin-bottom'}
                     onClick={() => {
                         api.approveDokument(
                             this.props.brevdataId,
@@ -145,7 +145,7 @@ class BrevdataControl extends React.Component {
                     Godkjenn
                 </Button>
                 <Button
-                    className="pull-right brev-compare-btn btn"
+                    className="brev-compare-btn btn margin-bottom"
                     onClick={() => {
                         if (this.props.dokument === '') {
                             this.props.utilActionsDok.showSammenlignMedGodkjent(

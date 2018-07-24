@@ -52,7 +52,7 @@ class BrevpakkeSelect extends React.Component {
                     </Row>
                     <br />
                     <Row>
-                        <div className="parent">
+                        <div className="parent padding-right">
                             <div className="child inline-block-child big">
                                 <ListItem
                                     className="btn-fill"
@@ -79,8 +79,9 @@ class BrevpakkeSelect extends React.Component {
                                     isDisabled={this.props.miljo === ''}
                                 />
                             </div>
-                            <div className="child inline-block-child padding-right">
+                            <div className="child inline-block-child small">
                                 <FormControl
+                                    className="brevpakke-versjon"
                                     readOnly
                                     value={
                                         this.props.brevpakkeVersjon

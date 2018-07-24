@@ -87,7 +87,6 @@ export default function adminReducer(state = initialState, action) {
         case types.SET_ADMIN_PNGPAGES:
             return { ...state, pngPages: action.pngPages };
         case types.REPLACE_ADMIN_PNGPAGE:
-            console.log('inne i reduceren')
             let list=[... state.pngPages];
             list[state.activePage]=action.pngPage;
             return { ...state, pngPages: list };

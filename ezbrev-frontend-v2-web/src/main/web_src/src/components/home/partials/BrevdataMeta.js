@@ -79,13 +79,15 @@ class BrevdataMeta extends React.Component {
                         </ListGroupItem>
                     ))}
                 </div>
-                Bruk registerinformasjon
-                <Checkbox
-                    title="Bruk registerinformasjon"
-                    validationState="success"
-                    defaultChecked={false}
-                    onClick={e => this.toggleCheckbox(e.target.checked)}
-                />
+                <div className="flex-row center-vertically">
+                    <Checkbox
+                        title="Bruk registerinformasjon"
+                        validationState="success"
+                        defaultChecked={false}
+                        onClick={e => this.toggleCheckbox(e.target.checked)}
+                    />
+                    Bruk registerinformasjon
+                </div>
                 <br />
                 <h5>Beskrivelse</h5>
                 <textarea

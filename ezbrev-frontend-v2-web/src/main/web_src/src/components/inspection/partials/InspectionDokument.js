@@ -33,17 +33,20 @@ export default class InspectionDocument extends React.Component {
 
     setHeader = (title, id, time, mal, xml) => {
         return (
-            <div>
+            <div className="flex-row center-vertically">
                 <Col sm={3}>{title + id}</Col>
                 <Col sm={3}>{time}</Col>
                 <Col sm={2}>{mal}</Col>
                 <Col sm={2}>
                     <CopyToClipboard text={xml}>
-                        <Button>Kopier til clipboard</Button>
+                        <Button
+                            className="fill"
+                        >Kopier til clipboard</Button>
                     </CopyToClipboard>
                 </Col>
                 <Col sm={2}>
                     <Button
+                        className="fill"
                         onClick={() =>
                             this.setState({ isShown: !this.state.isShown })
                         }

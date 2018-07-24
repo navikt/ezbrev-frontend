@@ -41,6 +41,7 @@ class AdminControl extends React.Component {
             <Row>
                 <Col sm={3}>
                     <ListItem
+                        className="btn-fill"
                         title={'Miljø: ' + this.props.miljo}
                         id="1"
                         func={miljo => {
@@ -54,9 +55,10 @@ class AdminControl extends React.Component {
                     />
                 </Col>
                 <Col sm={3}>
-                    <div className="parent">
-                        <div className="child inline-block-child">
+                    <div className="parent padding-right">
+                        <div className="child inline-block-child big">
                             <ListItem
+                                className="btn-fill"
                                 title={'Brevpakke: ' + this.props.brevpakke}
                                 id="1"
                                 func={brevpakke => {
@@ -67,7 +69,7 @@ class AdminControl extends React.Component {
                                 isDisabled={this.props.miljo === ''}
                             />
                         </div>
-                        <div className="child inline-block-child">
+                        <div className="child inline-block-child small">
                             <FormControl
                                 readOnly
                                 value={

@@ -41,6 +41,10 @@ export function selectMiljo(miljo, action) {
     return menyValgActionsUtil.selectMiljo(miljo, action);
 }
 
+export function fetchBrevpakkeVersjon(miljo,brevpakke,action){
+    return menyValgActionsUtil.fetchBrevpakkeVersjon(miljo,brevpakke,action);
+}
+
 export function startRegressionTest(
     regressionObjects,
     env,
