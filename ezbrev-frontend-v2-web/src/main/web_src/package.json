@@ -23,8 +23,6 @@
     "babel-polyfill": "^6.26.0",
     "bootstrap": "3.3.7",
     "history": "4.7.2",
-    "jquery": "2.2.3",
-    "jquery-jcrop": "0.9.13",
     "popper.js": "^1.12.9",
     "prop-types": "15.6.1",
     "react": "16.4.1",
