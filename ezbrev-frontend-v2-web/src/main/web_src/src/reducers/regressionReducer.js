@@ -8,7 +8,7 @@ const initialState = {
     regressjonBrevpakke: '',
     regressjonBrevmalList: [],
     regressjonBrevdataList: {},
-    brevpakkeVersjon: "",
+    brevpakkeVersjon: '',
     regressionSimilarity: {}
 };
 

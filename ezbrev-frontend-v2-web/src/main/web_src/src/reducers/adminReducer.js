@@ -8,13 +8,13 @@ const initialState = {
     adminBrevpakke: '',
     adminBrevmalList: [],
     adminBrevdataList: {},
-    adminBrevdataId:'',
+    adminBrevdataId: '',
     adminBrevpakkeVersjon: '',
     isAdmin: false,
     pngPages: '',
     activePage: 0,
     showModal: false,
-    mask:{}
+    mask: {}
     // changed: true
 };
 
@@ -87,8 +87,8 @@ export default function adminReducer(state = initialState, action) {
         case types.SET_ADMIN_PNGPAGES:
             return { ...state, pngPages: action.pngPages };
         case types.REPLACE_ADMIN_PNGPAGE:
-            let list=[... state.pngPages];
-            list[state.activePage]=action.pngPage;
+            let list = [...state.pngPages];
+            list[state.activePage] = action.pngPage;
             return { ...state, pngPages: list };
         case types.SET_ADMIN_ACTIVE_PAGE:
             return { ...state, activePage: action.activePage };

@@ -1,16 +1,14 @@
 import React from 'react';
-import {FormControl, Button, Col, Row} from 'react-bootstrap';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
+import { FormControl, Button, Col, Row } from 'react-bootstrap';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import * as adminActions from '~/actions/adminActions';
 import * as adminActionsUtil from '~/actions/adminActionsUtil';
 import * as pingActions from '../../../actions/pingActions';
 import ListItem from '../../common/ListItem';
 import { getPingByEnv } from '../../../api';
 
-
 class AdminControl extends React.Component {
-
     setBrevMalList = brevpakke => {
         let brevmalList = [];
         for (let i = 0; i < this.props.brevInfo.length; i++) {
@@ -52,7 +50,9 @@ class AdminControl extends React.Component {
                                 adminActions.setAdminBrevInfo
                             );
                             this.props.actions.setAdminMiljo(miljo);
-                            getPingByEnv(miljo).then(ping => this.props.pingActions.setPing(ping));
+                            getPingByEnv(miljo).then(ping =>
+                                this.props.pingActions.setPing(ping)
+                            );
                         }}
                         list={this.props.miljoList}
                     />
@@ -66,7 +66,11 @@ class AdminControl extends React.Component {
                                 id="1"
                                 func={brevpakke => {
                                     this.updateBrevpakke(brevpakke);
-                                    this.props.utilActions.fetchAdminBrevpakkeVersjon(this.props.miljo, brevpakke, adminActions.setAdminBrevpakkeVersjon)
+                                    this.props.utilActions.fetchAdminBrevpakkeVersjon(
+                                        this.props.miljo,
+                                        brevpakke,
+                                        adminActions.setAdminBrevpakkeVersjon
+                                    );
                                 }}
                                 list={this.props.brevpakkeList}
                                 isDisabled={this.props.miljo === ''}
@@ -85,7 +89,7 @@ class AdminControl extends React.Component {
                     </div>
                 </Col>
             </Row>
-        )
+        );
     }
 }
 
@@ -97,7 +101,7 @@ function mapStateToProps(state, ownProps) {
         brevpakkeList: state.admin.adminBrevpakkeList,
         brevpakkeVersjon: state.admin.adminBrevpakkeVersjon,
         brevInfo: state.admin.adminBrevInfo
-    }
+    };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -105,7 +109,10 @@ function mapDispatchToProps(dispatch) {
         utilActions: bindActionCreators(adminActionsUtil, dispatch),
         pingActions: bindActionCreators(pingActions, dispatch),
         actions: bindActionCreators(adminActions, dispatch)
-    }
+    };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminControl);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AdminControl);

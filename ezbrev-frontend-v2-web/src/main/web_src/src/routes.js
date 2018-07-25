@@ -5,9 +5,8 @@ import HomePage from './components/home/HomePage';
 import RegressionPage from './components/regression/RegressionPage';
 import InspectionPage from './components/inspection/InspectionPage';
 import ConverterPage from './components/converter/ConverterPage';
-import AdminPage from './components/admin/AdminPage';
 import AuthenticatedComponent from './components/admin/AuthenticatedComponent';
-import {withRouter } from 'react-router';
+import { withRouter } from 'react-router';
 
 export const Routes = () => (
     <Switch>
@@ -15,6 +14,6 @@ export const Routes = () => (
         <Route path="/regression" component={RegressionPage} />
         <Route path="/inspection" component={InspectionPage} />
         <Route path="/converter" component={ConverterPage} />
-        <Route path="/admin"   name= 'Admin' component={AuthenticatedComponent}/>
+        <Route path="/admin" name="Admin" component={AuthenticatedComponent} />
     </Switch>
 );

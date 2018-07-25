@@ -19,12 +19,10 @@ export const store = configureStore(history);
 const target = document.getElementById('root');
 
 store.dispatch(fetchMiljoList());
-getPing().then(ping => store.dispatch(setPing({json:ping, env:"ikke valgt"})));
+getPing().then(ping =>
+    store.dispatch(setPing({ json: ping, env: 'ikke valgt' }))
+);
 store.dispatch(fetchIsAdmin());
-
-store.subscribe(() => {
-    console.log('Current state:', store.getState());
-});
 
 ReactDOM.render(
     <AppContainer>

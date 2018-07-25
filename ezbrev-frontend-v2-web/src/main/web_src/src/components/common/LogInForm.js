@@ -10,12 +10,12 @@ import {
 } from 'react-bootstrap';
 
 export default function LogInForm({ title, id, func, list, isDisabled }) {
-    console.log('Loginform')
+    console.log('Loginform');
     const submit = e => {
         e.preventDefault();
         const username = e.target[0].value;
         const ***passord=gammelt_passord***;
-        console.log("Username:", username, "Password:", password);
+        console.log('Username:', username, 'Password:', password);
     };
 
     const rightSide = 8;

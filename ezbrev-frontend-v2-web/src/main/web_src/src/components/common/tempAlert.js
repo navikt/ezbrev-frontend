@@ -1,7 +1,7 @@
 import React from 'react';
 
 export function tempAlert(message, duration) {
-    var el = document.createElement('div');
+    let el = document.createElement('div');
     el.setAttribute(
         'style',
         'position:absolute;top:72%;left:7%;background-color:#eeeeee;color:grey;font-size:150%',

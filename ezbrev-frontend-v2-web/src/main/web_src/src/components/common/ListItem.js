@@ -1,10 +1,17 @@
 import React from 'react';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 
-export default function ListItem({ title, id, func, list, isDisabled, className }) {
+export default function ListItem({
+    title,
+    id,
+    func,
+    list,
+    isDisabled,
+    className
+}) {
     return (
         <DropdownButton
-            className={className+ " text-left"}
+            className={className + ' text-left'}
             title={title}
             id={id}
             onSelect={func}
@@ -18,4 +25,3 @@ export default function ListItem({ title, id, func, list, isDisabled, className 
         </DropdownButton>
     );
 }
-

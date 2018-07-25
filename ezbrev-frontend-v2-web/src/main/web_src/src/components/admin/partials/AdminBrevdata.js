@@ -17,7 +17,12 @@ class AdminBrevdata extends React.Component {
         };
     }
     deletionConfirm = (beskrivelse, brevdataId, malId) => {
-        this.setState({ showModal: true, beskrivelse:beskrivelse, brevdataId:brevdataId, malId:malId });
+        this.setState({
+            showModal: true,
+            beskrivelse: beskrivelse,
+            brevdataId: brevdataId,
+            malId: malId
+        });
     };
 
     handleClose = () => {
@@ -44,7 +49,7 @@ class AdminBrevdata extends React.Component {
                                 </Col>
                                 <Col sm={3}>
                                     <Button
-                                        className={'btn btn-primary'}
+                                        className={'btn'}
                                         bsSize="xsmall"
                                         onClick={() => {
                                             this.deletionConfirm(
@@ -59,16 +64,21 @@ class AdminBrevdata extends React.Component {
                                 </Col>
                                 <Col sm={3}>
                                     <Button
-                                        className={'btn btn-primary'}
+                                        className={'btn'}
                                         bsSize="xsmall"
-                                        onClick={()=>{
-                                            console.log('onclick')
-                                            this.props.utilActions.fetchAdminPngPages(this.props.miljo,brevdata.brevdataId);
-                                            this.props.actions.setAdminShowModal(true);
-                                            this.props.actions.setAdminBrevdataId(brevdata.brevdataId)
+                                        onClick={() => {
+                                            console.log('onclick');
+                                            this.props.utilActions.fetchAdminPngPages(
+                                                this.props.miljo,
+                                                brevdata.brevdataId
+                                            );
+                                            this.props.actions.setAdminShowModal(
+                                                true
+                                            );
+                                            this.props.actions.setAdminBrevdataId(
+                                                brevdata.brevdataId
+                                            );
                                         }}
-
-
                                     >
                                         Rediger maskering
                                     </Button>
@@ -84,7 +94,10 @@ class AdminBrevdata extends React.Component {
                             <Modal.Title>Bekreft sletting</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <h4>Ønsker du å slette brevdata {this.state.beskrivelse}?</h4>
+                            <h4>
+                                Ønsker du å slette brevdata{' '}
+                                {this.state.beskrivelse}?
+                            </h4>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button
@@ -124,8 +137,6 @@ function mapDispatchToProps(dispatch) {
     return {
         utilActions: bindActionCreators(adminActionsUtil, dispatch),
         actions: bindActionCreators(adminActions, dispatch)
-
-
     };
 }
 

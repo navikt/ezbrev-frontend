@@ -5,7 +5,7 @@ import ReactLoading from 'react-loading';
 class SpinningWheel extends React.Component {
     render() {
         if (this.props.isLoading) {
-            return <ReactLoading type="spin"/>;
+            return <ReactLoading type="spin" />;
         } else {
             return null;
         }

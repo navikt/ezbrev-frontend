@@ -21,7 +21,6 @@ const rootReducer = combineReducers({
     inspection,
     inspectionDataReducer,
     admin,
-    inspectionDataReducer,
     ping,
     loading
 });

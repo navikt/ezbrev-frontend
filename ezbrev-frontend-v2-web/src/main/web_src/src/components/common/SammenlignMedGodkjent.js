@@ -23,9 +23,8 @@ class SammenlignMedGodkjent extends React.Component {
             line.substring(0, 3) === '---'
         ) {
             return <p className="grey-text-line">{line}</p>;
-        }else{
-            return(
-            <p> {line}</p>)
+        } else {
+            return <p> {line}</p>;
         }
     }
 
@@ -38,9 +37,7 @@ class SammenlignMedGodkjent extends React.Component {
                 <ImageCarousel
                     ref={'imageCarousel'}
                     title={`Sammenligning
-                     - Antall pixelfeil: ${
-                        this.props.sammenlignInfo.errors
-                    }`}
+                     - Antall pixelfeil: ${this.props.sammenlignInfo.errors}`}
                     pages={this.props.sammenlignInfo.sider}
                 >
                     <div>
@@ -59,7 +56,13 @@ class SammenlignMedGodkjent extends React.Component {
                             </dl>
                         </div>
                         <div className="pull-right">
-                            <Button onClick={this.openDiffModal.bind(this)} disabled={this.props.sammenlignInfo.textErrorCount===0}>
+                            <Button
+                                onClick={this.openDiffModal.bind(this)}
+                                disabled={
+                                    this.props.sammenlignInfo.textErrorCount ===
+                                    0
+                                }
+                            >
                                 Vis tekstendringer
                             </Button>
                         </div>

@@ -37,10 +37,10 @@ export default function brevdataReducer(state = initialState, action) {
                 isRedigertInternal: action.isRedigertInternal
             };
         case types.RESET_BREVDATA_ID:
-            return{
+            return {
                 ...state,
-                brevdataId:action.brevdataId
-            }
+                brevdataId: action.brevdataId
+            };
 
         default:
             return state;

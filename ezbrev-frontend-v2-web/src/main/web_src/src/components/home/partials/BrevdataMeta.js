@@ -30,7 +30,11 @@ class BrevdataMeta extends React.Component {
         this.props.actionsMenyValg.setRegisterCheckbox(e);
     };
     showBrevdataList = () => {
-        if (this.props.brevdataList.length === 0 && this.props.brevmal !== ''&&!this.props.isLoading) {
+        if (
+            this.props.brevdataList.length === 0 &&
+            this.props.brevmal !== '' &&
+            !this.props.isLoading
+        ) {
             return (
                 <div>
                     <br />
@@ -97,9 +101,7 @@ class BrevdataMeta extends React.Component {
                             </MenuItem>
                         </DropdownButton>
                     </Row>
-                    <Row>
-                        {this.showBrevdataList()}
-                    </Row>
+                    <Row>{this.showBrevdataList()}</Row>
                     <Row>
                         <div className="flex-row center-vertically">
                             <Checkbox
@@ -160,7 +162,7 @@ function mapStateToProps(state, ownProps) {
         brevdataBeskrivelse: state.brevdataReducer.beskrivelse,
         brevmal: state.menyValg.brevmal,
         brevdataId: state.brevdataReducer.brevdataId,
-        isLoading:state.loading.isLoading
+        isLoading: state.loading.isLoading
     };
 }
 

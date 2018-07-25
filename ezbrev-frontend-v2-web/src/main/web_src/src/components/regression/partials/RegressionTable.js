@@ -24,7 +24,7 @@ class RegressionTable extends React.Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        brevmalList: state.regressjonReducer.regressjonBrevmalList,
+        brevmalList: state.regressjonReducer.regressjonBrevmalList
     };
 }
 

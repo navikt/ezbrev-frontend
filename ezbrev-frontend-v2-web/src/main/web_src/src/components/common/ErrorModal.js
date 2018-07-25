@@ -13,16 +13,11 @@ class ErrorModal extends React.Component {
         if (this.props.showModal) {
             return (
                 <div>
-                    <Modal
-                        show={this.props.showModal}
-                        onHide={this.close}
-                    >
+                    <Modal show={this.props.showModal} onHide={this.close}>
                         <Modal.Header closeButton>
-                            {"Error:" + " " +this.props.modalTitle}
+                            {'Error:' + ' ' + this.props.modalTitle}
                         </Modal.Header>
-                        <Modal.Title>
-
-                        </Modal.Title>
+                        <Modal.Title />
                         <Modal.Body>{this.props.modalBody}</Modal.Body>
                     </Modal>
                 </div>

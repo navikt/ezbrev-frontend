@@ -123,7 +123,7 @@ function mapDispatchToProps(dispatch) {
         actions: bindActionCreators(inspectionActions, dispatch),
         pingActions: bindActionCreators(pingActions, dispatch),
         errorActions: bindActionCreators(errorActions, dispatch),
-        loadingActions:bindActionCreators(loadingActions,dispatch)
+        loadingActions: bindActionCreators(loadingActions, dispatch)
 
         /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
     };

@@ -10,7 +10,6 @@ import Ping from './Ping';
 import SpinningWheel from './SpinningWheel';
 
 class Header extends React.Component {
-
     logIn = () =>
         this.props.miljoList.length === 0 ? (
             <a>
@@ -86,8 +85,8 @@ class Header extends React.Component {
                                 </li>
                                 <li>{this.logIn()}</li>
                             </ul>
-                            <SpinningWheel/>
-                            <Ping/>
+                            <SpinningWheel />
+                            <Ping />
                         </div>
                     </div>
                 </nav>

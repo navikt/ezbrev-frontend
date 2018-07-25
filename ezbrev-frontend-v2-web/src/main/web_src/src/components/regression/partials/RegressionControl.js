@@ -10,7 +10,6 @@ import ListItem from '../../common/ListItem';
 import { getRegressionObjects } from '~/components/regression/partials/RegressionUtil';
 import { getPingByEnv } from '../../../api';
 import BrevpakkeListListener from './BrevpakkeListListener';
-import * as menyValgActionsUtil from '../../../actions/menyValgActionsUtil';
 import { setBrevpakkeVersjon } from '../../../actions/regressionActions';
 
 class RegressionControl extends React.Component {

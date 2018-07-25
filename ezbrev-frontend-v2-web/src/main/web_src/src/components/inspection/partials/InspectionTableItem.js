@@ -1,7 +1,4 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import * as inspectionActions from '~/actions/InspectionActions';
-import { connect } from 'react-redux';
 import { Col, Panel, Row } from 'react-bootstrap';
 
 export default function InspectionDocumentItem({ header, data }) {
@@ -9,14 +6,10 @@ export default function InspectionDocumentItem({ header, data }) {
         <Panel>
             <Panel.Heading>
                 <Row>
-                    <Col md={12}>
-                        {header}
-                    </Col>
+                    <Col md={12}>{header}</Col>
                 </Row>
             </Panel.Heading>
-            <Panel.Body>
-                {data}
-            </Panel.Body>
+            <Panel.Body>{data}</Panel.Body>
         </Panel>
     );
 }

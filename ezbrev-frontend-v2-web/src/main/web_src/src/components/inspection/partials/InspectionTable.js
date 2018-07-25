@@ -7,7 +7,7 @@ import InspectionTableItem from '~/components/inspection/partials/InspectionTabl
 import InspectionDokument from '~/components/inspection/partials/InspectionDokument';
 
 class InspectionTable extends React.Component {
-    mapDocuments = (documentArray,showXML) => {
+    mapDocuments = (documentArray, showXML) => {
         return documentArray.map(document => (
             <InspectionDokument
                 key={document.dokumentInfoId}
@@ -18,12 +18,12 @@ class InspectionTable extends React.Component {
     };
 
     mapJournalposts = () => {
-        let showXML=(this.props.inspectionData.journalposts.length===1);
+        let showXML = this.props.inspectionData.journalposts.length === 1;
         return this.props.inspectionData.journalposts.map(journalpost => (
             <InspectionTableItem
                 key={journalpost.journalpostId}
                 header={'JournalId ' + journalpost.journalpostId}
-                data={this.mapDocuments(journalpost.dokuments,showXML)}
+                data={this.mapDocuments(journalpost.dokuments, showXML)}
             />
         ));
     };
@@ -44,7 +44,10 @@ class InspectionTable extends React.Component {
                 </Col>
             );
         } else {
-            if (this.props.inspectionData.mottakerId === null&&this.props.isLoading===false) {
+            if (
+                this.props.inspectionData.mottakerId === null &&
+                this.props.isLoading === false
+            ) {
                 return <div>Fant ikke XML</div>;
             } else {
                 return <div />;

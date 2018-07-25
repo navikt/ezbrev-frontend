@@ -1,8 +1,7 @@
 import React from 'react';
 import RegressionControl from './partials/RegressionControl';
 import RegressionTable from './partials/RegressionTable';
-import { Button, Col, DropdownButton, MenuItem, Row } from 'react-bootstrap';
-import SammenlignMedGodkjent from "~/components/common/SammenlignMedGodkjent";
+import SammenlignMedGodkjent from '~/components/common/SammenlignMedGodkjent';
 
 class RegressionPage extends React.Component {
     render() {
@@ -10,7 +9,7 @@ class RegressionPage extends React.Component {
             <main className="container-fluid pageSize">
                 <RegressionControl />
                 <RegressionTable />
-                <SammenlignMedGodkjent/>
+                <SammenlignMedGodkjent />
             </main>
         );
     }

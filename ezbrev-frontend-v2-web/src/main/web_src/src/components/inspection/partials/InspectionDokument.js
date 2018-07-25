@@ -39,9 +39,7 @@ export default class InspectionDocument extends React.Component {
                 <Col sm={2}>{mal}</Col>
                 <Col sm={2}>
                     <CopyToClipboard text={xml}>
-                        <Button
-                            className="fill"
-                        >Kopier til clipboard</Button>
+                        <Button className="fill">Kopier til clipboard</Button>
                     </CopyToClipboard>
                 </Col>
                 <Col sm={2}>
