@@ -80,12 +80,7 @@ export function setAdminActivePage(activePage) {
     };
 }
 
-export function setMaskList(maskList) {
-    return {
-        type: types.SET_ADMIN_MASKLIST,
-        maskList: maskList
-    };
-}
+
 export function setAdminChanged(changed) {
     return {
         type: types.SET_ADMIN_CHANGED,

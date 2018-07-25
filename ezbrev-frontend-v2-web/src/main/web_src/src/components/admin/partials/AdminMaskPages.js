@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Col, Grid, Image, Row, Modal } from 'react-bootstrap';
-import { Space } from '../../common/scaffolding';
+import { Space } from '../../common/Scaffolding';
 import * as adminActions from '~/actions/adminActions';
 import ReactCrop, { makeAspectCrop } from 'react-image-crop';
 import { connect } from 'react-redux';
