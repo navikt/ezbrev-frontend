@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-    ButtonGroup, Col,
+    ButtonGroup,
+    Col,
     DropdownButton,
     FormControl,
     MenuItem,
@@ -36,12 +37,11 @@ class BrevpakkeSelect extends React.Component {
                         <ButtonGroup className="btn-fill padding-right">
                             <ListItem
                                 className="btn-fill"
-                                title={"Miljø:" + this.props.miljo}
+                                title={'Miljø:' + this.props.miljo}
                                 id="brevpakke_env_pick"
                                 func={miljo => {
                                     this.props.actions.setMiljo(miljo);
                                     this.props.utilActions.selectMiljo(miljo);
-                                    this.props.actionsDok.setDokument('');
                                     getPingByEnv(miljo).then(ping =>
                                         this.props.pingActions.setPing(ping)
                                     );
@@ -105,7 +105,6 @@ class BrevpakkeSelect extends React.Component {
                                     this.props.brevpakke
                                 );
                                 this.props.actions.setBrevmal(brevmal);
-                                this.props.actionsDok.setDokument('');
                             }}
                         >
                             {this.props.brevmalList.map(i => (
@@ -117,7 +116,7 @@ class BrevpakkeSelect extends React.Component {
                                         ' - ' +
                                         i.dokumentTittel}{' '}
                                 </MenuItem>
-                            )) /*mulig at vi må ha annen eventKey her. Feilmelding: missing key prop for element in iterator*/}
+                            ))}
                         </DropdownButton>
                     </Row>
                 </div>

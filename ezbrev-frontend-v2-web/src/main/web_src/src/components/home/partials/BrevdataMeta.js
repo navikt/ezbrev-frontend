@@ -28,6 +28,44 @@ class BrevdataMeta extends React.Component {
         this.props.actionsMenyValg.setRegisterCheckbox(e);
     };
 
+    showBrevdataList = () => {
+        if (this.props.brevdataList.length === 0 && this.props.brevmal !== '') {
+            return (
+                <div>
+                    <br />
+                    <p>Ingen brevdata funnet</p>
+                </div>
+            );
+        } else {
+            return (
+                <div className="list-group" id="brevdata_pick">
+                    {this.props.brevdataList.map(i => (
+                        <ListGroupItem
+                            type="button "
+                            className="list-group-item"
+                            key={i.brevdataId}
+                            onClick={() => {
+                                this.props.utilActions.selectBrevdata(
+                                    i.brevdataId
+                                );
+                                this.props.actionsDok.setDokument('');
+                            }}
+                            disabled={this.props.brevmal === ''}
+                            active={i.brevdataId === this.props.brevdataId}
+                        >
+                            {i.beskrivelse}
+                            {' - '}
+                            {'id: '}
+                            {i.brevdataId}
+                            <br />
+                            {'Opprettet: '}
+                            {i.changeStamp.opprettetDato}{' '}
+                        </ListGroupItem>
+                    ))}
+                </div>
+            );
+        }
+    };
     render() {
         return (
             <section className="col-md-3 float-left">
@@ -54,31 +92,7 @@ class BrevdataMeta extends React.Component {
                         Eldste først
                     </MenuItem>
                 </DropdownButton>
-                <div className="list-group" id="brevdata_pick">
-                    {this.props.brevdataList.map(i => (
-                        <ListGroupItem
-                            type="button "
-                            className="list-group-item"
-                            key={i.brevdataId}
-                            onClick={() => {
-                                this.props.utilActions.selectBrevdata(
-                                    i.brevdataId
-                                );
-                                this.props.actionsDok.setDokument('');
-                            }}
-                            disabled={this.props.brevmal === ''}
-                            active={i.brevdataId === this.props.brevdataId}
-                        >
-                            {i.beskrivelse}
-                            {' - '}
-                            {'id: '}
-                            {i.brevdataId}
-                            <br />
-                            {'Opprettet: '}
-                            {i.changeStamp.opprettetDato}{' '}
-                        </ListGroupItem>
-                    ))}
-                </div>
+                {this.showBrevdataList()}
                 <div className="flex-row center-vertically">
                     <Checkbox
                         title="Bruk registerinformasjon"

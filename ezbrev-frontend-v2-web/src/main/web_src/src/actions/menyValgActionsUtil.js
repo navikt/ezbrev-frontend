@@ -4,6 +4,7 @@ import * as api from '~/api';
 import { getBrevdataInBrevpakke } from '~/api';
 import * as regressionActions from '~/actions/regressionActions';
 import {setIsLoading} from "./loadingActions";
+import * as actionsDok from '~/actions/dokumentActions';
 
 export function fetchMiljoList() {
     return function(dispatch) {
@@ -57,6 +58,7 @@ export function selectMiljo(miljo, action = actions.setBrevInfo) {
             .getBrevInfo(miljo)
             .then(json => {
                 dispatch(action(json));
+                dispatch(actionsDok.setDokument(''));
             })
             .catch(error => {
                 dispatch(setIsLoading(false));
@@ -76,6 +78,7 @@ export function selectBrevmal(brevmal, brevpakke) {
             .getBrevdataList(brevmal, brevpakke)
             .then(brevdataList => {
                 dispatch(actions.setBrevdataList(brevdataList));
+                dispatch(actionsDok.setDokument(''));
             })
             .catch(error => {
                 dispatch(setIsLoading(false));
