@@ -1,19 +1,16 @@
 import React from 'react';
-import {connect} from "react-redux";
+import { connect } from 'react-redux';
 import ReactLoading from 'react-loading';
 
-class SpinningWheel extends React.Component{
-    render(){
-        if (this.props.isLoading){
-            return(
-            <ReactLoading type='spin'/>
-            )}
-            else{
-            return(null)
+class SpinningWheel extends React.Component {
+    render() {
+        if (this.props.isLoading) {
+            return <ReactLoading type="spin"/>;
+        } else {
+            return null;
         }
     }
-};
-
+}
 
 function mapStateToProps(state, ownProps) {
     return {
@@ -21,8 +18,4 @@ function mapStateToProps(state, ownProps) {
     };
 }
 
-
-
-export default connect(
-    mapStateToProps
-)(SpinningWheel);
+export default connect(mapStateToProps)(SpinningWheel);

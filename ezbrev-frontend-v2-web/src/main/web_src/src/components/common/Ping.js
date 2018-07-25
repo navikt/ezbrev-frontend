@@ -1,7 +1,7 @@
 import React from 'react';
-import {Glyphicon, OverlayTrigger, Popover} from 'react-bootstrap';
-import {connect} from 'react-redux';
-import PingInfo from "./PingInfo";
+import { Glyphicon, OverlayTrigger, Popover } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import PingInfo from './PingInfo';
 
 class Ping extends React.Component {
     popoverClick = () => {
@@ -11,17 +11,23 @@ class Ping extends React.Component {
             </Popover>
         );
     };
-    pingIcon=()=>{
-        if (this.props.error){
-            return(
-                <Glyphicon glyph="glyphicon glyphicon-remove" className="glyph-fail "/>
-            )
-        }else{
-            return(
-                <Glyphicon glyph="glyphicon glyphicon-ok" className="glyph-success"/>
-            )
+    pingIcon = () => {
+        if (this.props.error) {
+            return (
+                <Glyphicon
+                    glyph="glyphicon glyphicon-remove"
+                    className="glyph-fail "
+                />
+            );
+        } else {
+            return (
+                <Glyphicon
+                    glyph="glyphicon glyphicon-ok"
+                    className="glyph-success"
+                />
+            );
         }
-    }
+    };
     render() {
         return (
             <OverlayTrigger
@@ -30,10 +36,7 @@ class Ping extends React.Component {
                 overlay={this.popoverClick()}
             >
                 <div>
-
-                    <a className="ping">
-                        {this.pingIcon()}
-                    </a>
+                    <a className="ping">{this.pingIcon()}</a>
                 </div>
             </OverlayTrigger>
         );

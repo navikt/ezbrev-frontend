@@ -48,7 +48,7 @@ export function fetchBrevpakkeVersjon(miljo,brevpakke,action){
 export function startRegressionTest(
     regressionObjects,
     env,
-    numberOfObjInParaelell = 1
+    numberOfBrevtadaToTestSimultaneously = 2
 ) {
     return function(dispatch) {
         let prosenter = {};
@@ -62,7 +62,7 @@ export function startRegressionTest(
         );
         chainMultipleRegressionObjects(
             regressionObjects,
-            numberOfObjInParaelell,
+            numberOfBrevtadaToTestSimultaneously,
             env,
             prosenter,
             dispatch
@@ -86,15 +86,15 @@ function chainMultipleRegressionObjects(
                 env,
                 prosenter
             );
-            promise.then(x =>
-                dispatch(
-                    regressionActions.setRegressionSimilarity(
-                        JSON.parse(JSON.stringify(prosenter))
-                    )
-                )
-            );
             return promise;
         });
+        chain.then(x =>
+            dispatch(
+                regressionActions.setRegressionSimilarity(
+                    JSON.parse(JSON.stringify(prosenter))
+                )
+            )
+        );
     }
 }
 

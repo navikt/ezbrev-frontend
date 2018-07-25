@@ -44,7 +44,7 @@ class InspectionTable extends React.Component {
                 </Col>
             );
         } else {
-            if (this.props.inspectionData.mottakerId === null) {
+            if (this.props.inspectionData.mottakerId === null&&this.props.isLoading===false) {
                 return <div>Fant ikke XML</div>;
             } else {
                 return <div />;
@@ -55,7 +55,8 @@ class InspectionTable extends React.Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        inspectionData: state.inspectionDataReducer.inspectionData
+        inspectionData: state.inspectionDataReducer.inspectionData,
+        isLoading: state.loading.isLoading
     };
 }
 

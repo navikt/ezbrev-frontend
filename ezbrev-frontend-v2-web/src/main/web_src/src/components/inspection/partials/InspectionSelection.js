@@ -8,6 +8,7 @@ import FormItem from '~/components/inspection/partials/FormItem';
 import * as api from '~/api';
 import * as pingActions from '~/actions/pingActions';
 import * as errorActions from '~/actions/errorActions';
+import * as loadingActions from '~/actions/loadingActions';
 import { getPingByEnv } from '../../../api';
 
 class InspectionSelection extends React.Component {
@@ -42,7 +43,7 @@ class InspectionSelection extends React.Component {
     };
 
     getXml = () => {
-        this.props.actions.setInspectionData({});
+        this.props.loadingActions.setIsLoading(true);
         this.setData(this.props.mottakerId, api.getXmlByMottakerId);
         this.setData(this.props.journalpostId, api.getXmlByJournalpostId);
         this.setData(this.props.dokumentinfoId, api.getXmlByDokumentInfoId);
@@ -121,7 +122,8 @@ function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators(inspectionActions, dispatch),
         pingActions: bindActionCreators(pingActions, dispatch),
-        errorActions: bindActionCreators(errorActions, dispatch)
+        errorActions: bindActionCreators(errorActions, dispatch),
+        loadingActions:bindActionCreators(loadingActions,dispatch)
 
         /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
     };
