@@ -11,7 +11,7 @@ import { getRegressionObjects } from '~/components/regression/partials/Regressio
 import { getPingByEnv } from '../../../api';
 import BrevpakkeListListener from './BrevpakkeListListener';
 import * as menyValgActionsUtil from '../../../actions/menyValgActionsUtil';
-import {setBrevpakkeVersjon} from "../../../actions/regressionActions";
+import { setBrevpakkeVersjon } from '../../../actions/regressionActions';
 
 class RegressionControl extends React.Component {
     constructor(props) {
@@ -19,7 +19,9 @@ class RegressionControl extends React.Component {
 
         if (Object.keys(this.props.brevdataList).length === 0) {
             const miljo = localStorage.getItem('regressionMiljo');
-            miljo !== null ? this.selectMiljo(miljo) : '';
+            if (miljo !== null) {
+                this.selectMiljo(miljo);
+            }
         }
     }
 
@@ -59,7 +61,6 @@ class RegressionControl extends React.Component {
             brevmalList,
             brevmalIds
         );
-        console.log("i update brevpakke")
         this.props.utilActions.fetchBrevpakkeVersjon(
             this.props.miljo,
             brevpakke,

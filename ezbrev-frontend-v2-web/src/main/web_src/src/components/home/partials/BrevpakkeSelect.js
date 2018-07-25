@@ -17,8 +17,21 @@ import * as pingActions from '../../../actions/pingActions';
 import ListItem from '../../common/ListItem';
 import FormItem from '~/components/inspection/partials/FormItem';
 import { getPingByEnv } from '../../../api';
+import BrevpakkeListListener from './BrevpakkeListListener';
+import BrevmalListListener from './BrevmalListListener';
 
 class BrevpakkeSelect extends React.Component {
+    constructor(props) {
+        super(props);
+
+        if (this.props.brevpakkeList.length === 0) {
+            const miljo = localStorage.getItem('miljo');
+            if (miljo !== null) {
+                this.selectMiljo(miljo);
+            }
+        }
+    }
+
     setTitleName() {
         if (this.props.brevmal === undefined || this.props.brevmal === '') {
             return 'Brevmal: ';
@@ -29,6 +42,32 @@ class BrevpakkeSelect extends React.Component {
         }
     }
 
+    selectMiljo = miljo => {
+        this.props.actions.setMiljo(miljo);
+        this.props.utilActions.selectMiljo(miljo);
+        this.props.actionsBrevdata.resetBrevdataId('');
+        getPingByEnv(miljo).then(ping => this.props.pingActions.setPing(ping));
+    };
+
+    selectBrevpakke = brevpakke => {
+        let brevInfo = this.props.brevInfo;
+        let miljo = this.props.miljo;
+        this.props.utilActions.selectBrevpakke(brevpakke, brevInfo);
+        this.props.utilActions.fetchBrevpakkeVersjon(miljo, brevpakke);
+        this.props.actions.setBrevpakke(brevpakke);
+        this.props.actionsDok.setDokument('');
+        this.props.actionsBrevdata.resetBrevdataId('');
+    };
+
+    selectBrevmal = brevmal => {
+        this.props.utilActions.selectBrevmal(
+            brevmal.malID,
+            this.props.brevpakke
+        );
+        this.props.actions.setBrevmal(brevmal);
+        this.props.actionsBrevdata.resetBrevdataId('');
+    };
+
     render() {
         return (
             <Col md={3}>
@@ -37,16 +76,9 @@ class BrevpakkeSelect extends React.Component {
                         <ButtonGroup className="btn-fill padding-right">
                             <ListItem
                                 className="btn-fill"
-                                title={'Miljø:' + this.props.miljo}
+                                title={'Miljø: ' + this.props.miljo}
                                 id="brevpakke_env_pick"
-                                func={miljo => {
-                                    this.props.actions.setMiljo(miljo);
-                                    this.props.utilActions.selectMiljo(miljo);
-                                    this.props.actionsBrevdata.resetBrevdataId('');
-                                    getPingByEnv(miljo).then(ping =>
-                                        this.props.pingActions.setPing(ping)
-                                    );
-                                }}
+                                func={miljo => this.selectMiljo(miljo)}
                                 list={this.props.miljoList}
                             />
                         </ButtonGroup>
@@ -60,24 +92,9 @@ class BrevpakkeSelect extends React.Component {
                                     bsStyle="fill"
                                     title={'Brevpakke: ' + this.props.brevpakke}
                                     id="brevpakke_pick"
-                                    func={brevpakke => {
-                                        let brevInfo = this.props.brevInfo;
-                                        let miljo = this.props.miljo;
-                                        this.props.utilActions.selectBrevpakke(
-                                            brevpakke,
-                                            brevInfo
-                                        );
-                                        this.props.utilActions.fetchBrevpakkeVersjon(
-                                            miljo,
-                                            brevpakke
-                                        );
-                                        this.props.actions.setBrevpakke(
-                                            brevpakke
-                                        );
-                                        this.props.actionsDok.setDokument('');
-                                        this.props.actionsBrevdata.resetBrevdataId('');
-
-                                    }}
+                                    func={brevpakke =>
+                                        this.selectBrevpakke(brevpakke)
+                                    }
                                     list={this.props.brevpakkeList}
                                     isDisabled={this.props.miljo === ''}
                                 />
@@ -94,6 +111,9 @@ class BrevpakkeSelect extends React.Component {
                                 />
                             </div>
                         </div>
+                        <BrevpakkeListListener
+                            selectBrevpakke={this.selectBrevpakke}
+                        />
                     </Row>
                     <br />
                     <Row className="padding-right">
@@ -102,15 +122,7 @@ class BrevpakkeSelect extends React.Component {
                             disabled={this.props.brevpakke === ''}
                             title={this.setTitleName()}
                             id={'brevpakke_mal_pick'}
-                            onSelect={brevmal => {
-                                this.props.utilActions.selectBrevmal(
-                                    brevmal.malID,
-                                    this.props.brevpakke
-                                );
-                                this.props.actions.setBrevmal(brevmal);
-                                this.props.actionsBrevdata.resetBrevdataId('');
-
-                            }}
+                            onSelect={brevmal => this.selectBrevmal(brevmal)}
                         >
                             {this.props.brevmalList.map(i => (
                                 <MenuItem key={i.malID} eventKey={i}>
@@ -123,6 +135,9 @@ class BrevpakkeSelect extends React.Component {
                                 </MenuItem>
                             ))}
                         </DropdownButton>
+                        <BrevmalListListener
+                            selectBrevmal={this.selectBrevmal}
+                        />
                     </Row>
                 </div>
             </Col>

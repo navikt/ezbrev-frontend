@@ -32,7 +32,6 @@ function sortBevmalList(list) {
     });
 }
 function compareFunction(a, b, sortingKey) {
-    console.log(b);
     if (sortingKey === 1) {
         return (
             new Date(b.changeStamp.opprettetDato) -
@@ -99,6 +98,7 @@ export default function menyValgReducer(state = initialState, action) {
                 brevdataList: [...state.brevdataList, action.brevdata]
             };
         case types.SET_MILJO:
+            localStorage.setItem('miljo', action.miljo);
             return {
                 ...state,
                 miljo: action.miljo,
@@ -106,16 +106,27 @@ export default function menyValgReducer(state = initialState, action) {
                 brevmal: '',
                 brevpakkeVersjon: '',
                 brevmalList: [],
-                brevdataList: []
+                brevdataList: [],
+                brevpakkeList: []
             };
         case types.SET_BREVPAKKE:
-            return {
-                ...state,
-                brevpakke: action.brevpakke,
-                brevmal: '',
-                brevdataList: []
-            };
+            localStorage.setItem('brevpakke', action.brevpakke);
+            if (state.brevdataList.length !== 0) {
+                return {
+                    ...state,
+                    brevpakke: action.brevpakke,
+                    brevmal: '',
+                    brevdataList: [],
+                    brevmalList: []
+                };
+            } else {
+                return {
+                    ...state,
+                    brevpakke: action.brevpakke
+                };
+            }
         case types.SET_BREVMAL:
+            localStorage.setItem('brevmal', JSON.stringify(action.brevmal));
             return {
                 ...state,
                 brevmal: action.brevmal,

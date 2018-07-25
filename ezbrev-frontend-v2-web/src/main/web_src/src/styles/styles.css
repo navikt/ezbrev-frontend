@@ -251,3 +251,11 @@ code.xml{
     text-align: center;
 }
 
+.padding-left{
+    padding-left: 15px;
+}
+
+.clickable:hover {
+    cursor: pointer;
+    cursor: hand;
+}

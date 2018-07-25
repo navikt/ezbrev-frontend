@@ -8,12 +8,16 @@ const serverUrl = 'https://ezbrev-backend-q4.nais.preprod.local';
 function sortList(list) {
     let sortedList = [];
     for (let i = 0; i < list.length; i++) {
-        if (list[i][0] === 'q') {
+        if (list[i][0] === 'q' || list[i][0] === 't') {
             sortedList.push(list[i]);
         }
     }
     sortedList.sort(function(a, b) {
-        if (parseInt(a.slice(1), 10) > parseInt(b.slice(1), 10)) {
+        if (a[0] > b[0]) {
+            return 1;
+        } else if (a[0] < b[0]) {
+            return -1;
+        } else if (parseInt(a.slice(1), 10) > parseInt(b.slice(1), 10)) {
             return 1;
         } else {
             return -1;

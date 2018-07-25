@@ -2,9 +2,11 @@ import React from 'react';
 import {
     Button,
     Checkbox,
+    Col,
     DropdownButton,
     ListGroupItem,
-    MenuItem
+    MenuItem,
+    Row
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import * as brevdataActionsUtil from '~/actions/brevdataActionsUtil';
@@ -27,7 +29,6 @@ class BrevdataMeta extends React.Component {
     toggleCheckbox = e => {
         this.props.actionsMenyValg.setRegisterCheckbox(e);
     };
-
     showBrevdataList = () => {
         if (this.props.brevdataList.length === 0 && this.props.brevmal !== ''&&!this.props.isLoading) {
             return (
@@ -66,68 +67,85 @@ class BrevdataMeta extends React.Component {
             );
         }
     };
+
     render() {
         return (
-            <section className="col-md-3 float-left">
-                <DropdownButton
-                    title={this.state.sortBy}
-                    className={'btn btn-fill'}
-                    id="brevdata_sorter"
-                    onSelect={sortingKey => {
-                        this.setState({
-                            sortBy:
-                                sortingKey === '1'
-                                    ? 'Nyeste først'
-                                    : 'Eldste først'
-                        });
-                        return this.props.actionsMenyValg.sortBrevdataList(
-                            sortingKey
-                        );
-                    }}
-                >
-                    <MenuItem key="1" eventKey="1">
-                        Nyeste først
-                    </MenuItem>
-                    <MenuItem key="2" eventKey="2">
-                        Eldste først
-                    </MenuItem>
-                </DropdownButton>
-                {this.showBrevdataList()}
-                <div className="flex-row center-vertically">
-                    <Checkbox
-                        title="Bruk registerinformasjon"
-                        validationState="success"
-                        defaultChecked={false}
-                        onClick={e => this.toggleCheckbox(e.target.checked)}
-                    />
-                    Bruk registerinformasjon
+            <Col md={3}>
+                <div className="padding-left">
+                    <Row>
+                        <DropdownButton
+                            title={this.state.sortBy}
+                            className={'btn btn-fill'}
+                            id="brevdata_sorter"
+                            onSelect={sortingKey => {
+                                this.setState({
+                                    sortBy:
+                                        sortingKey === '1'
+                                            ? 'Nyeste først'
+                                            : 'Eldste først'
+                                });
+                                return this.props.actionsMenyValg.sortBrevdataList(
+                                    sortingKey
+                                );
+                            }}
+                        >
+                            <MenuItem key="1" eventKey="1">
+                                Nyeste først
+                            </MenuItem>
+                            <MenuItem key="2" eventKey="2">
+                                Eldste først
+                            </MenuItem>
+                        </DropdownButton>
+                    </Row>
+                    <Row>
+                        {this.showBrevdataList()}
+                    </Row>
+                    <Row>
+                        <div className="flex-row center-vertically">
+                            <Checkbox
+                                title="Bruk registerinformasjon"
+                                validationState="success"
+                                defaultChecked={false}
+                                onClick={e =>
+                                    this.toggleCheckbox(e.target.checked)
+                                }
+                            />
+                            Bruk registerinformasjon
+                        </div>
+                    </Row>
+                    <br />
+                    <Row>
+                        <h5>Beskrivelse</h5>
+                    </Row>
+                    <Row>
+                        <textarea
+                            className="form-horizontal form-control"
+                            id="brevdata_beskrivele"
+                            placeholder="Fyll inn beskrivelse"
+                            value={this.props.brevdataBeskrivelse}
+                            onChange={event => {
+                                this.props.actions.changeBeskrivelse(
+                                    event.target.value
+                                );
+                            }}
+                        />
+                    </Row>
+                    <br />
+                    <Row>
+                        <Button
+                            className={'btn btn-fill'}
+                            onClick={() =>
+                                this.props.utilActionsDok.showLastApprovedPDF(
+                                    this.props.brevdataId
+                                )
+                            }
+                            disabled={this.props.brevdataId === ''}
+                        >
+                            Vis siste godkjente PDF
+                        </Button>
+                    </Row>
                 </div>
-                <br />
-                <h5>Beskrivelse</h5>
-                <textarea
-                    className="form-horizontal form-control"
-                    id="brevdata_beskrivele"
-                    placeholder="Fyll inn beskrivelse"
-                    value={this.props.brevdataBeskrivelse}
-                    onChange={event => {
-                        this.props.actions.changeBeskrivelse(
-                            event.target.value
-                        );
-                    }}
-                />
-                <br />
-                <Button
-                    className={'btn btn-fill'}
-                    onClick={() =>
-                        this.props.utilActionsDok.showLastApprovedPDF(
-                            this.props.brevdataId
-                        )
-                    }
-                    disabled={this.props.brevdataId === ''}
-                >
-                    Vis siste godkjente PDF
-                </Button>
-            </section>
+            </Col>
         );
     }
 }
