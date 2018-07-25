@@ -46,7 +46,7 @@ class BrevdataControl extends React.Component {
                             this.props.xmlInnhold
                         )
                             .then(
-                                this.props.actionsMenyvalg.setBrevdata(
+                                this.props.actionsBrevdata.setBrevdata(
                                     this.props.brevdataBeskrivelse,
                                     this.props.brevdataId,
                                     this.props.changeStampBrevdata,
@@ -205,7 +205,7 @@ function mapDispatchToProps(dispatch) {
         utilActionsBrevdata: bindActionCreators(brevdataActionsUtil, dispatch),
         actionsDok: bindActionCreators(dokumentActions, dispatch),
         actionsBrevdata: bindActionCreators(brevdataActions, dispatch),
-        actionsMenyvalg: bindActionCreators(menyValgActions, dispatch)
+        actionsMenyValg:bindActionCreators(menyValgActions,dispatch)
     };
 }
 

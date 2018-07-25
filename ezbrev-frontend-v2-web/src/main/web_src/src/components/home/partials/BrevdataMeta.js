@@ -29,7 +29,7 @@ class BrevdataMeta extends React.Component {
     };
 
     showBrevdataList = () => {
-        if (this.props.brevdataList.length === 0 && this.props.brevmal !== '') {
+        if (this.props.brevdataList.length === 0 && this.props.brevmal !== ''&&!this.props.isLoading) {
             return (
                 <div>
                     <br />
@@ -141,7 +141,8 @@ function mapStateToProps(state, ownProps) {
         brevdataList: state.menyValg.brevdataList,
         brevdataBeskrivelse: state.brevdataReducer.beskrivelse,
         brevmal: state.menyValg.brevmal,
-        brevdataId: state.brevdataReducer.brevdataId
+        brevdataId: state.brevdataReducer.brevdataId,
+        isLoading:state.loading.isLoading
     };
 }
 
