@@ -21,3 +21,7 @@ export function setIsRedigertInternal(isRedigertInternal) {
     return {type: types.SET_IS_REDIGERT_INTERNAL, isRedigertInternal:isRedigertInternal}
 
 }
+
+export function resetBrevdataId(brevdataId){
+    return {type:types.RESET_BREVDATA_ID, brevdataId:brevdataId}
+}

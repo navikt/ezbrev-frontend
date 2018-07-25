@@ -37,9 +37,8 @@ class SammenlignMedGodkjent extends React.Component {
             <div>
                 <ImageCarousel
                     ref={'imageCarousel'}
-                    title={`Godkjent versjon: ${
-                        this.props.sammenlignInfo.godkjentMalversjon
-                    } - Antall pixelfeil: ${
+                    title={`Sammenligning
+                     - Antall pixelfeil: ${
                         this.props.sammenlignInfo.errors
                     }`}
                     pages={this.props.sammenlignInfo.sider}

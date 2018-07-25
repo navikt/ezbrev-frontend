@@ -42,6 +42,7 @@ class BrevpakkeSelect extends React.Component {
                                 func={miljo => {
                                     this.props.actions.setMiljo(miljo);
                                     this.props.utilActions.selectMiljo(miljo);
+                                    this.props.actionsBrevdata.resetBrevdataId('');
                                     getPingByEnv(miljo).then(ping =>
                                         this.props.pingActions.setPing(ping)
                                     );
@@ -74,6 +75,8 @@ class BrevpakkeSelect extends React.Component {
                                             brevpakke
                                         );
                                         this.props.actionsDok.setDokument('');
+                                        this.props.actionsBrevdata.resetBrevdataId('');
+
                                     }}
                                     list={this.props.brevpakkeList}
                                     isDisabled={this.props.miljo === ''}
@@ -105,6 +108,8 @@ class BrevpakkeSelect extends React.Component {
                                     this.props.brevpakke
                                 );
                                 this.props.actions.setBrevmal(brevmal);
+                                this.props.actionsBrevdata.resetBrevdataId('');
+
                             }}
                         >
                             {this.props.brevmalList.map(i => (

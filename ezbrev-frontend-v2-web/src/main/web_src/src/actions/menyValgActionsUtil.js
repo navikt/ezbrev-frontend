@@ -5,6 +5,7 @@ import { getBrevdataInBrevpakke } from '~/api';
 import * as regressionActions from '~/actions/regressionActions';
 import {setIsLoading} from "./loadingActions";
 import * as actionsDok from '~/actions/dokumentActions';
+import * as actionsBrevdata from '~/actions/brevdataActions';
 
 export function fetchMiljoList() {
     return function(dispatch) {
