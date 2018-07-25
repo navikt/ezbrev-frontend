@@ -10,7 +10,7 @@ export default function converterReducer(state = initialState, action) {
         action.type
         ) {
         case types.SET_INPUT_XML:
-            return { ...state, inputXML:action.inputXML};
+            return { ...state, inputXML:action.inputXML, outputXML:(action.inputXML==='')?'':state.outputXML};
 
         case types.SET_OUTPUT_XML:
             return { ...state, outputXML:action.outputXML};
