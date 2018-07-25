@@ -109,7 +109,7 @@ if (TARGET === 'build') {
     webpackConfig.output = {
         path: path.join(__dirname, outputDir.production),
         filename: 'bundle.js',
-        publicPath: '/' + outputDir.production + '/'
+        publicPath: '/'
     };
 }
 
