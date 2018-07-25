@@ -62,7 +62,8 @@ class BrevdataControl extends React.Component {
                     }}
                     disabled={
                         this.props.brevmal === '' ||
-                        this.props.xmlInnhold === ''
+                        this.props.xmlInnhold === '' ||
+                        this.props.brevdataId === ''
                     }
                 >
                     Oppdater
@@ -171,7 +172,8 @@ class BrevdataControl extends React.Component {
                     }}
                     disabled={
                         this.props.brevmal === '' ||
-                        this.props.xmlInnhold === ''
+                        this.props.xmlInnhold === '' ||
+                        this.props.brevdataId === ''
                     }
                 >
                     Sammenlign med godkjent
@@ -205,7 +207,7 @@ function mapDispatchToProps(dispatch) {
         utilActionsBrevdata: bindActionCreators(brevdataActionsUtil, dispatch),
         actionsDok: bindActionCreators(dokumentActions, dispatch),
         actionsBrevdata: bindActionCreators(brevdataActions, dispatch),
-        actionsMenyValg:bindActionCreators(menyValgActions,dispatch)
+        actionsMenyValg: bindActionCreators(menyValgActions, dispatch)
     };
 }
 
