@@ -56,7 +56,7 @@ class XMLConverter extends React.Component {
                             rows="40"
                             className="inline-txtarea"
                             placeholder="Her kommer den konverterte XMLen"
-                            value={this.props.outputXML}
+                            value={this.props.outputXML                                                                                                                                                                         }
                         />
                     </div>
                     <br />
