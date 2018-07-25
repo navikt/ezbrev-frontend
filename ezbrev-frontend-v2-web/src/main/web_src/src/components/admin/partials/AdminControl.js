@@ -4,7 +4,9 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as adminActions from '~/actions/adminActions';
 import * as adminActionsUtil from '~/actions/adminActionsUtil';
+import * as pingActions from '../../../actions/pingActions';
 import ListItem from '../../common/ListItem';
+import { getPingByEnv } from '../../../api';
 
 
 class AdminControl extends React.Component {
@@ -50,6 +52,7 @@ class AdminControl extends React.Component {
                                 adminActions.setAdminBrevInfo
                             );
                             this.props.actions.setAdminMiljo(miljo);
+                            getPingByEnv(miljo).then(ping => this.props.pingActions.setPing(ping));
                         }}
                         list={this.props.miljoList}
                     />
@@ -100,6 +103,7 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
     return {
         utilActions: bindActionCreators(adminActionsUtil, dispatch),
+        pingActions: bindActionCreators(pingActions, dispatch),
         actions: bindActionCreators(adminActions, dispatch)
     }
 }

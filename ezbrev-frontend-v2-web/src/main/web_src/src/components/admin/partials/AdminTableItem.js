@@ -29,7 +29,7 @@ class AdminTableItem extends React.Component {
                 >
                     <Row>
                         <Col sm={6}>{item.malId}</Col>
-                        <Col sm={3}>{item.tittel}</Col>
+                        <Col sm={6}>{item.tittel}</Col>
                     </Row>
                 </Panel.Heading>
                 {this.state.isShown ? (

@@ -59,12 +59,13 @@ class RegressionTableItem extends React.Component {
         return (
             <Panel>
                 <Panel.Heading
+                    className="clickable"
                     onClick={() =>
                         this.setState({ isShown: !this.state.isShown })
                     }
                 >
                     <Row>
-                        <Col sm={8}>{item.malId}</Col>
+                        <Col sm={1}>{item.malId}</Col>
                         <Col sm={4}>{item.tittel}</Col>
                     </Row>
                 </Panel.Heading>
