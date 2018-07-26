@@ -1,9 +1,6 @@
-/**
- * Created by M153892 on 25.07.2018.
- */
 import React from 'react';
 import { connect } from 'react-redux';
-import * as _ from "lodash";
+import * as _ from 'lodash';
 
 class BrevmalListListener extends React.Component {
     componentDidUpdate = () => {

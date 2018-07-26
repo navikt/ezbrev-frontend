@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, FormControl, FormGroup, Row } from 'react-bootstrap';
+import { Button, Col, Row } from 'react-bootstrap';
 import ListItem from '~/components/common/ListItem';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -124,8 +124,6 @@ function mapDispatchToProps(dispatch) {
         pingActions: bindActionCreators(pingActions, dispatch),
         errorActions: bindActionCreators(errorActions, dispatch),
         loadingActions: bindActionCreators(loadingActions, dispatch)
-
-        /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
     };
 }
 

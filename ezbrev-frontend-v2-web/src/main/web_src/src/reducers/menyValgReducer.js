@@ -31,19 +31,6 @@ function sortBevmalList(list) {
         }
     });
 }
-function compareFunction(a, b, sortingKey) {
-    if (sortingKey === 1) {
-        return (
-            new Date(b.changeStamp.opprettetDato) -
-            new Date(a.changeStamp.opprettetDato)
-        );
-    } else {
-        return (
-            new Date(a.changeStamp.opprettetDato) -
-            new Date(b.changeStamp.opprettetDato)
-        );
-    }
-}
 
 function getBrevmalList(brevpakke, brevInfo) {
     let brevmalList = [];

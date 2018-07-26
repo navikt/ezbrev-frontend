@@ -150,7 +150,6 @@ function mapDispatchToProps(dispatch) {
         utilActions: bindActionCreators(regressionActionsUtil, dispatch),
         actions: bindActionCreators(regressionActions, dispatch),
         pingActions: bindActionCreators(pingActions, dispatch)
-        /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
     };
 }
 

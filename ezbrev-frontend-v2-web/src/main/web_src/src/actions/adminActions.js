@@ -80,7 +80,6 @@ export function setAdminActivePage(activePage) {
     };
 }
 
-
 export function setAdminChanged(changed) {
     return {
         type: types.SET_ADMIN_CHANGED,

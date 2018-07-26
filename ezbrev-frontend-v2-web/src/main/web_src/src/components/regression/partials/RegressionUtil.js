@@ -1,4 +1,4 @@
-export function getRegressionObjects(keys, brevdataList){
+export function getRegressionObjects(keys, brevdataList) {
     let regressionObjects = [];
     for (let i = 0; i < keys.length; i++) {
         if (brevdataList[keys[i]].length > 0) {
@@ -11,4 +11,4 @@ export function getRegressionObjects(keys, brevdataList){
         }
     }
     return regressionObjects;
-};
+}

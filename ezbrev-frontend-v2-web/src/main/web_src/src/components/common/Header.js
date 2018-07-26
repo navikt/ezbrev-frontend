@@ -1,11 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Button, OverlayTrigger, Popover } from 'react-bootstrap';
-import ReactLoading from 'react-loading';
+import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as Actions from '~/actions/menyValgActionsUtil';
-import ErrorModal from './ErrorModal';
 import Ping from './Ping';
 import SpinningWheel from './SpinningWheel';
 
@@ -29,6 +27,15 @@ class Header extends React.Component {
         ) : (
             <div />
         );
+    showAdmin = () => {
+        if (this.props.isAdmin) {
+            return (
+                <NavLink to="/admin" activeClassName="active">
+                    Admin
+                </NavLink>
+            );
+        }
+    };
 
     render() {
         return (
@@ -59,7 +66,6 @@ class Header extends React.Component {
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <ErrorModal />
                                     <NavLink
                                         to="/inspection"
                                         activeClassName="active"
@@ -75,14 +81,7 @@ class Header extends React.Component {
                                         XML Converter
                                     </NavLink>
                                 </li>
-                                <li>
-                                    <NavLink
-                                        to="/admin"
-                                        activeClassName="active"
-                                    >
-                                        Admin
-                                    </NavLink>
-                                </li>
+                                <li>{this.showAdmin()}</li>
                                 <li>{this.logIn()}</li>
                             </ul>
                             <SpinningWheel />
@@ -97,7 +96,8 @@ class Header extends React.Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        miljoList: state.menyValg.miljoList
+        miljoList: state.menyValg.miljoList,
+        isAdmin: state.admin.isAdmin
     };
 }
 

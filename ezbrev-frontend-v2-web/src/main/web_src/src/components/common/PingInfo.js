@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Grid, Panel, Row, ListGroupItem } from 'react-bootstrap';
+import { Col, Panel, Row, ListGroupItem } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '~/actions/pingActions';

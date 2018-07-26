@@ -1,7 +1,5 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
-import * as menyValgActions from '~/actions/menyValgActions';
-import * as menyValgActionsUtil from '~/actions/menyValgActionsUtil';
 import { connect } from 'react-redux';
 import AdminTableItem from '~/components/admin/partials/AdminTableItem';
 import * as adminActions from '~/actions/adminActions';

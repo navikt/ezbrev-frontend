@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Carousel, CarouselItem, Button } from 'react-bootstrap';
+import { Modal, Carousel, CarouselItem } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import * as dokumentActions from '~/actions/dokumentActions';
 import { connect } from 'react-redux';

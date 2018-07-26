@@ -8,17 +8,14 @@ import {
     Row
 } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
-import * as menyValgActionsUtil from '~/actions/menyValgActionsUtil';
-import * as menyValgActions from '~/actions/menyValgActions';
 import { connect } from 'react-redux';
 import Brev from '../partials/Brev';
 import { getRegressionObjects } from '~/components/regression/partials/RegressionUtil';
 import * as regressionActions from '~/actions/regressionActions';
 import * as regressionActionsUtil from '~/actions/regressionActionsUtil';
 import { bestillbrevdata } from '~/api';
-import * as brevdataActionsUtil from "~/actions/brevdataActionsUtil";
-import * as dokumentActions from "~/actions/dokumentActions";
-import * as dokumentActionsUtil from "~/actions/dokumentActionsUtil";
+import * as dokumentActions from '~/actions/dokumentActions';
+import * as dokumentActionsUtil from '~/actions/dokumentActionsUtil';
 
 class RegressionTableItem extends React.Component {
     constructor(props) {
@@ -29,7 +26,6 @@ class RegressionTableItem extends React.Component {
     }
 
     regtestMal = malId => {
-        //this.props.actions.setRegressionModal(true);
         let regressionObjects = getRegressionObjects(
             [malId],
             this.props.brevdataList
@@ -120,7 +116,6 @@ function mapDispatchToProps(dispatch) {
         actions: bindActionCreators(regressionActions, dispatch),
         utilActionsDok: bindActionCreators(dokumentActionsUtil, dispatch),
         actionsDok: bindActionCreators(dokumentActions, dispatch)
-        /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
     };
 }
 

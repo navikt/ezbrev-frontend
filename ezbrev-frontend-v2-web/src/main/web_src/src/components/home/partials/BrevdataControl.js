@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { Space } from '../../common/Scaffolding';
 import { connect } from 'react-redux';
 import * as api from '../../../api/index';
 import * as dokumentActionsUtil from '../../../actions/dokumentActionsUtil';
@@ -14,25 +13,21 @@ import { bindActionCreators } from 'redux';
 class BrevdataControl extends React.Component {
     redigerBrev = () => {
         const rediger = true;
-        return (
-            this.props.utilActionsDok.produceDokument(
-                this.props.brevmal.malID,
-                this.props.xmlInnhold,
-                rediger,
-                this.props.miljo
-            ),
-            this.props.actionsDok.setIsRedigertExternal(true)
+        this.props.utilActionsDok.produceDokument(
+            this.props.brevmal.malID,
+            this.props.xmlInnhold,
+            rediger,
+            this.props.miljo
         );
+        this.props.actionsDok.setIsRedigertExternal(true);
     };
     hentBrev = () => {
-        return (
-            this.props.utilActionsDok.showRedigertBrev(
-                this.props.miljo,
-                this.props.dokument.journalpostId,
-                this.props.dokument.dokumentInfoId
-            ),
-            this.props.actionsDok.setIsRedigertExternal(false)
+        this.props.utilActionsDok.showRedigertBrev(
+            this.props.miljo,
+            this.props.dokument.journalpostId,
+            this.props.dokument.dokumentInfoId
         );
+        this.props.actionsDok.setIsRedigertExternal(false);
     };
 
     render() {

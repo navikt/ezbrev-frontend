@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormControl, Button, Col, Row } from 'react-bootstrap';
+import { FormControl, Col, Row } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as adminActions from '~/actions/adminActions';

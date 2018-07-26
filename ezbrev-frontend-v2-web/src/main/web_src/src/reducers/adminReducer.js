@@ -15,7 +15,6 @@ const initialState = {
     activePage: 0,
     showModal: false,
     mask: {}
-    // changed: true
 };
 
 function getBrevpakkeList(brevInfo) {

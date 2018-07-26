@@ -1,6 +1,6 @@
-import * as api from "~/api";
-import * as actions from "~/actions/converterActions";
-import {setIsLoading} from "./loadingActions";
+import * as api from '~/api';
+import * as actions from '~/actions/converterActions';
+import { setIsLoading } from './loadingActions';
 
 export function convertXML(inputXML) {
     return function(dispatch) {

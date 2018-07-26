@@ -1,21 +1,16 @@
 import React from 'react';
-import {bindActionCreators} from 'redux';
-import * as menyValgActions from '~/actions/menyValgActions';
-import * as menyValgActionsUtil from '~/actions/menyValgActionsUtil';
-import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import RegressionTableItem from '~/components/regression/partials/RegressionTableItem';
-import * as regressionActions from "~/actions/regressionActions";
-import * as regressionActionsUtil from "~/actions/regressionActionsUtil";
+import * as regressionActions from '~/actions/regressionActions';
+import * as regressionActionsUtil from '~/actions/regressionActionsUtil';
 
 class RegressionTable extends React.Component {
     render() {
         return (
             <div>
                 {this.props.brevmalList.map(item => (
-                    <RegressionTableItem
-                        key={item.malId}
-                        item={item}
-                    />
+                    <RegressionTableItem key={item.malId} item={item} />
                 ))}
             </div>
         );
@@ -32,7 +27,6 @@ function mapDispatchToProps(dispatch) {
     return {
         utilActions: bindActionCreators(regressionActionsUtil, dispatch),
         actions: bindActionCreators(regressionActions, dispatch)
-        /* wrapper alle actions i mappen bindActionCreators i et kall til dispatch*/
     };
 }
 

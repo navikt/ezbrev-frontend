@@ -4,7 +4,7 @@ import Header from './components/common/Header';
 
 export const App = () => (
     <div>
-        <Header/>
-        <Routes/>
+        <Header />
+        <Routes />
     </div>
 );

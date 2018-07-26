@@ -15,7 +15,6 @@ import * as brevdataActions from '../../../actions/brevdataActions';
 import * as dokumentActions from '../../../actions/dokumentActions';
 import * as pingActions from '../../../actions/pingActions';
 import ListItem from '../../common/ListItem';
-import FormItem from '~/components/inspection/partials/FormItem';
 import { getPingByEnv } from '../../../api';
 import BrevpakkeListListener from './BrevpakkeListListener';
 import BrevmalListListener from './BrevmalListListener';

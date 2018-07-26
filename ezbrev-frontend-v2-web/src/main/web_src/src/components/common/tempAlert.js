@@ -1,12 +1,8 @@
-import React from 'react';
-
 export function tempAlert(message, duration) {
     let el = document.createElement('div');
     el.setAttribute(
         'style',
-        'position:absolute;top:72%;left:7%;background-color:#eeeeee;color:grey;font-size:150%',
-
-
+        'position:absolute;top:72%;left:7%;background-color:#eeeeee;color:grey;font-size:150%'
     );
     el.innerHTML = message;
     setTimeout(function() {

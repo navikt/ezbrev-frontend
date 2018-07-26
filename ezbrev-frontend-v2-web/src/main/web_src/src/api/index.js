@@ -1,6 +1,4 @@
-import React from 'react';
-
-//@CrossOrigin(origins = "http://localhost:3000")     //dette må skrives inn i den aktuelle controlleren i back end
+//@CrossOrigin(origins = "http://localhost:3000") dette må skrives inn i den aktuelle controlleren i back end
 
 //const serverUrl = 'http://localhost:8080';
 const serverUrl = 'https://ezbrev-backend-q4.nais.preprod.local';
@@ -149,48 +147,6 @@ export function getOutputXML(xml) {
     });
 }
 
-export function post(url, data) {
-    return fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include'
-    }).then(res => {
-        if (!res.ok) {
-            res.json().then(error => errorHandler(error));
-            throw res;
-        } else {
-            return res;
-        }
-    });
-}
-
-function get(url) {
-    return fetch(url, {
-        credentials: 'include'
-    }).then(res => {
-        if (!res.ok) {
-            res.json().then(error => errorHandler(error));
-            throw res;
-        } else {
-            return res;
-        }
-    });
-}
-
-export function errorHandler(error) {
-    alert(
-        'Error: ' +
-            error.error +
-            '\n' +
-            'Status: ' +
-            error.status +
-            '\n' +
-            'Feilmelding: ' +
-            error.message
-    );
-}
-
 export function getSimilarity(env, sammenlignPercentageObject) {
     const url = `${serverUrl}/rest/sammenlignprosent/${env}`;
     return fetch(url, {
@@ -259,35 +215,77 @@ export function getPingByEnv(env) {
         .then(json => ({ json, env: env }));
 }
 
-export function getAdminPngPages(miljo,brevdataId){
-    const url=`${serverUrl}/rest/bestill/pngpages/${miljo}/${brevdataId}`;
-    return get(url).then(res=>res.json());
+export function getAdminPngPages(miljo, brevdataId) {
+    const url = `${serverUrl}/rest/bestill/pngpages/${miljo}/${brevdataId}`;
+    return get(url).then(res => res.json());
 }
 
-export function getMaskList(brevdataId){
-    const url=`${serverUrl}/rest/admin/brevdata/${brevdataId}/masks`;
-    return get(url).then(res=>res.json());
+export function getMaskList(brevdataId) {
+    const url = `${serverUrl}/rest/admin/brevdata/${brevdataId}/masks`;
+    return get(url).then(res => res.json());
 }
 
-export function deleteSingleMaskByMaskId(maskId){
-    const url=`${serverUrl}/rest/admin/mask/${maskId}`
+export function deleteSingleMaskByMaskId(maskId) {
+    const url = `${serverUrl}/rest/admin/mask/${maskId}`;
     return fetch(url, {
         method: 'DELETE',
         credentials: 'include'
     });
 }
 
-export function deleteAllMasksByBrevdataId(miljo,brevdataId){
-    const url=`${serverUrl}/rest/admin/brevdata/${brevdataId}/masks/${miljo}`
+export function deleteAllMasksByBrevdataId(miljo, brevdataId) {
+    const url = `${serverUrl}/rest/admin/brevdata/${brevdataId}/masks/${miljo}`;
     return fetch(url, {
         method: 'DELETE',
         credentials: 'include'
-    }).then(res=>res.json());
+    }).then(res => res.json());
 }
 
-export function postMask(miljo,brevdataId,mask){
-    const url=`${serverUrl}/rest/admin/brevdata/${brevdataId}/masks/${miljo}`;
-    let {xstart,xslutt,ystart,yslutt,sidenr}=mask;
-    const data={xstart,xslutt,ystart,yslutt,sidenr};
-    return post(url,data).then(res=>res.json());
+export function postMask(miljo, brevdataId, mask) {
+    const url = `${serverUrl}/rest/admin/brevdata/${brevdataId}/masks/${miljo}`;
+    let { xstart, xslutt, ystart, yslutt, sidenr } = mask;
+    const data = { xstart, xslutt, ystart, yslutt, sidenr };
+    return post(url, data).then(res => res.json());
+}
+
+export function post(url, data) {
+    return fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include'
+    }).then(res => {
+        if (!res.ok) {
+            res.json().then(error => errorHandler(error));
+            throw res;
+        } else {
+            return res;
+        }
+    });
+}
+
+function get(url) {
+    return fetch(url, {
+        credentials: 'include'
+    }).then(res => {
+        if (!res.ok) {
+            res.json().then(error => errorHandler(error));
+            throw res;
+        } else {
+            return res;
+        }
+    });
+}
+
+export function errorHandler(error) {
+    alert(
+        'Error: ' +
+            error.error +
+            '\n' +
+            'Status: ' +
+            error.status +
+            '\n' +
+            'Feilmelding: ' +
+            error.message
+    );
 }

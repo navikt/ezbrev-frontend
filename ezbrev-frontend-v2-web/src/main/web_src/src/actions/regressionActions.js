@@ -19,7 +19,10 @@ export function setRegressionBrevdataList(brevdataList) {
 }
 
 export function setBrevpakkeVersjon(brevpakkeVersjon) {
-    return {type: types.SET_REGRESSION_BREVPAKKE_VERSJON, brevpakkeVersjon: brevpakkeVersjon};
+    return {
+        type: types.SET_REGRESSION_BREVPAKKE_VERSJON,
+        brevpakkeVersjon: brevpakkeVersjon
+    };
 }
 
 export function setRegressionSimilarity(regressionSimilarity) {

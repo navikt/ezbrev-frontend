@@ -1,5 +1,4 @@
 import React from 'react';
-
 import BrevpakkeSelect from './partials/BrevpakkeSelect';
 import BrevdataInput from './partials/BrevdataInput';
 import BrevdataMeta from './partials/BrevdataMeta';

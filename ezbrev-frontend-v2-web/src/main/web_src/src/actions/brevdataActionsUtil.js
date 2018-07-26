@@ -2,7 +2,7 @@ import * as api from '~/api';
 import * as actions from '~/actions/brevdataActions';
 import * as actionsMenyValg from '~/actions/menyValgActions';
 import { tempAlert } from '~/components/common/tempAlert';
-import {setIsLoading} from "./loadingActions";
+import { setIsLoading } from './loadingActions';
 
 export function selectBrevdata(brevdataId) {
     return function(dispatch) {

@@ -5,9 +5,7 @@ const initialState = {
 };
 
 export default function loadingReducer(state = initialState, action) {
-    switch (
-        action.type //tror vi må ha en action til her for når vi legger inn hele brevdata for første gang
-    ) {
+    switch (action.type) {
         case types.SET_IS_LOADING:
             return { ...state, isLoading: action.isLoading };
         case types.SET_MILJOLIST:

@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as adminActions from '~/actions/adminActions';
 import * as adminActionsUtil from '~/actions/adminActionsUtil';
-import { bestillbrevdata } from '~/api';
 import * as dokumentActions from '~/actions/dokumentActions';
 import * as dokumentActionsUtil from '~/actions/dokumentActionsUtil';
 import AdminBrevdata from './AdminBrevdata';
