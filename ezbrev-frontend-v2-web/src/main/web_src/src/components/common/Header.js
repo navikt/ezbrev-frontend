@@ -44,7 +44,7 @@ class Header extends React.Component {
                     <div className="pageSize">
                         <div className="flex-row center-vertically">
                             <div className="navbar-header">
-                                <span className="navbar-brand">Ez</span>
+                                <span className="navbar-brand">Ez-Brev 4</span>
                             </div>
                             <ul className="nav navbar-nav navbar-flex center-content">
                                 <li className="active">
