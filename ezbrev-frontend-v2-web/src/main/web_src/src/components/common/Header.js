@@ -44,7 +44,8 @@ class Header extends React.Component {
                     <div className="pageSize">
                         <div className="flex-row center-vertically">
                             <div className="navbar-header">
-                                <span className="navbar-brand">Ez-Brev 4</span>
+                                <span className="navbar-brand">
+                                    Ez-Brev 4</span>
                             </div>
                             <ul className="nav navbar-nav navbar-flex center-content">
                                 <li className="active">
@@ -84,7 +85,9 @@ class Header extends React.Component {
                                 <li>{this.showAdmin()}</li>
                                 <li>{this.logIn()}</li>
                             </ul>
+                            <div className="spinner">
                             <SpinningWheel />
+                            </div>
                             <Ping />
                         </div>
                     </div>

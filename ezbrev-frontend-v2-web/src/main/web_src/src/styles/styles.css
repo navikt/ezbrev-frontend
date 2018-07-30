@@ -107,6 +107,7 @@ drop-down-button-fill{
     color: white;
     font-size: 14px;
     font-weight: bold;
+    width: 100px;
 }
 
 .btn {
@@ -273,4 +274,9 @@ a:focus{
     color: black;
     background-color: rgba(0,0,0,0.1);
     border-width: 0px;
+}
+
+.spinner{
+    height: 30px;
+    width: 30px;
 }
