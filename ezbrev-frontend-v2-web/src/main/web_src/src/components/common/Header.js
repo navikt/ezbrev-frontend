@@ -85,9 +85,7 @@ class Header extends React.Component {
                                 <li>{this.showAdmin()}</li>
                                 <li>{this.logIn()}</li>
                             </ul>
-                            <div className="spinner">
                             <SpinningWheel />
-                            </div>
                             <Ping />
                         </div>
                     </div>
