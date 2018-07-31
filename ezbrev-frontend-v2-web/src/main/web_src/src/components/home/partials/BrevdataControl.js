@@ -72,6 +72,7 @@ class BrevdataControl extends React.Component {
                             this.props.xmlInnhold,
                             this.props.brevmal
                         );
+
                         tempAlert('Brevdata ble lagret som ny.', 5000);
                     }}
                     disabled={
@@ -178,7 +179,7 @@ class BrevdataControl extends React.Component {
     }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
     return {
         brevdataBeskrivelse: state.brevdataReducer.beskrivelse,
         brevdataId: state.brevdataReducer.brevdataId,

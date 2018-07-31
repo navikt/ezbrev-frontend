@@ -51,7 +51,7 @@ body {
     margin-right: 5%;
     height: 100%;
 }
-drop-down-button-fill{
+.drop-down-button-fill{
     display: block;
     width: 100%;
 }
@@ -81,7 +81,7 @@ drop-down-button-fill{
     height: 7vh;
     margin-top: 0;
     margin-bottom: 6vh;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,177,106,0.8);
 }
 
 .padding-right {
@@ -261,7 +261,6 @@ code.xml{
 
 .clickable:hover {
     cursor: pointer;
-    cursor: hand;
 }
 
 
@@ -273,7 +272,7 @@ a:focus{
 .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
     color: black;
     background-color: rgba(0,0,0,0.1);
-    border-width: 0px;
+    border-width: 0;
 }
 
 .spinner {
