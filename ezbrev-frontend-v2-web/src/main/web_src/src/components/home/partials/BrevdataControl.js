@@ -38,7 +38,8 @@ class BrevdataControl extends React.Component {
                     onClick={() => {
                         api.updateXML(
                             this.props.brevdataId,
-                            this.props.xmlInnhold
+                            this.props.xmlInnhold,
+                            this.props.brevdataBeskrivelse
                         )
                             .then(
                                 this.props.actionsBrevdata.setBrevdata(
@@ -72,8 +73,6 @@ class BrevdataControl extends React.Component {
                             this.props.xmlInnhold,
                             this.props.brevmal
                         );
-
-                        tempAlert('Brevdata ble lagret som ny.', 5000);
                     }}
                     disabled={
                         this.props.xmlInnhold === '' ||
@@ -130,7 +129,8 @@ class BrevdataControl extends React.Component {
                         );
                         api.updateXML(
                             this.props.brevdataId,
-                            this.props.xmlInnhold
+                            this.props.xmlInnhold,
+                            this.props.brevdataBeskrivelse
                         );
                         tempAlert('Brevet ble godkjent.', 4000);
                     }}

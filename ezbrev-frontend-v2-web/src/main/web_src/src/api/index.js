@@ -51,9 +51,9 @@ export function getBrevdata(brevdataID) {
     return get(url).then(res => res.json());
 }
 
-export function updateXML(brevdataId, xml) {
+export function updateXML(brevdataId, xml, beskrivelse) {
     const url = `${serverUrl}/rest/updatebrevdata`;
-    let data = { brevdataId, xml };
+    let data = { brevdataId, xml, beskrivelse };
     return post(url, data).then(res => {
         return res.json();
     });

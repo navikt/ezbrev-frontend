@@ -54,6 +54,7 @@ export function saveXMLAsNew(
             })
             .then(brevdata => {
                 dispatch(actionsMenyValg.addItemBrevdataList(brevdata));
+                tempAlert('Brevdata ble lagret som ny.', 5000);
                 return brevdata;
             })
             .catch(error => {
