@@ -23,13 +23,31 @@ function getBrevpakkeList(brevInfo) {
 }
 
 function sortBevmalList(list) {
-    list.sort(function(a, b) {
-        if (a.malID > b.malID) {
-            return 1;
-        } else {
+
+    list.sort(function (a, b) {
+        if (isNumeric(a.malID) && isNumeric(b.malID)) {
+            if (a.malID > b.malID) {
+                return 1;
+            } else {
+                return -1;
+            }
+        } else if (isNumeric(a.malID)) {
             return -1;
+        } else if (isNumeric(b.malID)) {
+            return 1;
+        }
+        else {
+            if (a.malID.replace(/\D/g, '') > b.malID.replace(/\D/g, '')) {
+                return 1;
+            } else {
+                return -1;
+            }
         }
     });
+}
+
+function isNumeric(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
 function getBrevmalList(brevpakke, brevInfo) {
@@ -123,7 +141,7 @@ export default function menyValgReducer(state = initialState, action) {
         case types.SORT_BREVDATALIST:
             let sortingKey = action.sortingKey;
             let list = [...state.brevdataList];
-            list.sort(function(a, b) {
+            list.sort(function (a, b) {
                 const dateA = new Date(a.changeStamp.opprettetDato);
                 const dateB = new Date(b.changeStamp.opprettetDato);
                 if (sortingKey === '1') {
