@@ -1,6 +1,7 @@
 //@CrossOrigin(origins = "http://localhost:3000") dette må skrives inn i den aktuelle controlleren i back end
 
 //const serverUrl = 'http://localhost:8080';
+
 const serverUrl = 'https://ezbrev-backend-q4.nais.preprod.local';
 
 function sortList(list) {
