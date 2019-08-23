@@ -1,6 +1,7 @@
 naisPipeline {
     applicationName = "ezbrev-frontend"
     dockerfileDir = "./"
-    deployEnvironmentT = "q4"
+    deployEnvironmentT = "t4"
+    deployEnvironmentQ = "q4"
     owner="DOKBREV"
 }
