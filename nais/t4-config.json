@@ -1,5 +1,0 @@
-{
-  "EZBREV_HOST_URL": "https://ezbrev-backend-t4.nais.preprod.local",
-  "INGRESSES": "https://ezbrev-frontend-t4.nais.preprod.local",
-  "NAMESPACE": "t4"
-}
