@@ -1,4 +1,4 @@
-FROM navikt/java:8
+FROM ghcr.io/navikt/baseimages/temurin:8
 
 COPY ezbrev-frontend-v2-app/target/app.jar /app/app.jar
 
