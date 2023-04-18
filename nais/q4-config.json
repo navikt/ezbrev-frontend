@@ -1,5 +1,4 @@
 {
   "EZBREV_HOST_URL": "https://ezbrev-backend-q4.nais.preprod.local",
-  "INGRESSES": "https://ezbrev-frontend-q4.nais.preprod.local",
-  "APP_NAME": "ezbrev-frontend-q4"
+  "INGRESSES": "https://ezbrev-frontend-q4.nais.preprod.local"
 }

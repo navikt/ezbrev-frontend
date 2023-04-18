@@ -88,9 +88,7 @@
                                     <arguments>
                                         <!--OK-->
                                         <argument>install</argument>
-                                        <argument>--registry=http://registry.npmjs.org/</argument>
-                                        <argument>--https-proxy=http://155.55.60.117:8088</argument>
-                                        <argument>--proxy=http://155.55.60.117:8088</argument>
+                                        <argument>--registry=https://registry.npmjs.org/</argument>
                                         <!--OK end-->
                                     </arguments>
                                     <workingDirectory>${basedir}/src/main/web_src</workingDirectory>
@@ -108,9 +106,7 @@
                                         <!--OK-->
                                         <argument>run</argument>
                                         <argument>build</argument>
-                                        <argument>--registry=http://registry.npmjs.org/</argument>
-                                        <argument>--https-proxy=http://155.55.60.117:8088</argument>
-                                        <argument>--proxy=http://155.55.60.117:8088</argument>
+                                        <argument>--registry=https://registry.npmjs.org/</argument>
                                         <!--OK end-->
                                     </arguments>
                                     <workingDirectory>${basedir}/src/main/web_src</workingDirectory>
