@@ -13,23 +13,12 @@
     <artifactId>ezbrev-frontend-v2-app</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-
-
     <dependencies>
         <dependency>
             <groupId>no.nav.ezbrev-frontend</groupId>
             <artifactId>ezbrev-frontend-v2-web</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
-        <!--<classifier>classes</classifier>-->
-
-        <!--<dependency>-->
-            <!--<groupId>net.logstash.logback</groupId>-->
-            <!--<artifactId>logstash-logback-encoder</artifactId>-->
-            <!--<version>${logstash.logback.encoder.version}</version>-->
-        <!--</dependency>-->
-
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

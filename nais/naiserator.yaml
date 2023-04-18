@@ -1,7 +1,7 @@
 kind: Application
 apiVersion: nais.io/v1alpha1
 metadata:
-  name: {{ APP_NAME }}
+  name: ezbrev-frontend-q4
   namespace: teamdokumenthandtering
   labels:
     team: teamdokumenthandtering
