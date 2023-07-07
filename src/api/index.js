@@ -2,7 +2,7 @@
 
 //const serverUrl = 'http://localhost:8080';
 
-const serverUrl = 'https://ezbrev-backend-q4.nais.preprod.local';
+const serverUrl = '';
 
 function sortList(list) {
     let sortedList = [];
