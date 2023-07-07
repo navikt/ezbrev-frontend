@@ -12,8 +12,7 @@ const devMode = process.env.NODE_ENV !== 'production';
 
 const outputDir = {
     development: 'dist/devOutput',
-    // production: 'dist/output'
-    production: './build'
+    production: 'dist'
 };
 
 const statsOutputSettings = {
