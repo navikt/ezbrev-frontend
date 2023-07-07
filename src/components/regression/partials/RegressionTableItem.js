@@ -1,0 +1,125 @@
+import React from 'react';
+import {
+    Button,
+    Col,
+    ListGroup,
+    ListGroupItem,
+    Panel,
+    Row
+} from 'react-bootstrap';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import Brev from '../partials/Brev';
+import { getRegressionObjects } from '~/components/regression/partials/RegressionUtil';
+import * as regressionActions from '~/actions/regressionActions';
+import * as regressionActionsUtil from '~/actions/regressionActionsUtil';
+import { bestillbrevdata } from '~/api';
+import * as dokumentActions from '~/actions/dokumentActions';
+import * as dokumentActionsUtil from '~/actions/dokumentActionsUtil';
+
+class RegressionTableItem extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isShown: false
+        };
+    }
+
+    regtestMal = malId => {
+        let regressionObjects = getRegressionObjects(
+            [malId],
+            this.props.brevdataList
+        );
+        this.props.utilActions.startRegressionTest(
+            regressionObjects,
+            this.props.miljo
+        );
+    };
+
+    sammenlign = (brevdataId, dokumenttypeId) => {
+        bestillbrevdata(brevdataId, dokumenttypeId, this.props.miljo).then(
+            json => {
+                this.props.utilActionsDok.showSammenlignMedGodkjent(
+                    this.props.miljo,
+                    json.journalpostId,
+                    json.dokumentInfoId,
+                    brevdataId
+                );
+            }
+        );
+    };
+
+    render() {
+        const item = this.props.item;
+
+        return (
+            <Panel>
+                <Panel.Heading
+                    className="clickable"
+                    onClick={() =>
+                        this.setState({ isShown: !this.state.isShown })
+                    }
+                >
+                    <Row>
+                        <Col sm={1}>{item.malId}</Col>
+                        <Col sm={4}>{item.tittel}</Col>
+                    </Row>
+                </Panel.Heading>
+                {this.state.isShown ? (
+                    <ListGroup>
+                        <ListGroupItem>
+                            <Row>
+                                <Col sm={4}>Beskrivelse</Col>
+                                <Col sm={4}>Likhet</Col>
+                                <Col sm={4}>
+                                    <Button
+                                        className="btn"
+                                        bsSize="small"
+                                        onClick={() =>
+                                            this.regtestMal(item.malId)
+                                        }
+                                    >
+                                        Regtest mal
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </ListGroupItem>
+                        {Brev(
+                            item.malId,
+                            this.sammenlign,
+                            this.props.brevdataList,
+                            this.props.regressionSimilarity
+                        )}
+                    </ListGroup>
+                ) : null}
+            </Panel>
+        );
+    }
+}
+
+function mapStateToProps(state, ownProps) {
+    return {
+        miljoList: state.regressjonReducer.regressjonMiljoList,
+        brevInfo: state.regressjonReducer.regressjonBrevInfo,
+        brevpakkeList: state.regressjonReducer.regressjonBrevpakkeList,
+        brevmalList: state.regressjonReducer.regressjonBrevmalList,
+        miljo: state.regressjonReducer.regressjonMiljo,
+        brevpakke: state.regressjonReducer.regressjonBrevpakke,
+        brevdataList: state.regressjonReducer.regressjonBrevdataList,
+        regressionSimilarity: state.regressjonReducer.regressionSimilarity
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        utilActions: bindActionCreators(regressionActionsUtil, dispatch),
+        actions: bindActionCreators(regressionActions, dispatch),
+        utilActionsDok: bindActionCreators(dokumentActionsUtil, dispatch),
+        actionsDok: bindActionCreators(dokumentActions, dispatch)
+    };
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(RegressionTableItem);
