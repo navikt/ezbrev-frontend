@@ -2,6 +2,7 @@
   "EZBREV_HOST_URL": "https://ezbrev-backend-q4.nais.preprod.local",
   "INGRESSES": [
       "https://ezbrev-frontend-q4.nais.preprod.local",
-      "https://ezbrev-frontend-q4.dev.intern.nav.no"
+      "https://ezbrev-frontend-q4.dev.intern.nav.no",
+      "https://ezbrev-frontend.dev.intern.nav.no"
   ]
 }
