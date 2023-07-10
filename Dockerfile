@@ -1,7 +1,7 @@
-FROM ghcr.io/navikt/baseimages/temurin:8
+FROM nginxinc/nginx-unprivileged
 
-COPY ezbrev-frontend-v2-app/target/app.jar /app/app.jar
+COPY ./public /usr/share/nginx/html
+ADD ./dist /usr/share/nginx/html
 
-ENV JAVA_OPTS="-Xmx512m \
-               -Djava.security.egd=file:/dev/./urandom \
-               -Dspring.profiles.active=nais"
+# Will extract environment variables before nginx starts (ref. https://hub.docker.com/_/nginx):
+COPY nginx.conf /etc/nginx/templates/default.conf.template
