@@ -15,7 +15,9 @@ spec:
       value: {{ EZBREV_HOST_URL }}
   image: {{ image }}
   ingresses:
-    - {{ INGRESSES }}
+    {{#each INGRESSES}}
+       - {{ this }}
+    {{/each}}
   leaderElection: true
   liveness:
     path: internal/isAlive
