@@ -1,0 +1,15 @@
+name: Build, deploy feature
+
+on:
+  workflow_call:
+
+jobs:
+  build-feature:
+    uses: ./.github/workflows/build-frontend.yml
+    secrets: inherit
+  deploy-feature:
+    uses: navikt/dok-workflows/.github/workflows/deploy-all-dev.yml@main
+    needs: build-feature
+    secrets: inherit
+    with:
+      build-tag: ${{ needs.build-feature.outputs.build-tag }}
