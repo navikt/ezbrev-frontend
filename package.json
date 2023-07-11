@@ -6,14 +6,15 @@
   "repository": "",
   "author": "",
   "engines": {
-    "node": "8.10.0",
-    "npm": "5.6.0"
+    "node": "16.16.0",
+    "npm": "8.11.0"
   },
   "scripts": {
     "start": "set HTTPS=true&&npm-run-all --parallel test:watch server open:src lint:watch",
     "open:src": "webpack-dev-server --config ./webpack.config.js --port 3000 --mode development --open",
     "fullbuild": "npm run build:install && npm run build:webpack",
-    "build:install": "npm install",
+    "build:install": "npm ci -q",
+    "build": "npm run build:webpack",
     "build:webpack": "./node_modules/.bin/webpack",
     "lint": "node_modules/.bin/esw webpack.config.* src tools",
     "lint:watch": "npm run lint -- --watch",
