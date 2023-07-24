@@ -1,10 +1,9 @@
-import 'babel-polyfill';
+import 'core-js';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 import { HashRouter } from 'react-router-dom';
-import { AppContainer } from 'react-hot-loader';
 import configureStore from './store/configureStore';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/styles.css';
@@ -25,26 +24,22 @@ getPing().then(ping =>
 store.dispatch(fetchIsAdmin());
 
 ReactDOM.render(
-    <AppContainer>
-        <Provider store={store}>
-            <HashRouter>
-                <App />
-            </HashRouter>
-        </Provider>
-    </AppContainer>,
+    <Provider store={store}>
+        <HashRouter>
+            <App />
+        </HashRouter>
+    </Provider>,
     target
 );
 
 if (module.hot) {
     module.hot.accept('./App', () => {
         ReactDOM.render(
-            <AppContainer>
-                <Provider store={store}>
-                    <HashRouter history={history}>
-                        <App />
-                    </HashRouter>
-                </Provider>
-            </AppContainer>,
+            <Provider store={store}>
+                <HashRouter history={history}>
+                    <App />
+                </HashRouter>
+            </Provider>,
             target
         );
     });

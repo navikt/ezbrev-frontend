@@ -6,7 +6,6 @@ import RegressionPage from './components/regression/RegressionPage';
 import InspectionPage from './components/inspection/InspectionPage';
 import ConverterPage from './components/converter/ConverterPage';
 import AuthenticatedComponent from './components/admin/AuthenticatedComponent';
-import { withRouter } from 'react-router';
 
 export const Routes = () => (
     <Switch>

@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const pkg = require('./package.json');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 // Buildtype
 const TARGET = process.env.npm_lifecycle_event;
@@ -24,7 +25,7 @@ const statsOutputSettings = {
 const webpackConfig = {
     mode: process.env.NODE_ENV,
     devtool: 'source-map',
-    entry: ['babel-polyfill', 'react-hot-loader/patch', './src/index.js'],
+    entry: ['core-js', './src/index.js'],
     output: {
         filename: 'bundle.js',
         publicPath: '/',
@@ -57,9 +58,15 @@ const webpackConfig = {
             // both options are optional
             filename: devMode ? '[name].css' : '[name].[hash].css'
         }),
+        new ReactRefreshWebpackPlugin(),
         new webpack.HotModuleReplacementPlugin()
     ],
     resolve: {
+        fallback: {
+            "stream": require.resolve("stream-browserify"),
+            "buffer": require.resolve("buffer/"),
+            "timers": require.resolve("timers-browserify")
+        },
         alias: {
             '~': path.resolve(__dirname, 'src')
         }
