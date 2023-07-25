@@ -4,7 +4,7 @@ import {
     Col,
     ListGroup,
     ListGroupItem,
-    Panel,
+    Card,
     Row
 } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
@@ -53,8 +53,8 @@ class RegressionTableItem extends React.Component {
         const item = this.props.item;
 
         return (
-            <Panel>
-                <Panel.Heading
+            <Card>
+                <Card.Header
                     className="clickable"
                     onClick={() =>
                         this.setState({ isShown: !this.state.isShown })
@@ -64,7 +64,7 @@ class RegressionTableItem extends React.Component {
                         <Col sm={1}>{item.malId}</Col>
                         <Col sm={4}>{item.tittel}</Col>
                     </Row>
-                </Panel.Heading>
+                </Card.Header>
                 {this.state.isShown ? (
                     <ListGroup>
                         <ListGroupItem>
@@ -92,7 +92,7 @@ class RegressionTableItem extends React.Component {
                         )}
                     </ListGroup>
                 ) : null}
-            </Panel>
+            </Card>
         );
     }
 }

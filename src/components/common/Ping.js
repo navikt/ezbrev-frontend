@@ -1,6 +1,7 @@
 import React from 'react';
-import { Glyphicon, OverlayTrigger, Popover } from 'react-bootstrap';
+import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { CloudFillIcon, CloudSlashFillIcon } from '@navikt/aksel-icons';
 import PingInfo from './PingInfo';
 
 class Ping extends React.Component {
@@ -14,15 +15,13 @@ class Ping extends React.Component {
     pingIcon = () => {
         if (this.props.error) {
             return (
-                <Glyphicon
-                    glyph="glyphicon glyphicon-remove"
+                <CloudSlashFillIcon
                     className="glyph-fail "
                 />
             );
         } else {
             return (
-                <Glyphicon
-                    glyph="glyphicon glyphicon-ok"
+                <CloudFillIcon
                     className="glyph-success"
                 />
             );

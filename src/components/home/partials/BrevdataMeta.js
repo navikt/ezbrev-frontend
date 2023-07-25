@@ -1,11 +1,11 @@
 import React from 'react';
 import {
     Button,
-    Checkbox,
+    FormCheck,
     Col,
     DropdownButton,
     ListGroupItem,
-    MenuItem,
+    Dropdown,
     Row
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
@@ -93,18 +93,18 @@ class BrevdataMeta extends React.Component {
                                 );
                             }}
                         >
-                            <MenuItem key="1" eventKey="1">
+                            <Dropdown.Item key="1" eventKey="1">
                                 Nyeste først
-                            </MenuItem>
-                            <MenuItem key="2" eventKey="2">
+                            </Dropdown.Item>
+                            <Dropdown.Item key="2" eventKey="2">
                                 Eldste først
-                            </MenuItem>
+                            </Dropdown.Item>
                         </DropdownButton>
                     </Row>
                     <Row>{this.showBrevdataList()}</Row>
                     <Row>
                         <div className="flex-row center-vertically">
-                            <Checkbox
+                            <FormCheck
                                 title="Bruk registerinformasjon"
                                 validationState="success"
                                 defaultChecked={false}

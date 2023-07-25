@@ -33,8 +33,8 @@ const webpackConfig = {
     },
     stats: statsOutputSettings,
     devServer: {
-        stats: statsOutputSettings,
-        contentBase: path.join(__dirname, 'public'),
+        //stats: statsOutputSettings,
+        static: path.join(__dirname, 'public'),
         historyApiFallback: true,
         hot: true,
         proxy: [

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Grid, Image, Row, Modal } from 'react-bootstrap';
+import { Button, Col, Container, Image, Row, Modal } from 'react-bootstrap';
 import { Space } from '../../common/Scaffolding';
 import * as adminActions from '~/actions/adminActions';
 import ReactCrop, { makeAspectCrop } from 'react-image-crop';
@@ -63,7 +63,7 @@ class AdminMaskPages extends React.Component {
                 bsSize="large"
             >
                 <Modal.Body>
-                    <Grid>
+                    <Container>
                         <Row>
                             <Col md={2}>
                                 <div
@@ -135,7 +135,7 @@ class AdminMaskPages extends React.Component {
                                 </div>
                             </Col>
                         </Row>
-                    </Grid>
+                    </Container>
                 </Modal.Body>
             </Modal>
         );

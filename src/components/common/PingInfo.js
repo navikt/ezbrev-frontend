@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Panel, Row, ListGroupItem } from 'react-bootstrap';
+import { Col, Card, Row, ListGroupItem } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '~/actions/pingActions';
@@ -18,7 +18,7 @@ class PingInfo extends React.Component {
                 <Row>
                     <Col sm={12}> Status: {ping.aggregateResultText} </Col>{' '}
                 </Row>
-                <Panel>
+                <Card>
                     {ping.checks.map(service => (
                         <ListGroupItem
                             key={service.endpoint}
@@ -35,7 +35,7 @@ class PingInfo extends React.Component {
                             </Row>
                         </ListGroupItem>
                     ))}
-                </Panel>
+                </Card>
             </div>
         );
     }

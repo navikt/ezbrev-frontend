@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, ListGroup, ListGroupItem, Panel, Row } from 'react-bootstrap';
+import { Col, ListGroup, ListGroupItem, Card, Row } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as adminActions from '~/actions/adminActions';
@@ -20,8 +20,8 @@ class AdminTableItem extends React.Component {
         const item = this.props.item;
 
         return (
-            <Panel>
-                <Panel.Heading
+            <Card>
+                <Card.Header
                     onClick={() =>
                         this.setState({ isShown: !this.state.isShown })
                     }
@@ -30,7 +30,7 @@ class AdminTableItem extends React.Component {
                         <Col sm={6}>{item.malId}</Col>
                         <Col sm={6}>{item.tittel}</Col>
                     </Row>
-                </Panel.Heading>
+                </Card.Header>
                 {this.state.isShown ? (
                     <ListGroup>
                         <ListGroupItem>
@@ -42,7 +42,7 @@ class AdminTableItem extends React.Component {
                         <AdminBrevdata malId={item.malId} />
                     </ListGroup>
                 ) : null}
-            </Panel>
+            </Card>
         );
     }
 }

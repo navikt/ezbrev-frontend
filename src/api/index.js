@@ -2,7 +2,7 @@
 
 //const serverUrl = 'http://localhost:8080';
 
-const serverUrl = '';
+const serverUrl = 'https://ezbrev-backend.dev.intern.nav.no';
 
 function sortList(list) {
     let sortedList = [];
@@ -189,7 +189,7 @@ export function deleteBrevdataExternal(brevdataId) {
         credentials: 'include'
     }).then(res => {
         if (!res.ok) {
-            res.json().then(error => errorHandler(error));
+            res.json().then(error => printErrorMessage(url, error));
             throw res;
         } else {
             return res;
@@ -257,7 +257,7 @@ export function post(url, data) {
         credentials: 'include'
     }).then(res => {
         if (!res.ok) {
-            res.json().then(error => errorHandler(error));
+            res.json().then(error => printErrorMessage(url, error));
             throw res;
         } else {
             return res;
@@ -270,7 +270,7 @@ function get(url) {
         credentials: 'include'
     }).then(res => {
         if (!res.ok) {
-            res.json().then(error => errorHandler(error));
+            res.json().then(error => printErrorMessage(url, error));
             throw res;
         } else {
             return res;
@@ -278,8 +278,11 @@ function get(url) {
     });
 }
 
-export function errorHandler(error) {
-    alert(
+export function printErrorMessage(url, error) {
+    console.warn(
+        'URL: ' +
+        url +
+            '\n' +
         'Error: ' +
             error.error +
             '\n' +

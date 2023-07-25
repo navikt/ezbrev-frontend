@@ -1,5 +1,5 @@
 import React from 'react';
-import { DropdownButton, MenuItem } from 'react-bootstrap';
+import { DropdownButton, Dropdown } from 'react-bootstrap';
 
 export default function ListItem({
     title,
@@ -18,9 +18,9 @@ export default function ListItem({
             disabled={isDisabled}
         >
             {list.map(item => (
-                <MenuItem key={item} eventKey={item}>
+                <Dropdown.Item key={item} eventKey={item}>
                     {item}
-                </MenuItem>
+                </Dropdown.Item>
             ))}
         </DropdownButton>
     );

@@ -4,8 +4,8 @@ import {
     Col,
     DropdownButton,
     FormControl,
-    MenuItem,
-    Row
+    Dropdown,
+    Row,
 } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -31,24 +31,26 @@ class BrevpakkeSelect extends React.Component {
         }
     }
 
-    setTitleName() {
-        if (this.props.brevmal === undefined || this.props.brevmal === '') {
+    setTitleName(brevmal) {
+        if (!brevmal) {
             return 'Brevmal: ';
-        } else if (this.props.brevmal.redigerbar) {
-            return 'Brevmal: ' + this.props.brevmal.malID + ' Redigerbar';
+        } else if (brevmal.redigerbar) {
+            return 'Brevmal: ' + brevmal.malID + ' Redigerbar';
         } else {
-            return 'Brevmal: ' + this.props.brevmal.malID;
+            return 'Brevmal: ' + brevmal.malID;
         }
     }
 
-    selectMiljo = miljo => {
+    selectMiljo = (miljo) => {
         this.props.actions.setMiljo(miljo);
         this.props.utilActions.selectMiljo(miljo);
         this.props.actionsBrevdata.resetBrevdataId('');
-        getPingByEnv(miljo).then(ping => this.props.pingActions.setPing(ping));
+        getPingByEnv(miljo).then((ping) =>
+            this.props.pingActions.setPing(ping),
+        );
     };
 
-    selectBrevpakke = brevpakke => {
+    selectBrevpakke = (brevpakke) => {
         let brevInfo = this.props.brevInfo;
         let miljo = this.props.miljo;
         this.props.utilActions.selectBrevpakke(brevpakke, brevInfo);
@@ -58,11 +60,11 @@ class BrevpakkeSelect extends React.Component {
         this.props.actionsBrevdata.resetBrevdataId('');
     };
 
-    selectBrevmal = brevmal => {
-        this.props.utilActions.selectBrevmal(
-            brevmal.malID,
-            this.props.brevpakke
-        );
+    selectBrevmal = (brevmalId) => {
+        const brevmal = this.props.brevmalList.filter(
+            (mal) => mal.malID === brevmalId,
+        )[0];
+        this.props.utilActions.selectBrevmal(brevmalId, this.props.brevpakke);
         this.props.actions.setBrevmal(brevmal);
         this.props.actionsBrevdata.resetBrevdataId('');
     };
@@ -77,7 +79,7 @@ class BrevpakkeSelect extends React.Component {
                                 className="btn-fill"
                                 title={'Miljø: ' + this.props.miljo}
                                 id="brevpakke_env_pick"
-                                func={miljo => this.selectMiljo(miljo)}
+                                func={(miljo) => this.selectMiljo(miljo)}
                                 list={this.props.miljoList}
                             />
                         </ButtonGroup>
@@ -91,7 +93,7 @@ class BrevpakkeSelect extends React.Component {
                                     bsStyle="fill"
                                     title={'Brevpakke: ' + this.props.brevpakke}
                                     id="brevpakke_pick"
-                                    func={brevpakke =>
+                                    func={(brevpakke) =>
                                         this.selectBrevpakke(brevpakke)
                                     }
                                     list={this.props.brevpakkeList}
@@ -119,19 +121,25 @@ class BrevpakkeSelect extends React.Component {
                         <DropdownButton
                             className="btn-fill"
                             disabled={this.props.brevpakke === ''}
-                            title={this.setTitleName()}
+                            title={this.setTitleName(this.props.brevmal)}
                             id={'brevpakke_mal_pick'}
-                            onSelect={brevmal => this.selectBrevmal(brevmal)}
+                            onSelect={(brevmalId) =>
+                                this.selectBrevmal(brevmalId)
+                            }
                         >
-                            {this.props.brevmalList.map(i => (
-                                <MenuItem key={i.malID} eventKey={i}>
+                            {this.props.brevmalList.map((i) => (
+                                <Dropdown.Item
+                                    as="button"
+                                    key={i.malID}
+                                    eventKey={i.malID}
+                                >
                                     {' '}
                                     {i.malID +
                                         ' - ' +
                                         (i.redigerbar ? 'Redigerbar' : '') +
                                         ' - ' +
                                         i.dokumentTittel}{' '}
-                                </MenuItem>
+                                </Dropdown.Item>
                             ))}
                         </DropdownButton>
                         <BrevmalListListener
@@ -153,7 +161,7 @@ function mapStateToProps(state, ownProps) {
         brevmalList: state.menyValg.brevmalList,
         brevpakke: state.menyValg.brevpakke,
         brevmal: state.menyValg.brevmal,
-        brevpakkeVersjon: state.menyValg.brevpakkeVersjon
+        brevpakkeVersjon: state.menyValg.brevpakkeVersjon,
     };
 }
 
@@ -163,11 +171,8 @@ function mapDispatchToProps(dispatch) {
         pingActions: bindActionCreators(pingActions, dispatch),
         actions: bindActionCreators(menyValgActions, dispatch),
         actionsBrevdata: bindActionCreators(brevdataActions, dispatch),
-        actionsDok: bindActionCreators(dokumentActions, dispatch)
+        actionsDok: bindActionCreators(dokumentActions, dispatch),
     };
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(BrevpakkeSelect);
+export default connect(mapStateToProps, mapDispatchToProps)(BrevpakkeSelect);

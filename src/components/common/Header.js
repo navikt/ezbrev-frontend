@@ -6,6 +6,8 @@ import { bindActionCreators } from 'redux';
 import * as Actions from '~/actions/menyValgActionsUtil';
 import Ping from './Ping';
 import SpinningWheel from './SpinningWheel';
+import {InternalHeader} from '@navikt/ds-react';
+import '@navikt/ds-css';
 
 class Header extends React.Component {
     logIn = () =>
@@ -39,58 +41,43 @@ class Header extends React.Component {
 
     render() {
         return (
-            <div>
-                <nav className="navbar">
-                    <div className="pageSize">
-                        <div className="flex-row center-vertically">
-                            <div className="navbar-header">
-                                <span className="navbar-brand">
-                                    Ez-Brev 4</span>
-                            </div>
-                            <ul className="nav navbar-nav navbar-flex center-content">
-                                <li className="active">
-                                    <NavLink
-                                        to="/"
-                                        exact
-                                        activeClassName="active"
-                                    >
-                                        Rediger brevdata
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        to="/regression"
-                                        className="navbar-link"
-                                        activeClassName="active"
-                                    >
-                                        Regresjonstest
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        to="/inspection"
-                                        activeClassName="active"
-                                    >
-                                        XML Inspeksjon
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        to="/converter"
-                                        activeClassName="active"
-                                    >
-                                        XML Converter
-                                    </NavLink>
-                                </li>
-                                <li>{this.showAdmin()}</li>
-                                <li>{this.logIn()}</li>
-                            </ul>
-                            <SpinningWheel />
-                            <Ping />
-                        </div>
-                    </div>
-                </nav>
-            </div>
+            <InternalHeader>
+            <InternalHeader.Title>Ez-Brev 4</InternalHeader.Title>
+            <InternalHeader.Button>
+            <NavLink
+            to="/"
+            exact
+            >
+            Rediger brevdata
+            </NavLink>
+            </InternalHeader.Button>
+            <InternalHeader.Button>
+            <NavLink
+            to="/regression"
+            className="navbar-link"
+            >
+            Regresjonstest
+            </NavLink>
+            </InternalHeader.Button>
+            <InternalHeader.Button>
+            <NavLink
+            to="/inspection"
+            >
+            XML Inspeksjon
+            </NavLink>
+            </InternalHeader.Button>
+            <InternalHeader.Button>
+            <NavLink
+            to="/converter"
+            >
+            XML Converter
+            </NavLink>
+            </InternalHeader.Button>
+            <InternalHeader.User>
+            <Ping />
+            </InternalHeader.User>
+
+            </InternalHeader>
         );
     }
 }
