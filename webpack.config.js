@@ -7,9 +7,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 // Buildtype
 const TARGET = process.env.npm_lifecycle_event;
 
-// Set env variable
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-const devMode = process.env.NODE_ENV !== 'production';
+const devMode = process.env.NODE_ENV === 'development';
 
 const outputDir = {
     development: 'dist/devOutput',
@@ -22,8 +20,9 @@ const statsOutputSettings = {
     modules: false
 };
 
+
 const webpackConfig = {
-    mode: process.env.NODE_ENV,
+    mode: devMode ? 'development' : 'production',
     devtool: 'source-map',
     entry: ['core-js', './src/index.js'],
     output: {
@@ -46,21 +45,19 @@ const webpackConfig = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV:
-                    JSON.stringify(process.env.NODE_ENV) || '"development"',
-                CLIENT_VERSION: JSON.stringify(pkg.version) || '""',
-                REST_URL: '"http://d26jbsl01372.test.local:8443/ezbrev/rest"',
-            }
+            'process.env.NODE_ENV': devMode ? '"development"' :  '"production"',
+            'process.env.CLIENT_VERSION': JSON.stringify(pkg.version) || '""',
+            'process.env.REST_URL': '"http://d26jbsl01372.test.local:8443/ezbrev/rest"',
+
         }),
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
             filename: devMode ? '[name].css' : '[name].[hash].css'
         }),
-        new ReactRefreshWebpackPlugin(),
+        devMode && new ReactRefreshWebpackPlugin(),
         new webpack.HotModuleReplacementPlugin()
-    ],
+    ].filter(Boolean),
     resolve: {
         fallback: {
             "stream": require.resolve("stream-browserify"),
@@ -77,7 +74,14 @@ const webpackConfig = {
                 test: /\.js$/,
                 include: [path.resolve(__dirname, 'src')],
                 exclude: [path.resolve(__dirname, 'node_modules/')],
-                loader: 'babel-loader'
+                use: [
+                    {
+                loader: 'babel-loader',
+                        options: {
+                            plugins: [devMode && 'react-refresh/babel'].filter(Boolean)
+                        }
+                    }
+                ]
             },
             {
                 test: /\.less$/,
