@@ -11,7 +11,7 @@ function sortList(list) {
             sortedList.push(list[i]);
         }
     }
-    sortedList.sort(function(a, b) {
+    sortedList.sort(function (a, b) {
         if (a[0] > b[0]) {
             return 1;
         } else if (a[0] < b[0]) {
@@ -28,34 +28,34 @@ function sortList(list) {
 export function getMiljoList() {
     const url = `${serverUrl}/rest/env`;
     return get(url)
-        .then(res => res.json())
-        .then(json => sortList(json));
+        .then((res) => res.json())
+        .then((json) => sortList(json));
 }
 
 export function getBrevInfo(miljo) {
     const url = `${serverUrl}/rest/brevmaler/${miljo}`;
-    return get(url).then(res => res.json());
+    return get(url).then((res) => res.json());
 }
 
 export function getBrevpakkeVersjon(miljo, brevpakke) {
     const url = `${serverUrl}/rest/brevpakkeversjon/${brevpakke}/${miljo}`;
-    return get(url).then(res => res.json());
+    return get(url).then((res) => res.json());
 }
 
 export function getBrevdataList(brevmalId, brevpakke) {
     const url = `${serverUrl}/rest/${brevpakke}/${brevmalId}/brevdata`;
-    return get(url).then(res => res.json());
+    return get(url).then((res) => res.json());
 }
 
 export function getBrevdata(brevdataID) {
     const url = `${serverUrl}/rest/getbrevdatabyid/${brevdataID}`;
-    return get(url).then(res => res.json());
+    return get(url).then((res) => res.json());
 }
 
 export function updateXML(brevdataId, xml, beskrivelse) {
     const url = `${serverUrl}/rest/updatebrevdata`;
     let data = { brevdataId, xml, beskrivelse };
-    return post(url, data).then(res => {
+    return post(url, data).then((res) => {
         return res.json();
     });
 }
@@ -71,9 +71,9 @@ export function postBrevdataAsNew(brevpakkenavn, beskrivelse, Xml, brevmal) {
         tittel,
         redigerbar,
         beskrivelse,
-        Xml
+        Xml,
     };
-    return post(url, data).then(res => {
+    return post(url, data).then((res) => {
         return res.json();
     });
 }
@@ -81,14 +81,14 @@ export function postBrevdataAsNew(brevpakkenavn, beskrivelse, Xml, brevmal) {
 export function getDokument(brevmal, xml, rediger, miljo, utledRegisterInfo) {
     const url = `${serverUrl}/rest/bestill/${miljo}`;
     const data = { brevmal, xml, rediger, utledRegisterInfo };
-    return post(url, data).then(res => {
+    return post(url, data).then((res) => {
         return res.json();
     });
 }
 
 export function getRedigertBrev(miljo, jounralpostId, dokumentInfoId) {
     const url = `${serverUrl}/rest/brev/${miljo}/${jounralpostId}/${dokumentInfoId}`;
-    return get(url).then(res => {
+    return get(url).then((res) => {
         return res.json();
     });
 }
@@ -100,7 +100,7 @@ export function getSammenlignMedGodkjent(
     brevdataId,
     brevmal,
     xml,
-    rediger
+    rediger,
 ) {
     const url = `${serverUrl}/rest/sammenlign`;
     const data = {
@@ -110,16 +110,16 @@ export function getSammenlignMedGodkjent(
         brevdataId,
         brevmal,
         xml,
-        rediger
+        rediger,
     };
-    return post(url, data).then(res => {
+    return post(url, data).then((res) => {
         return res.json();
     });
 }
 
 export function getBrevdataInBrevpakke(brevpakkeNavn, maler) {
     const url = `${serverUrl}/rest/${brevpakkeNavn}/getBrevdatasByDokumentmalIds`;
-    return post(url, maler).then(res => res.json());
+    return post(url, maler).then((res) => res.json());
 }
 
 export function approveDokument(
@@ -127,23 +127,23 @@ export function approveDokument(
     env,
     beskrivelse,
     journalpostId,
-    dokumentInfoId
+    dokumentInfoId,
 ) {
     const url = `${serverUrl}/rest/brevdata/godkjenn`;
     let data = { brevdataId, env, beskrivelse, journalpostId, dokumentInfoId };
-    return post(url, data).then(res => {
+    return post(url, data).then((res) => {
         return res.json();
     });
 }
 export function getLastApprovedPDF(brevdataId) {
     const url = `${serverUrl}/rest/brevdata/hentLastGodkjent/${brevdataId}`;
-    return get(url).then(dokument => dokument.json());
+    return get(url).then((dokument) => dokument.json());
 }
 
 export function getOutputXML(xml) {
     const url = `${serverUrl}/rest/xmlconverter/convert`;
     const data = { xml };
-    return post(url, data).then(res => {
+    return post(url, data).then((res) => {
         return res.json();
     });
 }
@@ -154,31 +154,31 @@ export function getSimilarity(env, sammenlignPercentageObject) {
         method: 'POST',
         body: JSON.stringify(sammenlignPercentageObject),
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include'
+        credentials: 'include',
     })
-        .then(res => res.json())
-        .then(json => ({ json: json, input: sammenlignPercentageObject }));
+        .then((res) => res.json())
+        .then((json) => ({ json: json, input: sammenlignPercentageObject }));
 }
 
 export function getXmlByJournalpostId(env, brevsystem, journalpostId) {
     const url = `${serverUrl}/rest/inspect/${env}/${brevsystem}/jpid/${journalpostId}`;
-    return get(url).then(res => res.json());
+    return get(url).then((res) => res.json());
 }
 
 export function getXmlByDokumentInfoId(env, brevsystem, dokumentInfoId) {
     const url = `${serverUrl}/rest/inspect/${env}/${brevsystem}/dokid/${dokumentInfoId}`;
-    return get(url).then(res => res.json());
+    return get(url).then((res) => res.json());
 }
 
 export function getXmlByMottakerId(env, brevsystem, mottakerId) {
     const url = `${serverUrl}/rest/inspect/${env}/${brevsystem}/mottaker/${mottakerId}`;
-    return get(url).then(res => res.json());
+    return get(url).then((res) => res.json());
 }
 
 export function bestillbrevdata(brevdataId, brevmal, miljo) {
     const url = `${serverUrl}/rest/bestill/${miljo}/${brevdataId}`;
     const data = { brevmal, rediger: false };
-    return post(url, data).then(res => {
+    return post(url, data).then((res) => {
         return res.json();
     });
 }
@@ -186,10 +186,10 @@ export function deleteBrevdataExternal(brevdataId) {
     const url = `${serverUrl}/rest/admin/brevdata/${brevdataId}`;
     return fetch(url, {
         method: 'DELETE',
-        credentials: 'include'
-    }).then(res => {
+        credentials: 'include',
+    }).then((res) => {
         if (!res.ok) {
-            res.json().then(error => printErrorMessage(url, error));
+            res.json().then((error) => printErrorMessage(url, error));
             throw res;
         } else {
             return res;
@@ -199,38 +199,38 @@ export function deleteBrevdataExternal(brevdataId) {
 
 export function getIsAdmin() {
     const url = `${serverUrl}/rest/admin/isAdmin`;
-    return get(url).then(res => res.json());
+    return get(url).then((res) => res.json());
 }
 
 export function getPing() {
     const url = `${serverUrl}/internal/selftest`;
-    return get(url).then(res => res.json());
+    return get(url).then((res) => res.json());
 }
 
 export function getPingByEnv(env) {
     const url = `${serverUrl}/internal/selftest/${env}`;
     return fetch(url, {
-        credentials: 'include'
+        credentials: 'include',
     })
-        .then(res => res.json())
-        .then(json => ({ json, env: env }));
+        .then((res) => res.json())
+        .then((json) => ({ json, env: env }));
 }
 
 export function getAdminPngPages(miljo, brevdataId) {
     const url = `${serverUrl}/rest/bestill/pngpages/${miljo}/${brevdataId}`;
-    return get(url).then(res => res.json());
+    return get(url).then((res) => res.json());
 }
 
 export function getMaskList(brevdataId) {
     const url = `${serverUrl}/rest/admin/brevdata/${brevdataId}/masks`;
-    return get(url).then(res => res.json());
+    return get(url).then((res) => res.json());
 }
 
 export function deleteSingleMaskByMaskId(maskId) {
     const url = `${serverUrl}/rest/admin/mask/${maskId}`;
     return fetch(url, {
         method: 'DELETE',
-        credentials: 'include'
+        credentials: 'include',
     });
 }
 
@@ -238,15 +238,15 @@ export function deleteAllMasksByBrevdataId(miljo, brevdataId) {
     const url = `${serverUrl}/rest/admin/brevdata/${brevdataId}/masks/${miljo}`;
     return fetch(url, {
         method: 'DELETE',
-        credentials: 'include'
-    }).then(res => res.json());
+        credentials: 'include',
+    }).then((res) => res.json());
 }
 
 export function postMask(miljo, brevdataId, mask) {
     const url = `${serverUrl}/rest/admin/brevdata/${brevdataId}/masks/${miljo}`;
     let { xstart, xslutt, ystart, yslutt, sidenr } = mask;
     const data = { xstart, xslutt, ystart, yslutt, sidenr };
-    return post(url, data).then(res => res.json());
+    return post(url, data).then((res) => res.json());
 }
 
 export function post(url, data) {
@@ -254,10 +254,10 @@ export function post(url, data) {
         method: 'POST',
         body: JSON.stringify(data),
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include'
-    }).then(res => {
+        credentials: 'include',
+    }).then((res) => {
         if (!res.ok) {
-            res.json().then(error => printErrorMessage(url, error));
+            res.json().then((error) => printErrorMessage(url, error));
             throw res;
         } else {
             return res;
@@ -267,10 +267,10 @@ export function post(url, data) {
 
 function get(url) {
     return fetch(url, {
-        credentials: 'include'
-    }).then(res => {
+        credentials: 'include',
+    }).then((res) => {
         if (!res.ok) {
-            res.json().then(error => printErrorMessage(url, error));
+            res.json().then((error) => printErrorMessage(url, error));
             throw res;
         } else {
             return res;
@@ -281,15 +281,15 @@ function get(url) {
 export function printErrorMessage(url, error) {
     console.warn(
         'URL: ' +
-        url +
+            url +
             '\n' +
-        'Error: ' +
+            'Error: ' +
             error.error +
             '\n' +
             'Status: ' +
             error.status +
             '\n' +
             'Feilmelding: ' +
-            error.message
+            error.message,
     );
 }

@@ -8,7 +8,7 @@ import InspectionDokument from '~/components/inspection/partials/InspectionDokum
 
 class InspectionTable extends React.Component {
     mapDocuments = (documentArray, showXML) => {
-        return documentArray.map(document => (
+        return documentArray.map((document) => (
             <InspectionDokument
                 key={document.dokumentInfoId}
                 document={document}
@@ -19,7 +19,7 @@ class InspectionTable extends React.Component {
 
     mapJournalposts = () => {
         let showXML = this.props.inspectionData.journalposts.length === 1;
-        return this.props.inspectionData.journalposts.map(journalpost => (
+        return this.props.inspectionData.journalposts.map((journalpost) => (
             <InspectionTableItem
                 key={journalpost.journalpostId}
                 header={'JournalId ' + journalpost.journalpostId}
@@ -59,17 +59,14 @@ class InspectionTable extends React.Component {
 function mapStateToProps(state, ownProps) {
     return {
         inspectionData: state.inspectionDataReducer.inspectionData,
-        isLoading: state.loading.isLoading
+        isLoading: state.loading.isLoading,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(inspectionActions, dispatch)
+        actions: bindActionCreators(inspectionActions, dispatch),
     };
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(InspectionTable);
+export default connect(mapStateToProps, mapDispatchToProps)(InspectionTable);

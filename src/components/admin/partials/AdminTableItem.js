@@ -12,7 +12,7 @@ class AdminTableItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isShown: false
+            isShown: false,
         };
     }
 
@@ -55,7 +55,7 @@ function mapStateToProps(state, ownProps) {
         brevmalList: state.admin.adminBrevmalList,
         miljo: state.admin.adminMiljo,
         brevpakke: state.admin.adminBrevpakke,
-        brevdataList: state.admin.adminBrevdataList
+        brevdataList: state.admin.adminBrevdataList,
     };
 }
 
@@ -64,11 +64,8 @@ function mapDispatchToProps(dispatch) {
         utilActions: bindActionCreators(adminActionsUtil, dispatch),
         actions: bindActionCreators(adminActions, dispatch),
         utilActionsDok: bindActionCreators(dokumentActionsUtil, dispatch),
-        actionsDok: bindActionCreators(dokumentActions, dispatch)
+        actionsDok: bindActionCreators(dokumentActions, dispatch),
     };
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AdminTableItem);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminTableItem);

@@ -13,7 +13,7 @@ class AdminBrevdata extends React.Component {
             showModal: false,
             beskrivelse: '',
             brevdataId: 0,
-            malId: 0
+            malId: 0,
         };
     }
     deletionConfirm = (beskrivelse, brevdataId, malId) => {
@@ -21,7 +21,7 @@ class AdminBrevdata extends React.Component {
             showModal: true,
             beskrivelse: beskrivelse,
             brevdataId: brevdataId,
-            malId: malId
+            malId: malId,
         });
     };
 
@@ -39,53 +39,55 @@ class AdminBrevdata extends React.Component {
         if (this.props.malId in this.props.brevdataList) {
             return (
                 <div>
-                    {this.props.brevdataList[this.props.malId].map(brevdata => (
-                        <ListGroupItem key={brevdata.brevdataId}>
-                            <Row>
-                                <Col sm={3}>
-                                    {brevdata.beskrivelse +
-                                        ' Id: ' +
-                                        brevdata.brevdataId}
-                                </Col>
-                                <Col sm={3}>
-                                    <Button
-                                        className={'btn'}
-                                        bsSize="xsmall"
-                                        onClick={() => {
-                                            this.deletionConfirm(
-                                                brevdata.beskrivelse,
-                                                brevdata.brevdataId,
-                                                this.props.malId
-                                            );
-                                        }}
-                                    >
-                                        Slette
-                                    </Button>
-                                </Col>
-                                <Col sm={3}>
-                                    <Button
-                                        className={'btn'}
-                                        bsSize="xsmall"
-                                        onClick={() => {
-                                            console.log('onclick');
-                                            this.props.utilActions.fetchAdminPngPages(
-                                                this.props.miljo,
-                                                brevdata.brevdataId
-                                            );
-                                            this.props.actions.setAdminShowModal(
-                                                true
-                                            );
-                                            this.props.actions.setAdminBrevdataId(
-                                                brevdata.brevdataId
-                                            );
-                                        }}
-                                    >
-                                        Rediger maskering
-                                    </Button>
-                                </Col>
-                            </Row>
-                        </ListGroupItem>
-                    ))}
+                    {this.props.brevdataList[this.props.malId].map(
+                        (brevdata) => (
+                            <ListGroupItem key={brevdata.brevdataId}>
+                                <Row>
+                                    <Col sm={3}>
+                                        {brevdata.beskrivelse +
+                                            ' Id: ' +
+                                            brevdata.brevdataId}
+                                    </Col>
+                                    <Col sm={3}>
+                                        <Button
+                                            className={'btn'}
+                                            bsSize="xsmall"
+                                            onClick={() => {
+                                                this.deletionConfirm(
+                                                    brevdata.beskrivelse,
+                                                    brevdata.brevdataId,
+                                                    this.props.malId,
+                                                );
+                                            }}
+                                        >
+                                            Slette
+                                        </Button>
+                                    </Col>
+                                    <Col sm={3}>
+                                        <Button
+                                            className={'btn'}
+                                            bsSize="xsmall"
+                                            onClick={() => {
+                                                console.log('onclick');
+                                                this.props.utilActions.fetchAdminPngPages(
+                                                    this.props.miljo,
+                                                    brevdata.brevdataId,
+                                                );
+                                                this.props.actions.setAdminShowModal(
+                                                    true,
+                                                );
+                                                this.props.actions.setAdminBrevdataId(
+                                                    brevdata.brevdataId,
+                                                );
+                                            }}
+                                        >
+                                            Rediger maskering
+                                        </Button>
+                                    </Col>
+                                </Row>
+                            </ListGroupItem>
+                        ),
+                    )}
                     <Modal
                         show={this.state.showModal}
                         onHide={this.handleClose}
@@ -104,7 +106,7 @@ class AdminBrevdata extends React.Component {
                                 onClick={() =>
                                     this.deleteBrevdata(
                                         this.state.brevdataId,
-                                        this.state.malId
+                                        this.state.malId,
                                     )
                                 }
                             >
@@ -129,18 +131,15 @@ function mapStateToProps(state, ownProps) {
         brevmalList: state.admin.adminBrevmalList,
         miljo: state.admin.adminMiljo,
         brevpakke: state.admin.adminBrevpakke,
-        brevdataList: state.admin.adminBrevdataList
+        brevdataList: state.admin.adminBrevdataList,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         utilActions: bindActionCreators(adminActionsUtil, dispatch),
-        actions: bindActionCreators(adminActions, dispatch)
+        actions: bindActionCreators(adminActions, dispatch),
     };
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AdminBrevdata);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminBrevdata);

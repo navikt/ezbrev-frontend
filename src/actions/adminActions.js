@@ -14,34 +14,34 @@ export function setAdminBrevInfo(brevInfo) {
 export function setAdminBrevdataList(brevdataList) {
     return {
         type: types.SET_ADMIN_BREVDATALIST,
-        brevdataList: brevdataList
+        brevdataList: brevdataList,
     };
 }
 
 export function setAdminBrevdataId(brevdataId) {
     return {
         type: types.SET_ADMIN_BREVDATA_ID,
-        brevdataId: brevdataId
+        brevdataId: brevdataId,
     };
 }
 
 export function setAdminBrevmalList(brevmalList) {
     return {
         type: types.SET_ADMIN_BREVMALLIST,
-        brevmalList: brevmalList
+        brevmalList: brevmalList,
     };
 }
 
 export function setAdminBrevpakkeVersjon(brevpakkeVersjon) {
     return {
         type: types.SET_ADMIN_BREVPAKKE_VERSJON,
-        brevpakkeVersjon: brevpakkeVersjon
+        brevpakkeVersjon: brevpakkeVersjon,
     };
 }
 export function setAdminModal(adminModal) {
     return {
         type: types.SET_ADMIN_MODAL,
-        adminModal: adminModal
+        adminModal: adminModal,
     };
 }
 
@@ -49,53 +49,53 @@ export function deleteBrevdataInternal(brevdataId, malId) {
     return {
         type: types.DELETE_BREVDATA_INTERNAL,
         brevdataId: brevdataId,
-        malId: malId
+        malId: malId,
     };
 }
 
 export function setIsAdmin(isAdmin) {
     return {
         type: types.SET_IS_ADMIN,
-        isAdmin: isAdmin
+        isAdmin: isAdmin,
     };
 }
 
 export function setAdminPngPages(pngPages) {
     return {
         type: types.SET_ADMIN_PNGPAGES,
-        pngPages: pngPages
+        pngPages: pngPages,
     };
 }
 export function replaceAdminPngPage(pngPage) {
     return {
         type: types.REPLACE_ADMIN_PNGPAGE,
-        pngPage: pngPage
+        pngPage: pngPage,
     };
 }
 
 export function setAdminActivePage(activePage) {
     return {
         type: types.SET_ADMIN_ACTIVE_PAGE,
-        activePage: activePage
+        activePage: activePage,
     };
 }
 
 export function setAdminChanged(changed) {
     return {
         type: types.SET_ADMIN_CHANGED,
-        changed: changed
+        changed: changed,
     };
 }
 
 export function setAdminShowModal(showModal) {
     return {
         type: types.SET_ADMIN_SHOW_MODAL,
-        showModal: showModal
+        showModal: showModal,
     };
 }
 export function setMask(mask) {
     return {
         type: types.SET_ADMIN_MASK,
-        mask: mask
+        mask: mask,
     };
 }

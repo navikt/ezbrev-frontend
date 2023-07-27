@@ -18,7 +18,7 @@ export function setMiljoList(miljoList) {
 export function setBrevpakkeVersjon(brevpakkeVersjon) {
     return {
         type: types.SET_BREVPAKKE_VERSJON,
-        brevpakkeVersjon: brevpakkeVersjon
+        brevpakkeVersjon: brevpakkeVersjon,
     };
 }
 export function setBrevpakkeList(brevpakkeList) {
@@ -29,7 +29,7 @@ export function setBrevmalList(brevpakke, brevInfo) {
     return {
         type: types.SET_BREVMALLIST,
         brevpakke: brevpakke,
-        brevInfo: brevInfo
+        brevInfo: brevInfo,
     };
 }
 

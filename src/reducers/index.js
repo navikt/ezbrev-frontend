@@ -22,7 +22,7 @@ const rootReducer = combineReducers({
     inspectionDataReducer,
     admin,
     ping,
-    loading
+    loading,
 });
 
 export default rootReducer;

@@ -5,6 +5,18 @@ import Ping from './Ping.js';
 import { InternalHeader, Loader } from '@navikt/ds-react';
 import '@navikt/ds-css';
 
+/*
+    showAdmin = () => {
+        if (this.props.isAdmin) {
+            return (
+                <NavLink to="/admin" activeClassName="active">
+                    Admin
+                </NavLink>
+            );
+        }
+    };
+   */
+
 const Header = ({ loading }) => (
     <InternalHeader>
         <InternalHeader.Title>Ez-Brev</InternalHeader.Title>

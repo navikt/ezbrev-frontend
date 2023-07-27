@@ -10,7 +10,7 @@ export default function FormItem({ title, store, action }) {
                     <FormControl
                         type="text"
                         value={store}
-                        onChange={e => action(e.target.value)}
+                        onChange={(e) => action(e.target.value)}
                     />
                 </FormGroup>
             </form>

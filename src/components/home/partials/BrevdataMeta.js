@@ -6,7 +6,7 @@ import {
     DropdownButton,
     ListGroupItem,
     Dropdown,
-    Row
+    Row,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import * as brevdataActionsUtil from '~/actions/brevdataActionsUtil';
@@ -22,11 +22,11 @@ class BrevdataMeta extends React.Component {
         super(props, context);
 
         this.state = {
-            sortBy: 'Sorter brevdata'
+            sortBy: 'Sorter brevdata',
         };
     }
 
-    toggleCheckbox = e => {
+    toggleCheckbox = (e) => {
         this.props.actionsMenyValg.setRegisterCheckbox(e);
     };
     showBrevdataList = () => {
@@ -44,14 +44,14 @@ class BrevdataMeta extends React.Component {
         } else {
             return (
                 <div className="list-group" id="brevdata_pick">
-                    {this.props.brevdataList.map(i => (
+                    {this.props.brevdataList.map((i) => (
                         <ListGroupItem
                             type="button "
                             className="list-group-item"
                             key={i.brevdataId}
                             onClick={() => {
                                 this.props.utilActions.selectBrevdata(
-                                    i.brevdataId
+                                    i.brevdataId,
                                 );
                                 this.props.actionsDok.setDokument('');
                             }}
@@ -81,15 +81,15 @@ class BrevdataMeta extends React.Component {
                             title={this.state.sortBy}
                             className={'btn btn-fill'}
                             id="brevdata_sorter"
-                            onSelect={sortingKey => {
+                            onSelect={(sortingKey) => {
                                 this.setState({
                                     sortBy:
                                         sortingKey === '1'
                                             ? 'Nyeste først'
-                                            : 'Eldste først'
+                                            : 'Eldste først',
                                 });
                                 return this.props.actionsMenyValg.sortBrevdataList(
-                                    sortingKey
+                                    sortingKey,
                                 );
                             }}
                         >
@@ -108,7 +108,7 @@ class BrevdataMeta extends React.Component {
                                 title="Bruk registerinformasjon"
                                 validationState="success"
                                 defaultChecked={false}
-                                onClick={e =>
+                                onClick={(e) =>
                                     this.toggleCheckbox(e.target.checked)
                                 }
                             />
@@ -125,9 +125,9 @@ class BrevdataMeta extends React.Component {
                             id="brevdata_beskrivele"
                             placeholder="Fyll inn beskrivelse"
                             value={this.props.brevdataBeskrivelse}
-                            onChange={event => {
+                            onChange={(event) => {
                                 this.props.actions.changeBeskrivelse(
-                                    event.target.value
+                                    event.target.value,
                                 );
                             }}
                         />
@@ -138,7 +138,7 @@ class BrevdataMeta extends React.Component {
                             className={'btn btn-fill'}
                             onClick={() =>
                                 this.props.utilActionsDok.showLastApprovedPDF(
-                                    this.props.brevdataId
+                                    this.props.brevdataId,
                                 )
                             }
                             disabled={this.props.brevdataId === ''}
@@ -153,7 +153,7 @@ class BrevdataMeta extends React.Component {
 }
 
 BrevdataMeta.propTypes = {
-    brevdataList: PropTypes.array.isRequired
+    brevdataList: PropTypes.array.isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
@@ -162,7 +162,7 @@ function mapStateToProps(state, ownProps) {
         brevdataBeskrivelse: state.brevdataReducer.beskrivelse,
         brevmal: state.menyValg.brevmal,
         brevdataId: state.brevdataReducer.brevdataId,
-        isLoading: state.loading.isLoading
+        isLoading: state.loading.isLoading,
     };
 }
 
@@ -172,11 +172,8 @@ function mapDispatchToProps(dispatch) {
         actions: bindActionCreators(brevdataActions, dispatch),
         utilActionsDok: bindActionCreators(dokumentActionsUtil, dispatch),
         actionsDok: bindActionCreators(dokumentActions, dispatch),
-        actionsMenyValg: bindActionCreators(menyValgActions, dispatch)
+        actionsMenyValg: bindActionCreators(menyValgActions, dispatch),
     };
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(BrevdataMeta);
+export default connect(mapStateToProps, mapDispatchToProps)(BrevdataMeta);

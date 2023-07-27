@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import * as dokumentActionsUtil from '~/actions/dokumentActionsUtil';
 import { connect } from 'react-redux';
 import * as dokumentActions from '~/actions/dokumentActions';
@@ -69,7 +69,7 @@ class SammenlignMedGodkjent extends React.Component {
                     </div>
                 </ImageCarousel>
                 <GenericModal title="Tekstlig endring i brev" ref="diffModal">
-                    {diffTextList.map(line => this.highlightedText(line))}
+                    {diffTextList.map((line) => this.highlightedText(line))}
                 </GenericModal>
             </div>
         );
@@ -79,18 +79,18 @@ class SammenlignMedGodkjent extends React.Component {
 function mapStateToProps(state, ownProps) {
     return {
         sammenlignInfo: state.dokumentReducer.sammenlignInfo,
-        showModal: state.dokumentReducer.showModal
+        showModal: state.dokumentReducer.showModal,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         utilActionsDok: bindActionCreators(dokumentActionsUtil, dispatch),
-        actionsDok: bindActionCreators(dokumentActions, dispatch)
+        actionsDok: bindActionCreators(dokumentActions, dispatch),
     };
 }
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
 )(SammenlignMedGodkjent);

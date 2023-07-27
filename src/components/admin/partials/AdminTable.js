@@ -11,7 +11,7 @@ class AdminTable extends React.Component {
             <div>
                 <br />
                 <h4>Brevmaler</h4>
-                {this.props.brevmalList.map(item => (
+                {this.props.brevmalList.map((item) => (
                     <AdminTableItem key={item.malId} item={item} />
                 ))}
             </div>
@@ -27,18 +27,15 @@ function mapStateToProps(state, ownProps) {
         brevmalList: state.admin.adminBrevmalList,
         miljo: state.admin.adminMiljo,
         brevpakke: state.admin.adminBrevpakke,
-        brevdataList: state.admin.adminBrevdataList
+        brevdataList: state.admin.adminBrevdataList,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         utilActions: bindActionCreators(adminActionsUtil, dispatch),
-        actions: bindActionCreators(adminActions, dispatch)
+        actions: bindActionCreators(adminActions, dispatch),
     };
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AdminTable);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminTable);

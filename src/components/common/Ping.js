@@ -14,17 +14,9 @@ class Ping extends React.Component {
     };
     pingIcon = () => {
         if (this.props.error) {
-            return (
-                <CloudSlashFillIcon
-                    className="glyph-fail "
-                />
-            );
+            return <CloudSlashFillIcon className="glyph-fail " />;
         } else {
-            return (
-                <CloudFillIcon
-                    className="glyph-success"
-                />
-            );
+            return <CloudFillIcon className="glyph-success" />;
         }
     };
     render() {
@@ -35,7 +27,7 @@ class Ping extends React.Component {
                 overlay={this.popoverClick()}
             >
                 <div>
-                    <a className="ping">{this.pingIcon()}</a>
+                    <button className="ping">{this.pingIcon()}</button>
                 </div>
             </OverlayTrigger>
         );
@@ -44,7 +36,7 @@ class Ping extends React.Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        error: state.ping.error
+        error: state.ping.error,
     };
 }
 

@@ -19,7 +19,7 @@ class PingInfo extends React.Component {
                     <Col sm={12}> Status: {ping.aggregateResultText} </Col>{' '}
                 </Row>
                 <Card>
-                    {ping.checks.map(service => (
+                    {ping.checks.map((service) => (
                         <ListGroupItem
                             key={service.endpoint}
                             className={
@@ -44,17 +44,14 @@ class PingInfo extends React.Component {
 function mapStateToProps(state, ownProps) {
     return {
         ping: state.ping.ping,
-        env: state.ping.env
+        env: state.ping.env,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(actions, dispatch)
+        actions: bindActionCreators(actions, dispatch),
     };
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PingInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(PingInfo);

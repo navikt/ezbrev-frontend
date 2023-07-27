@@ -9,18 +9,18 @@ export default class InspectionDocument extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isShown: this.props.showXML
+            isShown: this.props.showXML,
         };
     }
 
-    xmlToString = xml => {
+    xmlToString = (xml) => {
         const xmlBuilder = new Builder({
             renderOpts: {
                 pretty: true,
                 indent: '    ',
-                newline: '\n'
+                newline: '\n',
             },
-            headless: false
+            headless: false,
         });
         let xmlString = '';
         parseString(xml, (err, result) => {
@@ -70,7 +70,7 @@ export default class InspectionDocument extends React.Component {
                     document.dokumentInfoId,
                     document.time,
                     document.brevmal,
-                    document.xml
+                    document.xml,
                 )}
                 data={
                     this.state.isShown ? (

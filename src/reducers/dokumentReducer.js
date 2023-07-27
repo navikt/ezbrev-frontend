@@ -4,9 +4,9 @@ const initialState = {
     dokument: '',
     isRedigertExternal: false,
     sammenlignInfo: {
-        sider: []
+        sider: [],
     },
-    showModal: false
+    showModal: false,
 };
 
 export default function brevdataReducer(state = initialState, action) {
@@ -16,7 +16,7 @@ export default function brevdataReducer(state = initialState, action) {
                 ...state,
                 dokument: action.dokument,
                 isRedigertExternal: false,
-                sammenlignInfo: { sider: [] }
+                sammenlignInfo: { sider: [] },
             };
         case types.SET_IS_REDIGERT_EXTERNAL:
             return { ...state, isRedigertExternal: action.isRedigertExternal };

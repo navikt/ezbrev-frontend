@@ -18,8 +18,8 @@ export const store = configureStore(history);
 const target = document.getElementById('root');
 
 store.dispatch(fetchMiljoList());
-getPing().then(ping =>
-    store.dispatch(setPing({ json: ping, env: 'ikke valgt' }))
+getPing().then((ping) =>
+    store.dispatch(setPing({ json: ping, env: 'ikke valgt' })),
 );
 store.dispatch(fetchIsAdmin());
 
@@ -29,7 +29,7 @@ ReactDOM.render(
             <App />
         </HashRouter>
     </Provider>,
-    target
+    target,
 );
 
 if (module.hot) {
@@ -40,7 +40,7 @@ if (module.hot) {
                     <App />
                 </HashRouter>
             </Provider>,
-            target
+            target,
         );
     });
 }

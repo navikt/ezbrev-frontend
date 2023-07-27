@@ -27,53 +27,55 @@ class RegressionControl extends React.Component {
     startRegression = () => {
         let regressionObjects = getRegressionObjects(
             Object.keys(this.props.brevdataList),
-            this.props.brevdataList
+            this.props.brevdataList,
         );
         this.props.utilActions.startRegressionTest(
             regressionObjects,
-            this.props.miljo
+            this.props.miljo,
         );
     };
 
-    setBrevMalList = brevpakke => {
+    setBrevMalList = (brevpakke) => {
         let brevmalList = [];
         for (let i = 0; i < this.props.brevInfo.length; i++) {
             if (this.props.brevInfo[i].brevPakke === brevpakke) {
                 brevmalList.push({
                     malId: this.props.brevInfo[i].malID,
-                    tittel: this.props.brevInfo[i].dokumentTittel
+                    tittel: this.props.brevInfo[i].dokumentTittel,
                 });
             }
         }
         return brevmalList;
     };
 
-    updateBrevpakke = brevpakke => {
+    updateBrevpakke = (brevpakke) => {
         this.props.actions.setRegressionBrevpakke(brevpakke);
         let brevmalList = this.setBrevMalList(brevpakke);
         brevmalList.sort((a, b) => a.malId - b.malId);
         this.props.actions.setRegressionBrevmalList(brevmalList);
         let brevmalIds = [];
-        brevmalList.forEach(item => brevmalIds.push(item.malId));
+        brevmalList.forEach((item) => brevmalIds.push(item.malId));
         this.props.utilActions.setBrevdataList(
             brevpakke,
             brevmalList,
-            brevmalIds
+            brevmalIds,
         );
         this.props.utilActions.fetchBrevpakkeVersjon(
             this.props.miljo,
             brevpakke,
-            setBrevpakkeVersjon
+            setBrevpakkeVersjon,
         );
     };
 
-    selectMiljo = miljo => {
+    selectMiljo = (miljo) => {
         this.props.utilActions.selectMiljo(
             miljo,
-            regressionActions.setRegressionBrevInfo
+            regressionActions.setRegressionBrevInfo,
         );
         this.props.actions.setRegressionMiljo(miljo);
-        getPingByEnv(miljo).then(ping => this.props.pingActions.setPing(ping));
+        getPingByEnv(miljo).then((ping) =>
+            this.props.pingActions.setPing(ping),
+        );
     };
 
     render() {
@@ -85,7 +87,7 @@ class RegressionControl extends React.Component {
                             className="btn-fill"
                             title={'Miljø: ' + this.props.miljo}
                             id="1"
-                            func={miljo => this.selectMiljo(miljo)}
+                            func={(miljo) => this.selectMiljo(miljo)}
                             list={this.props.miljoList}
                         />
                     </Col>
@@ -96,7 +98,7 @@ class RegressionControl extends React.Component {
                                     className="btn-fill"
                                     title={'Brevpakke: ' + this.props.brevpakke}
                                     id="1"
-                                    func={brevpakke =>
+                                    func={(brevpakke) =>
                                         this.updateBrevpakke(brevpakke)
                                     }
                                     list={this.props.brevpakkeList}
@@ -141,7 +143,7 @@ function mapStateToProps(state, ownProps) {
         brevpakkeList: state.regressjonReducer.regressjonBrevpakkeList,
         brevpakke: state.regressjonReducer.regressjonBrevpakke,
         brevdataList: state.regressjonReducer.regressjonBrevdataList,
-        brevpakkeVersjon: state.regressjonReducer.brevpakkeVersjon
+        brevpakkeVersjon: state.regressjonReducer.brevpakkeVersjon,
     };
 }
 
@@ -149,11 +151,8 @@ function mapDispatchToProps(dispatch) {
     return {
         utilActions: bindActionCreators(regressionActionsUtil, dispatch),
         actions: bindActionCreators(regressionActions, dispatch),
-        pingActions: bindActionCreators(pingActions, dispatch)
+        pingActions: bindActionCreators(pingActions, dispatch),
     };
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(RegressionControl);
+export default connect(mapStateToProps, mapDispatchToProps)(RegressionControl);

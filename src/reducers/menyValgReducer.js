@@ -11,7 +11,7 @@ const initialState = {
     brevInfo: [],
     brevdataList: [],
     redigerbar: false,
-    registerCheckbox: false
+    registerCheckbox: false,
 };
 
 function getBrevpakkeList(brevInfo) {
@@ -23,7 +23,6 @@ function getBrevpakkeList(brevInfo) {
 }
 
 function sortBevmalList(list) {
-
     list.sort(function (a, b) {
         if (isNumeric(a.malID) && isNumeric(b.malID)) {
             if (a.malID > b.malID) {
@@ -35,8 +34,7 @@ function sortBevmalList(list) {
             return -1;
         } else if (isNumeric(b.malID)) {
             return 1;
-        }
-        else {
+        } else {
             if (a.malID.replace(/\D/g, '') > b.malID.replace(/\D/g, '')) {
                 return 1;
             } else {
@@ -67,40 +65,40 @@ export default function menyValgReducer(state = initialState, action) {
         case types.SET_MILJOLIST:
             return {
                 ...state,
-                miljoList: action.miljoList
+                miljoList: action.miljoList,
             };
         case types.SET_BREVPAKKE_VERSJON:
             return {
                 ...state,
-                brevpakkeVersjon: action.brevpakkeVersjon
+                brevpakkeVersjon: action.brevpakkeVersjon,
             };
         case types.SET_BREVPAKKELIST:
             return {
                 ...state,
-                brevpakkeList: action.brevpakkeList
+                brevpakkeList: action.brevpakkeList,
             };
         case types.SET_BREVMALLIST:
             let brevpakke = action.brevpakke;
             let brevInfo = action.brevInfo;
             return {
                 ...state,
-                brevmalList: getBrevmalList(brevpakke, brevInfo)
+                brevmalList: getBrevmalList(brevpakke, brevInfo),
             };
         case types.SET_BREVINFO:
             return {
                 ...state,
                 brevInfo: action.brevInfo,
-                brevpakkeList: getBrevpakkeList(action.brevInfo)
+                brevpakkeList: getBrevpakkeList(action.brevInfo),
             };
         case types.SET_BREVDATALIST:
             return {
                 ...state,
-                brevdataList: action.brevdataList
+                brevdataList: action.brevdataList,
             };
         case types.ADD_ITEM_BREVDATALIST:
             return {
                 ...state,
-                brevdataList: [...state.brevdataList, action.brevdata]
+                brevdataList: [...state.brevdataList, action.brevdata],
             };
         case types.SET_MILJO:
             localStorage.setItem('miljo', action.miljo);
@@ -112,7 +110,7 @@ export default function menyValgReducer(state = initialState, action) {
                 brevpakkeVersjon: '',
                 brevmalList: [],
                 brevdataList: [],
-                brevpakkeList: []
+                brevpakkeList: [],
             };
         case types.SET_BREVPAKKE:
             localStorage.setItem('brevpakke', action.brevpakke);
@@ -122,12 +120,12 @@ export default function menyValgReducer(state = initialState, action) {
                     brevpakke: action.brevpakke,
                     brevmal: '',
                     brevdataList: [],
-                    brevmalList: []
+                    brevmalList: [],
                 };
             } else {
                 return {
                     ...state,
-                    brevpakke: action.brevpakke
+                    brevpakke: action.brevpakke,
                 };
             }
         case types.SET_BREVMAL:
@@ -135,8 +133,7 @@ export default function menyValgReducer(state = initialState, action) {
             return {
                 ...state,
                 brevmal: action.brevmal,
-                redigerbar:
-                    action.brevmal ? action.brevmal.redigerbar : false
+                redigerbar: action.brevmal ? action.brevmal.redigerbar : false,
             };
         case types.SORT_BREVDATALIST:
             let sortingKey = action.sortingKey;
@@ -152,12 +149,12 @@ export default function menyValgReducer(state = initialState, action) {
             });
             return {
                 ...state,
-                brevdataList: list
+                brevdataList: list,
             };
         case types.SET_REGISTER_CHECKBOX:
             return {
                 ...state,
-                registerCheckbox: action.registerCheckbox
+                registerCheckbox: action.registerCheckbox,
             };
         default:
             return state;

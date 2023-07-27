@@ -6,15 +6,16 @@ import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import rootReducer from '../reducers';
 
 export default function configureStore(history) {
-    const reduxImmutableStateInvariantMiddleware = reduxImmutableStateInvariant();
+    const reduxImmutableStateInvariantMiddleware =
+        reduxImmutableStateInvariant();
     const allMiddleware = [
         reduxImmutableStateInvariantMiddleware,
-        thunkMiddleware
+        thunkMiddleware,
     ];
 
     const store = createStore(
         rootReducer,
-        composeWithDevTools(applyMiddleware(...allMiddleware))
+        composeWithDevTools(applyMiddleware(...allMiddleware)),
     );
 
     if (module.hot) {

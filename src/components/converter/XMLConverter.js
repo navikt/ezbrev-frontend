@@ -17,7 +17,7 @@ class XMLConverter extends React.Component {
                             className="fill"
                             onClick={() =>
                                 this.props.utilActions.convertXML(
-                                    this.props.inputXML
+                                    this.props.inputXML,
                                 )
                             }
                             disabled={this.props.inputXML === ''}
@@ -38,9 +38,9 @@ class XMLConverter extends React.Component {
                             className="inline-txtarea"
                             placeholder="Legg inn/skriv inn XML"
                             value={this.props.inputXML}
-                            onChange={event => {
+                            onChange={(event) => {
                                 this.props.actions.setInputXML(
-                                    event.target.value
+                                    event.target.value,
                                 );
                             }}
                         />
@@ -69,18 +69,15 @@ class XMLConverter extends React.Component {
 function mapStateToProps(state, ownProps) {
     return {
         inputXML: state.converter.inputXML,
-        outputXML: state.converter.outputXML
+        outputXML: state.converter.outputXML,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators(converterActions, dispatch),
-        utilActions: bindActionCreators(converterActionsUtil, dispatch)
+        utilActions: bindActionCreators(converterActionsUtil, dispatch),
     };
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(XMLConverter);
+export default connect(mapStateToProps, mapDispatchToProps)(XMLConverter);

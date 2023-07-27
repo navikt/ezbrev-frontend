@@ -7,7 +7,7 @@ export default function ListItem({
     func,
     list,
     isDisabled,
-    className
+    className,
 }) {
     return (
         <DropdownButton
@@ -17,7 +17,7 @@ export default function ListItem({
             onSelect={func}
             disabled={isDisabled}
         >
-            {list.map(item => (
+            {list.map((item) => (
                 <Dropdown.Item key={item} eventKey={item}>
                     {item}
                 </Dropdown.Item>

@@ -7,7 +7,7 @@ export function setDokument(dokument) {
 export function setIsRedigertExternal(isRedigertExternal) {
     return {
         type: types.SET_IS_REDIGERT_EXTERNAL,
-        isRedigertExternal: isRedigertExternal
+        isRedigertExternal: isRedigertExternal,
     };
 }
 

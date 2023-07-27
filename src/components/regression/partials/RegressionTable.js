@@ -9,7 +9,7 @@ class RegressionTable extends React.Component {
     render() {
         return (
             <div>
-                {this.props.brevmalList.map(item => (
+                {this.props.brevmalList.map((item) => (
                     <RegressionTableItem key={item.malId} item={item} />
                 ))}
             </div>
@@ -19,18 +19,15 @@ class RegressionTable extends React.Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        brevmalList: state.regressjonReducer.regressjonBrevmalList
+        brevmalList: state.regressjonReducer.regressjonBrevmalList,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         utilActions: bindActionCreators(regressionActionsUtil, dispatch),
-        actions: bindActionCreators(regressionActions, dispatch)
+        actions: bindActionCreators(regressionActions, dispatch),
     };
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(RegressionTable);
+export default connect(mapStateToProps, mapDispatchToProps)(RegressionTable);

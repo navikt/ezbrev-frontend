@@ -17,7 +17,7 @@ class BrevdataControl extends React.Component {
             this.props.brevmal.malID,
             this.props.xmlInnhold,
             rediger,
-            this.props.miljo
+            this.props.miljo,
         );
         this.props.actionsDok.setIsRedigertExternal(true);
     };
@@ -25,7 +25,7 @@ class BrevdataControl extends React.Component {
         this.props.utilActionsDok.showRedigertBrev(
             this.props.miljo,
             this.props.dokument.journalpostId,
-            this.props.dokument.dokumentInfoId
+            this.props.dokument.dokumentInfoId,
         );
         this.props.actionsDok.setIsRedigertExternal(false);
     };
@@ -39,20 +39,20 @@ class BrevdataControl extends React.Component {
                         api.updateXML(
                             this.props.brevdataId,
                             this.props.xmlInnhold,
-                            this.props.brevdataBeskrivelse
+                            this.props.brevdataBeskrivelse,
                         )
                             .then(
                                 this.props.actionsBrevdata.setBrevdata(
                                     this.props.brevdataBeskrivelse,
                                     this.props.brevdataId,
                                     this.props.changeStampBrevdata,
-                                    this.props.xmlInnhold
-                                )
+                                    this.props.xmlInnhold,
+                                ),
                             )
                             .then(
                                 this.props.actionsMenyValg.setBrevdataList(
-                                    this.props.brevdataList
-                                )
+                                    this.props.brevdataList,
+                                ),
                             );
                         tempAlert('Brevdata ble oppdatert.', 5000);
                     }}
@@ -71,7 +71,7 @@ class BrevdataControl extends React.Component {
                             this.props.brevpakke,
                             this.props.brevdataBeskrivelse,
                             this.props.xmlInnhold,
-                            this.props.brevmal
+                            this.props.brevmal,
                         );
                     }}
                     disabled={
@@ -91,7 +91,7 @@ class BrevdataControl extends React.Component {
                             this.props.xmlInnhold,
                             rediger,
                             this.props.miljo,
-                            this.props.registerCheckbox
+                            this.props.registerCheckbox,
                         );
                         this.props.actionsBrevdata.setIsRedigertInternal(false);
                     }}
@@ -125,12 +125,12 @@ class BrevdataControl extends React.Component {
                             this.props.miljo,
                             this.props.brevdataBeskrivelse,
                             this.props.dokument.journalpostId,
-                            this.props.dokument.dokumentInfoId
+                            this.props.dokument.dokumentInfoId,
                         );
                         api.updateXML(
                             this.props.brevdataId,
                             this.props.xmlInnhold,
-                            this.props.brevdataBeskrivelse
+                            this.props.brevdataBeskrivelse,
                         );
                         tempAlert('Brevet ble godkjent.', 4000);
                     }}
@@ -152,7 +152,7 @@ class BrevdataControl extends React.Component {
                                 this.props.brevdataId,
                                 this.props.brevmal.malID,
                                 this.props.xmlInnhold,
-                                false
+                                false,
                             );
                         } else {
                             this.props.utilActionsDok.showSammenlignMedGodkjent(
@@ -162,7 +162,7 @@ class BrevdataControl extends React.Component {
                                 this.props.brevdataId,
                                 this.props.brevmal.malID,
                                 this.props.xmlInnhold,
-                                false
+                                false,
                             );
                         }
                     }}
@@ -193,7 +193,7 @@ function mapStateToProps(state) {
         redigerbar: state.menyValg.redigerbar,
         brevmal: state.menyValg.brevmal,
         brevdataList: state.menyValg.brevdataList,
-        registerCheckbox: state.menyValg.registerCheckbox
+        registerCheckbox: state.menyValg.registerCheckbox,
     };
 }
 
@@ -203,11 +203,8 @@ function mapDispatchToProps(dispatch) {
         utilActionsBrevdata: bindActionCreators(brevdataActionsUtil, dispatch),
         actionsDok: bindActionCreators(dokumentActions, dispatch),
         actionsBrevdata: bindActionCreators(brevdataActions, dispatch),
-        actionsMenyValg: bindActionCreators(menyValgActions, dispatch)
+        actionsMenyValg: bindActionCreators(menyValgActions, dispatch),
     };
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(BrevdataControl);
+export default connect(mapStateToProps, mapDispatchToProps)(BrevdataControl);

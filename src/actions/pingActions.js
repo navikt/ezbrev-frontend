@@ -5,6 +5,6 @@ export function setPing(obj) {
         type: types.SET_PING,
         ping: obj.json,
         env: obj.env,
-        error: obj.json.error
+        error: obj.json.error,
     };
 }

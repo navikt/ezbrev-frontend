@@ -14,7 +14,7 @@ const initialState = {
     pngPages: '',
     activePage: 0,
     showModal: false,
-    mask: {}
+    mask: {},
 };
 
 function getBrevpakkeList(brevInfo) {
@@ -29,43 +29,43 @@ export default function adminReducer(state = initialState, action) {
     switch (action.type) {
         case types.SET_MILJOLIST:
             return Object.assign({}, state, {
-                adminMiljoList: action.miljoList
+                adminMiljoList: action.miljoList,
             });
         case types.SET_ADMIN_MILJO:
             return Object.assign({}, state, {
                 adminMiljo: action.miljo,
                 adminBrevpakke: '',
                 adminBrevmalList: [],
-                adminBrevpakkeVersjon: ''
+                adminBrevpakkeVersjon: '',
             });
         case types.SET_ADMIN_BREVPAKKELIST:
             return Object.assign({}, state, {
-                adminBrevpakkeList: action.brevpakkeList
+                adminBrevpakkeList: action.brevpakkeList,
             });
         case types.SET_ADMIN_BREVPAKKE:
             return Object.assign({}, state, {
-                adminBrevpakke: action.brevpakke
+                adminBrevpakke: action.brevpakke,
             });
         case types.SET_ADMIN_BREVMALLIST:
             return Object.assign({}, state, {
-                adminBrevmalList: action.brevmalList
+                adminBrevmalList: action.brevmalList,
             });
         case types.SET_ADMIN_BREVDATALIST:
             return Object.assign({}, state, {
-                adminBrevdataList: action.brevdataList
+                adminBrevdataList: action.brevdataList,
             });
         case types.SET_ADMIN_BREVDATA_ID:
             return Object.assign({}, state, {
-                adminBrevdataId: action.brevdataId
+                adminBrevdataId: action.brevdataId,
             });
         case types.SET_ADMIN_BREVINFO:
             return Object.assign({}, state, {
                 adminBrevInfo: action.brevInfo,
-                adminBrevpakkeList: getBrevpakkeList(action.brevInfo)
+                adminBrevpakkeList: getBrevpakkeList(action.brevInfo),
             });
         case types.SET_ADMIN_BREVPAKKE_VERSJON:
             return Object.assign({}, state, {
-                adminBrevpakkeVersjon: action.brevpakkeVersjon
+                adminBrevpakkeVersjon: action.brevpakkeVersjon,
             });
         case types.SET_ADMIN_MODAL:
             return Object.assign({}, state, { adminModal: action.adminModal });
@@ -77,9 +77,9 @@ export default function adminReducer(state = initialState, action) {
                     [action.malId]: state.adminBrevdataList[
                         action.malId
                     ].filter(
-                        ({ brevdataId }) => brevdataId !== action.brevdataId
-                    )
-                }
+                        ({ brevdataId }) => brevdataId !== action.brevdataId,
+                    ),
+                },
             };
         case types.SET_IS_ADMIN:
             return { ...state, isAdmin: action.isAdmin };

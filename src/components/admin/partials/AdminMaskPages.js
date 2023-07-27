@@ -18,18 +18,18 @@ class AdminMaskPages extends React.Component {
         this.setState({ changed: true, active: page });
     }
 
-    onImageLoaded = image => {
+    onImageLoaded = (image) => {
         this.setState({
             crop: makeAspectCrop(
                 {
                     x: 0,
                     y: 0,
-                    width: 50
+                    width: 50,
                 },
-                image.naturalWidth / image.naturalHeight
+                image.naturalWidth / image.naturalHeight,
             ),
 
-            image
+            image,
         });
     };
 
@@ -45,11 +45,11 @@ class AdminMaskPages extends React.Component {
             xslutt,
             ystart,
             yslutt,
-            sidenr
+            sidenr,
         });
     };
 
-    onCropChange = crop => {
+    onCropChange = (crop) => {
         this.setState({ crop });
     };
 
@@ -68,7 +68,7 @@ class AdminMaskPages extends React.Component {
                             <Col md={2}>
                                 <div
                                     style={{
-                                        overflowY: 'scroll'
+                                        overflowY: 'scroll',
                                     }}
                                 >
                                     {pages.map((img, key) => {
@@ -81,7 +81,7 @@ class AdminMaskPages extends React.Component {
                                                 thumbnail
                                                 onClick={this.changePage.bind(
                                                     this,
-                                                    key
+                                                    key,
                                                 )}
                                                 key={key}
                                             />
@@ -112,7 +112,7 @@ class AdminMaskPages extends React.Component {
                                                 this.props.utilActionsAdmin.saveMask(
                                                     this.props.miljo,
                                                     this.props.brevdataId,
-                                                    this.props.mask
+                                                    this.props.mask,
                                                 );
                                             }}
                                         >
@@ -125,7 +125,7 @@ class AdminMaskPages extends React.Component {
                                             onClick={() => {
                                                 this.props.utilActionsAdmin.deleteMasks(
                                                     this.props.miljo,
-                                                    this.props.brevdataId
+                                                    this.props.brevdataId,
                                                 );
                                             }}
                                         >
@@ -150,18 +150,15 @@ function mapStateToProps(state, ownProps) {
         mask: state.admin.mask,
         brevdataId: state.admin.adminBrevdataId,
         miljo: state.admin.adminMiljo,
-        isLoading: state.loading.isLoading
+        isLoading: state.loading.isLoading,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         actionsAdmin: bindActionCreators(adminActions, dispatch),
-        utilActionsAdmin: bindActionCreators(adminActionsUtil, dispatch)
+        utilActionsAdmin: bindActionCreators(adminActionsUtil, dispatch),
     };
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AdminMaskPages);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminMaskPages);

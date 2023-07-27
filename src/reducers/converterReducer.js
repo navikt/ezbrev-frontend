@@ -2,7 +2,7 @@ import * as types from '../actions/actionTypes';
 
 const initialState = {
     inputXML: '',
-    outputXML: ''
+    outputXML: '',
 };
 
 export default function converterReducer(state = initialState, action) {
@@ -11,7 +11,7 @@ export default function converterReducer(state = initialState, action) {
             return {
                 ...state,
                 inputXML: action.inputXML,
-                outputXML: action.inputXML === '' ? '' : state.outputXML
+                outputXML: action.inputXML === '' ? '' : state.outputXML,
             };
 
         case types.SET_OUTPUT_XML:

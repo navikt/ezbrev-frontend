@@ -7,24 +7,24 @@ export function setBrevdataList(
     brevpakke,
     brevmalList,
     brevmalIds,
-    action = regressionActions.setRegressionBrevdataList
+    action = regressionActions.setRegressionBrevdataList,
 ) {
-    return function(dispatch) {
+    return function (dispatch) {
         dispatch(setIsLoading(true));
         let promises = [];
         for (let i = 0; i < brevmalIds.length; i++) {
             promises.push(
                 getBrevdataInBrevpakke(brevpakke, {
-                    brevmalIds: [brevmalIds[i]]
-                })
+                    brevmalIds: [brevmalIds[i]],
+                }),
             );
         }
 
-        Promise.all(promises).then(resolvedPromises => {
+        Promise.all(promises).then((resolvedPromises) => {
             let object = {};
-            brevmalIds.forEach(malid => (object[malid] = []));
-            resolvedPromises.forEach(res => {
-                res.forEach(brevdata => {
+            brevmalIds.forEach((malid) => (object[malid] = []));
+            resolvedPromises.forEach((res) => {
+                res.forEach((brevdata) => {
                     let malid = brevdata.dokumentmal.dokumenttypeId;
                     malid in object
                         ? object[malid].push(brevdata)
@@ -48,24 +48,24 @@ export function fetchBrevpakkeVersjon(miljo, brevpakke, action) {
 export function startRegressionTest(
     regressionObjects,
     env,
-    numberOfBrevtadaToTestSimultaneously = 2
+    numberOfBrevtadaToTestSimultaneously = 2,
 ) {
-    return function(dispatch) {
+    return function (dispatch) {
         let prosenter = {};
         for (let i = 0; i < regressionObjects.length; i++) {
             prosenter[regressionObjects[i].brevdataId] = 'Henter data...';
         }
         dispatch(
             regressionActions.setRegressionSimilarity(
-                JSON.parse(JSON.stringify(prosenter))
-            )
+                JSON.parse(JSON.stringify(prosenter)),
+            ),
         );
         chainMultipleRegressionObjects(
             regressionObjects,
             numberOfBrevtadaToTestSimultaneously,
             env,
             prosenter,
-            dispatch
+            dispatch,
         );
     };
 }
@@ -74,26 +74,26 @@ function chainMultipleRegressionObjects(
     numberOfObj,
     env,
     prosenter,
-    dispatch
+    dispatch,
 ) {
     let chain = Promise.resolve();
     for (let i = 0; i < regressionObjects.length; i = i + numberOfObj) {
-        chain = chain.then(function() {
+        chain = chain.then(function () {
             let promise = promiseRegressionObjects(
                 i,
                 numberOfObj,
                 regressionObjects,
                 env,
-                prosenter
+                prosenter,
             );
             return promise;
         });
-        chain.then(x =>
+        chain.then((x) =>
             dispatch(
                 regressionActions.setRegressionSimilarity(
-                    JSON.parse(JSON.stringify(prosenter))
-                )
-            )
+                    JSON.parse(JSON.stringify(prosenter)),
+                ),
+            ),
         );
     }
 }
@@ -104,16 +104,16 @@ function promiseRegressionObjects(
     numberOfObj,
     regressionObjects,
     env,
-    prosenter
+    prosenter,
 ) {
-    return new Promise(function(resolve, dispatch) {
+    return new Promise(function (resolve, dispatch) {
         let promises = [];
         const length = regressionObjects.length;
         for (let j = start; j < start + numberOfObj && j < length; j++) {
             promises.push(getSimilarity(env, regressionObjects[j]));
         }
-        Promise.all(promises).then(resolvedPromises => {
-            resolvedPromises.forEach(res => {
+        Promise.all(promises).then((resolvedPromises) => {
+            resolvedPromises.forEach((res) => {
                 'error' in res.json
                     ? (prosenter[res.input.brevdataId] = res.json.message)
                     : (prosenter[res.json.brevdataId] = res.json.percentage);

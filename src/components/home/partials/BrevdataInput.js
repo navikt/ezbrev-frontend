@@ -16,9 +16,9 @@ class BrevdataInput extends React.Component {
                         id="brevdata_input"
                         placeholder="Legg inn XML"
                         value={this.props.xmlInnhold}
-                        onChange={event => {
+                        onChange={(event) => {
                             this.props.actions.changeBrevdataXML(
-                                event.target.value
+                                event.target.value,
                             );
                         }}
                     />
@@ -30,22 +30,19 @@ class BrevdataInput extends React.Component {
 }
 
 BrevdataInput.propTypes = {
-    actions: PropTypes.object.isRequired
+    actions: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
     return {
-        xmlInnhold: state.brevdataReducer.xmlInnhold
+        xmlInnhold: state.brevdataReducer.xmlInnhold,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(brevdataActions, dispatch)
+        actions: bindActionCreators(brevdataActions, dispatch),
     };
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(BrevdataInput);
+export default connect(mapStateToProps, mapDispatchToProps)(BrevdataInput);

@@ -5,7 +5,7 @@ import {
     ListGroup,
     ListGroupItem,
     Card,
-    Row
+    Row,
 } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -21,31 +21,31 @@ class RegressionTableItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isShown: false
+            isShown: false,
         };
     }
 
-    regtestMal = malId => {
+    regtestMal = (malId) => {
         let regressionObjects = getRegressionObjects(
             [malId],
-            this.props.brevdataList
+            this.props.brevdataList,
         );
         this.props.utilActions.startRegressionTest(
             regressionObjects,
-            this.props.miljo
+            this.props.miljo,
         );
     };
 
     sammenlign = (brevdataId, dokumenttypeId) => {
         bestillbrevdata(brevdataId, dokumenttypeId, this.props.miljo).then(
-            json => {
+            (json) => {
                 this.props.utilActionsDok.showSammenlignMedGodkjent(
                     this.props.miljo,
                     json.journalpostId,
                     json.dokumentInfoId,
-                    brevdataId
+                    brevdataId,
                 );
-            }
+            },
         );
     };
 
@@ -88,7 +88,7 @@ class RegressionTableItem extends React.Component {
                             item.malId,
                             this.sammenlign,
                             this.props.brevdataList,
-                            this.props.regressionSimilarity
+                            this.props.regressionSimilarity,
                         )}
                     </ListGroup>
                 ) : null}
@@ -106,7 +106,7 @@ function mapStateToProps(state, ownProps) {
         miljo: state.regressjonReducer.regressjonMiljo,
         brevpakke: state.regressjonReducer.regressjonBrevpakke,
         brevdataList: state.regressjonReducer.regressjonBrevdataList,
-        regressionSimilarity: state.regressjonReducer.regressionSimilarity
+        regressionSimilarity: state.regressjonReducer.regressionSimilarity,
     };
 }
 
@@ -115,11 +115,11 @@ function mapDispatchToProps(dispatch) {
         utilActions: bindActionCreators(regressionActionsUtil, dispatch),
         actions: bindActionCreators(regressionActions, dispatch),
         utilActionsDok: bindActionCreators(dokumentActionsUtil, dispatch),
-        actionsDok: bindActionCreators(dokumentActions, dispatch)
+        actionsDok: bindActionCreators(dokumentActions, dispatch),
     };
 }
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
 )(RegressionTableItem);

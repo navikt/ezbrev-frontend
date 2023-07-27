@@ -21,7 +21,7 @@ class BrevpakkeListListener extends React.Component {
 function mapStateToProps(state, ownProps) {
     return {
         brevpakkeList: state.regressjonReducer.regressjonBrevpakkeList,
-        brevdataList: state.regressjonReducer.regressjonBrevdataList
+        brevdataList: state.regressjonReducer.regressjonBrevdataList,
     };
 }
 

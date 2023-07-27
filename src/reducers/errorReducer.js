@@ -4,7 +4,7 @@ const initialState = {
     errorList: [],
     modalTitle: '',
     modalBody: '',
-    showModal: false
+    showModal: false,
 };
 
 export default function errorReducer(state = initialState, action) {
@@ -16,7 +16,7 @@ export default function errorReducer(state = initialState, action) {
                 ...state,
                 modalTitle: action.title,
                 modalBody: action.body,
-                showModal: true
+                showModal: true,
             };
         case types.HIDE_MODAL:
             return { ...state, showModal: false };

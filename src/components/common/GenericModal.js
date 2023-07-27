@@ -9,13 +9,13 @@ class GenericModal extends React.Component {
 
     open() {
         this.setState({
-            showModal: true
+            showModal: true,
         });
     }
 
     close() {
         this.setState({
-            showModal: false
+            showModal: false,
         });
     }
 

@@ -13,6 +13,10 @@ export const DeRuites = () => (
         <Route path="/regression" element={<RegressionPage />} />
         <Route path="/inspection" element={<InspectionPage />} />
         <Route path="/converter" element={<ConverterPage />} />
-        <Route path="/admin" name="Admin" element={<AuthenticatedComponent />} />
+        <Route
+            path="/admin"
+            name="Admin"
+            element={<AuthenticatedComponent />}
+        />
     </Routes>
 );

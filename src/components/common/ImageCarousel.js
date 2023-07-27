@@ -10,14 +10,14 @@ class ImageCarousel extends React.Component {
         this.state = {
             index: 0,
             direction: null,
-            showModal: false
+            showModal: false,
         };
     }
 
     handleSelect(selectedIndex, selectedDirection) {
         this.setState({
             index: selectedIndex,
-            direction: selectedDirection
+            direction: selectedDirection,
         });
     }
 
@@ -75,17 +75,14 @@ class ImageCarousel extends React.Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        showModal: state.dokumentReducer.showModal
+        showModal: state.dokumentReducer.showModal,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actionsDok: bindActionCreators(dokumentActions, dispatch)
+        actionsDok: bindActionCreators(dokumentActions, dispatch),
     };
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ImageCarousel);
+export default connect(mapStateToProps, mapDispatchToProps)(ImageCarousel);

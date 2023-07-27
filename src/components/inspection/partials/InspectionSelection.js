@@ -16,16 +16,20 @@ class InspectionSelection extends React.Component {
         super(props);
 
         const miljo = localStorage.getItem('inspectionMiljo');
-        miljo !== null ? this.selectMiljo(miljo) : '';
+        if (miljo !== null) {
+            this.selectMiljo(miljo);
+        }
         const brevsystem = localStorage.getItem('brevsystem');
-        brevsystem !== null ? this.selectBrevsystem(brevsystem) : '';
+        if (brevsystem !== null) {
+            this.selectBrevsystem(brevsystem);
+        }
     }
 
     setData = (input, restMethod) => {
         if (input !== '' && input) {
             if (!isNaN(input)) {
                 restMethod(this.props.miljo, this.props.brevsystem, input).then(
-                    x => this.props.actions.setInspectionData(x)
+                    (x) => this.props.actions.setInspectionData(x),
                 );
             } else {
                 alert('Input må være et tall.');
@@ -33,12 +37,14 @@ class InspectionSelection extends React.Component {
         }
     };
 
-    selectMiljo = miljo => {
+    selectMiljo = (miljo) => {
         this.props.actions.setMiljo(miljo);
-        getPingByEnv(miljo).then(ping => this.props.pingActions.setPing(ping));
+        getPingByEnv(miljo).then((ping) =>
+            this.props.pingActions.setPing(ping),
+        );
     };
 
-    selectBrevsystem = brevsystem => {
+    selectBrevsystem = (brevsystem) => {
         this.props.actions.setBrevsystem(brevsystem);
     };
 
@@ -57,7 +63,7 @@ class InspectionSelection extends React.Component {
                         className="btn-fill"
                         title={'Miljø: ' + this.props.miljo}
                         id="1"
-                        func={miljo => {
+                        func={(miljo) => {
                             this.selectMiljo(miljo);
                         }}
                         list={this.props.miljoList}
@@ -68,7 +74,7 @@ class InspectionSelection extends React.Component {
                         className="btn-fill"
                         title={'Brevsystem: ' + this.props.brevsystem}
                         id="1"
-                        func={brevsystem => this.selectBrevsystem(brevsystem)}
+                        func={(brevsystem) => this.selectBrevsystem(brevsystem)}
                         list={['DOKSYS', 'HP']}
                     />
                 </Row>
@@ -114,7 +120,7 @@ function mapStateToProps(state, ownProps) {
         brevsystem: state.inspection.brevsystem,
         mottakerId: state.inspection.mottakerId,
         journalpostId: state.inspection.journalpostId,
-        dokumentinfoId: state.inspection.dokumentinfoId
+        dokumentinfoId: state.inspection.dokumentinfoId,
     };
 }
 
@@ -123,11 +129,11 @@ function mapDispatchToProps(dispatch) {
         actions: bindActionCreators(inspectionActions, dispatch),
         pingActions: bindActionCreators(pingActions, dispatch),
         errorActions: bindActionCreators(errorActions, dispatch),
-        loadingActions: bindActionCreators(loadingActions, dispatch)
+        loadingActions: bindActionCreators(loadingActions, dispatch),
     };
 }
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
 )(InspectionSelection);

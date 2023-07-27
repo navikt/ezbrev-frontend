@@ -5,21 +5,21 @@ import { tempAlert } from '~/components/common/tempAlert';
 import { setIsLoading } from './loadingActions';
 
 export function selectBrevdata(brevdataId) {
-    return function(dispatch) {
+    return function (dispatch) {
         dispatch(setIsLoading(true));
         return api
             .getBrevdata(brevdataId)
-            .then(brevdata => {
+            .then((brevdata) => {
                 dispatch(
                     actions.setBrevdata(
                         brevdata.beskrivelse,
                         brevdata.brevdataId,
                         brevdata.changeStamp,
-                        brevdata.xmlInnhold
-                    )
+                        brevdata.xmlInnhold,
+                    ),
                 );
             })
-            .catch(error => {
+            .catch((error) => {
                 dispatch(setIsLoading(false));
                 throw error;
             });
@@ -30,34 +30,34 @@ export function saveXMLAsNew(
     brevpakke,
     brevdataBeskrivelse,
     xmlInnhold,
-    brevmal
+    brevmal,
 ) {
-    return function(dispatch) {
+    return function (dispatch) {
         dispatch(setIsLoading(true));
         return api
             .postBrevdataAsNew(
                 brevpakke,
                 brevdataBeskrivelse,
                 xmlInnhold,
-                brevmal
+                brevmal,
             )
-            .then(brevdata => {
+            .then((brevdata) => {
                 dispatch(
                     actions.setBrevdata(
                         brevdata.beskrivelse,
                         brevdata.brevdataId,
                         brevdata.changeStamp,
-                        brevdata.xmlInnhold
-                    )
+                        brevdata.xmlInnhold,
+                    ),
                 );
                 return brevdata;
             })
-            .then(brevdata => {
+            .then((brevdata) => {
                 dispatch(actionsMenyValg.addItemBrevdataList(brevdata));
                 tempAlert('Brevdata ble lagret som ny.', 5000);
                 return brevdata;
             })
-            .catch(error => {
+            .catch((error) => {
                 dispatch(setIsLoading(false));
                 throw error;
             });

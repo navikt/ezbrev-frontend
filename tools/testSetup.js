@@ -25,13 +25,13 @@ require('@babel/register')();
 
 // Disable webpack-specific features for tests since
 // Mocha doesn't know what to do with them.
-require.extensions['.css'] = function() {
+require.extensions['.css'] = function () {
     return null;
 };
-require.extensions['.png'] = function() {
+require.extensions['.png'] = function () {
     return null;
 };
-require.extensions['.jpg'] = function() {
+require.extensions['.jpg'] = function () {
     return null;
 };
 
@@ -41,10 +41,10 @@ var JSDOM = require('jsdom').JSDOM;
 
 var exposedProperties = ['window', 'navigator', 'document'];
 
-const jsdom = new JSDOM('', {url: 'http://localhost'});
+const jsdom = new JSDOM('', { url: 'http://localhost' });
 global.document = jsdom.window.document;
 global.window = jsdom.window;
-Object.keys(jsdom.window).forEach(property => {
+Object.keys(jsdom.window).forEach((property) => {
     if (typeof global[property] === 'undefined') {
         exposedProperties.push(property);
         global[property] = jsdom.window[property];
@@ -52,7 +52,7 @@ Object.keys(jsdom.window).forEach(property => {
 });
 
 global.navigator = {
-    userAgent: 'node.js'
+    userAgent: 'node.js',
 };
 
 documentRef = document; //eslint-disable-line no-undef

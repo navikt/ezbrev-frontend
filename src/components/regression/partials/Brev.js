@@ -5,10 +5,10 @@ export default function Brev(
     malId,
     sammenlign,
     brevdataList,
-    regressionSimilarity
+    regressionSimilarity,
 ) {
     if (malId in brevdataList) {
-        return brevdataList[malId].map(brevdata => (
+        return brevdataList[malId].map((brevdata) => (
             <ListGroupItem key={brevdata.brevdataId}>
                 <Row>
                     <Col sm={4}>
@@ -26,7 +26,7 @@ export default function Brev(
                             onClick={() =>
                                 sammenlign(
                                     brevdata.brevdataId,
-                                    brevdata.dokumentmal.dokumenttypeId
+                                    brevdata.dokumentmal.dokumenttypeId,
                                 )
                             }
                         >
