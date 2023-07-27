@@ -136,7 +136,7 @@ export default function menyValgReducer(state = initialState, action) {
                 ...state,
                 brevmal: action.brevmal,
                 redigerbar:
-                    action.brevmal === '' ? false : action.brevmal.redigerbar
+                    action.brevmal ? action.brevmal.redigerbar : false
             };
         case types.SORT_BREVDATALIST:
             let sortingKey = action.sortingKey;

@@ -42,8 +42,8 @@ export function getBrevpakkeVersjon(miljo, brevpakke) {
     return get(url).then(res => res.json());
 }
 
-export function getBrevdataList(brevmal, brevpakke) {
-    const url = `${serverUrl}/rest/${brevpakke}/${brevmal}/brevdata`;
+export function getBrevdataList(brevmalId, brevpakke) {
+    const url = `${serverUrl}/rest/${brevpakke}/${brevmalId}/brevdata`;
     return get(url).then(res => res.json());
 }
 

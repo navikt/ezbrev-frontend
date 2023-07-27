@@ -71,11 +71,11 @@ export function selectBrevpakke(brevpakke, brevInfo) {
     return actions.setBrevmalList(brevpakke, brevInfo);
 }
 
-export function selectBrevmal(brevmal, brevpakke) {
+export function selectBrevmal(brevmalId, brevpakke) {
     return function(dispatch) {
         dispatch(setIsLoading(true));
         return api
-            .getBrevdataList(brevmal, brevpakke)
+            .getBrevdataList(brevmalId, brevpakke)
             .then(brevdataList => {
                 dispatch(actions.setBrevdataList(brevdataList));
                 dispatch(actionsDok.setDokument(''));
