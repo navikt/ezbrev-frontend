@@ -2,7 +2,6 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import * as inspectionActions from '~/actions/InspectionActions';
 import { connect } from 'react-redux';
-import { Col } from 'react-bootstrap';
 import InspectionTableItem from '~/components/inspection/partials/InspectionTableItem';
 import InspectionDokument from '~/components/inspection/partials/InspectionDokument';
 
@@ -34,14 +33,14 @@ class InspectionTable extends React.Component {
             this.props.inspectionData.mottakerId !== null
         ) {
             return (
-                <Col md={10}>
+                <div style={{ width: '80%', minWidth: '70em' }}>
                     <InspectionTableItem
                         header={
                             'MottakerId ' + this.props.inspectionData.mottakerId
                         }
                         data={this.mapJournalposts()}
                     />
-                </Col>
+                </div>
             );
         } else {
             if (

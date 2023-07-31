@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Container, Image, Row, Modal } from 'react-bootstrap';
+import { Col, Container, Image, Row } from 'react-bootstrap';
 import { Space } from '../../common/Scaffolding';
 import * as adminActions from '~/actions/adminActions';
 import ReactCrop, { makeAspectCrop } from 'react-image-crop';
@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as adminActionsUtil from '~/actions/adminActionsUtil';
 import 'react-image-crop/dist/ReactCrop.css';
+import { Button, Modal } from '@navikt/ds-react';
 
 class AdminMaskPages extends React.Component {
     constructor(props) {
@@ -57,12 +58,12 @@ class AdminMaskPages extends React.Component {
         const pages = this.props.pages || [];
         return (
             <Modal
-                show={this.props.showModal && !this.props.isLoading}
-                onHide={() => this.props.actionsAdmin.setAdminShowModal(false)}
+                open={this.props.showModal && !this.props.isLoading}
+                onClose={() => this.props.actionsAdmin.setAdminShowModal(false)}
                 title="Maskering"
                 bsSize="large"
             >
-                <Modal.Body>
+                <Modal.Content>
                     <Container>
                         <Row>
                             <Col md={2}>
@@ -136,7 +137,7 @@ class AdminMaskPages extends React.Component {
                             </Col>
                         </Row>
                     </Container>
-                </Modal.Body>
+                </Modal.Content>
             </Modal>
         );
     }

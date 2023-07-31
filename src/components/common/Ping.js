@@ -1,38 +1,45 @@
-import React from 'react';
-import { OverlayTrigger, Popover } from 'react-bootstrap';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { CloudFillIcon, CloudSlashFillIcon } from '@navikt/aksel-icons';
 import PingInfo from './PingInfo';
+import { Popover } from '@navikt/ds-react';
 
-class Ping extends React.Component {
-    popoverClick = () => {
-        return (
-            <Popover id="popover-trigger-hover-focus" title="Selftest">
-                <PingInfo />
-            </Popover>
-        );
-    };
-    pingIcon = () => {
-        if (this.props.error) {
-            return <CloudSlashFillIcon className="glyph-fail " />;
-        } else {
-            return <CloudFillIcon className="glyph-success" />;
-        }
-    };
-    render() {
-        return (
-            <OverlayTrigger
-                trigger={['hover', 'focus']}
-                placement="bottom"
-                overlay={this.popoverClick()}
+const Ping = ({ error }) => {
+    const [anchor, setAnchor] = useState(null);
+    const [open, setOpen] = useState(false);
+
+    return (
+        <div>
+            <button
+                className="ping"
+                ref={setAnchor}
+                onClick={() => setOpen(true)}
+                onMouseOver={() => setOpen(true)}
+                onFocus={() => setOpen(true)}
+                onMouseOut={() => setOpen(false)}
+                onBlur={() => setOpen(false)}
             >
-                <div>
-                    <button className="ping">{this.pingIcon()}</button>
-                </div>
-            </OverlayTrigger>
-        );
-    }
-}
+                {error ? (
+                    <CloudSlashFillIcon className="glyph-fail " />
+                ) : (
+                    <CloudFillIcon className="glyph-success" />
+                )}
+            </button>
+            <Popover
+                id="popover-trigger-hover-focus"
+                title="Selftest"
+                placement={'bottom'}
+                anchorEl={anchor}
+                open={open}
+                onClose={() => setOpen(false)}
+            >
+                <Popover.Content>
+                    <PingInfo />
+                </Popover.Content>
+            </Popover>
+        </div>
+    );
+};
 
 function mapStateToProps(state, ownProps) {
     return {

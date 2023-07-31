@@ -1,10 +1,10 @@
 import React from 'react';
-import { Button, Col, ListGroupItem, Modal, Row } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import * as adminActions from '~/actions/adminActions';
 import * as adminActionsUtil from '~/actions/adminActionsUtil';
 import { connect } from 'react-redux';
 import * as api from '../../../api/index';
+import { BodyShort, Button, Heading, Modal, Table } from '@navikt/ds-react';
 
 class AdminBrevdata extends React.Component {
     constructor(props) {
@@ -39,69 +39,77 @@ class AdminBrevdata extends React.Component {
         if (this.props.malId in this.props.brevdataList) {
             return (
                 <div>
-                    {this.props.brevdataList[this.props.malId].map(
-                        (brevdata) => (
-                            <ListGroupItem key={brevdata.brevdataId}>
-                                <Row>
-                                    <Col sm={3}>
-                                        {brevdata.beskrivelse +
-                                            ' Id: ' +
-                                            brevdata.brevdataId}
-                                    </Col>
-                                    <Col sm={3}>
-                                        <Button
-                                            className={'btn'}
-                                            bsSize="xsmall"
-                                            onClick={() => {
-                                                this.deletionConfirm(
-                                                    brevdata.beskrivelse,
-                                                    brevdata.brevdataId,
-                                                    this.props.malId,
-                                                );
-                                            }}
-                                        >
-                                            Slette
-                                        </Button>
-                                    </Col>
-                                    <Col sm={3}>
-                                        <Button
-                                            className={'btn'}
-                                            bsSize="xsmall"
-                                            onClick={() => {
-                                                console.log('onclick');
-                                                this.props.utilActions.fetchAdminPngPages(
-                                                    this.props.miljo,
-                                                    brevdata.brevdataId,
-                                                );
-                                                this.props.actions.setAdminShowModal(
-                                                    true,
-                                                );
-                                                this.props.actions.setAdminBrevdataId(
-                                                    brevdata.brevdataId,
-                                                );
-                                            }}
-                                        >
-                                            Rediger maskering
-                                        </Button>
-                                    </Col>
-                                </Row>
-                            </ListGroupItem>
-                        ),
-                    )}
+                    <Table>
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell>
+                                    Beskrivelse{' '}
+                                </Table.HeaderCell>
+                                <Table.HeaderCell />
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                            {this.props.brevdataList[this.props.malId].map(
+                                (brevdata) => (
+                                    <Table.Row border key={brevdata.brevdataId}>
+                                        <Table.DataCell>
+                                            {brevdata.beskrivelse +
+                                                ' Id: ' +
+                                                brevdata.brevdataId}
+                                        </Table.DataCell>
+                                        <Table.DataCell>
+                                            <Button
+                                                className={'btn'}
+                                                bsSize="xsmall"
+                                                onClick={() => {
+                                                    this.deletionConfirm(
+                                                        brevdata.beskrivelse,
+                                                        brevdata.brevdataId,
+                                                        this.props.malId,
+                                                    );
+                                                }}
+                                            >
+                                                Slette
+                                            </Button>
+                                        </Table.DataCell>
+                                        <Table.DataCell>
+                                            <Button
+                                                className={'btn'}
+                                                bsSize="xsmall"
+                                                onClick={() => {
+                                                    console.log('onclick');
+                                                    this.props.utilActions.fetchAdminPngPages(
+                                                        this.props.miljo,
+                                                        brevdata.brevdataId,
+                                                    );
+                                                    this.props.actions.setAdminShowModal(
+                                                        true,
+                                                    );
+                                                    this.props.actions.setAdminBrevdataId(
+                                                        brevdata.brevdataId,
+                                                    );
+                                                }}
+                                            >
+                                                Rediger maskering
+                                            </Button>
+                                        </Table.DataCell>
+                                    </Table.Row>
+                                ),
+                            )}
+                        </Table.Body>
+                    </Table>
                     <Modal
-                        show={this.state.showModal}
-                        onHide={this.handleClose}
+                        open={this.state.showModal}
+                        onClose={this.handleClose}
                     >
-                        <Modal.Header>
-                            <Modal.Title>Bekreft sletting</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <h4>
-                                Ønsker du å slette brevdata{' '}
-                                {this.state.beskrivelse}?
-                            </h4>
-                        </Modal.Body>
-                        <Modal.Footer>
+                        <Modal.Content>
+                            <Heading>Bekreft sletting</Heading>
+                            <BodyShort>
+                                <h4>
+                                    Ønsker du å slette brevdata{' '}
+                                    {this.state.beskrivelse}?
+                                </h4>
+                            </BodyShort>
                             <Button
                                 onClick={() =>
                                     this.deleteBrevdata(
@@ -113,7 +121,7 @@ class AdminBrevdata extends React.Component {
                                 Ja
                             </Button>
                             <Button onClick={this.handleClose}>Nei</Button>
-                        </Modal.Footer>
+                        </Modal.Content>
                     </Modal>
                 </div>
             );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { DropdownButton, Dropdown } from 'react-bootstrap';
+import { Select } from '@navikt/ds-react';
 
 export default function ListItem({
     title,
@@ -8,20 +8,23 @@ export default function ListItem({
     list,
     isDisabled,
     className,
+    value,
 }) {
     return (
-        <DropdownButton
+        <Select
             className={className + ' text-left'}
             title={title}
+            label={title}
             id={id}
-            onSelect={func}
+            onChange={(event) => func(event.target.value)}
             disabled={isDisabled}
+            value={value}
         >
             {list.map((item) => (
-                <Dropdown.Item key={item} eventKey={item}>
+                <option key={item} value={item}>
                     {item}
-                </Dropdown.Item>
+                </option>
             ))}
-        </DropdownButton>
+        </Select>
     );
 }

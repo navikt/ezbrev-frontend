@@ -1,12 +1,4 @@
 import React from 'react';
-import {
-    ButtonGroup,
-    Col,
-    DropdownButton,
-    FormControl,
-    Dropdown,
-    Row,
-} from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as menyValgActionsUtil from '../../../actions/menyValgActionsUtil';
@@ -18,6 +10,7 @@ import ListItem from '../../common/ListItem';
 import { getPingByEnv } from '../../../api';
 import BrevpakkeListListener from './BrevpakkeListListener';
 import BrevmalListListener from './BrevmalListListener';
+import { Select, TextField } from '@navikt/ds-react';
 
 class BrevpakkeSelect extends React.Component {
     constructor(props) {
@@ -71,83 +64,61 @@ class BrevpakkeSelect extends React.Component {
 
     render() {
         return (
-            <Col md={3}>
-                <div>
-                    <Row>
-                        <ButtonGroup className="btn-fill padding-right">
-                            <ListItem
-                                className="btn-fill"
-                                title={'Miljø: ' + this.props.miljo}
-                                id="brevpakke_env_pick"
-                                func={(miljo) => this.selectMiljo(miljo)}
-                                list={this.props.miljoList}
-                            />
-                        </ButtonGroup>
-                    </Row>
-                    <br />
-                    <Row>
-                        <div className="parent padding-right">
-                            <div className="child inline-block-child big">
-                                <ListItem
-                                    className="btn-fill"
-                                    bsStyle="fill"
-                                    title={'Brevpakke: ' + this.props.brevpakke}
-                                    id="brevpakke_pick"
-                                    func={(brevpakke) =>
-                                        this.selectBrevpakke(brevpakke)
-                                    }
-                                    list={this.props.brevpakkeList}
-                                    isDisabled={this.props.miljo === ''}
-                                />
-                            </div>
-                            <div className="child inline-block-child small">
-                                <FormControl
-                                    className="brevpakke-versjon"
-                                    readOnly
-                                    value={
-                                        this.props.brevpakkeVersjon
-                                            ? this.props.brevpakkeVersjon
-                                            : ''
-                                    }
-                                />
-                            </div>
-                        </div>
-                        <BrevpakkeListListener
-                            selectBrevpakke={this.selectBrevpakke}
-                        />
-                    </Row>
-                    <br />
-                    <Row className="padding-right">
-                        <DropdownButton
-                            className="btn-fill"
-                            disabled={this.props.brevpakke === ''}
-                            title={this.setTitleName(this.props.brevmal)}
-                            id={'brevpakke_mal_pick'}
-                            onSelect={(brevmalId) =>
-                                this.selectBrevmal(brevmalId)
-                            }
-                        >
-                            {this.props.brevmalList.map((i) => (
-                                <Dropdown.Item
-                                    as="button"
-                                    key={i.malID}
-                                    eventKey={i.malID}
-                                >
-                                    {' '}
-                                    {i.malID +
-                                        ' - ' +
-                                        (i.redigerbar ? 'Redigerbar' : '') +
-                                        ' - ' +
-                                        i.dokumentTittel}{' '}
-                                </Dropdown.Item>
-                            ))}
-                        </DropdownButton>
-                        <BrevmalListListener
-                            selectBrevmal={this.selectBrevmal}
-                        />
-                    </Row>
-                </div>
-            </Col>
+            <div className={'in-homepage-flex'} style={{ maxWidth: '20em' }}>
+                <ListItem
+                    className="btn-fill"
+                    title={'Miljø:'}
+                    value={this.props.miljo}
+                    id="brevpakke_env_pick"
+                    func={(miljo) => this.selectMiljo(miljo)}
+                    list={this.props.miljoList}
+                />
+
+                <ListItem
+                    className="btn-fill"
+                    bsStyle="fill"
+                    title={'Brevpakke:'}
+                    value={this.props.brevpakke}
+                    id="brevpakke_pick"
+                    func={(brevpakke) => this.selectBrevpakke(brevpakke)}
+                    list={this.props.brevpakkeList}
+                    isDisabled={this.props.miljo === ''}
+                />
+
+                <TextField
+                    className="brevpakke-versjon"
+                    label={'Brevpakke-versjon'}
+                    readOnly
+                    value={
+                        this.props.brevpakkeVersjon
+                            ? this.props.brevpakkeVersjon
+                            : ''
+                    }
+                />
+
+                <BrevpakkeListListener selectBrevpakke={this.selectBrevpakke} />
+
+                <Select
+                    className="btn-fill"
+                    label={'Brevmal:'}
+                    disabled={this.props.brevpakke === ''}
+                    title={this.setTitleName(this.props.brevmal)}
+                    id={'brevpakke_mal_pick'}
+                    onChange={(event) => this.selectBrevmal(event.target.value)}
+                >
+                    {this.props.brevmalList.map((i) => (
+                        <option key={i.malID} value={i.malID}>
+                            {' '}
+                            {i.malID +
+                                ' - ' +
+                                (i.redigerbar ? 'Redigerbar' : '') +
+                                ' - ' +
+                                i.dokumentTittel}{' '}
+                        </option>
+                    ))}
+                </Select>
+                <BrevmalListListener selectBrevmal={this.selectBrevmal} />
+            </div>
         );
     }
 }

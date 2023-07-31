@@ -1,3 +1,32 @@
+@import "@navikt/ds-tokens";
+
+[data-theme="dark"]{
+    --ac-internalheader-bg: var(--a-green-300);
+    --ac-internalheader-hover-bg: var(--a-green-700);
+}
+
+.homepage-flex {
+    display: flex;
+    align-content: flex-start;
+    justify-content: center;
+    margin-top: 2em;
+}
+
+.in-homepage-flex {
+    margin: 1em;
+}
+
+.headerlink {
+    color: var(--a-text-on-inverted);
+}
+
+.inspection-flex {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+
 #app {
     font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
     margin: 0 auto;
@@ -31,13 +60,23 @@ body {
 .center-vertically {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     height: 100%;
+}
+
+.flex-wrappable {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1em;
 }
 
 .button-row{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    align-content: space-between;
+    gap: 1em;
 }
 
 .btn-group-fill{
@@ -71,10 +110,18 @@ body {
 
 .ping {
     height: 100%;
-    padding: 15px 15px;
+    padding: 1em;
     display: flex;
     justify-content: center;
     float: right;
+    background-color: var(--ac-internalheader-bg);
+    border: none;
+    width: 100%;
+}
+
+.ping:hover,
+.ping:focus {
+    background-color: var(--ac-internalheader-hover-bg);
 }
 
 .navbar {
@@ -108,6 +155,15 @@ body {
     font-size: 14px;
     font-weight: bold;
     width: 100px;
+}
+
+.navbar-link {
+    display: flex;
+    text-decoration: none;
+}
+
+.navbar-link.active {
+     text-decoration: underline white;
 }
 
 .btn {

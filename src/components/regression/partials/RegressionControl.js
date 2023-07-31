@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button, Col, FormControl, Row } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as regressionActions from '~/actions/regressionActions';
@@ -11,6 +10,7 @@ import { getRegressionObjects } from '~/components/regression/partials/Regressio
 import { getPingByEnv } from '../../../api';
 import BrevpakkeListListener from './BrevpakkeListListener';
 import { setBrevpakkeVersjon } from '../../../actions/regressionActions';
+import { Button, TextField } from '@navikt/ds-react';
 
 class RegressionControl extends React.Component {
     constructor(props) {
@@ -80,56 +80,47 @@ class RegressionControl extends React.Component {
 
     render() {
         return (
-            <div className="padding-bottom">
-                <Row>
-                    <Col sm={4}>
-                        <ListItem
-                            className="btn-fill"
-                            title={'Miljø: ' + this.props.miljo}
-                            id="1"
-                            func={(miljo) => this.selectMiljo(miljo)}
-                            list={this.props.miljoList}
-                        />
-                    </Col>
-                    <Col sm={4}>
-                        <div className="parent">
-                            <div className="child inline-block-child big">
-                                <ListItem
-                                    className="btn-fill"
-                                    title={'Brevpakke: ' + this.props.brevpakke}
-                                    id="1"
-                                    func={(brevpakke) =>
-                                        this.updateBrevpakke(brevpakke)
-                                    }
-                                    list={this.props.brevpakkeList}
-                                    isDisabled={this.props.miljo === ''}
-                                />
-                            </div>
-                            <div className="child inline-block-child small">
-                                <FormControl
-                                    className="brevpakke-versjon"
-                                    readOnly
-                                    value={
-                                        this.props.brevpakkeVersjon
-                                            ? this.props.brevpakkeVersjon
-                                            : ''
-                                    }
-                                />
-                            </div>
-                        </div>
-                        <BrevpakkeListListener action={this.updateBrevpakke} />
-                    </Col>
-                    <Col sm={4}>
-                        <Button
-                            className="fill"
-                            onClick={() => this.startRegression()}
-                            id="start_regresjonstest_button"
-                            disabled={this.props.brevpakke === ''}
-                        >
-                            Start regresjonstest
-                        </Button>
-                    </Col>
-                </Row>
+            <div className="padding-bottom" style={{ maxWidth: '20em' }}>
+                <ListItem
+                    className="btn-fill"
+                    title={'Miljø: ' + this.props.miljo}
+                    id="1"
+                    func={(miljo) => this.selectMiljo(miljo)}
+                    list={this.props.miljoList}
+                />
+
+                <ListItem
+                    className="btn-fill"
+                    title={'Brevpakke: ' + this.props.brevpakke}
+                    id="1"
+                    func={(brevpakke) => this.updateBrevpakke(brevpakke)}
+                    list={this.props.brevpakkeList}
+                    isDisabled={this.props.miljo === ''}
+                />
+
+                <TextField
+                    className="brevpakke-versjon"
+                    label={'Brevpakke-versjon'}
+                    readOnly
+                    value={
+                        this.props.brevpakkeVersjon
+                            ? this.props.brevpakkeVersjon
+                            : ''
+                    }
+                />
+
+                <BrevpakkeListListener action={this.updateBrevpakke} />
+
+                <br />
+
+                <Button
+                    className="fill"
+                    onClick={() => this.startRegression()}
+                    id="start_regresjonstest_button"
+                    disabled={this.props.brevpakke === ''}
+                >
+                    Start regresjonstest
+                </Button>
             </div>
         );
     }

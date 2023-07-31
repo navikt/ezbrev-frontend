@@ -6,7 +6,7 @@ import SammenlignMedGodkjent from '../common/SammenlignMedGodkjent';
 
 export default function HomePage() {
     return (
-        <main className="container-fluid pageSize">
+        <main className="pageSize homepage-flex">
             <BrevpakkeSelect />
             <BrevdataInput />
             <BrevdataMeta />

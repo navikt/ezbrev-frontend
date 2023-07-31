@@ -1,5 +1,4 @@
 import React from 'react';
-import { FormControl, Col, Row } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as adminActions from '~/actions/adminActions';
@@ -7,6 +6,7 @@ import * as adminActionsUtil from '~/actions/adminActionsUtil';
 import * as pingActions from '../../../actions/pingActions';
 import ListItem from '../../common/ListItem';
 import { getPingByEnv } from '../../../api';
+import { TextField } from '@navikt/ds-react';
 
 class AdminControl extends React.Component {
     setBrevMalList = (brevpakke) => {
@@ -38,8 +38,8 @@ class AdminControl extends React.Component {
 
     render() {
         return (
-            <Row>
-                <Col sm={3}>
+            <div>
+                <div>
                     <ListItem
                         className="btn-fill"
                         title={'Miljø: ' + this.props.miljo}
@@ -56,8 +56,8 @@ class AdminControl extends React.Component {
                         }}
                         list={this.props.miljoList}
                     />
-                </Col>
-                <Col sm={3}>
+                </div>
+                <div>
                     <div className="parent padding-right">
                         <div className="child inline-block-child big">
                             <ListItem
@@ -77,7 +77,8 @@ class AdminControl extends React.Component {
                             />
                         </div>
                         <div className="child inline-block-child small">
-                            <FormControl
+                            <TextField
+                                label={'Brevpakke-versjon'}
                                 readOnly
                                 value={
                                     this.props.brevpakkeVersjon
@@ -87,8 +88,8 @@ class AdminControl extends React.Component {
                             />
                         </div>
                     </div>
-                </Col>
-            </Row>
+                </div>
+            </div>
         );
     }
 }

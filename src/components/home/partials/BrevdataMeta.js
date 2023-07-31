@@ -1,13 +1,4 @@
 import React from 'react';
-import {
-    Button,
-    FormCheck,
-    Col,
-    DropdownButton,
-    ListGroupItem,
-    Dropdown,
-    Row,
-} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import * as brevdataActionsUtil from '~/actions/brevdataActionsUtil';
 import { connect } from 'react-redux';
@@ -16,6 +7,7 @@ import * as brevdataActions from '~/actions/brevdataActions';
 import * as dokumentActionsUtil from '~/actions/dokumentActionsUtil';
 import * as dokumentActions from '~/actions/dokumentActions';
 import * as menyValgActions from '~/actions/menyValgActions';
+import { Button, Checkbox, LinkPanel } from '@navikt/ds-react';
 
 class BrevdataMeta extends React.Component {
     constructor(props, context) {
@@ -45,7 +37,7 @@ class BrevdataMeta extends React.Component {
             return (
                 <div className="list-group" id="brevdata_pick">
                     {this.props.brevdataList.map((i) => (
-                        <ListGroupItem
+                        <LinkPanel
                             type="button "
                             className="list-group-item"
                             key={i.brevdataId}
@@ -58,14 +50,10 @@ class BrevdataMeta extends React.Component {
                             disabled={this.props.brevmal === ''}
                             active={i.brevdataId === this.props.brevdataId}
                         >
-                            {i.beskrivelse}
-                            {' - '}
-                            {'id: '}
-                            {i.brevdataId}
+                            {`${i.beskrivelse} - id: ${i.brevdataId}`}
                             <br />
-                            {'Opprettet: '}
-                            {i.changeStamp.opprettetDato}{' '}
-                        </ListGroupItem>
+                            {`Opprettet: ${i.changeStamp.opprettetDato} `}
+                        </LinkPanel>
                     ))}
                 </div>
             );
@@ -74,80 +62,77 @@ class BrevdataMeta extends React.Component {
 
     render() {
         return (
-            <Col md={3}>
+            <div className={'in-homepage-flex'}>
                 <div className="padding-left">
-                    <Row>
-                        <DropdownButton
-                            title={this.state.sortBy}
-                            className={'btn btn-fill'}
-                            id="brevdata_sorter"
-                            onSelect={(sortingKey) => {
-                                this.setState({
-                                    sortBy:
-                                        sortingKey === '1'
-                                            ? 'Nyeste først'
-                                            : 'Eldste først',
-                                });
-                                return this.props.actionsMenyValg.sortBrevdataList(
-                                    sortingKey,
-                                );
-                            }}
-                        >
-                            <Dropdown.Item key="1" eventKey="1">
-                                Nyeste først
-                            </Dropdown.Item>
-                            <Dropdown.Item key="2" eventKey="2">
-                                Eldste først
-                            </Dropdown.Item>
-                        </DropdownButton>
-                    </Row>
-                    <Row>{this.showBrevdataList()}</Row>
-                    <Row>
-                        <div className="flex-row center-vertically">
-                            <FormCheck
-                                title="Bruk registerinformasjon"
-                                validationState="success"
-                                defaultChecked={false}
-                                onClick={(e) =>
-                                    this.toggleCheckbox(e.target.checked)
-                                }
-                            />
-                            Bruk registerinformasjon
-                        </div>
-                    </Row>
-                    <br />
-                    <Row>
-                        <h5>Beskrivelse</h5>
-                    </Row>
-                    <Row>
-                        <textarea
-                            className="form-horizontal form-control"
-                            id="brevdata_beskrivele"
-                            placeholder="Fyll inn beskrivelse"
-                            value={this.props.brevdataBeskrivelse}
-                            onChange={(event) => {
-                                this.props.actions.changeBeskrivelse(
-                                    event.target.value,
-                                );
-                            }}
-                        />
-                    </Row>
-                    <br />
-                    <Row>
-                        <Button
-                            className={'btn btn-fill'}
-                            onClick={() =>
-                                this.props.utilActionsDok.showLastApprovedPDF(
-                                    this.props.brevdataId,
-                                )
+                    <select
+                        title={this.state.sortBy}
+                        className={'btn btn-fill'}
+                        id="brevdata_sorter"
+                        onChange={(event) => {
+                            const sortingKey = event.target.value;
+                            this.setState({
+                                sortBy:
+                                    sortingKey === '1'
+                                        ? 'Nyeste først'
+                                        : 'Eldste først',
+                            });
+                            return this.props.actionsMenyValg.sortBrevdataList(
+                                sortingKey,
+                            );
+                        }}
+                    >
+                        <option key="1" value="1">
+                            Nyeste først
+                        </option>
+                        <option key="2" value="2">
+                            Eldste først
+                        </option>
+                    </select>
+                    {this.showBrevdataList()}
+
+                    <div>
+                        <Checkbox
+                            validationState="success"
+                            defaultChecked={false}
+                            onClick={(e) =>
+                                this.toggleCheckbox(e.target.checked)
                             }
-                            disabled={this.props.brevdataId === ''}
                         >
-                            Vis siste godkjente PDF
-                        </Button>
-                    </Row>
+                            Bruk registerinformasjon
+                        </Checkbox>
+                    </div>
+
+                    <br />
+
+                    <h5>Beskrivelse</h5>
+
+                    <textarea
+                        className="form-horizontal form-control"
+                        id="brevdata_beskrivele"
+                        placeholder="Fyll inn beskrivelse"
+                        value={this.props.brevdataBeskrivelse}
+                        onChange={(event) => {
+                            this.props.actions.changeBeskrivelse(
+                                event.target.value,
+                            );
+                        }}
+                    />
+
+                    <br />
+
+                    <Button
+                        className={'btn btn-fill'}
+                        onClick={() =>
+                            this.props.utilActionsDok.showLastApprovedPDF(
+                                this.props.brevdataId,
+                            )
+                        }
+                        disabled={this.props.brevdataId === ''}
+                    >
+                        Vis siste godkjente PDF
+                    </Button>
                 </div>
-            </Col>
+            </div>
         );
     }
 }

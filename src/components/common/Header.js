@@ -20,29 +20,23 @@ import '@navikt/ds-css';
 const Header = ({ loading }) => (
     <InternalHeader>
         <InternalHeader.Title>Ez-Brev</InternalHeader.Title>
-        <InternalHeader.Button>
-            <NavLink to="/" exact>
-                Rediger brevdata
-            </NavLink>
-        </InternalHeader.Button>
-        <InternalHeader.Button>
-            <NavLink to="/regression" className="navbar-link">
-                Regresjonstest
-            </NavLink>
-        </InternalHeader.Button>
-        <InternalHeader.Button>
-            <NavLink to="/inspection">XML Inspeksjon</NavLink>
-        </InternalHeader.Button>
-        <InternalHeader.Button>
-            <NavLink to="/converter">XML Converter</NavLink>
-        </InternalHeader.Button>
-        <InternalHeader.Button>
-            <Ping />
-            {(loading && (
-                <Loader size="large" title="venter..." variant="inverted" />
-            )) ||
-                ''}
-        </InternalHeader.Button>
+        <NavLink to="/" exact className="navbar-link">
+            <InternalHeader.Button>Rediger brevdata</InternalHeader.Button>
+        </NavLink>
+        <NavLink to="/regression" className="navbar-link">
+            <InternalHeader.Button>Regresjonstest</InternalHeader.Button>
+        </NavLink>
+        <NavLink to="/inspection" className="navbar-link">
+            <InternalHeader.Button>XML Inspeksjon</InternalHeader.Button>
+        </NavLink>
+        <NavLink to="/converter" className="navbar-link">
+            <InternalHeader.Button>XML Converter</InternalHeader.Button>
+        </NavLink>
+        <Ping />
+        {(loading && (
+            <Loader size="large" title="venter..." variant="inverted" />
+        )) ||
+            ''}
     </InternalHeader>
 );
 

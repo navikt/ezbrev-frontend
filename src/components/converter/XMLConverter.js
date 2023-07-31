@@ -1,70 +1,62 @@
 import React from 'react';
-import { Button, Col, Row } from 'react-bootstrap';
-import { Space } from '../common/Scaffolding';
 import { bindActionCreators } from 'redux';
 import * as converterActions from '~/actions/converterActions';
 import * as converterActionsUtil from '~/actions/converterActionsUtil';
+import { Button, Heading } from '@navikt/ds-react';
 
 import { connect } from 'react-redux';
 
-class XMLConverter extends React.Component {
-    render() {
-        return (
-            <div>
-                <Row>
-                    <Col sm={2}>
-                        <Button
-                            className="fill"
-                            onClick={() =>
-                                this.props.utilActions.convertXML(
-                                    this.props.inputXML,
-                                )
-                            }
-                            disabled={this.props.inputXML === ''}
-                        >
-                            Konverter XML
-                        </Button>
-                    </Col>
-                </Row>
+const XMLConverter = ({ inputXML, outputXML, utilActions, actions }) => {
+    return (
+        <div className={'homepage-flex'}>
+            <section style={{ padding: '1.5em' }}>
+                <Button
+                    className="fill"
+                    onClick={() => utilActions.convertXML(inputXML)}
+                    disabled={inputXML === ''}
+                >
+                    Konverter XML
+                </Button>
+            </section>
+            <br />
+            <section className={'inspection-flex'}>
+                <div className="inline-div">
+                    <Heading level={3} size={'small'}>
+                        {' '}
+                        XML Input{' '}
+                    </Heading>
+
+                    <textarea
+                        cols="90"
+                        rows="40"
+                        className="inline-txtarea"
+                        placeholder="Legg inn/skriv inn XML"
+                        value={inputXML}
+                        onChange={(event) => {
+                            actions.setInputXML(event.target.value);
+                        }}
+                    />
+                </div>
+                <div className="inline-div">
+                    <Heading level={3} size={'small'}>
+                        {' '}
+                        XML Output
+                    </Heading>
+
+                    <textarea
+                        readOnly
+                        cols="90"
+                        rows="40"
+                        className="inline-txtarea"
+                        placeholder="Her kommer den konverterte XMLen"
+                        value={outputXML}
+                    />
+                </div>
                 <br />
-                <section>
-                    <div className="inline-div">
-                        <p>
-                            <b> XML Input </b>
-                        </p>
-                        <textarea
-                            cols="90"
-                            rows="40"
-                            className="inline-txtarea"
-                            placeholder="Legg inn/skriv inn XML"
-                            value={this.props.inputXML}
-                            onChange={(event) => {
-                                this.props.actions.setInputXML(
-                                    event.target.value,
-                                );
-                            }}
-                        />
-                    </div>
-                    <Space />
-                    <div className="inline-div">
-                        <p>
-                            <b> XML Output</b>
-                        </p>
-                        <textarea
-                            readOnly
-                            cols="90"
-                            rows="40"
-                            className="inline-txtarea"
-                            placeholder="Her kommer den konverterte XMLen"
-                            value={this.props.outputXML}
-                        />
-                    </div>
-                    <br />
-                </section>
-            </div>
-        );
-    }
-}
+            </section>
+        </div>
+    );
+};
 
 function mapStateToProps(state, ownProps) {
     return {

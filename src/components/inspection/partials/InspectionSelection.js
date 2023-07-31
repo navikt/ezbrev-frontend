@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button, Col, Row } from 'react-bootstrap';
 import ListItem from '~/components/common/ListItem';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -10,6 +9,7 @@ import * as pingActions from '~/actions/pingActions';
 import * as errorActions from '~/actions/errorActions';
 import * as loadingActions from '~/actions/loadingActions';
 import { getPingByEnv } from '../../../api';
+import { Button } from '@navikt/ds-react';
 
 class InspectionSelection extends React.Component {
     constructor(props) {
@@ -57,27 +57,25 @@ class InspectionSelection extends React.Component {
 
     render() {
         return (
-            <Col md={2}>
-                <Row sm={3} className="padding-bottom">
-                    <ListItem
-                        className="btn-fill"
-                        title={'Miljø: ' + this.props.miljo}
-                        id="1"
-                        func={(miljo) => {
-                            this.selectMiljo(miljo);
-                        }}
-                        list={this.props.miljoList}
-                    />
-                </Row>
-                <Row sm={3} className="padding-bottom">
-                    <ListItem
-                        className="btn-fill"
-                        title={'Brevsystem: ' + this.props.brevsystem}
-                        id="1"
-                        func={(brevsystem) => this.selectBrevsystem(brevsystem)}
-                        list={['DOKSYS', 'HP']}
-                    />
-                </Row>
+            <div style={{ width: '15%', minWidth: '16em' }}>
+                <ListItem
+                    className="btn-fill"
+                    title={'Miljø:'}
+                    value={this.props.miljo}
+                    id="1"
+                    func={this.selectMiljo}
+                    list={this.props.miljoList}
+                />
+
+                <ListItem
+                    className="btn-fill"
+                    title={'Brevsystem:'}
+                    value={this.props.brevsystem}
+                    id="2"
+                    func={this.selectBrevsystem}
+                    list={['DOKSYS', 'HP']}
+                />
+
                 <FormItem
                     title={'MottakerId'}
                     store={this.props.mottakerId}
@@ -93,22 +91,22 @@ class InspectionSelection extends React.Component {
                     store={this.props.dokumentinfoId}
                     action={this.props.actions.setDokumentinfoId}
                 />
-                <Row>
-                    <Button
-                        className="float-left"
-                        onClick={() => this.getXml()}
-                        disabled={
-                            this.props.miljo === '' ||
-                            this.props.brevsystem === '' ||
-                            (this.props.mottakerId === '' &&
-                                this.props.journalpostId === '' &&
-                                this.props.dokumentinfoId === '')
-                        }
-                    >
-                        Hent XML
-                    </Button>
-                </Row>
-            </Col>
+
+                <Button
+                    style={{ marginTop: '1em' }}
+                    className="float-left"
+                    onClick={this.getXml}
+                    disabled={
+                        this.props.miljo === '' ||
+                        this.props.brevsystem === '' ||
+                        (this.props.mottakerId === '' &&
+                            this.props.journalpostId === '' &&
+                            this.props.dokumentinfoId === '')
+                    }
+                >
+                    Hent XML
+                </Button>
+            </div>
         );
     }
 }

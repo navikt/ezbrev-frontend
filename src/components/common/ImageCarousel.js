@@ -1,8 +1,9 @@
 import React from 'react';
-import { Modal, Carousel, CarouselItem } from 'react-bootstrap';
+import { Carousel, CarouselItem } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import * as dokumentActions from '~/actions/dokumentActions';
 import { connect } from 'react-redux';
+import { Modal } from '@navikt/ds-react';
 
 class ImageCarousel extends React.Component {
     constructor(props) {
@@ -24,8 +25,8 @@ class ImageCarousel extends React.Component {
     render() {
         return (
             <Modal
-                show={this.props.showModal}
-                onHide={() => this.props.actionsDok.setShowModal(false)}
+                open={this.props.showModal}
+                onClose={() => this.props.actionsDok.setShowModal(false)}
                 id="test-id"
             >
                 <Modal.Header closeButton>

@@ -4,15 +4,16 @@ import { connect } from 'react-redux';
 import RegressionTableItem from '~/components/regression/partials/RegressionTableItem';
 import * as regressionActions from '~/actions/regressionActions';
 import * as regressionActionsUtil from '~/actions/regressionActionsUtil';
+import { Accordion } from '@navikt/ds-react';
 
 class RegressionTable extends React.Component {
     render() {
         return (
-            <div>
+            <Accordion>
                 {this.props.brevmalList.map((item) => (
                     <RegressionTableItem key={item.malId} item={item} />
                 ))}
-            </div>
+            </Accordion>
         );
     }
 }

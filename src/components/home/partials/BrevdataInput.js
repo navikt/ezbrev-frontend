@@ -8,10 +8,11 @@ import { bindActionCreators } from 'redux';
 class BrevdataInput extends React.Component {
     render() {
         return (
-            <section className="col-md-6">
+            <section className="in-homepage-flex">
                 <div className="padding-bottom">
                     <textarea
                         rows="33"
+                        style={{ minWidth: '45em' }}
                         className="xml-form form-horizontal form-control"
                         id="brevdata_input"
                         placeholder="Legg inn XML"

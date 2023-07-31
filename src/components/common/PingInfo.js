@@ -1,45 +1,42 @@
 import React from 'react';
-import { Col, Card, Row, ListGroupItem } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '~/actions/pingActions';
+import { BodyShort, Panel } from '@navikt/ds-react';
 
-class PingInfo extends React.Component {
-    render() {
-        const ping = this.props.ping;
-        return (
-            <div>
-                <Row>
-                    <Col sm={12}> Miljø: {this.props.env} </Col>
-                </Row>
-                <Row>
-                    <Col sm={12}> Tid: {ping.aggregateResponseTime} </Col>
-                </Row>
-                <Row>
-                    <Col sm={12}> Status: {ping.aggregateResultText} </Col>{' '}
-                </Row>
-                <Card>
-                    {ping.checks.map((service) => (
-                        <ListGroupItem
-                            key={service.endpoint}
-                            className={
-                                'ping' + service.resultText + ' pingItem'
-                            }
-                        >
-                            <Row>
-                                <Col md={6}>{service.endpoint}</Col>
-                                <Col md={6}>{service.responseTime}</Col>
-                            </Row>
-                            <Row>
-                                <Col md={12}>{service.errorMessage}</Col>
-                            </Row>
-                        </ListGroupItem>
-                    ))}
-                </Card>
-            </div>
-        );
-    }
-}
+const PingInfo = ({ ping, env, actions }) => {
+    return (
+        <div style={{ color: 'black' }}>
+            <BodyShort>
+                Miljø: {env} <br />
+                Tid: {ping.aggregateResponseTime} <br />
+                Status: {ping.aggregateResultText}
+            </BodyShort>
+            <Panel>
+                {ping.checks.map((service) => (
+                    <Panel
+                        border
+                        key={service.endpoint}
+                        className={`ping${service.resultText} pingItem`}
+                        style={{
+                            backgroundColor: service.errorMessage
+                                ? 'lightpink'
+                                : 'lightgreen',
+                        }}
+                    >
+                        <BodyShort className={'center-vertically'}>
+                            <span>{service.endpoint}</span>
+                            <span>{service.responseTime}</span>
+                        </BodyShort>
+                        <BodyShort>
+                            <span>{service.errorMessage}</span>
+                        </BodyShort>
+                    </Panel>
+                ))}
+            </Panel>
+        </div>
+    );
+};
 
 function mapStateToProps(state, ownProps) {
     return {

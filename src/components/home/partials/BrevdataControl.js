@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Button } from '@navikt/ds-react';
 import { connect } from 'react-redux';
 import * as api from '../../../api/index';
 import * as dokumentActionsUtil from '../../../actions/dokumentActionsUtil';
@@ -34,6 +34,7 @@ class BrevdataControl extends React.Component {
         return (
             <div className="button-row">
                 <Button
+                    variant={'danger'}
                     className={'btn margin-bottom'}
                     onClick={() => {
                         api.updateXML(
@@ -65,6 +66,7 @@ class BrevdataControl extends React.Component {
                     Oppdater
                 </Button>
                 <Button
+                    variant={'primary'}
                     className={'btn margin-bottom'}
                     onClick={() => {
                         this.props.utilActionsBrevdata.saveXMLAsNew(
@@ -83,6 +85,7 @@ class BrevdataControl extends React.Component {
                     Lagre som ny
                 </Button>
                 <Button
+                    variant={'secondary'}
                     className={'btn margin-bottom'}
                     onClick={() => {
                         const rediger = false;
@@ -103,6 +106,7 @@ class BrevdataControl extends React.Component {
                     Produser brev
                 </Button>
                 <Button
+                    variant={'secondary'}
                     className={'btn margin-bottom'}
                     onClick={
                         this.props.isRedigertExternal
@@ -118,6 +122,7 @@ class BrevdataControl extends React.Component {
                         : 'Rediger brev'}
                 </Button>
                 <Button
+                    variant={'danger'}
                     className={'btn margin-bottom'}
                     onClick={() => {
                         api.approveDokument(

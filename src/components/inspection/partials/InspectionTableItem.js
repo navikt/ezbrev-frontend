@@ -1,15 +1,11 @@
 import React from 'react';
-import { Col, Card, Row } from 'react-bootstrap';
+import { BodyLong, Heading, Panel } from '@navikt/ds-react';
 
 export default function InspectionDocumentItem({ header, data }) {
     return (
-        <Card>
-            <Card.Header>
-                <Row>
-                    <Col md={12}>{header}</Col>
-                </Row>
-            </Card.Header>
-            <Card.Body>{data}</Card.Body>
-        </Card>
+        <Panel border>
+            <Heading size={'small'}>{header}</Heading>
+            <BodyLong>{data}</BodyLong>
+        </Panel>
     );
 }

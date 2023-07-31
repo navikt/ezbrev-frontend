@@ -4,20 +4,31 @@ import { connect } from 'react-redux';
 import AdminTableItem from '~/components/admin/partials/AdminTableItem';
 import * as adminActions from '~/actions/adminActions';
 import * as adminActionsUtil from '~/actions/adminActionsUtil';
+import { Accordion } from '@navikt/ds-react';
 
-class AdminTable extends React.Component {
-    render() {
-        return (
-            <div>
-                <br />
-                <h4>Brevmaler</h4>
-                {this.props.brevmalList.map((item) => (
+const AdminTable = ({
+    miljoList,
+    brevInfo,
+    brevpakkeList,
+    brevmalList,
+    miljo,
+    brevpakke,
+    brevdataList,
+    utilActions,
+    actions,
+}) => {
+    return (
+        <div>
+            <br />
+            <h4>Brevmaler</h4>
+            <Accordion>
+                {brevmalList.map((item) => (
                     <AdminTableItem key={item.malId} item={item} />
                 ))}
-            </div>
-        );
-    }
-}
+            </Accordion>
+        </div>
+    );
+};
 
 function mapStateToProps(state, ownProps) {
     return {
