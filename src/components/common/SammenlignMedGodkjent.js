@@ -23,17 +23,19 @@ function highlightedText(line) {
     }
 }
 
-const SammenlignMedGodkjent = ({ sammenlignInfo }) => {
+const SammenlignMedGodkjent = ({
+    sammenlignInfo,
+    showModal,
+    utilActionsDok,
+    actionsDok,
+}) => {
     const [open, setOpen] = useState(false);
-    const imageCarouselRef = useRef();
-
     const diffTextList = sammenlignInfo.unifiedDiff
         ? sammenlignInfo.unifiedDiff
         : [];
     return (
         <div>
             <ImageCarousel
-                ref={imageCarouselRef}
                 title={`Sammenligning
                      - Antall pixelfeil: ${sammenlignInfo.errors}`}
                 pages={sammenlignInfo.sider}

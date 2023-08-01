@@ -20,7 +20,7 @@ import '@navikt/ds-css';
 const Header = ({ loading }) => (
     <InternalHeader>
         <InternalHeader.Title>Ez-Brev</InternalHeader.Title>
-        <NavLink to="/" exact className="navbar-link">
+        <NavLink to="/" end className="navbar-link">
             <InternalHeader.Button>Rediger brevdata</InternalHeader.Button>
         </NavLink>
         <NavLink to="/regression" className="navbar-link">

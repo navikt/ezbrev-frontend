@@ -55,7 +55,6 @@ const RegressionTableItem = ({
                             <Table.HeaderCell>
                                 <Button
                                     className="btn"
-                                    bsSize="small"
                                     onClick={() => regtestMal(item.malId)}
                                 >
                                     Regtest mal
@@ -63,12 +62,14 @@ const RegressionTableItem = ({
                             </Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
-                    <Brev
-                        malId={item.malId}
-                        sammenlign={sammenlign}
-                        brevdataList={brevdataList}
-                        regressionSimilarity={regressionSimilarity}
-                    />
+                    <Table.Body>
+                        <Brev
+                            malId={item.malId}
+                            sammenlign={sammenlign}
+                            brevdataList={brevdataList}
+                            regressionSimilarity={regressionSimilarity}
+                        />
+                    </Table.Body>
                 </Table>
             </Accordion.Content>
         </Accordion.Item>

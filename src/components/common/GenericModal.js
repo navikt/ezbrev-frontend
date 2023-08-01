@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal } from '@navikt/ds-react';
+import { BodyLong, Heading, Modal } from '@navikt/ds-react';
 
 export default function GenericModal({
     showModal,
@@ -13,10 +13,11 @@ export default function GenericModal({
             open={showModal}
             onClose={onClose}
             className={className}
-            bsSize="large"
         >
-            <Modal.Header closeButton>{title}</Modal.Header>
-            <Modal.Body>{children}</Modal.Body>
+            <Modal.Content>
+                <Heading size={'medium'}>{title}</Heading>
+                <BodyLong>{children}</BodyLong>
+            </Modal.Content>
         </Modal>
     );
 }

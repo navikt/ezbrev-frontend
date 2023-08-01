@@ -46,7 +46,7 @@ export function fetchBrevpakkeVersjon(
             })
             .catch((error) => {
                 dispatch(setIsLoading(false));
-                throw error;
+                console.log('Error communicating with VERA:', error);
             });
     };
 }
@@ -82,7 +82,11 @@ export function selectBrevmal(brevmalId, brevpakke) {
             })
             .catch((error) => {
                 dispatch(setIsLoading(false));
-                throw error;
+                dispatch(actions.setBrevdataList([]));
+                console.log(
+                    'Kunne ikke hente brevdataList. Setter brevdataList til tom liste. Feilmelding:',
+                    error,
+                );
             });
     };
 }

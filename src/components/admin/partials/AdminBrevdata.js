@@ -60,7 +60,6 @@ class AdminBrevdata extends React.Component {
                                         <Table.DataCell>
                                             <Button
                                                 className={'btn'}
-                                                bsSize="xsmall"
                                                 onClick={() => {
                                                     this.deletionConfirm(
                                                         brevdata.beskrivelse,
@@ -75,7 +74,6 @@ class AdminBrevdata extends React.Component {
                                         <Table.DataCell>
                                             <Button
                                                 className={'btn'}
-                                                bsSize="xsmall"
                                                 onClick={() => {
                                                     console.log('onclick');
                                                     this.props.utilActions.fetchAdminPngPages(

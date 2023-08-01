@@ -21,7 +21,6 @@ export default function Brev({
                 <Table.DataCell>
                     <Button
                         className={'btn'}
-                        bsSize="xsmall"
                         onClick={() =>
                             sammenlign(
                                 brevdata.brevdataId,

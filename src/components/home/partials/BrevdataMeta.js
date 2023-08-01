@@ -24,7 +24,7 @@ class BrevdataMeta extends React.Component {
     showBrevdataList = () => {
         if (
             this.props.brevdataList.length === 0 &&
-            this.props.brevmal !== '' &&
+            // this.props.brevmal !== '' &&
             !this.props.isLoading
         ) {
             return (
@@ -92,7 +92,6 @@ class BrevdataMeta extends React.Component {
 
                     <div>
                         <Checkbox
-                            validationState="success"
                             defaultChecked={false}
                             onClick={(e) =>
                                 this.toggleCheckbox(e.target.checked)

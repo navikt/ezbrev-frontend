@@ -1,6 +1,5 @@
 import React from 'react';
-import { Col, Container, Image, Row } from 'react-bootstrap';
-import { Space } from '../../common/Scaffolding';
+import { Image } from 'react-bootstrap';
 import * as adminActions from '~/actions/adminActions';
 import ReactCrop, { makeAspectCrop } from 'react-image-crop';
 import { connect } from 'react-redux';
@@ -61,82 +60,82 @@ class AdminMaskPages extends React.Component {
                 open={this.props.showModal && !this.props.isLoading}
                 onClose={() => this.props.actionsAdmin.setAdminShowModal(false)}
                 title="Maskering"
-                bsSize="large"
             >
                 <Modal.Content>
-                    <Container>
-                        <Row>
-                            <Col md={2}>
-                                <div
-                                    style={{
-                                        overflowY: 'scroll',
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            gap: '1em',
+                        }}
+                    >
+                        <div
+                            style={{
+                                overflowY: 'scroll',
+                                width: '17%',
+                            }}
+                        >
+                            {pages.map((img, key) => {
+                                return (
+                                    <Image
+                                        src={'data:image/png;base64,' + img}
+                                        thumbnail
+                                        onClick={this.changePage.bind(
+                                            this,
+                                            key,
+                                        )}
+                                        key={key}
+                                    />
+                                );
+                            })}
+                        </div>
+
+                        <div style={{ width: '80%' }}>
+                            <ReactCrop
+                                src={
+                                    'data:image/png;base64,' +
+                                    this.props.pages[this.props.active]
+                                }
+                                alt={'Missing image'}
+                                crop={this.state.crop}
+                                onImageLoaded={this.onImageLoaded}
+                                onComplete={this.onCropComplete}
+                                onChange={this.onCropChange}
+                                minWidth={0}
+                                minHeight={0}
+                            />
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                }}
+                            >
+                                <Button
+                                    onClick={() => {
+                                        this.props.utilActionsAdmin.saveMask(
+                                            this.props.miljo,
+                                            this.props.brevdataId,
+                                            this.props.mask,
+                                        );
                                     }}
                                 >
-                                    {pages.map((img, key) => {
-                                        return (
-                                            <Image
-                                                src={
-                                                    'data:image/png;base64,' +
-                                                    img
-                                                }
-                                                thumbnail
-                                                onClick={this.changePage.bind(
-                                                    this,
-                                                    key,
-                                                )}
-                                                key={key}
-                                            />
+                                    Lagre
+                                </Button>
+
+                                <Button
+                                    variant={'danger'}
+                                    onClick={() => {
+                                        this.props.utilActionsAdmin.deleteMasks(
+                                            this.props.miljo,
+                                            this.props.brevdataId,
                                         );
-                                    })}
-                                </div>
-                            </Col>
-                            <Col md={10}>
-                                <div>
-                                    <ReactCrop
-                                        src={
-                                            'data:image/png;base64,' +
-                                            this.props.pages[this.props.active]
-                                        }
-                                        alt={'Missing image'}
-                                        crop={this.state.crop}
-                                        onImageLoaded={this.onImageLoaded}
-                                        onComplete={this.onCropComplete}
-                                        onChange={this.onCropChange}
-                                        minWidth={0}
-                                        minHeight={0}
-                                    />
-                                    <Row>
-                                        <Button
-                                            bsSize="small"
-                                            bsStyle="success"
-                                            onClick={() => {
-                                                this.props.utilActionsAdmin.saveMask(
-                                                    this.props.miljo,
-                                                    this.props.brevdataId,
-                                                    this.props.mask,
-                                                );
-                                            }}
-                                        >
-                                            Lagre
-                                        </Button>
-                                        <Space />
-                                        <Button
-                                            bsSize="small"
-                                            bsStyle="danger"
-                                            onClick={() => {
-                                                this.props.utilActionsAdmin.deleteMasks(
-                                                    this.props.miljo,
-                                                    this.props.brevdataId,
-                                                );
-                                            }}
-                                        >
-                                            Fjern alle
-                                        </Button>
-                                    </Row>
-                                </div>
-                            </Col>
-                        </Row>
-                    </Container>
+                                    }}
+                                >
+                                    Fjern alle
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
                 </Modal.Content>
             </Modal>
         );

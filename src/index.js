@@ -1,6 +1,6 @@
 import 'core-js';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 import { HashRouter } from 'react-router-dom';
@@ -23,24 +23,22 @@ getPing().then((ping) =>
 );
 store.dispatch(fetchIsAdmin());
 
-ReactDOM.render(
+createRoot(target).render(
     <Provider store={store}>
         <HashRouter>
             <App />
         </HashRouter>
     </Provider>,
-    target,
 );
 
 if (module.hot) {
     module.hot.accept('./App', () => {
-        ReactDOM.render(
+        createRoot(target).render(
             <Provider store={store}>
                 <HashRouter history={history}>
                     <App />
                 </HashRouter>
             </Provider>,
-            target,
         );
     });
 }
