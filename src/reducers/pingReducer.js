@@ -3,7 +3,7 @@ import * as types from '../actions/actionTypes';
 const initialState = {
     ping: { checks: [], aggregateResponseTime: 'Kunne ikke beregne' },
     env: 'Ikke satt',
-    error: false
+    error: false,
 };
 
 export default function errorReducer(state = initialState, action) {
@@ -13,7 +13,7 @@ export default function errorReducer(state = initialState, action) {
                 ...state,
                 ping: action.ping,
                 env: action.env,
-                error: action.error
+                error: action.error,
             };
         default:
             return state;

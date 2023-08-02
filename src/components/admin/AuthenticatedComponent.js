@@ -19,7 +19,7 @@ class AuthenticatedComponent extends React.Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        isAdmin: state.admin.isAdmin
+        isAdmin: state.admin.isAdmin,
     };
 }
 

@@ -25,7 +25,7 @@ class BrevpakkeListListener extends React.Component {
 function mapStateToProps(state, ownProps) {
     return {
         brevpakkeList: state.menyValg.brevpakkeList,
-        brevmalList: state.menyValg.brevmalList
+        brevmalList: state.menyValg.brevmalList,
     };
 }
 

@@ -8,13 +8,13 @@ export function setAdminBrevdataList(
     brevpakke,
     brevmalList,
     brevmalIds,
-    action
+    action,
 ) {
     return regressionActionsUtil.setBrevdataList(
         brevpakke,
         brevmalList,
         brevmalIds,
-        action
+        action,
     );
 }
 export function fetchAdminBrevpakkeVersjon(miljo, brevpakke, action) {
@@ -26,11 +26,13 @@ export function selectAdminMiljo(miljo, action) {
 }
 
 export function fetchAdminPngPages(miljo, brevdataId) {
-    return function(dispatch) {
+    return function (dispatch) {
         dispatch(setIsLoading(true));
         api.getAdminPngPages(miljo, brevdataId)
-            .then(pngPages => dispatch(adminActions.setAdminPngPages(pngPages)))
-            .catch(error => {
+            .then((pngPages) =>
+                dispatch(adminActions.setAdminPngPages(pngPages)),
+            )
+            .catch((error) => {
                 dispatch(setIsLoading(false));
                 throw error;
             });
@@ -38,13 +40,13 @@ export function fetchAdminPngPages(miljo, brevdataId) {
 }
 
 export function deleteMasks(miljo, brevdataId) {
-    return function(dispatch) {
+    return function (dispatch) {
         dispatch(setIsLoading(true));
         api.deleteAllMasksByBrevdataId(miljo, brevdataId)
-            .then(pages => {
+            .then((pages) => {
                 dispatch(adminActions.setAdminPngPages(pages));
             })
-            .catch(error => {
+            .catch((error) => {
                 dispatch(setIsLoading(false));
                 throw error;
             });
@@ -52,13 +54,13 @@ export function deleteMasks(miljo, brevdataId) {
 }
 
 export function saveMask(miljo, brevdataId, mask) {
-    return function(dispatch) {
+    return function (dispatch) {
         dispatch(setIsLoading(true));
         api.postMask(miljo, brevdataId, mask)
-            .then(page => {
+            .then((page) => {
                 dispatch(adminActions.replaceAdminPngPage(page.png));
             })
-            .catch(error => {
+            .catch((error) => {
                 dispatch(setIsLoading(false));
                 throw error;
             });

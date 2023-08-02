@@ -8,17 +8,18 @@ import { bindActionCreators } from 'redux';
 class BrevdataInput extends React.Component {
     render() {
         return (
-            <section className="col-md-6">
+            <section className="in-homepage-flex">
                 <div className="padding-bottom">
                     <textarea
                         rows="33"
+                        style={{ minWidth: '45em' }}
                         className="xml-form form-horizontal form-control"
                         id="brevdata_input"
                         placeholder="Legg inn XML"
                         value={this.props.xmlInnhold}
-                        onChange={event => {
+                        onChange={(event) => {
                             this.props.actions.changeBrevdataXML(
-                                event.target.value
+                                event.target.value,
                             );
                         }}
                     />
@@ -30,22 +31,19 @@ class BrevdataInput extends React.Component {
 }
 
 BrevdataInput.propTypes = {
-    actions: PropTypes.object.isRequired
+    actions: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
     return {
-        xmlInnhold: state.brevdataReducer.xmlInnhold
+        xmlInnhold: state.brevdataReducer.xmlInnhold,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(brevdataActions, dispatch)
+        actions: bindActionCreators(brevdataActions, dispatch),
     };
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(BrevdataInput);
+export default connect(mapStateToProps, mapDispatchToProps)(BrevdataInput);

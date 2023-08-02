@@ -1,32 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as Actions from '~/actions/menyValgActionsUtil';
-import Ping from './Ping';
-import SpinningWheel from './SpinningWheel';
+import Ping from './Ping.js';
+import { InternalHeader, Loader } from '@navikt/ds-react';
+import '@navikt/ds-css';
 
-class Header extends React.Component {
-    logIn = () =>
-        this.props.miljoList.length === 0 ? (
-            <a>
-                <Button
-                    onClick={() => {
-                        this.props.actions.fetchMiljoList();
-                        this.props.miljoList.length === 0
-                            ? alert(
-                                  'Dersom du sliter med å logge inn kan kan du gå til "https://ezbrev-backend-q4.nais.preprod.local/rest/env". Deretter trykke "Avansert" og "Fortsett"'
-                              )
-                            : null;
-                    }}
-                >
-                    Log in
-                </Button>
-            </a>
-        ) : (
-            <div />
-        );
+/*
     showAdmin = () => {
         if (this.props.isAdmin) {
             return (
@@ -36,79 +15,33 @@ class Header extends React.Component {
             );
         }
     };
+   */
 
-    render() {
-        return (
-            <div>
-                <nav className="navbar">
-                    <div className="pageSize">
-                        <div className="flex-row center-vertically">
-                            <div className="navbar-header">
-                                <span className="navbar-brand">
-                                    Ez-Brev 4</span>
-                            </div>
-                            <ul className="nav navbar-nav navbar-flex center-content">
-                                <li className="active">
-                                    <NavLink
-                                        to="/"
-                                        exact
-                                        activeClassName="active"
-                                    >
-                                        Rediger brevdata
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        to="/regression"
-                                        className="navbar-link"
-                                        activeClassName="active"
-                                    >
-                                        Regresjonstest
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        to="/inspection"
-                                        activeClassName="active"
-                                    >
-                                        XML Inspeksjon
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        to="/converter"
-                                        activeClassName="active"
-                                    >
-                                        XML Converter
-                                    </NavLink>
-                                </li>
-                                <li>{this.showAdmin()}</li>
-                                <li>{this.logIn()}</li>
-                            </ul>
-                            <SpinningWheel />
-                            <Ping />
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        );
-    }
-}
+const Header = ({ loading }) => (
+    <InternalHeader>
+        <InternalHeader.Title>Ez-Brev</InternalHeader.Title>
+        <NavLink to="/" end className="navbar-link">
+            <InternalHeader.Button>Rediger brevdata</InternalHeader.Button>
+        </NavLink>
+        <NavLink to="/regression" className="navbar-link">
+            <InternalHeader.Button>Regresjonstest</InternalHeader.Button>
+        </NavLink>
+        <NavLink to="/inspection" className="navbar-link">
+            <InternalHeader.Button>XML Inspeksjon</InternalHeader.Button>
+        </NavLink>
+        <NavLink to="/converter" className="navbar-link">
+            <InternalHeader.Button>XML Converter</InternalHeader.Button>
+        </NavLink>
+        <Ping />
+        {(loading && (
+            <Loader size="large" title="venter..." variant="inverted" />
+        )) ||
+            ''}
+    </InternalHeader>
+);
 
-function mapStateToProps(state, ownProps) {
-    return {
-        miljoList: state.menyValg.miljoList,
-        isAdmin: state.admin.isAdmin
-    };
-}
+const mapStateToProps = (state) => ({
+    loading: state.loading.isLoading,
+});
 
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(Actions, dispatch)
-    };
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Header);
+export default connect(mapStateToProps)(Header);

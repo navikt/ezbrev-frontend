@@ -1,12 +1,4 @@
 import React from 'react';
-import {
-    Button,
-    Col,
-    ListGroup,
-    ListGroupItem,
-    Panel,
-    Row
-} from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Brev from '../partials/Brev';
@@ -16,86 +8,73 @@ import * as regressionActionsUtil from '~/actions/regressionActionsUtil';
 import { bestillbrevdata } from '~/api';
 import * as dokumentActions from '~/actions/dokumentActions';
 import * as dokumentActionsUtil from '~/actions/dokumentActionsUtil';
+import { Accordion, Button, Table } from '@navikt/ds-react';
 
-class RegressionTableItem extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isShown: false
-        };
-    }
-
-    regtestMal = malId => {
-        let regressionObjects = getRegressionObjects(
-            [malId],
-            this.props.brevdataList
-        );
-        this.props.utilActions.startRegressionTest(
-            regressionObjects,
-            this.props.miljo
-        );
+const RegressionTableItem = ({
+    item,
+    miljoList,
+    brevInfo,
+    brevpakkeList,
+    brevmalList,
+    miljo,
+    brevpakke,
+    brevdataList,
+    regressionSimilarity,
+    utilActions,
+    actions,
+    utilActionsDok,
+    actionsDok,
+}) => {
+    const regtestMal = (malId) => {
+        let regressionObjects = getRegressionObjects([malId], brevdataList);
+        utilActions.startRegressionTest(regressionObjects, miljo);
     };
 
-    sammenlign = (brevdataId, dokumenttypeId) => {
-        bestillbrevdata(brevdataId, dokumenttypeId, this.props.miljo).then(
-            json => {
-                this.props.utilActionsDok.showSammenlignMedGodkjent(
-                    this.props.miljo,
-                    json.journalpostId,
-                    json.dokumentInfoId,
-                    brevdataId
-                );
-            }
-        );
+    const sammenlign = (brevdataId, dokumenttypeId) => {
+        bestillbrevdata(brevdataId, dokumenttypeId, miljo).then((json) => {
+            utilActionsDok.showSammenlignMedGodkjent(
+                miljo,
+                json.journalpostId,
+                json.dokumentInfoId,
+                brevdataId,
+            );
+        });
     };
 
-    render() {
-        const item = this.props.item;
-
-        return (
-            <Panel>
-                <Panel.Heading
-                    className="clickable"
-                    onClick={() =>
-                        this.setState({ isShown: !this.state.isShown })
-                    }
-                >
-                    <Row>
-                        <Col sm={1}>{item.malId}</Col>
-                        <Col sm={4}>{item.tittel}</Col>
-                    </Row>
-                </Panel.Heading>
-                {this.state.isShown ? (
-                    <ListGroup>
-                        <ListGroupItem>
-                            <Row>
-                                <Col sm={4}>Beskrivelse</Col>
-                                <Col sm={4}>Likhet</Col>
-                                <Col sm={4}>
-                                    <Button
-                                        className="btn"
-                                        bsSize="small"
-                                        onClick={() =>
-                                            this.regtestMal(item.malId)
-                                        }
-                                    >
-                                        Regtest mal
-                                    </Button>
-                                </Col>
-                            </Row>
-                        </ListGroupItem>
-                        {Brev(
-                            item.malId,
-                            this.sammenlign,
-                            this.props.brevdataList,
-                            this.props.regressionSimilarity
-                        )}
-                    </ListGroup>
-                ) : null}
-            </Panel>
-        );
-    }
-}
+    return (
+        <Accordion.Item>
+            <Accordion.Header>
+                {`${item.malId} – ${item.tittel}`}
+            </Accordion.Header>
+            <Accordion.Content>
+                <Table>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell>Beskrivelse</Table.HeaderCell>
+                            <Table.HeaderCell>Likhet</Table.HeaderCell>
+                            <Table.HeaderCell>
+                                <Button
+                                    className="btn"
+                                    onClick={() => regtestMal(item.malId)}
+                                >
+                                    Regtest mal
+                                </Button>
+                            </Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                        <Brev
+                            malId={item.malId}
+                            sammenlign={sammenlign}
+                            brevdataList={brevdataList}
+                            regressionSimilarity={regressionSimilarity}
+                        />
+                    </Table.Body>
+                </Table>
+            </Accordion.Content>
+        </Accordion.Item>
+    );
+};
 
 function mapStateToProps(state, ownProps) {
     return {
@@ -106,7 +85,7 @@ function mapStateToProps(state, ownProps) {
         miljo: state.regressjonReducer.regressjonMiljo,
         brevpakke: state.regressjonReducer.regressjonBrevpakke,
         brevdataList: state.regressjonReducer.regressjonBrevdataList,
-        regressionSimilarity: state.regressjonReducer.regressionSimilarity
+        regressionSimilarity: state.regressjonReducer.regressionSimilarity,
     };
 }
 
@@ -115,11 +94,11 @@ function mapDispatchToProps(dispatch) {
         utilActions: bindActionCreators(regressionActionsUtil, dispatch),
         actions: bindActionCreators(regressionActions, dispatch),
         utilActionsDok: bindActionCreators(dokumentActionsUtil, dispatch),
-        actionsDok: bindActionCreators(dokumentActions, dispatch)
+        actionsDok: bindActionCreators(dokumentActions, dispatch),
     };
 }
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
 )(RegressionTableItem);

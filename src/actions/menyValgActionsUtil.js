@@ -5,14 +5,14 @@ import { setIsLoading } from './loadingActions';
 import * as actionsDok from '~/actions/dokumentActions';
 
 export function fetchMiljoList() {
-    return function(dispatch) {
+    return function (dispatch) {
         dispatch(setIsLoading(true));
         return api
             .getMiljoList()
-            .then(miljoList => {
+            .then((miljoList) => {
                 dispatch(actions.setMiljoList(miljoList));
             })
-            .catch(error => {
+            .catch((error) => {
                 dispatch(setIsLoading(false));
                 throw error;
             });
@@ -20,13 +20,13 @@ export function fetchMiljoList() {
 }
 
 export function fetchIsAdmin() {
-    return function(dispatch) {
+    return function (dispatch) {
         return api
             .getIsAdmin()
-            .then(isAdmin => {
+            .then((isAdmin) => {
                 dispatch(adminActions.setIsAdmin(isAdmin));
             })
-            .catch(error => {
+            .catch((error) => {
                 throw error;
             });
     };
@@ -35,32 +35,32 @@ export function fetchIsAdmin() {
 export function fetchBrevpakkeVersjon(
     miljo,
     brevpakke,
-    action = actions.setBrevpakkeVersjon
+    action = actions.setBrevpakkeVersjon,
 ) {
-    return function(dispatch) {
+    return function (dispatch) {
         dispatch(setIsLoading(true));
         return api
             .getBrevpakkeVersjon(miljo, brevpakke)
-            .then(brevpakkeversjon => {
+            .then((brevpakkeversjon) => {
                 dispatch(action(brevpakkeversjon.version));
             })
-            .catch(error => {
+            .catch((error) => {
                 dispatch(setIsLoading(false));
-                throw error;
+                console.log('Error communicating with VERA:', error);
             });
     };
 }
 
 export function selectMiljo(miljo, action = actions.setBrevInfo) {
-    return function(dispatch) {
+    return function (dispatch) {
         dispatch(setIsLoading(true));
         return api
             .getBrevInfo(miljo)
-            .then(json => {
+            .then((json) => {
                 dispatch(action(json));
                 dispatch(actionsDok.setDokument(''));
             })
-            .catch(error => {
+            .catch((error) => {
                 dispatch(setIsLoading(false));
                 throw error;
             });
@@ -71,18 +71,22 @@ export function selectBrevpakke(brevpakke, brevInfo) {
     return actions.setBrevmalList(brevpakke, brevInfo);
 }
 
-export function selectBrevmal(brevmal, brevpakke) {
-    return function(dispatch) {
+export function selectBrevmal(brevmalId, brevpakke) {
+    return function (dispatch) {
         dispatch(setIsLoading(true));
         return api
-            .getBrevdataList(brevmal, brevpakke)
-            .then(brevdataList => {
+            .getBrevdataList(brevmalId, brevpakke)
+            .then((brevdataList) => {
                 dispatch(actions.setBrevdataList(brevdataList));
                 dispatch(actionsDok.setDokument(''));
             })
-            .catch(error => {
+            .catch((error) => {
                 dispatch(setIsLoading(false));
-                throw error;
+                dispatch(actions.setBrevdataList([]));
+                console.log(
+                    'Kunne ikke hente brevdataList. Setter brevdataList til tom liste. Feilmelding:',
+                    error,
+                );
             });
     };
 }

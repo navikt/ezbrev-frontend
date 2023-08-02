@@ -1,26 +1,26 @@
 import React from 'react';
 import InspectionTableItem from '~/components/inspection/partials/InspectionTableItem';
-import { Button, Col } from 'react-bootstrap';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Builder, parseString } from 'xml2js';
 import Highlight from 'react-highlight';
+import { Button, CopyButton } from '@navikt/ds-react';
+import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons';
 
 export default class InspectionDocument extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isShown: this.props.showXML
+            isShown: this.props.showXML,
         };
     }
 
-    xmlToString = xml => {
+    xmlToString = (xml) => {
         const xmlBuilder = new Builder({
             renderOpts: {
                 pretty: true,
                 indent: '    ',
-                newline: '\n'
+                newline: '\n',
             },
-            headless: false
+            headless: false,
         });
         let xmlString = '';
         parseString(xml, (err, result) => {
@@ -34,24 +34,28 @@ export default class InspectionDocument extends React.Component {
     setHeader = (title, id, time, mal, xml) => {
         return (
             <div className="flex-row center-vertically">
-                <Col sm={3}>{title + id}</Col>
-                <Col sm={3}>{time}</Col>
-                <Col sm={2}>{mal}</Col>
-                <Col sm={2}>
-                    <CopyToClipboard text={xml}>
-                        <Button className="fill">Kopier til clipboard</Button>
-                    </CopyToClipboard>
-                </Col>
-                <Col sm={2}>
+                <span>{title + id}</span>
+                <span>{time}</span>
+                <span>{mal}</span>
+                <span>
+                    <CopyButton copyText={xml} text={'Kopier til clipboard'} />
+                </span>
+                <span>
                     <Button
                         className="fill"
+                        variant={'secondary'}
                         onClick={() =>
                             this.setState({ isShown: !this.state.isShown })
                         }
                     >
-                        Toggle
+                        Toggle{' '}
+                        {this.state.isShown ? (
+                            <ChevronUpIcon title="a11y-title" />
+                        ) : (
+                            <ChevronDownIcon title="a11y-title" />
+                        )}
                     </Button>
-                </Col>
+                </span>
             </div>
         );
     };
@@ -64,13 +68,14 @@ export default class InspectionDocument extends React.Component {
         const document = this.props.document;
         return (
             <InspectionTableItem
+                className={'border'}
                 key={document.dokumentInfoId}
                 header={this.setHeader(
                     'DokumentInfoId ',
                     document.dokumentInfoId,
                     document.time,
                     document.brevmal,
-                    document.xml
+                    document.xml,
                 )}
                 data={
                     this.state.isShown ? (

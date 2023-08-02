@@ -14,27 +14,27 @@ export function setRegressionBrevInfo(brevInfo) {
 export function setRegressionBrevdataList(brevdataList) {
     return {
         type: types.SET_REGRESSION_BREVDATALIST,
-        brevdataList: brevdataList
+        brevdataList: brevdataList,
     };
 }
 
 export function setBrevpakkeVersjon(brevpakkeVersjon) {
     return {
         type: types.SET_REGRESSION_BREVPAKKE_VERSJON,
-        brevpakkeVersjon: brevpakkeVersjon
+        brevpakkeVersjon: brevpakkeVersjon,
     };
 }
 
 export function setRegressionSimilarity(regressionSimilarity) {
     return {
         type: types.SET_REGRESSION_SIMILARITY,
-        regressionSimilarity: regressionSimilarity
+        regressionSimilarity: regressionSimilarity,
     };
 }
 
 export function setRegressionBrevmalList(brevmalList) {
     return {
         type: types.SET_REGRESSION_BREVMALLIST,
-        brevmalList: brevmalList
+        brevmalList: brevmalList,
     };
 }

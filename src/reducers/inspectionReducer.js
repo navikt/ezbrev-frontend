@@ -6,7 +6,7 @@ const initialState = {
     brevsystem: '',
     mottakerId: '',
     journalpostId: '',
-    dokumentinfoId: ''
+    dokumentinfoId: '',
 };
 
 export default function inspectionReducer(state = initialState, action) {
@@ -17,31 +17,31 @@ export default function inspectionReducer(state = initialState, action) {
             localStorage.setItem('inspectionMiljo', action.miljo);
             return {
                 ...state,
-                miljo: action.miljo
+                miljo: action.miljo,
             };
         case types.SET_BREVSYSTEM:
             localStorage.setItem('brevsystem', action.brevsystem);
             return {
                 ...state,
-                brevsystem: action.brevsystem
+                brevsystem: action.brevsystem,
             };
         case types.SET_MOTTAKERID:
             return Object.assign({}, state, {
                 mottakerId: action.mottakerId,
                 journalpostId: '',
-                dokumentinfoId: ''
+                dokumentinfoId: '',
             });
         case types.SET_JOURNALPOSTID:
             return Object.assign({}, state, {
                 journalpostId: action.journalpostId,
                 mottakerId: '',
-                dokumentinfoId: ''
+                dokumentinfoId: '',
             });
         case types.SET_DOKUMENTINFOID:
             return Object.assign({}, state, {
                 dokumentinfoId: action.dokumentinfoId,
                 journalpostId: '',
-                mottakerId: ''
+                mottakerId: '',
             });
         default:
             return state;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button, Col, Row } from 'react-bootstrap';
 import ListItem from '~/components/common/ListItem';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -10,22 +9,27 @@ import * as pingActions from '~/actions/pingActions';
 import * as errorActions from '~/actions/errorActions';
 import * as loadingActions from '~/actions/loadingActions';
 import { getPingByEnv } from '../../../api';
+import { Button } from '@navikt/ds-react';
 
 class InspectionSelection extends React.Component {
     constructor(props) {
         super(props);
 
         const miljo = localStorage.getItem('inspectionMiljo');
-        miljo !== null ? this.selectMiljo(miljo) : '';
+        if (miljo !== null) {
+            this.selectMiljo(miljo);
+        }
         const brevsystem = localStorage.getItem('brevsystem');
-        brevsystem !== null ? this.selectBrevsystem(brevsystem) : '';
+        if (brevsystem !== null) {
+            this.selectBrevsystem(brevsystem);
+        }
     }
 
     setData = (input, restMethod) => {
         if (input !== '' && input) {
             if (!isNaN(input)) {
                 restMethod(this.props.miljo, this.props.brevsystem, input).then(
-                    x => this.props.actions.setInspectionData(x)
+                    (x) => this.props.actions.setInspectionData(x),
                 );
             } else {
                 alert('Input må være et tall.');
@@ -33,12 +37,14 @@ class InspectionSelection extends React.Component {
         }
     };
 
-    selectMiljo = miljo => {
+    selectMiljo = (miljo) => {
         this.props.actions.setMiljo(miljo);
-        getPingByEnv(miljo).then(ping => this.props.pingActions.setPing(ping));
+        getPingByEnv(miljo).then((ping) =>
+            this.props.pingActions.setPing(ping),
+        );
     };
 
-    selectBrevsystem = brevsystem => {
+    selectBrevsystem = (brevsystem) => {
         this.props.actions.setBrevsystem(brevsystem);
     };
 
@@ -51,27 +57,25 @@ class InspectionSelection extends React.Component {
 
     render() {
         return (
-            <Col md={2}>
-                <Row sm={3} className="padding-bottom">
-                    <ListItem
-                        className="btn-fill"
-                        title={'Miljø: ' + this.props.miljo}
-                        id="1"
-                        func={miljo => {
-                            this.selectMiljo(miljo);
-                        }}
-                        list={this.props.miljoList}
-                    />
-                </Row>
-                <Row sm={3} className="padding-bottom">
-                    <ListItem
-                        className="btn-fill"
-                        title={'Brevsystem: ' + this.props.brevsystem}
-                        id="1"
-                        func={brevsystem => this.selectBrevsystem(brevsystem)}
-                        list={['DOKSYS', 'HP']}
-                    />
-                </Row>
+            <div style={{ width: '15%', minWidth: '16em' }}>
+                <ListItem
+                    className="btn-fill"
+                    title={'Miljø:'}
+                    value={this.props.miljo}
+                    id="1"
+                    func={this.selectMiljo}
+                    list={this.props.miljoList}
+                />
+
+                <ListItem
+                    className="btn-fill"
+                    title={'Brevsystem:'}
+                    value={this.props.brevsystem}
+                    id="2"
+                    func={this.selectBrevsystem}
+                    list={['DOKSYS', 'HP']}
+                />
+
                 <FormItem
                     title={'MottakerId'}
                     store={this.props.mottakerId}
@@ -87,22 +91,22 @@ class InspectionSelection extends React.Component {
                     store={this.props.dokumentinfoId}
                     action={this.props.actions.setDokumentinfoId}
                 />
-                <Row>
-                    <Button
-                        className="float-left"
-                        onClick={() => this.getXml()}
-                        disabled={
-                            this.props.miljo === '' ||
-                            this.props.brevsystem === '' ||
-                            (this.props.mottakerId === '' &&
-                                this.props.journalpostId === '' &&
-                                this.props.dokumentinfoId === '')
-                        }
-                    >
-                        Hent XML
-                    </Button>
-                </Row>
-            </Col>
+
+                <Button
+                    style={{ marginTop: '1em' }}
+                    className="float-left"
+                    onClick={this.getXml}
+                    disabled={
+                        this.props.miljo === '' ||
+                        this.props.brevsystem === '' ||
+                        (this.props.mottakerId === '' &&
+                            this.props.journalpostId === '' &&
+                            this.props.dokumentinfoId === '')
+                    }
+                >
+                    Hent XML
+                </Button>
+            </div>
         );
     }
 }
@@ -114,7 +118,7 @@ function mapStateToProps(state, ownProps) {
         brevsystem: state.inspection.brevsystem,
         mottakerId: state.inspection.mottakerId,
         journalpostId: state.inspection.journalpostId,
-        dokumentinfoId: state.inspection.dokumentinfoId
+        dokumentinfoId: state.inspection.dokumentinfoId,
     };
 }
 
@@ -123,11 +127,11 @@ function mapDispatchToProps(dispatch) {
         actions: bindActionCreators(inspectionActions, dispatch),
         pingActions: bindActionCreators(pingActions, dispatch),
         errorActions: bindActionCreators(errorActions, dispatch),
-        loadingActions: bindActionCreators(loadingActions, dispatch)
+        loadingActions: bindActionCreators(loadingActions, dispatch),
     };
 }
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
 )(InspectionSelection);

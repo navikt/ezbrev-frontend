@@ -6,7 +6,7 @@ export function setBrevdata(beskrivelse, brevdataId, changeStamp, xmlInnhold) {
         beskrivelse: beskrivelse,
         brevdataId: brevdataId,
         changeStamp: changeStamp,
-        xmlInnhold: xmlInnhold
+        xmlInnhold: xmlInnhold,
     };
 }
 
@@ -20,7 +20,7 @@ export function changeBeskrivelse(beskrivelse) {
 export function setIsRedigertInternal(isRedigertInternal) {
     return {
         type: types.SET_IS_REDIGERT_INTERNAL,
-        isRedigertInternal: isRedigertInternal
+        isRedigertInternal: isRedigertInternal,
     };
 }
 
