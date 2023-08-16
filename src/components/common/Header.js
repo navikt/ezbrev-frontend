@@ -23,9 +23,6 @@ const Header = ({ loading }) => (
         <NavLink to="/" end className="navbar-link">
             <InternalHeader.Button>Rediger brevdata</InternalHeader.Button>
         </NavLink>
-        <NavLink to="/regression" className="navbar-link">
-            <InternalHeader.Button>Regresjonstest</InternalHeader.Button>
-        </NavLink>
         <NavLink to="/inspection" className="navbar-link">
             <InternalHeader.Button>XML Inspeksjon</InternalHeader.Button>
         </NavLink>
