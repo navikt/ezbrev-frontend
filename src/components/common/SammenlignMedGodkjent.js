@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@navikt/ds-react';
 import * as dokumentActionsUtil from '~/actions/dokumentActionsUtil';
 import { connect } from 'react-redux';

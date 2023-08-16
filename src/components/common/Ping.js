@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { CloudFillIcon, CloudSlashFillIcon } from '@navikt/aksel-icons';
+import {
+    CheckmarkCircleFillIcon,
+    ExclamationmarkTriangleFillIcon,
+} from '@navikt/aksel-icons';
 import PingInfo from './PingInfo';
 import { Popover } from '@navikt/ds-react';
 
@@ -20,9 +23,9 @@ const Ping = ({ error }) => {
                 onBlur={() => setOpen(false)}
             >
                 {error ? (
-                    <CloudSlashFillIcon className="glyph-fail " />
+                    <ExclamationmarkTriangleFillIcon className="glyph-fail " />
                 ) : (
-                    <CloudFillIcon className="glyph-success" />
+                    <CheckmarkCircleFillIcon className="glyph-success" />
                 )}
             </button>
             <Popover

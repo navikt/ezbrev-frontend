@@ -9,11 +9,7 @@ export default function GenericModal({
     children,
 }) {
     return (
-        <Modal
-            open={showModal}
-            onClose={onClose}
-            className={className}
-        >
+        <Modal open={showModal} onClose={onClose} className={className}>
             <Modal.Content>
                 <Heading size={'medium'}>{title}</Heading>
                 <BodyLong>{children}</BodyLong>
