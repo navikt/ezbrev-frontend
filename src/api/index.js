@@ -1,7 +1,3 @@
-//@CrossOrigin(origins = "http://localhost:3000") dette må skrives inn i den aktuelle controlleren i back end
-
-//const serverUrl = 'http://localhost:8080';
-
 const serverUrl = 'https://ezbrev-backend.dev.intern.nav.no';
 
 function sortList(list) {
@@ -203,12 +199,12 @@ export function getIsAdmin() {
 }
 
 export function getPing() {
-    const url = `${serverUrl}/internal/selftest`;
+    const url = `${serverUrl}/rest/selftest`;
     return get(url).then((res) => res.json());
 }
 
 export function getPingByEnv(env) {
-    const url = `${serverUrl}/internal/selftest/${env}`;
+    const url = `${serverUrl}/rest/selftest/${env}`;
     return fetch(url, {
         credentials: 'include',
     })
