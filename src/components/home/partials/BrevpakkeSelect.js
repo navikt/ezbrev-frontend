@@ -106,6 +106,9 @@ class BrevpakkeSelect extends React.Component {
                     id={'brevpakke_mal_pick'}
                     onChange={(event) => this.selectBrevmal(event.target.value)}
                 >
+                    <option key="default" value="">
+                        Velg Brevmal:
+                    </option>
                     {this.props.brevmalList.map((i) => (
                         <option key={i.malID} value={i.malID}>
                             {' '}

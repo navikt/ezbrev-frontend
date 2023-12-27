@@ -20,6 +20,9 @@ export default function ListItem({
             disabled={isDisabled}
             value={value}
         >
+            <option key="default" value="">
+                {`Velg ${title}`}
+            </option>
             {list.map((item) => (
                 <option key={item} value={item}>
                     {item}
