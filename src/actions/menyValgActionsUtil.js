@@ -1,5 +1,4 @@
 import * as actions from '~/actions/menyValgActions';
-import * as adminActions from '~/actions/adminActions';
 import * as api from '~/api';
 import { setIsLoading } from './loadingActions';
 import * as actionsDok from '~/actions/dokumentActions';
@@ -14,19 +13,6 @@ export function fetchMiljoList() {
             })
             .catch((error) => {
                 dispatch(setIsLoading(false));
-                throw error;
-            });
-    };
-}
-
-export function fetchIsAdmin() {
-    return function (dispatch) {
-        return api
-            .getIsAdmin()
-            .then((isAdmin) => {
-                dispatch(adminActions.setIsAdmin(isAdmin));
-            })
-            .catch((error) => {
                 throw error;
             });
     };

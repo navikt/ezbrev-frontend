@@ -9,9 +9,6 @@ export default function loadingReducer(state = initialState, action) {
         case types.SET_IS_LOADING:
             return { ...state, isLoading: action.isLoading };
         case types.SET_MILJOLIST:
-        case types.SET_ADMIN_BREVDATALIST:
-        case types.SET_ADMIN_BREVINFO:
-        case types.SET_ADMIN_BREVPAKKE_VERSJON:
         case types.SET_BREVDATA:
         case types.SET_OUTPUT_XML:
         case types.SET_DOKUMENT:
@@ -23,9 +20,6 @@ export default function loadingReducer(state = initialState, action) {
         case types.SET_REGRESSION_SIMILARITY:
         case types.SET_REGRESSION_BREVDATALIST:
         case types.SET_REGRESSION_BREVINFO:
-        case types.SET_ADMIN_PNGPAGES:
-        case types.REPLACE_ADMIN_PNGPAGE:
-            return { ...state, isLoading: false };
         default:
             return state;
     }

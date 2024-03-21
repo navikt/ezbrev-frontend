@@ -178,25 +178,6 @@ export function bestillbrevdata(brevdataId, brevmal, miljo) {
         return res.json();
     });
 }
-export function deleteBrevdataExternal(brevdataId) {
-    const url = `${serverUrl}/rest/admin/brevdata/${brevdataId}`;
-    return fetch(url, {
-        method: 'DELETE',
-        credentials: 'include',
-    }).then((res) => {
-        if (!res.ok) {
-            res.json().then((error) => printErrorMessage(url, error));
-            throw res;
-        } else {
-            return res;
-        }
-    });
-}
-
-export function getIsAdmin() {
-    const url = `${serverUrl}/rest/admin/isAdmin`;
-    return get(url).then((res) => res.json());
-}
 
 export function getPing() {
     const url = `${serverUrl}/rest/selftest`;
@@ -210,39 +191,6 @@ export function getPingByEnv(env) {
     })
         .then((res) => res.json())
         .then((json) => ({ json, env: env }));
-}
-
-export function getAdminPngPages(miljo, brevdataId) {
-    const url = `${serverUrl}/rest/bestill/pngpages/${miljo}/${brevdataId}`;
-    return get(url).then((res) => res.json());
-}
-
-export function getMaskList(brevdataId) {
-    const url = `${serverUrl}/rest/admin/brevdata/${brevdataId}/masks`;
-    return get(url).then((res) => res.json());
-}
-
-export function deleteSingleMaskByMaskId(maskId) {
-    const url = `${serverUrl}/rest/admin/mask/${maskId}`;
-    return fetch(url, {
-        method: 'DELETE',
-        credentials: 'include',
-    });
-}
-
-export function deleteAllMasksByBrevdataId(miljo, brevdataId) {
-    const url = `${serverUrl}/rest/admin/brevdata/${brevdataId}/masks/${miljo}`;
-    return fetch(url, {
-        method: 'DELETE',
-        credentials: 'include',
-    }).then((res) => res.json());
-}
-
-export function postMask(miljo, brevdataId, mask) {
-    const url = `${serverUrl}/rest/admin/brevdata/${brevdataId}/masks/${miljo}`;
-    let { xstart, xslutt, ystart, yslutt, sidenr } = mask;
-    const data = { xstart, xslutt, ystart, yslutt, sidenr };
-    return post(url, data).then((res) => res.json());
 }
 
 export function post(url, data) {

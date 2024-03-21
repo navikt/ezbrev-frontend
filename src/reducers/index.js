@@ -7,7 +7,6 @@ import converter from './converterReducer';
 import regressjonReducer from './regressionReducer';
 import inspection from './inspectionReducer';
 import inspectionDataReducer from './inspectionDataReducer';
-import admin from './adminReducer';
 import ping from './pingReducer';
 import loading from './loadingReducer';
 
@@ -20,7 +19,6 @@ const rootReducer = combineReducers({
     regressjonReducer,
     inspection,
     inspectionDataReducer,
-    admin,
     ping,
     loading,
 });

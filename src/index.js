@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/styles.css';
 
 import { App } from './App';
-import { fetchMiljoList, fetchIsAdmin } from '~/actions/menyValgActionsUtil';
+import { fetchMiljoList } from '~/actions/menyValgActionsUtil';
 import { setPing } from '~/actions/pingActions';
 import { getPing } from './api';
 
@@ -21,7 +21,6 @@ store.dispatch(fetchMiljoList());
 getPing().then((ping) =>
     store.dispatch(setPing({ json: ping, env: 'ikke valgt' })),
 );
-store.dispatch(fetchIsAdmin());
 
 createRoot(target).render(
     <Provider store={store}>
