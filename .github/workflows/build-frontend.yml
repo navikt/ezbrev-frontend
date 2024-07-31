@@ -16,14 +16,14 @@ jobs:
     steps:
       # prebuild
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         # checkout gir shallow copy - fetch-depth: 0 vil tilgjengeliggjøre tags
         with:
           fetch-depth: 0
       - name: Set up Node v16
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: "16.16.0"
+          node-version: "latest"
       - name: Cache ~/.npm
         id: cache-npm-repository
         uses: actions/cache@v3
@@ -48,6 +48,8 @@ jobs:
       # npm build
       - name: Install dependencies
         run: npm ci -q
+        env:
+          NPM_TOKEN: ${{ secrets.READER_TOKEN }}
       - name: Run tests
         run: npm test -- --watchAll=false
       - name: Build application
