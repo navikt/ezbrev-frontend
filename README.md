@@ -9,6 +9,7 @@ a docker-container. It is hosted in the dev-fss-cluster. This project is
 currently not deployed to any production environment, and is intended for
 internal use only.
 
+The only currently running instance can be found at <https://ezbrev-frontend.dev.intern.nav.no/#/>
 
 # Local development
 
