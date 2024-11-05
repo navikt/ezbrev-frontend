@@ -12,5 +12,6 @@ jobs:
       contents: write
       packages: write
       pull-requests: write
+      id-token: write
     uses: ./.github/workflows/build-deploy-main-frontend.yml
     secrets: inherit
