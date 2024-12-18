@@ -35,6 +35,4 @@ your favourite editor.
 
 ## Tests
 
-Mocha test are run with `npm run test`.
-
-To run individual tests, add grep option: `mocha --compilers js:babel-core/register ./src/js/test/*.js --grep "string in: describe or it"`
+ezbrev-frontend does not currently have any tests
