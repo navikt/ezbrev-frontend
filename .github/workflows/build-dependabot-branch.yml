@@ -7,9 +7,10 @@ on:
 permissions:
   contents: read
   packages: write
+  id-token: write
 
 jobs:
   build:
     if: ${{ github.actor == 'dependabot[bot]' }}
-    uses: ./.github/workflows/build-frontend.yml
+    uses: navikt/dok-workflows/.github/workflows/build-app-gar.yml@main
     secrets: inherit
