@@ -6,13 +6,9 @@ metadata:
   labels:
     team: teamdokumenthandtering
   annotations:
-    nais.io/run-as-user: "101" # nginx
-    nais.io/read-only-file-system: "false" # need write /etc/nginx/conf.d
+    nais.io/read-only-file-system: "false" # need write /etc/nginx/conf.d - and some other files
     nginx.ingress.kubernetes.io/proxy-buffer-size: "64k"
 spec:
-  env:
-    - name: EZBREV_HOST_URL
-      value: {{ EZBREV_HOST_URL }}
   image: {{ image }}
   ingresses:
     {{#each INGRESSES}}
@@ -41,4 +37,3 @@ spec:
     requests:
       cpu: 250m
       memory: 512Mi
-  webproxy: true
