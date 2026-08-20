@@ -1,38 +1,51 @@
 # ezbrev-frontend
 
-EzBrev is a service that allows inspection of Brevmaler. This is the frontend
-of that service. The backend can be found at
-<https://github.com/navikt/ezbrev-backend>
+EzBrev er en tjeneste som lar deg inspisere brevmaler. Dette er frontenden
+til denne tjenesten. Backend finner du på
+[ezbrev-backend](https://github.com/navikt/ezbrev-backend)
 
-The frontend consists of a react-based SPA that is hosted by an nginx-server in
-a docker-container. It is hosted in the dev-fss-cluster. This project is
-currently not deployed to any production environment, and is intended for
-internal use only.
+Frontenden består av en react-basert SPA som hostes av en nginx-server i
+en docker-container. Den er hostet i dev-fss-clusteret. Dette prosjektet er
+foreløpig ikke driftsatt i noe produksjonsmiljø, og er kun ment for
+internt bruk.
 
-The only currently running instance can be found at <https://ezbrev-frontend.dev.intern.nav.no/#/>
+Den eneste instansen som kjører nå finner du på [https://ezbrev-frontend.dev.intern.nav.no/#/](https://ezbrev-frontend.dev.intern.nav.no/#/)
 
-# Local development
+# Lokal utvikling
 
-You must have `node` installed to run this project locally.
+Du må ha `node` installert for å kjøre dette prosjektet lokalt.
 
-## Setup
+## Oppsett
 
-Install dependencies by running `npm ci -q`.
+Installer avhengigheter ved å kjøre `npm ci -q`.
 
-Start development server by running `npm start`. This runs the frontend locally
-on your machine, while the backend is ezbrev-backend in q4. This will also
-start `test:watch` and `lint:watch`, which will run all tests and lint your
-code on each recompile. When the server is ready `http://localhost:3000` will
-open in your default browser. Webpack/react-refresh enables state to be kept
-when source file are reloaded. The dev-server will usually automatically
-recover in case of any compilation errors.
+Start utviklingsserveren ved å kjøre `npm start`. Dette kjører frontenden lokalt
+på maskinen din, mens backenden er ezbrev-backend i q4. Dette vil også
+starte `test:watch` og `lint:watch`, som kjører alle tester og linter
+koden din ved hver rekompilering. Når serveren er klar åpnes `http://localhost:3000`
+i nettleseren din. Webpack/react-refresh gjør at tilstand beholdes
+når kildefiler lastes på nytt. Dev-serveren vil vanligvis automatisk
+gjenopprette seg selv ved eventuelle kompileringsfeil.
 
-## Additional information on linting
+## Mer informasjon om linting
 
-To run only lint use `npm run lint`. You can manually format files with
-prettier with `npm run lint -- --fix`, or you can install a prettier-plugin in
-your favourite editor.
+For å kun kjøre lint, bruk `npm run lint`. Du kan manuelt formatere filer med
+prettier ved å kjøre `npm run lint -- --fix`, eller du kan installere et prettier-plugin i
+din favoritteditor.
 
-## Tests
+## Tester
 
-ezbrev-frontend does not currently have any tests
+ezbrev-frontend har foreløpig ingen tester
+
+## Henvendelser
+
+Lag en issue i repository.
+
+## Hva er grunnen til at dette repoet ikke er Public?
+
+1. Appen er brukt til intern testing i Nav og er sannsynligvis lite interessant for publikum
+2. Appen er under aktiv avvikling og skal skrus av/slettes i 2026
+
+### For Nav-ansatte
+
+Spørsmål om appen kan stilles på [#team_dokumentløsninger](https://nav-it.slack.com/archives/C6W9E5GPJ)
