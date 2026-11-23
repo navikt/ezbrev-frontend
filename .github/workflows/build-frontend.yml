@@ -49,7 +49,7 @@ jobs:
       - name: Build and push to GAR
         if: ${{ github.actor != 'dependabot[bot]' }}
         id: docker-build-push
-        uses: nais/docker-build-push@v0
+        uses: nais/docker-build-push@v1
         with:
           team: teamdokumenthandtering
           pull: true
